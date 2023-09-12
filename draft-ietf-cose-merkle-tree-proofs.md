@@ -3,7 +3,7 @@ v: 3
 
 title: Concise Encoding of Signed Merkle Tree Proofs
 abbrev: CoMETRE
-docname: draft-steele-cose-merkle-tree-proofs-latest
+docname: draft-ietf-cose-merkle-tree-proofs-latest
 stand_alone: true
 ipr: trust200902
 area: Security
@@ -238,7 +238,7 @@ The protected header for an RFC9162_SHA256 inclusion proof signature is:
 * verifiable-data-structure (label: TBD_1): REQUIRED. verifiable data structure algorithm identifier. Value type: int / tstr.
 * crit (label: 2): OPTIONAL. Criticality marker. Value type: [ +label ]
 
-Editors note: Recommend removing `crit` and mandating `kid`. See [issue 21](https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/issues/21).
+Editors note: Recommend removing `crit` and mandating `kid`. See [issue 21](https://github.com/ietf-scitt/draft-ietf-cose-merkle-tree-proofs/issues/21).
 
 The unprotected header for an RFC9162_SHA256 inclusion proof signature is:
 
@@ -308,7 +308,7 @@ The protected header for an RFC9162_SHA256 consistency proof signature is:
 * verifiable-data-structure (label: TBD_1): REQUIRED. verifiable data structure algorithm identifier. Value type: int / tstr.
 * crit (label: 2): OPTIONAL. Criticality marker. Value type: [ +label ]
 
-Editors note: Recommend removing `crit` and mandating `kid`. See [issue 21](https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/issues/21).
+Editors note: Recommend removing `crit` and mandating `kid`. See [issue 21](https://github.com/ietf-scitt/draft-ietf-cose-merkle-tree-proofs/issues/21).
 
 The unprotected header for an RFC9162_SHA256 consistency proof signature is:
 
