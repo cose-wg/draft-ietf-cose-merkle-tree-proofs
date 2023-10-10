@@ -331,7 +331,7 @@ The payload MUST be attached.
 consistency-proofs = [ + bstr ]
 
 unprotected-header-map = {
-  &(consistency-proof: TBD_2) => consistency-proofs
+  &(consistency-proof: TBD_3) => consistency-proofs
   * cose-label => cose-value
 }
 ~~~~
