@@ -163,8 +163,8 @@ with the following initial contents:
 | Identifier  | Proof Type   | Proof Value | Reference
 |---
 |0            | N/A          | N/A | N/A
-|TBD_2        | inclusion    | bstr or list of bstr | {{sec-generic-inclusion-proof}}
-|TBD_3        | consistency  | bstr or list of bstr | {{sec-generic-consistency-proof}}
+|TBD_2        | inclusion    | array of bstr | {{sec-generic-inclusion-proof}}
+|TBD_3        | consistency  | array of bstr | {{sec-generic-consistency-proof}}
 {: #verifiable-data-structure-proof-types-values align="left" title="Verifiable Data Structure Proof Types"}
 
 ## Inclusion Proof {#sec-generic-inclusion-proof}
@@ -173,7 +173,7 @@ Inclusion proofs provide a mechanism for a verifier to validate set membership.
 
 The integer identifier for this Proof Type is TBD_2.
 The string identifier for this Proof Type is "inclusion".
-The value of this Proof Type is bstr or list of bstr.
+The value of this Proof Type is array of bstr.
 
 {{sec-rfc9162-sha256-inclusion-proof}} provides a concrete example.
 
@@ -183,7 +183,7 @@ Consistency proofs provide a mechanism for a verifier to validate the consistenc
 
 The integer identifier for this Proof Type is TBD_3.
 The string identifier for this Proof Type is "consistency".
-The value of this Proof Type is bstr or list of bstr.
+The value of this Proof Type is array of bstr.
 
 {{sec-rfc9162-sha256-consistency-proof}} provides a concrete example.
 
@@ -195,8 +195,8 @@ are mapped to the terminology defined in this document, using cbor and cose.
 RFC9162_SHA256 requires the following:
 
 - TBD_1 (verifiable-data-structure): 1, the integer representing the RFC9162_SHA256 verifiable data structure algorithm.
-- TBD_2 (inclusion-proof): a bstr or list of bstr representing RFC9162_SHA256 inclusion proofs
-- TBD_3 (consistency-proof): a bstr or list of bstr representing RFC9162_SHA256 consistency proofs
+- TBD_2 (inclusion-proof): an array of bstr representing RFC9162_SHA256 inclusion proofs
+- TBD_3 (consistency-proof): an array of bstr representing RFC9162_SHA256 consistency proofs
 
 ## Algorithm Definition
 
@@ -249,6 +249,16 @@ The payload MUST be detached.
 
 Detaching the payload forces verifiers to recompute the root from the inclusion proof signature,
 this protects against implementation errors where the signature is verified but the root does not match the inclusion proof.
+
+~~~~ cddl
+
+inclusion-proofs = [ + bstr ]
+
+unprotected-header-map = {
+  &(inclusion-proof: TBD_2) => inclusion-proofs
+  * cose-label => cose-value
+}
+~~~~
 
 The following example needs to be converted to proper CDDL:
 
@@ -315,6 +325,16 @@ The payload of an RFC9162_SHA256 consistency proof signature is:
 The latest Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 
 The payload MUST be attached.
+
+~~~~ cddl
+
+consistency-proofs = [ + bstr ]
+
+unprotected-header-map = {
+  &(consistency-proof: TBD_2) => consistency-proofs
+  * cose-label => cose-value
+}
+~~~~
 
 The following example needs to be converted to proper CDDL:
 
