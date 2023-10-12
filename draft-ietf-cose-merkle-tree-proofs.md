@@ -314,7 +314,7 @@ The protected header for an RFC9162_SHA256 consistency proof signature is:
 * alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int / tstr.
 * verifiable-data-structure (label: TBD_1): REQUIRED. verifiable data structure algorithm identifier. Value type: int / tstr.
 * kid (label: 4): OPTIONAL. Key identifier. Value type: bstr
-* crit (label: 2): OPTIONAL. Criticality marker. Value type: [ +label ]
+* crit (label: 2): OPTIONAL. Criticality marker. Value type: [ + label ]
 
 The unprotected header for an RFC9162_SHA256 consistency proof signature is:
 
