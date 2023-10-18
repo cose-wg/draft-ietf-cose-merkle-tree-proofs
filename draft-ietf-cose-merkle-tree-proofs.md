@@ -160,14 +160,12 @@ while switching from one verifiable data structure to another, so long as both s
 This document establishes a registry of verifiable data structure proof types tags,
 with the following initial contents:
 
-| Identifier  | Proof Type   | Reference
+| Identifier  | Proof Type   | Proof Value | Reference
 |---
-|0            | N/A          |
-|TBD_2        | inclusion    | {{sec-generic-inclusion-proof}}
-|TBD_3        | consistency  | {{sec-generic-consistency-proof}}
+|0            | N/A          | N/A | N/A
+|TBD_2        | inclusion    | array of bstr | {{sec-generic-inclusion-proof}}
+|TBD_3        | consistency  | array of bstr | {{sec-generic-consistency-proof}}
 {: #verifiable-data-structure-proof-types-values align="left" title="Verifiable Data Structure Proof Types"}
-
-Editors note: The registry requirements needs to address the case of multiple proofs of a given type.
 
 ## Inclusion Proof {#sec-generic-inclusion-proof}
 
@@ -175,6 +173,7 @@ Inclusion proofs provide a mechanism for a verifier to validate set membership.
 
 The integer identifier for this Proof Type is TBD_2.
 The string identifier for this Proof Type is "inclusion".
+The value of this Proof Type is array of bstr.
 
 {{sec-rfc9162-sha256-inclusion-proof}} provides a concrete example.
 
@@ -184,6 +183,7 @@ Consistency proofs provide a mechanism for a verifier to validate the consistenc
 
 The integer identifier for this Proof Type is TBD_3.
 The string identifier for this Proof Type is "consistency".
+The value of this Proof Type is array of bstr.
 
 {{sec-rfc9162-sha256-consistency-proof}} provides a concrete example.
 
@@ -195,8 +195,8 @@ are mapped to the terminology defined in this document, using cbor and cose.
 RFC9162_SHA256 requires the following:
 
 - TBD_1 (verifiable-data-structure): 1, the integer representing the RFC9162_SHA256 verifiable data structure algorithm.
-- TBD_2 (inclusion-proof): a bstr representing the RFC9162_SHA256 inclusion proof
-- TBD_3 (consistency-proof): a bstr representing the RFC9162_SHA256 consistency proof
+- TBD_2 (inclusion-proof): an array of bstr representing RFC9162_SHA256 inclusion proofs
+- TBD_3 (consistency-proof): an array of bstr representing RFC9162_SHA256 consistency proofs
 
 ## Algorithm Definition
 
@@ -236,22 +236,29 @@ The protected header for an RFC9162_SHA256 inclusion proof signature is:
 
 * alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int / tstr.
 * verifiable-data-structure (label: TBD_1): REQUIRED. verifiable data structure algorithm identifier. Value type: int / tstr.
+* kid (label: 4): OPTIONAL. Key identifier. Value type: bstr
 * crit (label: 2): OPTIONAL. Criticality marker. Value type: [ +label ]
-
-Editors note: Recommend removing `crit` and mandating `kid`. See [issue 21](https://github.com/ietf-scitt/draft-ietf-cose-merkle-tree-proofs/issues/21).
 
 The unprotected header for an RFC9162_SHA256 inclusion proof signature is:
 
 * inclusion-proof (label: TBD_2): REQUIRED. proof type identifier. Value type: bstr.
 
-The payload of an RFC9162_SHA256 inclusion proof signature is:
-
-A previous Merkle tree hash as defined in {{-certificate-transparency-v2}}.
+The payload of an RFC9162_SHA256 inclusion proof signature is the previous Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 
 The payload MUST be detached.
 
 Detaching the payload forces verifiers to recompute the root from the inclusion proof signature,
-this protects against implementation errors where the signature is verified but to root does not match the inclusion proof.
+this protects against implementation errors where the signature is verified but the root does not match the inclusion proof.
+
+~~~~ cddl
+
+inclusion-proofs = [ + bstr ]
+
+unprotected-header-map = {
+  &(inclusion-proof: TBD_2) => inclusion-proofs
+  * cose-label => cose-value
+}
+~~~~
 
 The following example needs to be converted to proper CDDL:
 
@@ -306,9 +313,8 @@ The protected header for an RFC9162_SHA256 consistency proof signature is:
 
 * alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int / tstr.
 * verifiable-data-structure (label: TBD_1): REQUIRED. verifiable data structure algorithm identifier. Value type: int / tstr.
-* crit (label: 2): OPTIONAL. Criticality marker. Value type: [ +label ]
-
-Editors note: Recommend removing `crit` and mandating `kid`. See [issue 21](https://github.com/ietf-scitt/draft-ietf-cose-merkle-tree-proofs/issues/21).
+* kid (label: 4): OPTIONAL. Key identifier. Value type: bstr
+* crit (label: 2): OPTIONAL. Criticality marker. Value type: [ + label ]
 
 The unprotected header for an RFC9162_SHA256 consistency proof signature is:
 
@@ -319,6 +325,16 @@ The payload of an RFC9162_SHA256 consistency proof signature is:
 The latest Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 
 The payload MUST be attached.
+
+~~~~ cddl
+
+consistency-proofs = [ + bstr ]
+
+unprotected-header-map = {
+  &(consistency-proof: TBD_3) => consistency-proofs
+  * cose-label => cose-value
+}
+~~~~
 
 The following example needs to be converted to proper CDDL:
 
@@ -368,7 +384,7 @@ However, this could impact privacy, and some transparency service operators migh
 
 ## Leaf Blinding {#sec-leaf-blinding}
 
-In cases where a single merkle root and multiple inclusion paths are used to prove inclusion for multiple payloads. There is a risk that an attacker may be able to learn the content of undisclosed payloads, by brute forcing the values adjacent to the disclosed payloads through application of the cryptographic hash function and comparison to the the disclosed inclusion paths. This kind of attack can be mitigated by including a cryptographic nonce in the construction of the leaf, however this nonce must then disclosed along side an inclusion proof which increases the size of multiple payload signed inclusion proofs.
+In cases where a single merkle root and multiple inclusion paths are used to prove inclusion for multiple payloads. There is a risk that an attacker may be able to learn the content of undisclosed payloads, by brute forcing the values adjacent to the disclosed payloads through application of the cryptographic hash function and comparison to the the disclosed inclusion paths. This kind of attack can be mitigated by including a cryptographic nonce in the construction of the leaf, however this nonce must then be disclosed along side an inclusion proof which increases the size of multiple payload signed inclusion proofs.
 
 Tree algorithm designers are encouraged to comment on this property of their leaf construction algorithm.
 
@@ -405,8 +421,6 @@ in the 'Standards Action With Expert Review category.
 * Value type: int / tstr
 * Value registry: See {{verifiable-data-structure-values}}
 * Description: Tag indicating the Verifiable Data Structure, see {{sec-generic-verifiable-data-structures}}.
-
-Editors note: Authors are discussing how to avoid flooding the cose header parameters registry with new proof types.
 
 * Name: inclusion-proof
 * Label: TBD_2 (requested assignment 13)
