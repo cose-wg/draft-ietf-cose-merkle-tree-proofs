@@ -7,7 +7,7 @@ docname: draft-ietf-cose-merkle-tree-proofs-latest
 stand_alone: true
 ipr: trust200902
 area: Security
-wg: TBD
+wg: COSE
 kw: Internet-Draft
 cat: std
 submissiontype: IETF
@@ -163,15 +163,15 @@ with the following initial contents:
 | Identifier  | Proof Type   | Proof Value | Reference
 |---
 |0            | N/A          | N/A | N/A
-|TBD_2        | inclusion    | array of bstr | {{sec-generic-inclusion-proof}}
-|TBD_3        | consistency  | array of bstr | {{sec-generic-consistency-proof}}
+|1            | inclusion    | array of bstr | {{sec-generic-inclusion-proof}}
+|2            | consistency  | array of bstr | {{sec-generic-consistency-proof}}
 {: #verifiable-data-structure-proof-types-values align="left" title="Verifiable Data Structure Proof Types"}
 
 ## Inclusion Proof {#sec-generic-inclusion-proof}
 
 Inclusion proofs provide a mechanism for a verifier to validate set membership.
 
-The integer identifier for this Proof Type is TBD_2.
+The integer identifier for this Proof Type is 1.
 The string identifier for this Proof Type is "inclusion".
 The value of this Proof Type is array of bstr.
 
@@ -181,7 +181,7 @@ The value of this Proof Type is array of bstr.
 
 Consistency proofs provide a mechanism for a verifier to validate the consistency of a verifiable data structure.
 
-The integer identifier for this Proof Type is TBD_3.
+The integer identifier for this Proof Type is 2.
 The string identifier for this Proof Type is "consistency".
 The value of this Proof Type is array of bstr.
 
@@ -194,9 +194,10 @@ are mapped to the terminology defined in this document, using cbor and cose.
 
 RFC9162_SHA256 requires the following:
 
-- TBD_1 (verifiable-data-structure): 1, the integer representing the RFC9162_SHA256 verifiable data structure algorithm.
-- TBD_2 (inclusion-proof): an array of bstr representing RFC9162_SHA256 inclusion proofs
-- TBD_3 (consistency-proof): an array of bstr representing RFC9162_SHA256 consistency proofs
+- -11111 (verifiable-data-structure): 1, the integer representing the RFC9162_SHA256 verifiable data structure algorithm.
+- -22222 (verifiable-data-proofs): a map supporting the following proof types:
+- 1 (inclusion-proof): an array of bstr representing RFC9162_SHA256 inclusion proofs
+- 2 (consistency-proof): an array of bstr representing RFC9162_SHA256 consistency proofs
 
 ## Algorithm Definition
 
@@ -216,11 +217,11 @@ for a complete description of this verifiable data structure proof type.
 The cbor representation of an inclusion proof for RFC9162_SHA256 is:
 
 ~~~~ cddl
-inclusion-proof = #TBD_2([
+inclusion-proof = [
     tree-size: int
     leaf-index: int
     inclusion-path: [+ bstr]
-])
+]
 ~~~~
 
 ### Inclusion Proof Signature
@@ -235,13 +236,25 @@ TODO: reference to scitt receipts.
 The protected header for an RFC9162_SHA256 inclusion proof signature is:
 
 * alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int / tstr.
-* verifiable-data-structure (label: TBD_1): REQUIRED. verifiable data structure algorithm identifier. Value type: int / tstr.
-* kid (label: 4): OPTIONAL. Key identifier. Value type: bstr
-* crit (label: 2): OPTIONAL. Criticality marker. Value type: [ +label ]
+* verifiable-data-structure (label: -11111): REQUIRED. verifiable data structure algorithm identifier. Value type: int / tstr.
 
 The unprotected header for an RFC9162_SHA256 inclusion proof signature is:
 
-* inclusion-proof (label: TBD_2): REQUIRED. proof type identifier. Value type: bstr.
+~~~~ cddl
+
+inclusion-proofs = [ + bstr ]
+
+verifiable-proofs = {
+  &(inclusion-proof: 1) => inclusion-proofs
+}
+
+unprotected-header-map = {
+  &(verifiable-data-proof: -22222) => verifiable-proofs
+  * cose-label => cose-value
+}
+~~~~
+
+* inclusion-proof (label: 1): REQUIRED. proof type identifier. Value type: [ + bstr ].
 
 The payload of an RFC9162_SHA256 inclusion proof signature is the previous Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 
@@ -250,42 +263,40 @@ The payload MUST be detached.
 Detaching the payload forces verifiers to recompute the root from the inclusion proof signature,
 this protects against implementation errors where the signature is verified but the root does not match the inclusion proof.
 
-~~~~ cddl
+~~~~ cbor-diag
+18(                                 / COSE Single Signer Data Object        /
+    [
+      h'a3012604...392b6601',       / Protected header                      /
+      {                             / Unprotected header                    /
+        -22222: {                   / Proofs                                /
+          1: [                      / Inclusion proofs (1)                  /
+            h'83040282...1f487bb1', / Inclusion proof 1                     /
+          ]
+        },
+      },
+      h'',                          / Detached payload                      /
+      h'1c0f970e...bf4bae7f'        / Signature                             /
+    ]
+)
+~~~~
 
-inclusion-proofs = [ + bstr ]
-
-unprotected-header-map = {
-  &(inclusion-proof: TBD_2) => inclusion-proofs
-  * cose-label => cose-value
+~~~~ cbor-diag
+{                                   / Protected header                      /
+  1: -7,                            / Cryptographic algorithm to use        /
+  4: h'68747470...6d706c65',        / Key identifier                        /
+  -11111: 1                         / Verifiable data structure             /
 }
 ~~~~
 
-The following example needs to be converted to proper CDDL:
-
-~~~~
-# COSE_Sign1
-18([
-
-  # Protected Header
-  h'a2012604588368747470733a2f2f73636974742e78797a2f75726e3a696574663a706172616d733a7472616e733a696e636c7573696f6e3a726663393136325f7368613235363a303a65343263333764326638306361613464323035353635376534303463386538363838313534346136663264313731356530663564616435643436343833633531',
-  # {
-  #   "alg" : "ES256",
-  #   1 : -7,
-  #   "verifiable-data-structure" : "RFC9162_SHA256",
-  #   TBD_1 : 1,
-  # }
-
-  # Unprotected Header
-  {
-      # "inclusion-proof" : "h'3133312c322c302c3132392c3231362c36342c38382c33322c3235342c3132382c33392c34392c3131382c312c3230352c38372c3235332c3136312c31332c3136312c38352c3139302c3133322c3234312c3137332c34352c3132372c32302c35302c35342c31332c3134342c33332c3233372c3234382c3132382c32332c3138392c3133352c3932'"
-      TBD_2 : h'3133312c322c302c3132392c3231362c36342c38382c33322c3235342c3132382c33392c34392c3131382c312c3230352c38372c3235332c3136312c31332c3136312c38352c3139302c3133322c3234312c3137332c34352c3132372c32302c35302c35342c31332c3134342c33332c3233372c3234382c3132382c32332c3138392c3133352c3932'
-  },
-
-  # Detached Payload
-
-  # Signature
-  h'4862c1dced27ceeb1f7a6277d13be127a8969a7171ae000ffa90ef5757b817ca8ee61d57645d1a087251a97f06eb61aec46ecf958e4a0fb94ae37f410c7f77ea'
-])
+~~~~ cbor-diag
+[                                   / Inclusion proof 1                     /
+  4,                                / Tree size                             /
+  2,                                / Leaf index                            /
+  [                                 / Inclusion hashes (2)                  /
+     h'a39655d4...d29a968a'         / Intermediate hash 1                   /
+     h'57187dff...1f487bb1'         / Intermediate hash 2                   /
+  ]
+]
 ~~~~
 
 ## Consistency Proof Definition {#sec-rfc9162-sha256-consistency-proof}
@@ -296,11 +307,11 @@ for a complete description of this verifiable data structure proof type.
 The cbor representation of a consistency proof for RFC9162_SHA256 is:
 
 ~~~~ cddl
-consistency-proof = #TBD_3([
+consistency-proof = [
     tree-size-1: int ; size of the tree, when the previous root was produced.
     tree-size-2: int ; size of the tree, when the latest root was produced.
     consistency-path: [+ bstr] ; consistency path, from previous root to latest root.
-])
+]
 ~~~~
 
 Editors note: tree-size-1, could be ommited, if an inclusion-proof is always present, since the inclusion proof contains, tree-size-1.
@@ -312,13 +323,25 @@ In a signed consistency proof, the latest merkle tree root, maps to tree-size-2,
 The protected header for an RFC9162_SHA256 consistency proof signature is:
 
 * alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int / tstr.
-* verifiable-data-structure (label: TBD_1): REQUIRED. verifiable data structure algorithm identifier. Value type: int / tstr.
-* kid (label: 4): OPTIONAL. Key identifier. Value type: bstr
-* crit (label: 2): OPTIONAL. Criticality marker. Value type: [ +label ]
+* verifiable-data-structure (label: -11111): REQUIRED. verifiable data structure algorithm identifier. Value type: int / tstr.
 
 The unprotected header for an RFC9162_SHA256 consistency proof signature is:
 
-* consistency-proof (label: TBD_2): REQUIRED. proof type identifier. Value type: bstr.
+~~~~ cddl
+
+consistency-proofs = [ + bstr ]
+
+verifiable-proofs = {
+  &(consistency-proof: 2) => consistency-proofs
+}
+
+unprotected-header-map = {
+  &(verifiable-data-proof: -22222) => verifiable-proofs
+  * cose-label => cose-value
+}
+~~~~
+
+* consistency-proof (label: 2): REQUIRED. proof type identifier. Value type:  [ + bstr ].
 
 The payload of an RFC9162_SHA256 consistency proof signature is:
 
@@ -326,43 +349,40 @@ The latest Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 
 The payload MUST be attached.
 
-~~~~ cddl
+~~~~ cbor-diag
+18(                                 / COSE Single Signer Data Object        /
+    [
+      h'a3012604...392b6601',       / Protected header                      /
+      {                             / Unprotected header                    /
+        -22222: {                   / Proofs                                /
+          2: [                      / Consistency proofs (1)                /
+            h'83040682...2e73a8ab', / Consistency proof 1                   /
+          ]
+        },
+      },
+      h'430b6fd7...f74c7fc4',       / Payload                               /
+      h'8bcb1b79...78829bca'        / Signature                             /
+    ]
+)
+~~~~
 
-consistency-proofs = [ + bstr ]
-
-unprotected-header-map = {
-  &(consistency-proof: TBD_3) => consistency-proofs
-  * cose-label => cose-value
+~~~~ cbor-diag
+{                                   / Protected header                      /
+  1: -7,                            / Cryptographic algorithm to use        /
+  4: h'68747470...6d706c65',        / Key identifier                        /
+  -11111: 1                         / Verifiable data structure             /
 }
 ~~~~
 
-The following example needs to be converted to proper CDDL:
-
-~~~~
-# COSE_Sign1
-18([
-
-  # Protected Header
-  h'a2012604588568747470733a2f2f73636974742e78797a2f75726e3a696574663a706172616d733a7472616e733a636f6e73697374656e63793a726663393136325f7368613235363a303a66653830323733313736303163643537666461313064613135356265383466316164326437663134333233363064393032316564663838303137626438373563',
-  # {
-  #   "alg" : "ES256",
-  #   1 : -7,
-  #   "verifiable-data-structure" : "RFC9162_SHA256",
-  #   TBD_1 : 1,
-  # }
-
-  # Unprotected Header
-  {
-      # "consistency-proof" : "h'3133312c312c312c3132392c3231362c36342c38382c33322c3235342c3132382c33392c34392c3131382c312c3230352c38372c3235332c3136312c31332c3136312c38352c3139302c3133322c3234312c3137332c34352c3132372c32302c35302c35342c31332c3134342c33332c3233372c3234382c3132382c32332c3138392c3133352c3932'"
-      TBD_3 : h'3133312c312c312c3132392c3231362c36342c38382c33322c3235342c3132382c33392c34392c3131382c312c3230352c38372c3235332c3136312c31332c3136312c38352c3139302c3133322c3234312c3137332c34352c3132372c32302c35302c35342c31332c3134342c33332c3233372c3234382c3132382c32332c3138392c3133352c3932'
-  },
-
-  # Protected Payload
-  h'fe8027317601cd57fda10da155be84f1ad2d7f1432360d9021edf88017bd875c',
-
-  # Signature
-  h'fe476fcddb783805fe344fc96837f4a5531c2e5a56d6f6353831e84e17ac69d4407a5a0d6eadf27f3a570bcf604181fd11b4692d3ac17b116c6226ba43726113'
-])
+~~~~ cbor-diag
+[                                   / Consistency proof 1                   /
+  4,                                / Tree size 1                           /
+  6,                                / Tree size 2                           /
+  [                                 / Consistency hashes (2)                /
+     h'0bdaaed3...32568964'         / Intermediate hash 1                   /
+     h'75f177fd...2e73a8ab'         / Intermediate hash 2                   /
+  ]
+]
 ~~~~
 
 # Privacy Considerations
@@ -417,22 +437,16 @@ in the 'Standards Action With Expert Review category.
 #### COSE Header Algorithm Parameters
 
 * Name: verifiable-data-structure
-* Label: TBD_1 (requested assignment 12)
+* Label: -11111
 * Value type: int / tstr
-* Value registry: See {{verifiable-data-structure-values}}
-* Description: Tag indicating the Verifiable Data Structure, see {{sec-generic-verifiable-data-structures}}.
+* Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
+* Description: Algorithm name for verifiable data structure, used to produce verifiable data proofs.
 
-* Name: inclusion-proof
-* Label: TBD_2 (requested assignment 13)
-* Value type: bstr
-* Value registry: See {{verifiable-data-structure-proof-types-values}}
-* Description: Tag indicating the "inclusion" Proof Type, see {{sec-generic-inclusion-proof}}.
-
-* Name: consistency-proof
-* Label: TBD_2 (requested assignment 14)
-* Value type: bstr
-* Value registry: See {{verifiable-data-structure-proof-types-values}}
-* Description: Tag indicating the "consistency" Proof Type, see {{sec-generic-consistency-proof}}.
+* Name: verifiable-data-proof
+* Label: -222222
+* Value type: int / tstr
+* Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
+* Description: Location for verifiable data proofs in COSE Header Parameters.
 
 ### Verifiable Data Structures {#verifiable-data-structure-registry}
 
