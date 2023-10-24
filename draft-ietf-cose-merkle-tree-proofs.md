@@ -88,6 +88,21 @@ This document describes how to convey verifiable data structures, and associated
 
 {::boilerplate bcp14-tagged}
 
+# CBOR Tags
+
+This section will be removed before the document is completed,
+its purpose is to track the TBD code points references throughout the draft.
+
+-111 is TBD_1:
+
+: A requested cose header parameter representing the verifiable data structure used.
+
+-222 is TBD_2:
+
+: A requested cose header parameter representing the verifiable data structure parameters map (proofs map)
+
+The other codepoints are assigned from the registries established in this draft, they are therefore not marked TBD.
+
 # Terminology
 
 Verifiable Data Structure:
@@ -130,32 +145,39 @@ the structures and proofs defined in {{-certificate-transparency-v2}}.
 Similar to [COSE Key Types](https://www.iana.org/assignments/cose/cose.xhtml#key-type),
 different verifiable data structures support different algorithms.
 As EC2 keys (1: 2) support both digital signature and key agreement algorithms,
-RFC9162_SHA256 (TBD : 1) supports both inclusion and consistency proofs.
+RFC9162_SHA256 (TBD_1 : 1) supports both inclusion and consistency proofs.
 
 This document establishes a registry of verifiable data structure algorithms,
 with the following initial contents:
 
-| Identifier            | Algorithm | Reference
+* Name: The name of the verifiable data structure
+* Value: The identifier for the verifiable data structure
+* Description: The identifier for the verifiable data structure
+* Reference: Where the verifiable data structure is defined
+
+| Name            | Value | Description                      | Reference
 |---
-|0 | N/A                |
-|1 | RFC9162_SHA256     | {{-certificate-transparency-v2}}
+| N/A             | 0     | N/A                              | N/A
+| RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
 {: #cose-verifiable-data-structures align="left" title="COSE Verifiable Data Structures"}
 
-When desigining new verifiable data structures, 
+When desigining new verifiable data structures,
 please request the next available positive integer as your requested assignment,
 for example:
 
-| Identifier            | Algorithm | Reference
+
+| Name            | Value | Description                      | Reference
 |---
-|0 | N/A                |
-|1 | RFC9162_SHA256     | {{-certificate-transparency-v2}}
-|TBD (requested assignment 2) | Your_Verifiable_Data_Structure_Name     | Your_Specification
+| N/A             | 0     | N/A                              | N/A
+| RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
+| Your name       | TBD (requested assignment 2) | tbd       | Your specification
+
 
 ## COSE Verifiable Data Structure Parameters {#cose-verifiable-data-structure-parameters}
 
 Similar to [COSE Key Type Parameters](https://www.iana.org/assignments/cose/cose.xhtml#key-type-parameters),
 As EC2 keys (1: 2) keys require and give meanding to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d),
-RFC9162_SHA256 (TBD : 1) supports both (-1) inclusion and (-2) consistency proofs.
+RFC9162_SHA256 (TBD_1 : 1) supports both (-1) inclusion and (-2) consistency proofs.
 
 This document establishes a registry of verifiable data structure algorithms,
 with the following initial contents:
@@ -177,7 +199,7 @@ For example, 2 different merkle tree based verifiable data structures might both
 Protocols requiring proof of inclusion ought to be able to preserve their functionality,
 while switching from one verifiable data structure to another, so long as both structures support the same proof types.
 
-When desigining new verifiable data structure parameters (or proof types), 
+When desigining new verifiable data structure parameters (or proof types),
 please start with -1, and count down for each proof type supported by your verifiable data structure:
 
 | Verifiable Data Structure | Name               | Label | CBOR Type        | Description                   | Reference
@@ -266,37 +288,38 @@ Detaching the payload forces verifiers to recompute the root from the inclusion 
 this protects against implementation errors where the signature is verified but the root does not match the inclusion proof.
 
 ~~~~ cbor-diag
-18(                                 / COSE Single Signer Data Object        /
+18(                                 / COSE Sign 1                   /
     [
-      h'a3012604...392b6601',       / Protected header                      /
-      {                             / Unprotected header                    /
-        -22222: {                   / Proofs                                /
-          -1: [                     / Inclusion proofs (1)                  /
-            h'83040282...1f487bb1', / Inclusion proof 1                     /
+      h'a4012604...6d706c65',       / Protected                     /
+      {                             / Unprotected                   /
+        -222: {                     / Proofs                        /
+          -1: [                     / Inclusion proofs (1)          /
+            h'83080783...32568964', / Inclusion proof 1             /
           ]
         },
       },
-      h'',                          / Detached payload                      /
-      h'1c0f970e...bf4bae7f'        / Signature                             /
+      h'',                          / Detached payload              /
+      h'2e34df43...8d74d55e'        / Signature                     /
     ]
 )
 ~~~~
 
 ~~~~ cbor-diag
-{                                   / Protected header                      /
-  1: -7,                            / Cryptographic algorithm to use        /
-  4: h'68747470...6d706c65',        / Key identifier                        /
-  -11111: 1                         / Verifiable data structure             /
+{                                   / Protected                     /
+  1: -7,                            / Algorithm                     /
+  4: h'4930714e...7163316b',        / Key identifier                /
+  -111: 1,                          / Verifiable Data Structure     /
 }
 ~~~~
 
 ~~~~ cbor-diag
-[                                   / Inclusion proof 1                     /
-  4,                                / Tree size                             /
-  2,                                / Leaf index                            /
-  [                                 / Inclusion hashes (2)                  /
-     h'a39655d4...d29a968a'         / Intermediate hash 1                   /
-     h'57187dff...1f487bb1'         / Intermediate hash 2                   /
+[                                   / Inclusion proof 1             /
+  8,                                / Tree size                     /
+  7,                                / Leaf index                    /
+  [                                 / Inclusion hashes (3)          /
+     h'2a8d7dfc...15d10b22'         / Intermediate hash 1           /
+     h'75f177fd...2e73a8ab'         / Intermediate hash 2           /
+     h'0bdaaed3...32568964'         / Intermediate hash 3           /
   ]
 ]
 ~~~~
@@ -352,37 +375,37 @@ The latest Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 The payload MUST be attached.
 
 ~~~~ cbor-diag
-18(                                 / COSE Single Signer Data Object        /
+18(                                 / COSE Sign 1                   /
     [
-      h'a3012604...392b6601',       / Protected header                      /
-      {                             / Unprotected header                    /
-        -22222: {                   / Proofs                                /
-          -2: [                     / Consistency proofs (1)                /
-            h'83040682...2e73a8ab', / Consistency proof 1                   /
+      h'a3012604...392b6601',       / Protected                     /
+      {                             / Unprotected                   /
+        -222: {                     / Proofs                        /
+          -2: [                     / Consistency proofs (1)        /
+            h'83040682...2e73a8ab', / Consistency proof 1           /
           ]
         },
       },
-      h'430b6fd7...f74c7fc4',       / Payload                               /
-      h'8bcb1b79...78829bca'        / Signature                             /
+      h'430b6fd7...f74c7fc4',       / Payload                       /
+      h'd97befea...f30631cb'        / Signature                     /
     ]
 )
 ~~~~
 
 ~~~~ cbor-diag
-{                                   / Protected header                      /
-  1: -7,                            / Cryptographic algorithm to use        /
-  4: h'68747470...6d706c65',        / Key identifier                        /
-  -11111: 1                         / Verifiable data structure             /
+{                                   / Protected                     /
+  1: -7,                            / Algorithm                     /
+  4: h'68747470...6d706c65',        / Key identifier                /
+  -111: 1,                          / Verifiable Data Structure     /
 }
 ~~~~
 
 ~~~~ cbor-diag
-[                                   / Consistency proof 1                   /
-  4,                                / Tree size 1                           /
-  6,                                / Tree size 2                           /
-  [                                 / Consistency hashes (2)                /
-     h'0bdaaed3...32568964'         / Intermediate hash 1                   /
-     h'75f177fd...2e73a8ab'         / Intermediate hash 2                   /
+[                                   / Consistency proof 1           /
+  4,                                / Tree size 1                   /
+  6,                                / Tree size 2                   /
+  [                                 / Consistency hashes (2)        /
+     h'0bdaaed3...32568964'         / Intermediate hash 1           /
+     h'75f177fd...2e73a8ab'         / Intermediate hash 2           /
   ]
 ]
 ~~~~
@@ -414,42 +437,46 @@ in the 'Standards Action With Expert Review category.
 #### COSE Header Algorithm Parameters
 
 * Name: verifiable-data-structure
-* Label: -11111
+* Label: TBD_1
 * Value type: int / tstr
 * Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
-* Description: Algorithm name for verifiable data structure, used to produce verifiable data proofs.
+* Description: Algorithm name for verifiable data structure, used to produce verifiable data structure proofs.
 
-* Name: verifiable-data-proof
-* Label: -222222
+* Name: verifiable-data-structure-parameters
+* Label: TBD_2
 * Value type: int / tstr
 * Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
-* Description: Location for verifiable data proofs in COSE Header Parameters.
+* Description: Location for verifiable data structure proofs in COSE Header Parameters.
 
-### Verifiable Data Structures {#verifiable-data-structure-registry}
+### COSE Verifiable Data Structures {#verifiable-data-structure-registry}
 
-IANA will be asked to establish a registry of tree algorithm identifiers,
-named "Verifiable Data Structures" to be administered under a Specification Required policy {{-iana-considerations-guide}}.
+IANA will be asked to establish a registry of verifiable data structure identifiers,
+named "COSE Verifiable Data Structures" to be administered under a Specification Required policy {{-iana-considerations-guide}}.
 
 Template:
 
-* Identifier: The two-byte identifier for the algorithm
-* Algorithm: The name of the data structure
-* Reference: Where the data structure is defined
+* Name: The name of the verifiable data structure
+* Value: The identifier for the verifiable data structure
+* Description: The identifier for the verifiable data structure
+* Reference: Where the verifiable data structure is defined
 
 Initial contents: Provided in {{cose-verifiable-data-structures}}
 
-### Verifiable Data Structure Proof Types {#verifiable-data-structure-proof-types-registry}
+### COSE Verifiable Data Structure Parameters {#verifiable-data-structure-parameters-registry}
 
-IANA will be asked to establish a registry of tree algorithm identifiers,
-named "Verifiable Data Structures Proof Types" to be administered under a Specification Required policy {{-iana-considerations-guide}}.
+IANA will be asked to establish a registry of verifiable data structure parameters,
+named "COSE Verifiable Data Structure Parameters" to be administered under a Specification Required policy {{-iana-considerations-guide}}.
 
 Template:
 
-* Identifier: The two-byte identifier for the algorithm
-* Algorithm: The name of the proof type algorithm
-* Reference: Where the algorithm is defined
+* Verifiable Data Structure: The identifier for the verifiable data structure
+* Name: The name of the proof type
+* Label: The integer of the proof type
+* CBOR Type: The cbor data type of the proof
+* Description: The description of the proof type
+* Reference: Where the proof type is defined
 
-Initial contents: Provided in {{verifiable-data-structure-proof-types-values}}
+Initial contents: Provided in {{cose-verifiable-data-structures-parameters}}
 
 --- back
 
@@ -488,7 +515,7 @@ The code's level of maturity is considered to be "prototype".
 
 ## Coverage and Version Compatibility
 
-The current version ('main') implements the tree algorithm, inclusion proof and consistency proof concepts of this draft.
+The current version ('main') implements the verifiable data structure algorithm, inclusion proof and consistency proof concepts of this draft.
 
 ## License
 
