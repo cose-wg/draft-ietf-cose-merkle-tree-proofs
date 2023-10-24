@@ -58,6 +58,7 @@ informative:
   I-D.ietf-cose-countersign:
   I-D.ietf-scitt-architecture: scitt-architecture
 
+
 --- abstract
 
 This specification describes verifiable data structures and associated proof types for use with COSE.
@@ -124,7 +125,12 @@ In order to improve interoperability we define two extension points for
 enabling verifiable data structures with COSE, and we provide concrete examples for
 the structures and proofs defined in {{-certificate-transparency-v2}}.
 
-## Algorithms Registry {#sec-verifiable-data-structure-algorithms}
+## COSE Verifiable Data Structures {#cose-verifiable-data-structures}
+
+Similar to [COSE Key Types](https://www.iana.org/assignments/cose/cose.xhtml#key-type),
+different verifiable data structures support different algorithms.
+As EC2 keys (1: 2) support both digital signature and key agreement algorithms,
+RFC9162_SHA256 (TBD : 1) supports both inclusion and consistency proofs.
 
 This document establishes a registry of verifiable data structure algorithms,
 with the following initial contents:
@@ -133,83 +139,79 @@ with the following initial contents:
 |---
 |0 | N/A                |
 |1 | RFC9162_SHA256     | {{-certificate-transparency-v2}}
-{: #verifiable-data-structure-values align="left" title="Verifiable Data Structure Alogrithms"}
+{: #cose-verifiable-data-structures align="left" title="COSE Verifiable Data Structures"}
 
-### Registration Requirements
+When desigining new verifiable data structures, 
+please request the next available positive integer as your requested assignment,
+for example:
 
-Each specification MUST define how to encode the algorithm and proof types in CBOR.
+| Identifier            | Algorithm | Reference
+|---
+|0 | N/A                |
+|1 | RFC9162_SHA256     | {{-certificate-transparency-v2}}
+|TBD (requested assignment 2) | Your_Verifiable_Data_Structure_Name     | Your_Specification
 
-Each specification MUST define how to produce and consume the supported proof types.
+## COSE Verifiable Data Structure Parameters {#cose-verifiable-data-structure-parameters}
 
-See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
+Similar to [COSE Key Type Parameters](https://www.iana.org/assignments/cose/cose.xhtml#key-type-parameters),
+As EC2 keys (1: 2) keys require and give meanding to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d),
+RFC9162_SHA256 (TBD : 1) supports both (-1) inclusion and (-2) consistency proofs.
 
-# Proof Types in CBOR
+This document establishes a registry of verifiable data structure algorithms,
+with the following initial contents:
+
+| Verifiable Data Structure | Name               | Label | CBOR Type        | Description                   | Reference
+|---
+| 1                         | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-generic-inclusion-proof}}
+| 1                         | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-generic-consistency-proof}}
+{: #cose-verifiable-data-structures-parameters align="left" title="COSE Verifiable Data Structure Parameters"}
 
 Proof types are specific to their associated "verifiable data structure",
 for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
 
 Implementers should not expect interoperability accross "verifiable data structures",
-but they should expect conceptually similar properties across registered proof types.
+but they should expect conceptually similar properties across the different registered proof type.
 
 For example, 2 different merkle tree based verifiable data structures might both support proofs of inclusion.
+
 Protocols requiring proof of inclusion ought to be able to preserve their functionality,
 while switching from one verifiable data structure to another, so long as both structures support the same proof types.
 
-## Proof Types Registry {#sec-verifiable-data-structure-proof-types}
+When desigining new verifiable data structure parameters (or proof types), 
+please start with -1, and count down for each proof type supported by your verifiable data structure:
 
-This document establishes a registry of verifiable data structure proof types tags,
-with the following initial contents:
-
-| Identifier  | Proof Type   | Proof Value | Reference
+| Verifiable Data Structure | Name               | Label | CBOR Type        | Description                   | Reference
 |---
-|0            | N/A          | N/A | N/A
-|1            | inclusion    | array of bstr | {{sec-generic-inclusion-proof}}
-|2            | consistency  | array of bstr | {{sec-generic-consistency-proof}}
-{: #verifiable-data-structure-proof-types-values align="left" title="Verifiable Data Structure Proof Types"}
+| 1                           | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-generic-inclusion-proof}}
+| 1                           | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-generic-consistency-proof}}
+|TBD (requested assignment 2) | new proof type     | -1    | tbd              | tbd                           | Your_Specification
+|TBD (requested assignment 2) | new proof type     | -2    | tbd              | tbd                           | Your_Specification
+|TBD (requested assignment 2) | new proof type     | -3    | tbd              | tbd                           | Your_Specification
 
-## Inclusion Proof {#sec-generic-inclusion-proof}
+### Registration Requirements
 
-Inclusion proofs provide a mechanism for a verifier to validate set membership.
+Each specification MUST define how to encode the verifiable data structure and its parameters (also called proof types) in CBOR.
 
-The integer identifier for this Proof Type is 1.
-The string identifier for this Proof Type is "inclusion".
-The value of this Proof Type is array of bstr.
+Each specification MUST define how to produce and consume the supported proof types.
 
-{{sec-rfc9162-sha256-inclusion-proof}} provides a concrete example.
+See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 
-## Consistency Proof {#sec-generic-consistency-proof}
-
-Consistency proofs provide a mechanism for a verifier to validate the consistency of a verifiable data structure.
-
-The integer identifier for this Proof Type is 2.
-The string identifier for this Proof Type is "consistency".
-The value of this Proof Type is array of bstr.
-
-{{sec-rfc9162-sha256-consistency-proof}} provides a concrete example.
-
-# RFC9162_SHA256 as a Verifiable Data Structure {#sec-rfc-9162-verifiable-data-structure-definition}
+# RFC9162_SHA256 {#sec-rfc-9162-verifiable-data-structure-definition}
 
 This section defines how the data structures described in {{-certificate-transparency-v2}}
 are mapped to the terminology defined in this document, using cbor and cose.
 
-RFC9162_SHA256 requires the following:
-
-- -11111 (verifiable-data-structure): 1, the integer representing the RFC9162_SHA256 verifiable data structure algorithm.
-- -22222 (verifiable-data-proofs): a map supporting the following proof types:
-- 1 (inclusion-proof): an array of bstr representing RFC9162_SHA256 inclusion proofs
-- 2 (consistency-proof): an array of bstr representing RFC9162_SHA256 consistency proofs
-
-## Algorithm Definition
+## Verifiable Data Structure
 
 The integer identifier for this Verifiable Data Structure is 1.
 The string identifier for this Verifiable Data Structure is "RFC9162_SHA256".
 
-See {{sec-verifiable-data-structure-algorithms}}.
+See {{cose-verifiable-data-structures}}.
 
 See {{-certificate-transparency-v2}}, 2.1.1. Definition of the Merkle Tree,
 for a complete description of this verifiable data structure.
 
-## Inclusion Proof Definition {#sec-rfc9162-sha256-inclusion-proof}
+## Inclusion Proof {#sec-rfc9162-sha256-inclusion-proof}
 
 See {{-certificate-transparency-v2}}, 2.1.3.1. Generating an Inclusion Proof,
 for a complete description of this verifiable data structure proof type.
@@ -245,7 +247,7 @@ The unprotected header for an RFC9162_SHA256 inclusion proof signature is:
 inclusion-proofs = [ + bstr ]
 
 verifiable-proofs = {
-  &(inclusion-proof: 1) => inclusion-proofs
+  &(inclusion-proof: -1) => inclusion-proofs
 }
 
 unprotected-header-map = {
@@ -254,7 +256,7 @@ unprotected-header-map = {
 }
 ~~~~
 
-* inclusion-proof (label: 1): REQUIRED. proof type identifier. Value type: [ + bstr ].
+* inclusion-proof (label: -1): REQUIRED. proof type identifier. Value type: [ + bstr ].
 
 The payload of an RFC9162_SHA256 inclusion proof signature is the previous Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 
@@ -269,7 +271,7 @@ this protects against implementation errors where the signature is verified but 
       h'a3012604...392b6601',       / Protected header                      /
       {                             / Unprotected header                    /
         -22222: {                   / Proofs                                /
-          1: [                      / Inclusion proofs (1)                  /
+          -1: [                     / Inclusion proofs (1)                  /
             h'83040282...1f487bb1', / Inclusion proof 1                     /
           ]
         },
@@ -299,7 +301,7 @@ this protects against implementation errors where the signature is verified but 
 ]
 ~~~~
 
-## Consistency Proof Definition {#sec-rfc9162-sha256-consistency-proof}
+## Consistency Proof {#sec-rfc9162-sha256-consistency-proof}
 
 See {{-certificate-transparency-v2}}, 2.1.4.1. Generating a Consistency Proof,
 for a complete description of this verifiable data structure proof type.
@@ -324,8 +326,6 @@ The protected header for an RFC9162_SHA256 consistency proof signature is:
 
 * alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int / tstr.
 * verifiable-data-structure (label: TBD_1): REQUIRED. verifiable data structure algorithm identifier. Value type: int / tstr.
-* kid (label: 4): OPTIONAL. Key identifier. Value type: bstr
-* crit (label: 2): OPTIONAL. Criticality marker. Value type: [ + label ]
 
 The unprotected header for an RFC9162_SHA256 consistency proof signature is:
 
@@ -334,7 +334,7 @@ The unprotected header for an RFC9162_SHA256 consistency proof signature is:
 consistency-proofs = [ + bstr ]
 
 verifiable-proofs = {
-  &(consistency-proof: 2) => consistency-proofs
+  &(consistency-proof: -2) => consistency-proofs
 }
 
 unprotected-header-map = {
@@ -343,7 +343,7 @@ unprotected-header-map = {
 }
 ~~~~
 
-* consistency-proof (label: 2): REQUIRED. proof type identifier. Value type:  [ + bstr ].
+* consistency-proof (label: -2): REQUIRED. proof type identifier. Value type:  [ + bstr ].
 
 The payload of an RFC9162_SHA256 consistency proof signature is:
 
@@ -357,7 +357,7 @@ The payload MUST be attached.
       h'a3012604...392b6601',       / Protected header                      /
       {                             / Unprotected header                    /
         -22222: {                   / Proofs                                /
-          2: [                      / Consistency proofs (1)                /
+          -2: [                     / Consistency proofs (1)                /
             h'83040682...2e73a8ab', / Consistency proof 1                   /
           ]
         },
@@ -436,7 +436,7 @@ Template:
 * Algorithm: The name of the data structure
 * Reference: Where the data structure is defined
 
-Initial contents: Provided in {{verifiable-data-structure-values}}
+Initial contents: Provided in {{cose-verifiable-data-structures}}
 
 ### Verifiable Data Structure Proof Types {#verifiable-data-structure-proof-types-registry}
 
