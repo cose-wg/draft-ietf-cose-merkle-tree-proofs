@@ -401,6 +401,16 @@ See the security considerations section of:
 - {{-certificate-transparency-v2}}
 - {{-COSE}}
 
+# Acknowledgements {#Acknowledgements}
+
+We would like to thank
+Maik Riechert,
+Jon Geater,
+Mike Jones,
+Mike Prorock,
+Ilari Liusvaara,
+for their contributions (some of which substantial) to this draft and to the initial set of implementations.
+
 # IANA Considerations
 
 ## Additions to Existing Registries
