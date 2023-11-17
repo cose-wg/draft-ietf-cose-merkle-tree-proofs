@@ -140,7 +140,7 @@ In order to improve interoperability we define two extension points for
 enabling verifiable data structures with COSE, and we provide concrete examples for
 the structures and proofs defined in {{-certificate-transparency-v2}}.
 
-## COSE Verifiable Data Structures {#cose-verifiable-data-structures}
+## COSE Verifiable Data Structures {#sec-cose-verifiable-data-structures}
 
 Similar to [COSE Key Types](https://www.iana.org/assignments/cose/cose.xhtml#key-type),
 different verifiable data structures support different algorithms.
@@ -173,7 +173,7 @@ for example:
 | Your name       | TBD (requested assignment 2) | tbd       | Your specification
 
 
-## COSE Verifiable Data Structure Parameters {#cose-verifiable-data-structure-parameters}
+## COSE Verifiable Data Structure Parameters {#sec-cose-verifiable-data-structure-parameters}
 
 Similar to [COSE Key Type Parameters](https://www.iana.org/assignments/cose/cose.xhtml#key-type-parameters),
 As EC2 keys (1: 2) keys require and give meanding to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d),
@@ -184,8 +184,8 @@ with the following initial contents:
 
 | Verifiable Data Structure | Name               | Label | CBOR Type        | Description                   | Reference
 |---
-| 1                         | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-generic-inclusion-proof}}
-| 1                         | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-generic-consistency-proof}}
+| 1                         | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-rfc9162-sha256-inclusion-proof}}
+| 1                         | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-rfc9162-sha256-consistency-proof}}
 {: #cose-verifiable-data-structures-parameters align="left" title="COSE Verifiable Data Structure Parameters"}
 
 Proof types are specific to their associated "verifiable data structure",
@@ -204,8 +204,8 @@ please start with -1, and count down for each proof type supported by your verif
 
 | Verifiable Data Structure | Name               | Label | CBOR Type        | Description                   | Reference
 |---
-| 1                           | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-generic-inclusion-proof}}
-| 1                           | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-generic-consistency-proof}}
+| 1                           | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-rfc9162-sha256-inclusion-proof}}
+| 1                           | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-rfc9162-sha256-consistency-proof}}
 |TBD (requested assignment 2) | new proof type     | -1    | tbd              | tbd                           | Your_Specification
 |TBD (requested assignment 2) | new proof type     | -2    | tbd              | tbd                           | Your_Specification
 |TBD (requested assignment 2) | new proof type     | -3    | tbd              | tbd                           | Your_Specification
@@ -244,7 +244,7 @@ The cbor representation of an inclusion proof for RFC9162_SHA256 is:
 inclusion-proof = [
     tree-size: int
     leaf-index: int
-    inclusion-path: [+ bstr]
+    inclusion-path: [ + bstr ]
 ]
 ~~~~
 
@@ -278,7 +278,7 @@ unprotected-header-map = {
 }
 ~~~~
 
-* inclusion-proof (label: -1): REQUIRED. proof type identifier. Value type: [ + bstr ].
+* inclusion-proof (label: -1): REQUIRED.
 
 The payload of an RFC9162_SHA256 inclusion proof signature is the previous Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 
@@ -333,9 +333,9 @@ The cbor representation of a consistency proof for RFC9162_SHA256 is:
 
 ~~~~ cddl
 consistency-proof = [
-    tree-size-1: int ; size of the tree, when the previous root was produced.
-    tree-size-2: int ; size of the tree, when the latest root was produced.
-    consistency-path: [+ bstr] ; consistency path, from previous root to latest root.
+    tree-size-1: int ; size of tree, at previous root
+    tree-size-2: int ; size of tree, at latest root
+    consistency-path: [ + bstr ] ; path from previous to latest root.
 ]
 ~~~~
 
@@ -366,7 +366,7 @@ unprotected-header-map = {
 }
 ~~~~
 
-* consistency-proof (label: -2): REQUIRED. proof type identifier. Value type:  [ + bstr ].
+* consistency-proof (label: -2): REQUIRED.
 
 The payload of an RFC9162_SHA256 consistency proof signature is:
 
