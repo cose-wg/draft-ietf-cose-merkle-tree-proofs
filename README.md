@@ -8,6 +8,8 @@ This is the working area for the IETF [COSE Working Group](https://datatracker.i
 * [Compare Editor's Copy to Working Group Draft](https://cose-wg.github.io/draft-ietf-cose-merkle-tree-proofs/#go.draft-ietf-cose-merkle-tree-proofs.diff)
 
 
+This work item brings Transparency Log and Transparency Proof related capabilities to COSE.
+
 ## Contributing
 
 See the
