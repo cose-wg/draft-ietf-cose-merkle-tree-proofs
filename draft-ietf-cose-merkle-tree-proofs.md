@@ -260,7 +260,7 @@ TODO: reference to scitt receipts.
 The protected header for an RFC9162_SHA256 inclusion proof signature is:
 
 * alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int / tstr.
-* verifiable-data-structure (label: -11111): REQUIRED. verifiable data structure algorithm identifier. Value type: int / tstr.
+* verifiable-data-structure (label: -111): REQUIRED. verifiable data structure algorithm identifier. Value type: int / tstr.
 
 The unprotected header for an RFC9162_SHA256 inclusion proof signature is:
 
@@ -273,7 +273,7 @@ verifiable-proofs = {
 }
 
 unprotected-header-map = {
-  &(verifiable-data-proof: -22222) => verifiable-proofs
+  &(verifiable-data-proof: -222) => verifiable-proofs
   * cose-label => cose-value
 }
 ~~~~
@@ -361,7 +361,7 @@ verifiable-proofs = {
 }
 
 unprotected-header-map = {
-  &(verifiable-data-proof: -22222) => verifiable-proofs
+  &(verifiable-data-proof: -222) => verifiable-proofs
   * cose-label => cose-value
 }
 ~~~~
