@@ -1,11 +1,11 @@
 # Concise Encoding of Signed Merkle Tree Proofs
 
-This is the working area for the individual Internet-Draft, "Concise Encoding of Signed Merkle Tree Proofs".
+This is the working area for the IETF [COSE Working Group](https://datatracker.ietf.org/wg/cose/documents/) Internet-Draft, "Concise Encoding of Signed Merkle Tree Proofs".
 
 * [Editor's Copy](https://cose-wg.github.io/draft-ietf-cose-merkle-tree-proofs/#go.draft-ietf-cose-merkle-tree-proofs.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-cose-merkle-tree-proofs)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-ietf-cose-merkle-tree-proofs)
-* [Compare Editor's Copy to Individual Draft](https://cose-wg.github.io/draft-ietf-cose-merkle-tree-proofs/#go.draft-ietf-cose-merkle-tree-proofs.diff)
+* [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-cose-merkle-tree-proofs)
+* [Compare Editor's Copy to Working Group Draft](https://cose-wg.github.io/draft-ietf-cose-merkle-tree-proofs/#go.draft-ietf-cose-merkle-tree-proofs.diff)
 
 
 ## Contributing
