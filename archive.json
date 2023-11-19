@@ -1,7 +1,7 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-07-13T01:42:25.592622+00:00",
-  "repo": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
+  "timestamp": "2023-11-19T00:40:11.070409+00:00",
+  "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
       "name": "bug",
@@ -47,1405 +47,405 @@
       "name": "wontfix",
       "description": "This will not be worked on",
       "color": "ffffff"
-    },
-    {
-      "name": "merge-first",
-      "description": "",
-      "color": "81770A"
     }
   ],
-  "issues": [
-    {
-      "number": 8,
-      "id": "I_kwDOJHVbLc5hxbjb",
-      "title": "Verifier may not have full access to the tree",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/issues/8",
-      "state": "OPEN",
-      "author": "OR13",
-      "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [],
-      "body": "How do we communicate the value of receipts in the context of verifiers.",
-      "createdAt": "2023-03-25T03:18:03Z",
-      "updatedAt": "2023-03-25T03:18:03Z",
-      "closedAt": null,
-      "comments": []
-    },
-    {
-      "number": 10,
-      "id": "I_kwDOJHVbLc5h0mJA",
-      "title": "Earmarking merkle related header tags",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/issues/10",
-      "state": "OPEN",
-      "author": "OR13",
-      "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [],
-      "body": "We should consider earmarking tags (after defining them), similar to how RATs CORIM handled their need for reserving a block.\r\n\r\nI don't think we need a continuous block though.",
-      "createdAt": "2023-03-27T00:52:57Z",
-      "updatedAt": "2023-03-27T00:52:57Z",
-      "closedAt": null,
-      "comments": []
-    },
-    {
-      "number": 11,
-      "id": "I_kwDOJHVbLc5h88HA",
-      "title": "Service identifiers are a SCITT profile issue",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/issues/11",
-      "state": "OPEN",
-      "author": "OR13",
-      "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [],
-      "body": "Russ commented at IETF 116 that a service identifier would be useful.\r\n\r\nWe discussed including it in the transparent statement profile based on CoMETRE.",
-      "createdAt": "2023-03-28T07:27:35Z",
-      "updatedAt": "2023-03-28T07:27:35Z",
-      "closedAt": null,
-      "comments": []
-    },
-    {
-      "number": 12,
-      "id": "I_kwDOJHVbLc5h88Z0",
-      "title": "Including labeled trees and prefix trees",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/issues/12",
-      "state": "OPEN",
-      "author": "OR13",
-      "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [],
-      "body": "@fournet please include proposed tree alg / path structures in CDDL here.\r\n\r\n@letmaik ",
-      "createdAt": "2023-03-28T07:28:30Z",
-      "updatedAt": "2023-03-28T07:28:30Z",
-      "closedAt": null,
-      "comments": []
-    },
-    {
-      "number": 13,
-      "id": "I_kwDOJHVbLc5lx6Ot",
-      "title": "Consider popular proof formats",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/issues/13",
-      "state": "OPEN",
-      "author": "OR13",
-      "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [],
-      "body": "\r\nhttps://github.com/merkletreejs/merkletreejs\r\n\r\nIt would be nice to have some test vectors and a nicer name for the popular tree algorithms",
-      "createdAt": "2023-05-12T12:51:17Z",
-      "updatedAt": "2023-05-12T12:51:45Z",
-      "closedAt": null,
-      "comments": []
-    },
-    {
-      "number": 21,
-      "id": "I_kwDOJHVbLc5q_Y_t",
-      "title": "Mandatory header parameters",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/issues/21",
-      "state": "OPEN",
-      "author": "OR13",
-      "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [],
-      "body": "Suggest:\r\n\r\nRemove `crit` from this draft, but encourage profiles to add normative text that forces verifier to understand `verifiable-data-structure`...\r\n\r\nMake `kid` mandatory.",
-      "createdAt": "2023-07-08T16:10:12Z",
-      "updatedAt": "2023-07-08T16:10:12Z",
-      "closedAt": null,
-      "comments": []
-    },
-    {
-      "number": 23,
-      "id": "I_kwDOJHVbLc5rO3dP",
-      "title": "RFC9162 inclusion proofs do not include leaf",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/issues/23",
-      "state": "OPEN",
-      "author": "ad-l",
-      "authorAssociation": "NONE",
-      "assignees": [],
-      "labels": [],
-      "body": "The latest set of changes have removed the serialized leaf from the RFC9162-log inclusion proof. This is problematic for SCITT because the expectation was that verification of a COSE signed Merkle Proof would be self-contained (the CCF ledger ID is forced to make the serialization explicit because the leaf carries additional metadata).\r\n\r\nGenerally, I would argue that a proof type is only well defined if all inputs required for proof verification are carried in the COMETRE CBOR definition of the proof value. Otherwise, the question of the serialization of these additional inputs becomes ambiguous and you may end up with a mix of CBOR and other formats. Furthermore, it is difficult for implementations of validation libraries to define the API if they have to consider additional inputs for some verifiable data structures or some proof types. ",
-      "createdAt": "2023-07-11T14:23:42Z",
-      "updatedAt": "2023-07-11T14:23:42Z",
-      "closedAt": null,
-      "comments": []
-    },
-    {
-      "number": 24,
-      "id": "I_kwDOJHVbLc5rO-4r",
-      "title": "There needs to be a common CBOR type for all proof types",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/issues/24",
-      "state": "OPEN",
-      "author": "ad-l",
-      "authorAssociation": "NONE",
-      "assignees": [],
-      "labels": [],
-      "body": "In last week's Editor call, the assumption was that COSE_Sign1 was always the common type for any COMETRE proof type, but this is very ambiguous in the document. The terminology defines the proof type, proof value, and proof signature but then defines inclusion proofs and consistency proof without any commonality. For instance, the document never explictly says that all proof have a proof signature or introduce a common type for all proof types\r\n",
-      "createdAt": "2023-07-11T14:37:48Z",
-      "updatedAt": "2023-07-11T14:37:48Z",
-      "closedAt": null,
-      "comments": []
-    }
-  ],
+  "issues": [],
   "pulls": [
     {
       "number": 1,
-      "id": "PR_kwDOJHVbLc5LtiiX",
-      "title": "Update merkle proof references",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/1",
-      "state": "MERGED",
+      "id": "PR_kwDOKPwz585ZtcIZ",
+      "title": "Letmaik/remove non rfc tree algs",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/1",
+      "state": "CLOSED",
       "author": "OR13",
-      "authorAssociation": "CONTRIBUTOR",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
-      "createdAt": "2023-03-09T19:54:00Z",
-      "updatedAt": "2023-03-13T21:17:37Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
+      "createdAt": "2023-09-06T18:12:58Z",
+      "updatedAt": "2023-10-20T21:26:43Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "baseRefName": "main",
-      "baseRefOid": "7e6393773d85eb321eb9c45ca17019065781df62",
-      "headRepository": "OR13/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "feat/revisions",
-      "headRefOid": "037f45dfbfbfd20086d047546e7f2555c35ecbea",
-      "closedAt": "2023-03-13T21:17:36Z",
-      "mergedAt": "2023-03-13T21:17:36Z",
-      "mergedBy": "henkbirkholz",
-      "mergeCommit": {
-        "oid": "94305c32af36dc9956bc2be4186880f620c9abf5"
-      },
+      "baseRefOid": "d0dd02713e97813c6c7a9621ef217a3429086e54",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "letmaik/remove-non-rfc-tree-algs",
+      "headRefOid": "4a33c7046783e73145773dbfb1230a4f968864f6",
+      "closedAt": "2023-09-06T18:13:01Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
-      "reviews": [
-        {
-          "id": "PRR_kwDOJHVbLc5PrMvE",
-          "commit": {
-            "abbreviatedOid": "7a50057"
-          },
-          "author": "letmaik",
-          "authorAssociation": "CONTRIBUTOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-03-13T10:48:55Z",
-          "updatedAt": "2023-03-13T10:48:55Z",
-          "comments": [
-            {
-              "originalPosition": 92,
-              "body": "```suggestion\r\nOne example of a Signed Merkle Tree Proof is a \"transparent signed statement\" or \"claim\" as defined in {{-scitt-architecture}}.\r\n```",
-              "createdAt": "2023-03-13T10:48:55Z",
-              "updatedAt": "2023-03-13T10:48:55Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5PrM5b",
-          "commit": {
-            "abbreviatedOid": "7a50057"
-          },
-          "author": "letmaik",
-          "authorAssociation": "CONTRIBUTOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-03-13T10:49:12Z",
-          "updatedAt": "2023-03-13T10:49:12Z",
-          "comments": [
-            {
-              "originalPosition": 92,
-              "body": "Maybe this sentence belongs somewhere else?",
-              "createdAt": "2023-03-13T10:49:12Z",
-              "updatedAt": "2023-03-13T10:49:12Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5PrNLm",
-          "commit": {
-            "abbreviatedOid": "7a50057"
-          },
-          "author": "letmaik",
-          "authorAssociation": "CONTRIBUTOR",
-          "state": "APPROVED",
-          "body": "Looks good, left a comment on one sentence which I think should be moved.",
-          "createdAt": "2023-03-13T10:49:40Z",
-          "updatedAt": "2023-03-13T10:49:40Z",
-          "comments": []
-        }
-      ]
+      "reviews": []
     },
     {
       "number": 2,
-      "id": "PR_kwDOJHVbLc5L5Y6V",
-      "title": "Remove all non-RFC tree algorithms",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/2",
-      "state": "MERGED",
-      "author": "letmaik",
-      "authorAssociation": "CONTRIBUTOR",
+      "id": "PR_kwDOKPwz585ZtcML",
+      "title": "Revert 3 letmaik/ccf tree alg",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/2",
+      "state": "CLOSED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "For exploration purposes, the document had a number of tree algorithms that are not specified in RFCs or similar. This PR removes them again, transferring them to PRs for further evaluation.",
-      "createdAt": "2023-03-13T13:54:56Z",
-      "updatedAt": "2023-03-13T21:18:22Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
+      "body": "",
+      "createdAt": "2023-09-06T18:13:11Z",
+      "updatedAt": "2023-10-20T21:26:51Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "baseRefName": "main",
-      "baseRefOid": "7e6393773d85eb321eb9c45ca17019065781df62",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "letmaik/remove-non-rfc-tree-algs",
-      "headRefOid": "f7f936a0262e5d3fab4f5140a144b4699193e2c1",
-      "closedAt": "2023-03-13T21:18:22Z",
-      "mergedAt": "2023-03-13T21:18:21Z",
-      "mergedBy": "henkbirkholz",
-      "mergeCommit": {
-        "oid": "68998e9ac70109698d5327336c096f0bf4a878bb"
-      },
-      "comments": [
-        {
-          "author": "OR13",
-          "authorAssociation": "CONTRIBUTOR",
-          "body": "I'm good to merge this from a process standpoint\r\n\r\nI still hope we can document these in some acceptable way for IETF.",
-          "createdAt": "2023-03-13T18:56:21Z",
-          "updatedAt": "2023-03-13T18:56:21Z"
-        }
-      ],
-      "reviews": [
-        {
-          "id": "PRR_kwDOJHVbLc5PvHvX",
-          "commit": {
-            "abbreviatedOid": "f7f936a"
-          },
-          "author": "OR13",
-          "authorAssociation": "CONTRIBUTOR",
-          "state": "APPROVED",
-          "body": "",
-          "createdAt": "2023-03-13T18:55:38Z",
-          "updatedAt": "2023-03-13T18:55:38Z",
-          "comments": []
-        }
-      ]
+      "baseRefOid": "d0dd02713e97813c6c7a9621ef217a3429086e54",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "revert-3-letmaik/ccf-tree-alg",
+      "headRefOid": "c37cf5eeabafbc01ddae3db047dd3c244fcc2d4c",
+      "closedAt": "2023-09-06T18:13:16Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     },
     {
       "number": 3,
-      "id": "PR_kwDOJHVbLc5L5krj",
-      "title": "Add `CCF_SHA256` tree algorithm",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/3",
-      "state": "MERGED",
-      "author": "letmaik",
-      "authorAssociation": "CONTRIBUTOR",
+      "id": "PR_kwDOKPwz585ZtcQJ",
+      "title": "ccf tree alg",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/3",
+      "state": "CLOSED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "Informal references:\r\n- https://microsoft.github.io/CCF/main/architecture/merkle_tree.html\r\n- https://microsoft.github.io/CCF/main/use_apps/verify_tx.html#receipt-verification\r\n\r\nTODO:\r\n- Add CCF reference to Merkle tree definition (including details on the leaves).\r\n- Change target branch to `main` after #2 is merged.",
-      "createdAt": "2023-03-13T14:22:06Z",
-      "updatedAt": "2023-03-13T21:19:05Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "baseRefName": "letmaik/remove-non-rfc-tree-algs",
-      "baseRefOid": "f7f936a0262e5d3fab4f5140a144b4699193e2c1",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
+      "body": "",
+      "createdAt": "2023-09-06T18:13:24Z",
+      "updatedAt": "2023-10-20T21:26:52Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "d0dd02713e97813c6c7a9621ef217a3429086e54",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "headRefName": "letmaik/ccf-tree-alg",
-      "headRefOid": "a99474c74d9a141026b7b2401577cfcf713462a0",
-      "closedAt": "2023-03-13T21:19:05Z",
-      "mergedAt": "2023-03-13T21:19:05Z",
-      "mergedBy": "henkbirkholz",
-      "mergeCommit": {
-        "oid": "4a33c7046783e73145773dbfb1230a4f968864f6"
-      },
+      "headRefOid": "f484897f83a670a3134c381b1d5caccc4a4828a7",
+      "closedAt": "2023-09-06T18:13:28Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     },
     {
       "number": 4,
-      "id": "PR_kwDOJHVbLc5L5mcA",
-      "title": "Add `QLDB_SHA256` tree algorithm",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/4",
-      "state": "MERGED",
-      "author": "letmaik",
-      "authorAssociation": "CONTRIBUTOR",
+      "id": "PR_kwDOKPwz585ZtcTr",
+      "title": "add OZ_keccak256 tree algorithm",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/4",
+      "state": "CLOSED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "Informal reference: https://docs.aws.amazon.com/qldb/latest/developerguide/verification.html\r\n\r\nTODO:\r\n- Add QLDB reference to Merkle tree definition.\r\n- Change target branch to `main` after #2 is merged.",
-      "createdAt": "2023-03-13T14:26:47Z",
-      "updatedAt": "2023-03-13T21:19:31Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
+      "body": "",
+      "createdAt": "2023-09-06T18:13:35Z",
+      "updatedAt": "2023-10-20T21:26:50Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "baseRefName": "main",
-      "baseRefOid": "7e6393773d85eb321eb9c45ca17019065781df62",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "letmaik/qldb-tree-alg",
-      "headRefOid": "9e43172326522cab26d727347054f30532249acc",
-      "closedAt": "2023-03-13T21:19:30Z",
-      "mergedAt": "2023-03-13T21:19:30Z",
-      "mergedBy": "henkbirkholz",
-      "mergeCommit": {
-        "oid": "090dfd8224a6b8c9adb8e3b19ebbce39e0e78869"
-      },
+      "baseRefOid": "d0dd02713e97813c6c7a9621ef217a3429086e54",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "letmaik/oz_keccak256",
+      "headRefOid": "e6577de8f46fbbff1bc17408bb74c5023b26f721",
+      "closedAt": "2023-09-06T18:13:40Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     },
     {
       "number": 5,
-      "id": "PR_kwDOJHVbLc5L5wyQ",
-      "title": "Add `OZ_keccak256` tree algorithm",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/5",
-      "state": "CLOSED",
-      "author": "letmaik",
-      "authorAssociation": "CONTRIBUTOR",
+      "id": "PR_kwDOKPwz585aDHVp",
+      "title": "Find replace on repo name",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/5",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "Informal reference:\r\n- https://github.com/OpenZeppelin/merkle-tree#standard-merkle-trees\r\n\r\nTODO:\r\n- Add OpenZeppelin reference to Merkle tree definition.\r\n- Change target branch to `main` after #2 is merged.",
-      "createdAt": "2023-03-13T14:48:04Z",
-      "updatedAt": "2023-03-14T16:15:05Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "baseRefName": "letmaik/remove-non-rfc-tree-algs",
-      "baseRefOid": "f7f936a0262e5d3fab4f5140a144b4699193e2c1",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "letmaik/oz_keccak256",
-      "headRefOid": "e6577de8f46fbbff1bc17408bb74c5023b26f721",
-      "closedAt": "2023-03-14T16:15:05Z",
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "body": "I think this completes the setup work we needed to do.\r\n\r\ncc @henkbirkholz",
+      "createdAt": "2023-09-11T17:55:12Z",
+      "updatedAt": "2023-10-20T21:26:39Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "8858703181b9220234922fd7b13dc23bed1f0e4a",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "fix/repo-name-issues",
+      "headRefOid": "101b30804f6da32d6760d2b18216823ef4226dad",
+      "closedAt": "2023-09-12T13:15:56Z",
+      "mergedAt": "2023-09-12T13:15:56Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "09746b949e99d593156d2b0d4fcb114a706db8e7"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz585goz5h",
+          "commit": {
+            "abbreviatedOid": "101b308"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2023-09-12T05:55:00Z",
+          "updatedAt": "2023-09-12T05:55:00Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz585gqCcY",
+          "commit": {
+            "abbreviatedOid": "101b308"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-09-12T08:30:16Z",
+          "updatedAt": "2023-09-12T08:30:16Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 6,
-      "id": "PR_kwDOJHVbLc5L_V_l",
-      "title": "Cleanup accidentally merged content",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/6",
+      "id": "PR_kwDOKPwz585aDtIO",
+      "title": "Updates",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/6",
       "state": "MERGED",
-      "author": "letmaik",
-      "authorAssociation": "CONTRIBUTOR",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "#4 and #3 have been incorrectly merged. This PR brings the content to the state of 00 as in https://datatracker.ietf.org/doc/html/draft-steele-cose-merkle-tree-proofs-00.",
-      "createdAt": "2023-03-14T11:49:29Z",
-      "updatedAt": "2023-03-14T16:02:33Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
+      "body": "- allow multiple proof types\r\n- address editors notes",
+      "createdAt": "2023-09-11T19:51:53Z",
+      "updatedAt": "2023-10-18T17:25:53Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "baseRefName": "main",
-      "baseRefOid": "090dfd8224a6b8c9adb8e3b19ebbce39e0e78869",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "letmaik/cleanup-the-mess",
-      "headRefOid": "3798348c4295d819ffd48e6cc28d32a16458d103",
-      "closedAt": "2023-03-14T16:02:32Z",
-      "mergedAt": "2023-03-14T16:02:32Z",
+      "baseRefOid": "09746b949e99d593156d2b0d4fcb114a706db8e7",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "feat/address-editors-notes",
+      "headRefOid": "9ab5216cf20563193380124ed1a9e4e61408edac",
+      "closedAt": "2023-10-18T17:25:53Z",
+      "mergedAt": "2023-10-18T17:25:53Z",
       "mergedBy": "OR13",
       "mergeCommit": {
-        "oid": "051a5fa4c932412fa2143edd430dfb9b001dd310"
+        "oid": "3fa4b8b39cc91298b80abebfa3f0280263247d4a"
       },
-      "comments": [
-        {
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "body": "@henkbirkholz can you give me merge permissions?",
-          "createdAt": "2023-03-14T13:28:55Z",
-          "updatedAt": "2023-03-14T13:28:55Z"
-        }
-      ],
+      "comments": [],
       "reviews": [
         {
-          "id": "PRR_kwDOJHVbLc5P09Nk",
+          "id": "PRR_kwDOKPwz585hQ5Uy",
           "commit": {
-            "abbreviatedOid": "3798348"
+            "abbreviatedOid": "b1b4560"
+          },
+          "author": "JAG-UK",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "I have made the same single comment 5 times. Sorry about that, but it has many tentacles.",
+          "createdAt": "2023-09-18T19:26:17Z",
+          "updatedAt": "2023-09-18T19:28:03Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "Wouldn't it be better/simpler for this to ALWAYS be a list and sometimes only have 1 element?",
+              "createdAt": "2023-09-18T19:26:18Z",
+              "updatedAt": "2023-09-18T19:28:03Z"
+            },
+            {
+              "originalPosition": 23,
+              "body": "Wouldn't it be better/simpler for this to ALWAYS be a list and sometimes only have 1 element?",
+              "createdAt": "2023-09-18T19:26:33Z",
+              "updatedAt": "2023-09-18T19:28:03Z"
+            },
+            {
+              "originalPosition": 31,
+              "body": "Wouldn't it be better/simpler for this to ALWAYS be a list and sometimes only have 1 element?",
+              "createdAt": "2023-09-18T19:26:37Z",
+              "updatedAt": "2023-09-18T19:28:03Z"
+            },
+            {
+              "originalPosition": 41,
+              "body": "Wouldn't it be better/simpler for this to ALWAYS be a list and sometimes only have 1 element?",
+              "createdAt": "2023-09-18T19:26:49Z",
+              "updatedAt": "2023-09-18T19:28:03Z"
+            },
+            {
+              "originalPosition": 42,
+              "body": "Wouldn't it be better/simpler for this to ALWAYS be a list and sometimes only have 1 element?",
+              "createdAt": "2023-09-18T19:26:53Z",
+              "updatedAt": "2023-09-18T19:28:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz585hQ8zY",
+          "commit": {
+            "abbreviatedOid": "b1b4560"
           },
           "author": "OR13",
           "authorAssociation": "COLLABORATOR",
-          "state": "APPROVED",
+          "state": "COMMENTED",
           "body": "",
-          "createdAt": "2023-03-14T13:28:35Z",
-          "updatedAt": "2023-03-14T13:28:35Z",
-          "comments": []
+          "createdAt": "2023-09-18T19:37:13Z",
+          "updatedAt": "2023-09-18T19:37:13Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "I agree, this was just my first attempt at an update... and I wanted to hear from @henkbirkholz and other CBOR / COSE experts on how best to address this.",
+              "createdAt": "2023-09-18T19:37:13Z",
+              "updatedAt": "2023-09-18T19:37:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz585jboAY",
+          "commit": {
+            "abbreviatedOid": "a315413"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-10T16:03:35Z",
+          "updatedAt": "2023-10-10T16:03:35Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Technically, that would be:\r\n\r\n```\r\nbstr / [ 2* bstr ]\r\n```\r\nor\r\n```\r\none-or-more<T> = T / [ 2* T ]\r\none-or-more<bstr> \r\n```\r\nand not\r\n```\r\n[ + bstr ]\r\n```\r\n\r\nas illustrated in https://github.com/ietf-wg-scitt/draft-ietf-scitt-architecture/issues/109#issue-1935673877",
+              "createdAt": "2023-10-10T16:03:35Z",
+              "updatedAt": "2023-10-10T16:03:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz585jbu7V",
+          "commit": {
+            "abbreviatedOid": "a315413"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-10T16:15:55Z",
+          "updatedAt": "2023-10-10T16:15:55Z",
+          "comments": [
+            {
+              "originalPosition": 103,
+              "body": "```suggestion\r\n  &(consistency-proof: TBD_3) => consistency-proofs\r\n```",
+              "createdAt": "2023-10-10T16:15:55Z",
+              "updatedAt": "2023-10-10T16:15:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz585jy3Ow",
+          "commit": {
+            "abbreviatedOid": "4dc2a11"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-12T14:07:01Z",
+          "updatedAt": "2023-10-12T14:07:01Z",
+          "comments": [
+            {
+              "originalPosition": 87,
+              "body": "```suggestion\r\n* kid (label: 4): OPTIONAL. Key identifier. Value type: bstr\r\n* crit (label: 2): OPTIONAL. Criticality marker. Value type: [ + label ]\r\n```",
+              "createdAt": "2023-10-12T14:07:01Z",
+              "updatedAt": "2023-10-12T14:07:01Z"
+            }
+          ]
         }
       ]
     },
     {
       "number": 7,
-      "id": "PR_kwDOJHVbLc5MBvif",
-      "title": "Add CCF_SHA256 tree algorithm",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/7",
-      "state": "CLOSED",
-      "author": "letmaik",
-      "authorAssociation": "CONTRIBUTOR",
+      "id": "PR_kwDOKPwz585da-AM",
+      "title": "Updates for IETF 118",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/7",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "Informal references:\r\n- https://microsoft.github.io/CCF/main/architecture/merkle_tree.html\r\n- https://microsoft.github.io/CCF/main/use_apps/verify_tx.html#receipt-verification\r\n\r\nTODO:\r\n- Add CCF reference to Merkle tree definition (including details on the leaves).\r\n\r\n(replaces #3)",
-      "createdAt": "2023-03-14T17:53:16Z",
-      "updatedAt": "2023-05-30T15:09:57Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
+      "body": "Examples generated from WIP implementation here: https://github.com/transmute-industries/cose/pull/6/files",
+      "createdAt": "2023-10-20T21:18:05Z",
+      "updatedAt": "2023-10-20T21:26:38Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "baseRefName": "main",
-      "baseRefOid": "051a5fa4c932412fa2143edd430dfb9b001dd310",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "letmaik/ccf-tree-alg",
-      "headRefOid": "f484897f83a670a3134c381b1d5caccc4a4828a7",
-      "closedAt": "2023-05-30T15:09:56Z",
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [
-        {
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "body": "We discussed this on the call today, we plan to define only mapping to RFC 9162 in this document, and establish a convention and requirements for future tree algorithms, such that they can build on this draft, and not need to be defined in it.",
-          "createdAt": "2023-05-30T15:09:56Z",
-          "updatedAt": "2023-05-30T15:09:56Z"
-        }
-      ],
+      "baseRefOid": "3fa4b8b39cc91298b80abebfa3f0280263247d4a",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "feat/address-editors-notes",
+      "headRefOid": "d498294a90763f64eb4d3110c73dece901119fe3",
+      "closedAt": "2023-10-20T21:20:29Z",
+      "mergedAt": "2023-10-20T21:20:29Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "eb8f7d44300f8d787a69f91f8e0aa1a8d0a5cf4b"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOKPwz585dqgV9",
+      "title": "Update registry structure",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/8",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-10-24T16:59:51Z",
+      "updatedAt": "2023-11-17T21:26:52Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "46ceac400121ebc8c1759259909d7f46ec9a9985",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "feat/refactor-registry-request",
+      "headRefOid": "4229fe0e571b2c7e4743c53b1f7cdbdd6f9af02f",
+      "closedAt": "2023-11-08T09:09:33Z",
+      "mergedAt": "2023-11-08T09:09:33Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "39306371c054b9ae31db86b5435e8afa115e1dba"
+      },
+      "comments": [],
       "reviews": []
     },
     {
       "number": 9,
-      "id": "PR_kwDOJHVbLc5M45G_",
-      "title": "Content revisions",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/9",
+      "id": "PR_kwDOKPwz585dwHs2",
+      "title": "Add Acknowledgements",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/9",
       "state": "MERGED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "Changes from IETF 116 hackathon",
-      "createdAt": "2023-03-25T09:37:10Z",
-      "updatedAt": "2023-04-06T14:32:58Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
+      "body": "",
+      "createdAt": "2023-10-25T12:59:55Z",
+      "updatedAt": "2023-11-17T21:26:51Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "baseRefName": "main",
-      "baseRefOid": "051a5fa4c932412fa2143edd430dfb9b001dd310",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "feat/ietg-116-terms",
-      "headRefOid": "8c5306841bb1643e1e516e3ba0601521ef4eaeb0",
-      "closedAt": "2023-04-06T14:32:23Z",
-      "mergedAt": "2023-04-06T14:32:23Z",
+      "baseRefOid": "46ceac400121ebc8c1759259909d7f46ec9a9985",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "feat/ack",
+      "headRefOid": "bd69527cf2c92ad4a36b5ce086e47ad32dfd2cf9",
+      "closedAt": "2023-11-08T09:09:42Z",
+      "mergedAt": "2023-11-08T09:09:42Z",
       "mergedBy": "OR13",
       "mergeCommit": {
-        "oid": "8561d19437cb03ae550d449f0fc9b8f8bcde03a9"
-      },
-      "comments": [
-        {
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "body": "I'm stopping on this PR, before it gets even larger.",
-          "createdAt": "2023-03-29T02:24:05Z",
-          "updatedAt": "2023-03-29T02:24:05Z"
-        },
-        {
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "body": "@fournet I have made several more changes, please review when you have a chance.",
-          "createdAt": "2023-03-29T02:30:40Z",
-          "updatedAt": "2023-03-29T02:30:40Z"
-        },
-        {
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "body": "I am merging, we reviewed this content together at IETF.",
-          "createdAt": "2023-04-06T14:32:57Z",
-          "updatedAt": "2023-04-06T14:32:57Z"
-        }
-      ],
-      "reviews": [
-        {
-          "id": "PRR_kwDOJHVbLc5Q7w8F",
-          "commit": {
-            "abbreviatedOid": "2a8d32b"
-          },
-          "author": "letmaik",
-          "authorAssociation": "CONTRIBUTOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-03-25T14:17:26Z",
-          "updatedAt": "2023-03-25T14:17:26Z",
-          "comments": [
-            {
-              "originalPosition": 83,
-              "body": "Can you outline what else you'll change in this PR? Further below there's \"Signed Merkle Tree Proof\" which seems to be what \"Signed Inclusion Proof\" will be?",
-              "createdAt": "2023-03-25T14:17:26Z",
-              "updatedAt": "2023-03-25T14:17:26Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5Q7_E1",
-          "commit": {
-            "abbreviatedOid": "2a8d32b"
-          },
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-03-25T21:11:40Z",
-          "updatedAt": "2023-03-25T21:11:40Z",
-          "comments": [
-            {
-              "originalPosition": 83,
-              "body": "Yes, its work in progress. \r\n\r\nMain goal was to take a pass on terminology and address potential confusion or collisions with other concepts.\r\n\r\nFor example \"envelope payload\" vs \"merkle leaf payload\".\r\n\r\nWe also discussed adding some of the more specialized trees.",
-              "createdAt": "2023-03-25T21:11:40Z",
-              "updatedAt": "2023-03-25T21:11:40Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5Q7_mS",
-          "commit": {
-            "abbreviatedOid": "2a8d32b"
-          },
-          "author": "letmaik",
-          "authorAssociation": "CONTRIBUTOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-03-25T21:30:26Z",
-          "updatedAt": "2023-03-25T21:30:27Z",
-          "comments": [
-            {
-              "originalPosition": 68,
-              "body": "We can do that but I think we should also define something that doesn't assume a signed envelope, otherwise it wouldn't be general enough.",
-              "createdAt": "2023-03-25T21:30:26Z",
-              "updatedAt": "2023-03-25T21:30:27Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5RMPg8",
-          "commit": {
-            "abbreviatedOid": "2a8d32b"
-          },
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-03-29T02:30:11Z",
-          "updatedAt": "2023-03-29T02:30:11Z",
-          "comments": [
-            {
-              "originalPosition": 68,
-              "body": "I added this in https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/9/commits/49c6f38c05e7882445f395acf977d9cad8d40c78",
-              "createdAt": "2023-03-29T02:30:11Z",
-              "updatedAt": "2023-03-29T02:30:11Z"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "number": 14,
-      "id": "PR_kwDOJHVbLc5RtPH8",
-      "title": "Focus on RFC9162 in CBOR & COSE",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/14",
-      "state": "MERGED",
-      "author": "OR13",
-      "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [
-        "merge-first"
-      ],
-      "body": "These changes focus this draft on the minimal definitions required to secure the data structures defined in RFC9162 using CBOR and COSE.\r\n\r\nExtraneous information has been removed.\r\n\r\nThere is a wip implementation available here: \r\n\r\n- https://github.com/transmute-industries/cose\r\n\r\nThere is a demo here:\r\n\r\n- https://scitt.xyz",
-      "createdAt": "2023-05-30T17:07:56Z",
-      "updatedAt": "2023-06-06T14:05:42Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "baseRefName": "main",
-      "baseRefOid": "8561d19437cb03ae550d449f0fc9b8f8bcde03a9",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "feat/focus-rfc-9162",
-      "headRefOid": "51ffe72910446cd7023c5a1758b1795089b0aaa7",
-      "closedAt": "2023-06-06T14:05:42Z",
-      "mergedAt": "2023-06-06T14:05:42Z",
-      "mergedBy": "OR13",
-      "mergeCommit": {
-        "oid": "6bef6b29576a3dc9745833a857283c6c9fb35645"
+        "oid": "f8d1b35cb5ef37c9ca48c4a9558b82f97b515c47"
       },
       "comments": [],
-      "reviews": [
-        {
-          "id": "PRR_kwDOJHVbLc5XLx4n",
-          "commit": {
-            "abbreviatedOid": "51ffe72"
-          },
-          "author": "henkbirkholz",
-          "authorAssociation": "MEMBER",
-          "state": "APPROVED",
-          "body": "sry 4 the l8 approval",
-          "createdAt": "2023-06-05T14:37:45Z",
-          "updatedAt": "2023-06-05T14:37:45Z",
-          "comments": []
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5XVqrB",
-          "commit": {
-            "abbreviatedOid": "51ffe72"
-          },
-          "author": "ad-l",
-          "authorAssociation": "NONE",
-          "state": "APPROVED",
-          "body": "I recommend merging now",
-          "createdAt": "2023-06-06T14:04:44Z",
-          "updatedAt": "2023-06-06T14:04:44Z",
-          "comments": []
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5XVrGP",
-          "commit": {
-            "abbreviatedOid": "51ffe72"
-          },
-          "author": "yogeshbdeshpande",
-          "authorAssociation": "NONE",
-          "state": "APPROVED",
-          "body": "LGTM!",
-          "createdAt": "2023-06-06T14:05:29Z",
-          "updatedAt": "2023-06-06T14:05:29Z",
-          "comments": []
-        }
-      ]
-    },
-    {
-      "number": 15,
-      "id": "PR_kwDOJHVbLc5RtXSl",
-      "title": "Remove author",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/15",
-      "state": "MERGED",
-      "author": "OR13",
-      "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [],
-      "body": "I chatted with @letmaik about this and he suggested he won't be able to provide reviews, and requested to be removed.",
-      "createdAt": "2023-05-30T17:36:23Z",
-      "updatedAt": "2023-06-02T20:49:11Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "baseRefName": "main",
-      "baseRefOid": "8561d19437cb03ae550d449f0fc9b8f8bcde03a9",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "feat/groom-authors",
-      "headRefOid": "772de64307d8f8c621094c7fcffc667a3c6e1a68",
-      "closedAt": "2023-06-02T20:49:11Z",
-      "mergedAt": "2023-06-02T20:49:10Z",
-      "mergedBy": "OR13",
-      "mergeCommit": {
-        "oid": "9cd53b2916fb62a484f2c422046559b1dd8b82ee"
-      },
-      "comments": [],
-      "reviews": [
-        {
-          "id": "PRR_kwDOJHVbLc5WhMd1",
-          "commit": {
-            "abbreviatedOid": "772de64"
-          },
-          "author": "henkbirkholz",
-          "authorAssociation": "MEMBER",
-          "state": "APPROVED",
-          "body": "ah, well then",
-          "createdAt": "2023-05-30T18:12:09Z",
-          "updatedAt": "2023-05-30T18:12:09Z",
-          "comments": []
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5WiAp2",
-          "commit": {
-            "abbreviatedOid": "772de64"
-          },
-          "author": "letmaik",
-          "authorAssociation": "CONTRIBUTOR",
-          "state": "APPROVED",
-          "body": "",
-          "createdAt": "2023-05-30T20:21:39Z",
-          "updatedAt": "2023-05-30T20:21:39Z",
-          "comments": []
-        }
-      ]
-    },
-    {
-      "number": 16,
-      "id": "PR_kwDOJHVbLc5SCQMb",
-      "title": "Add implementation status section",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/16",
-      "state": "MERGED",
-      "author": "OR13",
-      "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [],
-      "body": "See related PR: https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/14",
-      "createdAt": "2023-06-02T20:42:31Z",
-      "updatedAt": "2023-06-06T14:10:17Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "baseRefName": "main",
-      "baseRefOid": "6bef6b29576a3dc9745833a857283c6c9fb35645",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "feat/add-implementation-status",
-      "headRefOid": "2199cd712dc7aec6bc4e16643dd1a548c104849b",
-      "closedAt": "2023-06-06T14:10:17Z",
-      "mergedAt": "2023-06-06T14:10:17Z",
-      "mergedBy": "OR13",
-      "mergeCommit": {
-        "oid": "2e3aa66560bc3e52cf52587b19b80b3dab4bf90f"
-      },
-      "comments": [],
-      "reviews": [
-        {
-          "id": "PRR_kwDOJHVbLc5XLxd8",
-          "commit": {
-            "abbreviatedOid": "2ba1547"
-          },
-          "author": "henkbirkholz",
-          "authorAssociation": "MEMBER",
-          "state": "APPROVED",
-          "body": "",
-          "createdAt": "2023-06-05T14:36:59Z",
-          "updatedAt": "2023-06-06T14:08:12Z",
-          "comments": []
-        }
-      ]
-    },
-    {
-      "number": 17,
-      "id": "PR_kwDOJHVbLc5TcrKM",
-      "title": "Address List Feedback",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/17",
-      "state": "MERGED",
-      "author": "OR13",
-      "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [],
-      "body": "Feedback gathered from https://mailarchive.ietf.org/arch/msg/cose/LCvZEcA2oeYdSDa2Lv7gp2fJIxo/",
-      "createdAt": "2023-06-20T14:50:31Z",
-      "updatedAt": "2023-06-27T15:03:12Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "baseRefName": "main",
-      "baseRefOid": "2e3aa66560bc3e52cf52587b19b80b3dab4bf90f",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "feat/feedback-before-ietf-117",
-      "headRefOid": "a48ebd7401b596b729c3ec6cd4233d85d9dd8dbe",
-      "closedAt": "2023-06-27T15:03:11Z",
-      "mergedAt": "2023-06-27T15:03:11Z",
-      "mergedBy": "OR13",
-      "mergeCommit": {
-        "oid": "bdc0814405fd4e1c65ca098be350f8ac6fb8a1a8"
-      },
-      "comments": [
-        {
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "body": "Consider attempting better CDDL by applying https://www.ietf.org/archive/id/draft-bormann-cbor-draft-numbers-01.html",
-          "createdAt": "2023-06-20T15:17:49Z",
-          "updatedAt": "2023-06-20T15:17:49Z"
-        }
-      ],
-      "reviews": [
-        {
-          "id": "PRR_kwDOJHVbLc5Yt6aP",
-          "commit": {
-            "abbreviatedOid": "a48ebd7"
-          },
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-06-20T15:25:56Z",
-          "updatedAt": "2023-06-20T15:25:56Z",
-          "comments": [
-            {
-              "originalPosition": 13,
-              "body": "I remove this array form, as it causes confusion and does not seem necessary",
-              "createdAt": "2023-06-20T15:25:56Z",
-              "updatedAt": "2023-06-20T15:25:56Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5Yt6v7",
-          "commit": {
-            "abbreviatedOid": "a48ebd7"
-          },
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-06-20T15:26:19Z",
-          "updatedAt": "2023-06-20T15:26:19Z",
-          "comments": [
-            {
-              "originalPosition": 30,
-              "body": "any change suggestions on this CDDL very welcome.",
-              "createdAt": "2023-06-20T15:26:19Z",
-              "updatedAt": "2023-06-20T15:26:19Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5Yt6_z",
-          "commit": {
-            "abbreviatedOid": "a48ebd7"
-          },
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-06-20T15:26:42Z",
-          "updatedAt": "2023-06-20T15:26:42Z",
-          "comments": [
-            {
-              "originalPosition": 47,
-              "body": "I attempt to add some text about privacy here, comments welcome",
-              "createdAt": "2023-06-20T15:26:42Z",
-              "updatedAt": "2023-06-20T15:26:42Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5Yt7G9",
-          "commit": {
-            "abbreviatedOid": "a48ebd7"
-          },
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-06-20T15:26:56Z",
-          "updatedAt": "2023-06-20T15:26:56Z",
-          "comments": [
-            {
-              "originalPosition": 66,
-              "body": "fix copy paste error",
-              "createdAt": "2023-06-20T15:26:56Z",
-              "updatedAt": "2023-06-20T15:26:56Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5ZeXud",
-          "commit": {
-            "abbreviatedOid": "a48ebd7"
-          },
-          "author": "ad-l",
-          "authorAssociation": "NONE",
-          "state": "APPROVED",
-          "body": "",
-          "createdAt": "2023-06-27T14:57:21Z",
-          "updatedAt": "2023-06-27T14:57:21Z",
-          "comments": []
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5ZeY4F",
-          "commit": {
-            "abbreviatedOid": "a48ebd7"
-          },
-          "author": "henkbirkholz",
-          "authorAssociation": "MEMBER",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-06-27T14:58:48Z",
-          "updatedAt": "2023-06-27T14:58:48Z",
-          "comments": [
-            {
-              "originalPosition": 30,
-              "body": "good enough for now",
-              "createdAt": "2023-06-27T14:58:48Z",
-              "updatedAt": "2023-06-27T14:58:48Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5Zeav0",
-          "commit": {
-            "abbreviatedOid": "a48ebd7"
-          },
-          "author": "henkbirkholz",
-          "authorAssociation": "MEMBER",
-          "state": "APPROVED",
-          "body": "",
-          "createdAt": "2023-06-27T15:01:06Z",
-          "updatedAt": "2023-06-27T15:02:00Z",
-          "comments": [
-            {
-              "originalPosition": 47,
-              "body": ":+1: ",
-              "createdAt": "2023-06-27T15:01:06Z",
-              "updatedAt": "2023-06-27T15:02:00Z"
-            },
-            {
-              "originalPosition": 66,
-              "body": ":+1: ",
-              "createdAt": "2023-06-27T15:01:25Z",
-              "updatedAt": "2023-06-27T15:02:00Z"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "number": 18,
-      "id": "PR_kwDOJHVbLc5UiVoD",
-      "title": "Attempt to generalize tree algorithm to verifiable data structure",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/18",
-      "state": "MERGED",
-      "author": "OR13",
-      "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [],
-      "body": "This PR attempts to generalize \"merkle tree alg\" and associated tags for \"merkle tree proof types\", to:\r\n\r\n\"verifiable data structure\" and associated \"verifiable data structure proof types\".\r\n\r\nThis is intended to support similar structures that provide similar proof types, but that are not based on merkle trees.\r\n\r\nWe are specifically thinking of cryptographic accumulators, and the merkle^2 paper.",
-      "createdAt": "2023-07-03T15:11:21Z",
-      "updatedAt": "2023-07-07T13:47:40Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "baseRefName": "main",
-      "baseRefOid": "bdc0814405fd4e1c65ca098be350f8ac6fb8a1a8",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "feat/generalize-verifiable-data-structures",
-      "headRefOid": "d9cb116b7014f52b8ad929c20ea93af2effa542c",
-      "closedAt": "2023-07-07T13:47:40Z",
-      "mergedAt": "2023-07-07T13:47:39Z",
-      "mergedBy": "henkbirkholz",
-      "mergeCommit": {
-        "oid": "21b259f9b907cd91326da127a8882e50941b53f1"
-      },
-      "comments": [
-        {
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "body": "I'm not attached to \"verifiable data structure\" or \"verifiable data structure proof types\", just needed a word that didn't imply \"trees\".",
-          "createdAt": "2023-07-03T15:37:43Z",
-          "updatedAt": "2023-07-03T15:37:43Z"
-        },
-        {
-          "author": "ad-l",
-          "authorAssociation": "NONE",
-          "body": "The overall \"verifiable data structure\" generalization is fine, and doesn't impact the structure of the document too much.\r\n\r\nHowever, I am not fully satisfied with generalization of proof types. It seems very strange that TBD_1 (\"binary merkle tree using sha256\", a tag that appears in the protected header of the COSE signed root) and TBD_2 (\"binary merkle tree using sha256, inclusion proof\", a tag that appears in the CBOR type for inclusion proof associated with TBD_1). It seems clear that TBD_2 and TBD_3 are refinements of TBD_1 that should ideally be in a separate registry.\r\n\r\nFurthermore, as discussed last week, the notion of proof type (inclusion proof, consistency proof, freshness proof...) is a lot more meaningful than the notion of verfiable data structure type for protocols that build on COMETRE. \r\nTherefore, it may be natural to define either a universal type for each proof type, or at least agree on the convention that proofs for all verifiable data structures must be CBOR tagged with the same proof type, which is then defined as a separate registry. Each RFC that extends COMETE must define a new verifiable data structure but may or may not extend the proof type registry. For instance, it would allow the CCF_ledger to use the same CBOR tags for inclusion proof and consistency proof instead of having to define 3 tags with different semantics.",
-          "createdAt": "2023-07-04T13:03:25Z",
-          "updatedAt": "2023-07-04T13:03:25Z"
-        },
-        {
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "body": "There were basically 2 paths discussed:\r\n\r\n### 2 Layer Registry (encryption like)\r\n\r\n(implemented in this PR)\r\n\r\ntree_alg (TBD_1): RFC9162 (1)\r\ninclusion proof (TBD_2): bytes based on tree_alg\r\nconsistency proof (TBD_3): bytes based on tree_alg\r\n\r\ntree_alg (TBD_1): BitcoinMerkleTree (2)\r\ninclusion proof (TBD_2): bytes based on tree_alg\r\nconsistency proof (TBD_3): bytes based on tree_alg\r\n\r\ntree_alg (TBD_1): Merkle^2 Tree (3)\r\ninclusion proof (TBD_2): bytes based on tree_alg\r\nconsistency proof (TBD_3): bytes based on tree_alg\r\nsearch proof (TBD_4): bytes based on tree_alg\r\nnon inclusion proof (TBD_5): bytes based on tree_alg\r\n\r\n### 1 Layer Registry  (signature like)\r\n\r\n(previously discussed at IETF 115)\r\n\r\ntree_alg (TBD_1) : \"RFC9162_SHA256_INCLUSION_PROOF\" (TBD_A)\r\nproof (TBD_B): bytes based on alg\r\n\r\ntree_alg (TBD_1) : \"RFC9162_SHA256_CONSISTENCY_PROOF\" (TBD_C)\r\nproof (TBD_B): bytes based on alg\r\n \r\nOther things to consider...\r\n\r\nCan an unprotected header contain multiple proofs for a single type?\r\n\r\nCan an unprotected header contain multiple proofs of multiple types?",
-          "createdAt": "2023-07-04T15:35:58Z",
-          "updatedAt": "2023-07-04T15:39:59Z"
-        },
-        {
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "body": "@roywill @fournet thank you for the reviews.\r\n\r\nAll the CDDL examples will need some help, and certainly there is a lot more editorial work that needs to be done to fully align to this approach.\r\n\r\nI tried to do the minimum in this PR to host the discussion, but if we merge this, there will need to be further cleanup.",
-          "createdAt": "2023-07-07T13:33:54Z",
-          "updatedAt": "2023-07-07T13:33:54Z"
-        }
-      ],
-      "reviews": [
-        {
-          "id": "PRR_kwDOJHVbLc5aLrRv",
-          "commit": {
-            "abbreviatedOid": "d9cb116"
-          },
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "state": "COMMENTED",
-          "body": "Add an example of \"verify\" that uses the \"proof type tags\"\r\n",
-          "createdAt": "2023-07-04T14:29:13Z",
-          "updatedAt": "2023-07-04T14:29:13Z",
-          "comments": []
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5aL5gc",
-          "commit": {
-            "abbreviatedOid": "d9cb116"
-          },
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "state": "COMMENTED",
-          "body": "Seems like maybe people prefer a single registry with proof types only being bound to a single data structure... ",
-          "createdAt": "2023-07-04T14:58:49Z",
-          "updatedAt": "2023-07-04T14:58:49Z",
-          "comments": []
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5aawvH",
-          "commit": {
-            "abbreviatedOid": "d9cb116"
-          },
-          "author": "roywill",
-          "authorAssociation": "NONE",
-          "state": "APPROVED",
-          "body": "I should point out that the deletion of the consistency proof CDDL, means that it shows up before you define it below.  If you think that is ok, I am fine with it.",
-          "createdAt": "2023-07-06T16:59:59Z",
-          "updatedAt": "2023-07-06T16:59:59Z",
-          "comments": []
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5agbUX",
-          "commit": {
-            "abbreviatedOid": "d9cb116"
-          },
-          "author": "fournet",
-          "authorAssociation": "NONE",
-          "state": "APPROVED",
-          "body": "I agree with Orie's choices; \"verifiable data structure\" and \"proof type\" are good generalizations,  and I prefer the 2-layer algorithm as e.g. some verifiers may care about a commitment to a VDS even if they don't use a particular proof type.",
-          "createdAt": "2023-07-07T09:37:30Z",
-          "updatedAt": "2023-07-07T09:37:30Z",
-          "comments": []
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5aiT41",
-          "commit": {
-            "abbreviatedOid": "d9cb116"
-          },
-          "author": "henkbirkholz",
-          "authorAssociation": "MEMBER",
-          "state": "APPROVED",
-          "body": "Approved, acknowledging the need for further editorial work & CDDL examples",
-          "createdAt": "2023-07-07T13:47:27Z",
-          "updatedAt": "2023-07-07T13:47:27Z",
-          "comments": []
-        }
-      ]
-    },
-    {
-      "number": 19,
-      "id": "PR_kwDOJHVbLc5U_i_1",
-      "title": "Update introduction",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/19",
-      "state": "MERGED",
-      "author": "OR13",
-      "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [],
-      "body": "This PR aligns the abstract and intro with generalizing away from specific merkle trees",
-      "createdAt": "2023-07-08T13:42:37Z",
-      "updatedAt": "2023-07-10T12:29:30Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "baseRefName": "main",
-      "baseRefOid": "21b259f9b907cd91326da127a8882e50941b53f1",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "update-intro",
-      "headRefOid": "5ee57bd1795555c39c2c5a0deb36099a27966620",
-      "closedAt": "2023-07-10T12:29:29Z",
-      "mergedAt": "2023-07-10T12:29:29Z",
-      "mergedBy": "OR13",
-      "mergeCommit": {
-        "oid": "b7cea85a2977f7c8e91c2a6b84d59f383daf721a"
-      },
-      "comments": [],
-      "reviews": [
-        {
-          "id": "PRR_kwDOJHVbLc5ap8E4",
-          "commit": {
-            "abbreviatedOid": "5ee57bd"
-          },
-          "author": "JAG-UK",
-          "authorAssociation": "CONTRIBUTOR",
-          "state": "APPROVED",
-          "body": "LGTM",
-          "createdAt": "2023-07-09T18:27:49Z",
-          "updatedAt": "2023-07-09T18:27:49Z",
-          "comments": []
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5asTQJ",
-          "commit": {
-            "abbreviatedOid": "5ee57bd"
-          },
-          "author": "robinbryce",
-          "authorAssociation": "NONE",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-07-10T08:37:28Z",
-          "updatedAt": "2023-07-10T08:37:28Z",
-          "comments": [
-            {
-              "originalPosition": 26,
-              "body": "Are consistency proofs on their own sufficent to show a database has been managed in an append only manner ?",
-              "createdAt": "2023-07-10T08:37:28Z",
-              "updatedAt": "2023-07-10T08:37:29Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5atyue",
-          "commit": {
-            "abbreviatedOid": "5ee57bd"
-          },
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-07-10T12:17:16Z",
-          "updatedAt": "2023-07-10T12:17:16Z",
-          "comments": [
-            {
-              "originalPosition": 26,
-              "body": "The ones from rfc9162 depend on inclusion proofs, but together they prove the append only property. The details are in rfc9162, there is a tree diagram that helps explain this better than the text in our draft.",
-              "createdAt": "2023-07-10T12:17:16Z",
-              "updatedAt": "2023-07-10T12:17:16Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5at3BH",
-          "commit": {
-            "abbreviatedOid": "5ee57bd"
-          },
-          "author": "henkbirkholz",
-          "authorAssociation": "MEMBER",
-          "state": "APPROVED",
-          "body": "",
-          "createdAt": "2023-07-10T12:27:42Z",
-          "updatedAt": "2023-07-10T12:27:42Z",
-          "comments": []
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5at3rA",
-          "commit": {
-            "abbreviatedOid": "5ee57bd"
-          },
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-07-10T12:29:10Z",
-          "updatedAt": "2023-07-10T12:29:10Z",
-          "comments": [
-            {
-              "originalPosition": 26,
-              "body": "Here is an implementation that might be a bit easier to understand:\r\n\r\nhttps://github.com/transmute-industries/rfc9162/blob/main/test/consistencyProof.test.ts\r\n\r\nits base on this https://datatracker.ietf.org/doc/html/rfc9162#section-2.1.5",
-              "createdAt": "2023-07-10T12:29:10Z",
-              "updatedAt": "2023-07-10T12:29:10Z"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "number": 20,
-      "id": "PR_kwDOJHVbLc5U_kvG",
-      "title": "Update terms",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/20",
-      "state": "MERGED",
-      "author": "OR13",
-      "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [],
-      "body": "builds on #19 \r\n\r\nRemoves merkle specific terms, introduces generic terms",
-      "createdAt": "2023-07-08T14:11:09Z",
-      "updatedAt": "2023-07-10T12:30:03Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "baseRefName": "main",
-      "baseRefOid": "21b259f9b907cd91326da127a8882e50941b53f1",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "update-terms",
-      "headRefOid": "c34e198a24ff7930b14ebcd5d56ef5ad8f4d3d5e",
-      "closedAt": "2023-07-10T12:30:02Z",
-      "mergedAt": "2023-07-10T12:30:02Z",
-      "mergedBy": "OR13",
-      "mergeCommit": {
-        "oid": "090f8a6977b37a2734b769fcf339d63a200f20a4"
-      },
-      "comments": [],
-      "reviews": [
-        {
-          "id": "PRR_kwDOJHVbLc5apDlV",
-          "commit": {
-            "abbreviatedOid": "c34e198"
-          },
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-07-08T14:14:03Z",
-          "updatedAt": "2023-07-08T14:14:03Z",
-          "comments": [
-            {
-              "originalPosition": 66,
-              "body": "Changes after #19 start here.",
-              "createdAt": "2023-07-08T14:14:03Z",
-              "updatedAt": "2023-07-08T14:14:03Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5ap8HF",
-          "commit": {
-            "abbreviatedOid": "c34e198"
-          },
-          "author": "JAG-UK",
-          "authorAssociation": "CONTRIBUTOR",
-          "state": "APPROVED",
-          "body": "More generic is good, although we should have a worked example with Merkle trees",
-          "createdAt": "2023-07-09T18:29:32Z",
-          "updatedAt": "2023-07-09T18:32:23Z",
-          "comments": [
-            {
-              "originalPosition": 66,
-              "body": "I just approved the 'update introduction' PR separately. Might we abandon that and just squash this one once approved?",
-              "createdAt": "2023-07-09T18:29:32Z",
-              "updatedAt": "2023-07-09T18:32:23Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5asZZM",
-          "commit": {
-            "abbreviatedOid": "c34e198"
-          },
-          "author": "henkbirkholz",
-          "authorAssociation": "MEMBER",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-07-10T08:49:58Z",
-          "updatedAt": "2023-07-10T08:49:58Z",
-          "comments": [
-            {
-              "originalPosition": 66,
-              "body": "merging subsequently seems fine to me.",
-              "createdAt": "2023-07-10T08:49:58Z",
-              "updatedAt": "2023-07-10T08:49:58Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5at3bU",
-          "commit": {
-            "abbreviatedOid": "c34e198"
-          },
-          "author": "henkbirkholz",
-          "authorAssociation": "MEMBER",
-          "state": "APPROVED",
-          "body": "subsequently to #19 ",
-          "createdAt": "2023-07-10T12:28:43Z",
-          "updatedAt": "2023-07-10T12:28:43Z",
-          "comments": []
-        }
-      ]
-    },
-    {
-      "number": 22,
-      "id": "PR_kwDOJHVbLc5U_tsp",
-      "title": "Update generic structures",
-      "url": "https://github.com/ietf-scitt/draft-steele-cose-merkle-tree-proofs/pull/22",
-      "state": "MERGED",
-      "author": "OR13",
-      "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [],
-      "body": "This PR build on #20 and attempts to clarify what is generic vc what is specific to RFC9162 encodings",
-      "createdAt": "2023-07-08T16:15:06Z",
-      "updatedAt": "2023-07-10T13:07:49Z",
-      "baseRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "baseRefName": "main",
-      "baseRefOid": "21b259f9b907cd91326da127a8882e50941b53f1",
-      "headRepository": "ietf-scitt/draft-steele-cose-merkle-tree-proofs",
-      "headRefName": "generic-structures",
-      "headRefOid": "756a026102f0c86f62fb03fecb25251ffaed4c79",
-      "closedAt": "2023-07-10T13:07:48Z",
-      "mergedAt": "2023-07-10T13:07:48Z",
-      "mergedBy": "henkbirkholz",
-      "mergeCommit": {
-        "oid": "1738335142dfd571c7f27fdcc5fbb7fa4bfcda18"
-      },
-      "comments": [],
-      "reviews": [
-        {
-          "id": "PRR_kwDOJHVbLc5apJV7",
-          "commit": {
-            "abbreviatedOid": "b15fb60"
-          },
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-07-08T16:16:06Z",
-          "updatedAt": "2023-07-08T16:16:07Z",
-          "comments": [
-            {
-              "originalPosition": 84,
-              "body": "This is the beginning of changes after #20 \r\n\r\nSubstantial reordering an rewording follows...",
-              "createdAt": "2023-07-08T16:16:06Z",
-              "updatedAt": "2023-07-08T16:16:07Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5ap8OA",
-          "commit": {
-            "abbreviatedOid": "b15fb60"
-          },
-          "author": "JAG-UK",
-          "authorAssociation": "CONTRIBUTOR",
-          "state": "CHANGES_REQUESTED",
-          "body": "Mostly improves on the earlier version, I like the generality it allows for.\r\nA couple of larger questions in here amongst the suggestions",
-          "createdAt": "2023-07-09T18:34:00Z",
-          "updatedAt": "2023-07-09T18:48:17Z",
-          "comments": [
-            {
-              "originalPosition": 84,
-              "body": "I've separately approved #19 and #20 in other PRs.Starting review from this point",
-              "createdAt": "2023-07-09T18:34:01Z",
-              "updatedAt": "2023-07-09T18:48:18Z"
-            },
-            {
-              "originalPosition": 208,
-              "body": "```suggestion\r\nSome proof types benefit from standard envelope formats for signing and encryption, whilst others require no further cryptographic intervention at all.\r\n```",
-              "createdAt": "2023-07-09T18:36:27Z",
-              "updatedAt": "2023-07-09T18:48:17Z"
-            },
-            {
-              "originalPosition": 247,
-              "body": "```suggestion\r\nfor example, different Merkle trees might support different representations of \"inclusion proof\" or \"consistency proof\".\r\n```",
-              "createdAt": "2023-07-09T18:37:21Z",
-              "updatedAt": "2023-07-09T18:48:17Z"
-            },
-            {
-              "originalPosition": 250,
-              "body": "```suggestion\r\nProtocols requiring proof of inclusion ought to be able to preserve their functionality,\r\n```",
-              "createdAt": "2023-07-09T18:37:35Z",
-              "updatedAt": "2023-07-09T18:48:17Z"
-            },
-            {
-              "originalPosition": 251,
-              "body": "```suggestion\r\nwhile switching from one verifiable data structure to another, so long as both structures support the same proof types.\r\n```",
-              "createdAt": "2023-07-09T18:37:46Z",
-              "updatedAt": "2023-07-09T18:48:17Z"
-            },
-            {
-              "originalPosition": 338,
-              "body": "```suggestion\r\nOther specifications refer to signed inclusion proofs as \"receipts\",\r\n```",
-              "createdAt": "2023-07-09T18:39:58Z",
-              "updatedAt": "2023-07-09T18:48:17Z"
-            },
-            {
-              "originalPosition": 338,
-              "body": "This is interesting. I've been struggling with the suggested need for signing inclusion proofs - in large scale native MT systems (like Ethereum) the proof stands alone (given a published root) and signatures are pointless. \r\n\r\nAre we saying here that actually 'signed inclusion proof' means 'a signed payload which includes a bunch of things including a stand-alone inclusion proof and some extra more semantically meaningful info about what the proof is for'? i.e. a complete SCITT sig?\r\n",
-              "createdAt": "2023-07-09T18:43:14Z",
-              "updatedAt": "2023-07-09T18:48:18Z"
-            },
-            {
-              "originalPosition": 357,
-              "body": "```suggestion\r\nA previous Merkle tree hash as defined in {{-certificate-transparency-v2}}.\r\n```",
-              "createdAt": "2023-07-09T18:45:24Z",
-              "updatedAt": "2023-07-09T18:48:18Z"
-            },
-            {
-              "originalPosition": 427,
-              "body": "```suggestion\r\nThe latest Merkle tree hash as defined in {{-certificate-transparency-v2}}.\r\n```",
-              "createdAt": "2023-07-09T18:46:29Z",
-              "updatedAt": "2023-07-09T18:48:18Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5at6bQ",
-          "commit": {
-            "abbreviatedOid": "b15fb60"
-          },
-          "author": "OR13",
-          "authorAssociation": "COLLABORATOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2023-07-10T12:35:46Z",
-          "updatedAt": "2023-07-10T12:35:46Z",
-          "comments": [
-            {
-              "originalPosition": 338,
-              "body": "(in the case of merkle trees) a signed inclusion proof is a signature over a merkle root, with the merkle audit path and other proof data in the unprotected header... such as that any party holding a leaf can recompute the root, and check the signature.\r\n\r\nThis allows parties to avoid storing or accessing a large shared database, such as a blockchain.\r\n\r\nWhich is also valuable to blockchain based approaches that want to be trusted by parties that won't verify the chain.... for example, a vendor might issued signed inclusion proofs, and then other vendors can trust the transparency service vendor without running all their backend, etc...\r\n",
-              "createdAt": "2023-07-10T12:35:46Z",
-              "updatedAt": "2023-07-10T12:38:56Z"
-            }
-          ]
-        },
-        {
-          "id": "PRR_kwDOJHVbLc5at-VQ",
-          "commit": {
-            "abbreviatedOid": "756a026"
-          },
-          "author": "henkbirkholz",
-          "authorAssociation": "MEMBER",
-          "state": "APPROVED",
-          "body": "",
-          "createdAt": "2023-07-10T12:45:05Z",
-          "updatedAt": "2023-07-10T12:45:05Z",
-          "comments": []
-        }
-      ]
+      "reviews": []
     }
   ]
 }
