@@ -80,7 +80,12 @@ Table of Contents
      5.3.  Consistency Proof
        5.3.1.  Consistency Receipt
    6.  Privacy Considerations
+     6.1.  Log Length
+     6.2.  Header Parameters
    7.  Security Considerations
+     7.1.  Choice of Signature Algorithms
+     7.2.  Validity Period
+     7.3.  Status Updates
    8.  Acknowledgements
    9.  IANA Considerations
      9.1.  Additions to Existing Registries
@@ -560,6 +565,22 @@ Table of Contents
 
    *  [RFC9053]
 
+6.1.  Log Length
+
+   Some structures and proofs leak the size of the log at the time of
+   inclusion.  In the case that a log only stores certain kinds of
+   information, this can reveal details that could impact reputation.
+   For example, if a transparency log only stored breach notices, a
+   receipt for a breach notice would reveal the number of previous
+   breaches at the time the notice was made transparent.
+
+6.2.  Header Parameters
+
+   Additional header parameters can reveal information about the
+   transparency service or its log entries.  A privacy analysis SHOULD
+   be performed for all mandatory fields in profiles based on this
+   specification.
+
 7.  Security Considerations
 
    See the security considerations section of:
@@ -567,6 +588,26 @@ Table of Contents
    *  [RFC9162]
 
    *  [RFC9053]
+
+7.1.  Choice of Signature Algorithms
+
+   A security analysis SHOULD be performed to ensure that the digitial
+   signature algorithm alg is the appropriate strength to secure
+   receipts.
+
+7.2.  Validity Period
+
+   In some cases, receipts SHOULD have strict validity periods, for
+   example, activation not too far in the future, or expiration, not too
+   far in the past.  See the iat, nbf, and exp claims in [RFC8392], for
+   one way to accomplish this.  The details of expressing validity
+   periods are out of scope for this document.
+
+7.3.  Status Updates
+
+   In some cases, receipts should be "revocable" or "suspendible", after
+   being issued, regardless of their validity period.  The details of
+   expressing statuses are out of scope for this document.
 
 8.  Acknowledgements
 
@@ -741,6 +782,10 @@ Table of Contents
               Internet-Draft, draft-ietf-scitt-architecture-04, 23
               October 2023, <https://datatracker.ietf.org/doc/html/
               draft-ietf-scitt-architecture-04>.
+
+   [RFC8392]  Jones, M., Wahlstroem, E., Erdtman, S., and H. Tschofenig,
+              "CBOR Web Token (CWT)", RFC 8392, DOI 10.17487/RFC8392,
+              May 2018, <https://www.rfc-editor.org/rfc/rfc8392>.
 
 Appendix A.  Implementation Status
 
