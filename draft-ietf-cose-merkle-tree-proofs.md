@@ -56,6 +56,7 @@ normative:
 
 
 informative:
+  RFC8392: CWT
   I-D.ietf-cose-countersign:
   I-D.ietf-scitt-architecture: scitt-architecture
   I-D.ietf-cose-cwt-claims-in-headers: cwt-header-claims
@@ -450,12 +451,43 @@ See the privacy considerations section of:
 - {{-certificate-transparency-v2}}
 - {{-COSE}}
 
+## Log Length
+
+Some structures and proofs leak the size of the log at the time of inclusion.
+In the case that a log only stores certain kinds of information, this can reveal details that could impact reputation.
+For example, if a transparency log only stored breach notices,
+a receipt for a breach notice would reveal the number of previous breaches at the time the notice was made transparent.
+
+## Header Parameters
+
+Additional header parameters can reveal information about the transparency service or its log entries.
+A privacy analysis SHOULD be performed for all mandatory fields in profiles based on this specification.
+
 # Security Considerations
 
 See the security considerations section of:
 
 - {{-certificate-transparency-v2}}
 - {{-COSE}}
+
+## Choice of Signature Algorithms
+
+A security analysis SHOULD be performed to ensure that the
+digitial signature algorithm `alg` is the appropriate strength to secure receipts.
+
+## Validity Period
+
+In some cases, receipts SHOULD have strict validity periods, for example,
+activation not too far in the future, or expiration, not too far in the past.
+See the `iat`, `nbf`, and `exp` claims in {{-CWT}}, for one way to accomplish this.
+The details of expressing validity periods are out of scope for this document.
+
+## Status Updates
+
+In some cases, receipts should be "revocable" or "suspendible",
+after being issued, regardless of their validity period.
+The details of expressing statuses are out of scope for this document.
+
 
 # Acknowledgements {#Acknowledgements}
 
