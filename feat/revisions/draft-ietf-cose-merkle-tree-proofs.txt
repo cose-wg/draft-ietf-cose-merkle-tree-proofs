@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 7 June 2024                                      Fraunhofer SIT
+Expires: 8 June 2024                                      Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                         5 December 2023
+                                                         6 December 2023
 
 
              Concise Encoding of Signed Merkle Tree Proofs
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 June 2024.
+   This Internet-Draft will expire on 8 June 2024.
 
 Copyright Notice
 
@@ -168,7 +168,7 @@ Table of Contents
       proof (inclusion and consistency).
 
    Proof Type:  A verifiable process, that proves properties of a
-      Verifiable Data Structures.
+      Verifiable Data Structure.
 
    Proof Value:  An encoding of a Proof Type in CBOR.
 
