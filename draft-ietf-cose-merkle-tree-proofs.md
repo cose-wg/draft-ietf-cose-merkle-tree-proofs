@@ -121,7 +121,7 @@ Verifiable Data Structure Parameters:
 
 Proof Type:
 
-: A verifiable process, that proves properties of a Verifiable Data Structures.
+: A verifiable process, that proves properties of a Verifiable Data Structure.
 
 Proof Value:
 
