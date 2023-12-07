@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-12-05T00:38:17.322619+00:00",
+  "timestamp": "2023-12-07T00:37:26.531923+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -446,6 +446,53 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOKPwz585hMsaj",
+      "title": "Updates",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/10",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR makes editorial changes, clarifies some cddl, and adds considerations.",
+      "createdAt": "2023-12-05T16:12:01Z",
+      "updatedAt": "2023-12-06T18:53:55Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "82f82f10e5c7474a717ec66c6f4a09e20e69be9d",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "feat/revisions",
+      "headRefOid": "f3739264433e206e3d689de44f45339159293e64",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz585pPYEe",
+          "commit": {
+            "abbreviatedOid": "b37b38c"
+          },
+          "author": "aj-stein-nist",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-12-05T16:51:35Z",
+          "updatedAt": "2023-12-05T16:53:33Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "A minor edit to follow up on your minor edit.\r\n\r\n```suggestion\r\n: A verifiable process, that proves properties of a Verifiable Data Structure.\r\n```\r\n\r\nAs an aside, can a Proof Type only handle a Verifiable Data Structure, not more than one? That is implied by the edit here.",
+              "createdAt": "2023-12-05T16:51:35Z",
+              "updatedAt": "2023-12-05T16:53:33Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
