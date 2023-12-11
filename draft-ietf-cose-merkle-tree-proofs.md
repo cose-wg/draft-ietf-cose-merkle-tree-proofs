@@ -54,9 +54,13 @@ normative:
   RFC8126: iana-considerations-guide
   BCP205: RFC7942
 
+
 informative:
+  RFC8392: CWT
   I-D.ietf-cose-countersign:
   I-D.ietf-scitt-architecture: scitt-architecture
+  I-D.ietf-cose-cwt-claims-in-headers: cwt-header-claims
+  I-D.ietf-cose-typ-header-parameter: cose-typ
 
 
 --- abstract
@@ -109,38 +113,35 @@ Verifiable Data Structure:
 
 : A data structure which supports one or more Proof Types.
 
+Verifiable Data Structure Parameters:
+
+: Parameters to a verifiable data structure that are used to prove properties,
+  such as authentication, inclusion, consistency, and freshness.
+  Parameters can include multiple proofs of a given type, or multiple types of proof (inclusion and consistency).
+
 Proof Type:
 
-: A verifiable process, that proves properties of one or more Verifiable Data Structures.
+: A verifiable process, that proves properties of a Verifiable Data Structure.
 
 Proof Value:
 
 : An encoding of a Proof Type in CBOR.
 
-Proof Signature:
-
-: A COSE Sign1 encoding of a specific Proof Type for a specific Verifiable Data Structure.
-
 # Verifiable Data Structures in CBOR {#sec-generic-verifiable-data-structures}
 
-This section describes representations of verifiable data structure proofs structures in CBOR.
-
-Different verifiable data structures support the same proof types,
-but the representations of the proofs varies greatly.
+This section describes representations of verifiable data structure proofs in CBOR.
 
 For example, construction of a merkle tree leaf, or an inclusion proof from a leaf to a merkle root,
 might have several different representations, depending on the verifiable data structure used.
 
-Some differences in representations are necessary to support efficient
-verification of different kinds of proofs and for compatibility with specific implementations.
-
-Some proof types benefit from standard envelope formats for signing and encryption, whilst others require no further cryptographic intervention at all.
+Differences in representations are necessary to support efficient
+verification, unique security or privacy properties, and for compatibility with specific implementations.
 
 In order to improve interoperability we define two extension points for
 enabling verifiable data structures with COSE, and we provide concrete examples for
 the structures and proofs defined in {{-certificate-transparency-v2}}.
 
-## COSE Verifiable Data Structures {#sec-cose-verifiable-data-structures}
+## Structures {#sec-cose-verifiable-data-structures}
 
 Similar to [COSE Key Types](https://www.iana.org/assignments/cose/cose.xhtml#key-type),
 different verifiable data structures support different algorithms.
@@ -171,12 +172,12 @@ for example:
 | N/A             | 0     | N/A                              | N/A
 | RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
 | Your name       | TBD (requested assignment 2) | tbd       | Your specification
+{: #cose-verifiable-data-structures-registration-guidance align="left" title="How to register new structures"}
 
-
-## COSE Verifiable Data Structure Parameters {#sec-cose-verifiable-data-structure-parameters}
+## Parameters {#sec-cose-verifiable-data-structure-parameters}
 
 Similar to [COSE Key Type Parameters](https://www.iana.org/assignments/cose/cose.xhtml#key-type-parameters),
-As EC2 keys (1: 2) keys require and give meanding to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d),
+As EC2 keys (1: 2) keys require and give meaning to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d),
 RFC9162_SHA256 (TBD_1 : 1) supports both (-1) inclusion and (-2) consistency proofs.
 
 This document establishes a registry of verifiable data structure algorithms,
@@ -192,14 +193,17 @@ Proof types are specific to their associated "verifiable data structure",
 for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
 
 Implementers should not expect interoperability accross "verifiable data structures",
-but they should expect conceptually similar properties across the different registered proof type.
+but they should expect conceptually similar properties across the different registered proof types.
 
 For example, 2 different merkle tree based verifiable data structures might both support proofs of inclusion.
 
 Protocols requiring proof of inclusion ought to be able to preserve their functionality,
 while switching from one verifiable data structure to another, so long as both structures support the same proof types.
 
-When desigining new verifiable data structure parameters (or proof types),
+Security analysis SHOULD be conducted prior to migrating to new structures to ensure
+the new security and privacy assumptions are acceptable for the use case.
+
+When designing new verifiable data structure parameters (or proof types),
 please start with -1, and count down for each proof type supported by your verifiable data structure:
 
 | Verifiable Data Structure | Name               | Label | CBOR Type        | Description                   | Reference
@@ -209,6 +213,7 @@ please start with -1, and count down for each proof type supported by your verif
 |TBD (requested assignment 2) | new proof type     | -1    | tbd              | tbd                           | Your_Specification
 |TBD (requested assignment 2) | new proof type     | -2    | tbd              | tbd                           | Your_Specification
 |TBD (requested assignment 2) | new proof type     | -3    | tbd              | tbd                           | Your_Specification
+{: #cose-verifiable-data-structures-parameters-registration-guidance align="left" title="How to register new parameters"}
 
 ### Registration Requirements
 
@@ -248,16 +253,29 @@ inclusion-proof = [
 ]
 ~~~~
 
-### Inclusion Proof Signature
+### Inclusion Receipt
+
+This specification sometimes refers to profiles of signed inclusion proofs as "receipts".
 
 In a signed inclusion proof, the previous merkle tree root, maps to tree-size-1, and is a detached payload.
 
-Other specifications refer to signed inclusion proofs as "receipts",
-profiles of proof signatures are encouraged to make additional protected header parameters mandatory.
+Profiles of proof signatures are encouraged to make additional protected header parameters mandatory,
+to ensure that claims are processed with their intended semantics.
 
-TODO: reference to scitt receipts.
+One way to include this information in the COSE structure is use of the typ (type) Header Parameter,
+see {{-cose-typ}} and the similar guidance provided in {{-cwt-header-claims}}.
+
+The {{-scitt-architecture}} describes one way in which signed inclusion proofs can be leveraged to support supply chain transparency.
 
 The protected header for an RFC9162_SHA256 inclusion proof signature is:
+
+~~~~ cddl
+protected-header-map = {
+  &(alg: 1) => int
+  &(verifiable-data-structure: -111) => int
+  * cose-label => cose-value
+}
+~~~~
 
 * alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int / tstr.
 * verifiable-data-structure (label: -111): REQUIRED. verifiable data structure algorithm identifier. Value type: int / tstr.
@@ -266,7 +284,7 @@ The unprotected header for an RFC9162_SHA256 inclusion proof signature is:
 
 ~~~~ cddl
 
-inclusion-proofs = [ + bstr ]
+inclusion-proofs = [ + bstr .cbor inclusion-proof ]
 
 verifiable-proofs = {
   &(inclusion-proof: -1) => inclusion-proofs
@@ -278,6 +296,7 @@ unprotected-header-map = {
 }
 ~~~~
 
+* verifiable-data-proof (label: -222): REQUIRED.
 * inclusion-proof (label: -1): REQUIRED.
 
 The payload of an RFC9162_SHA256 inclusion proof signature is the previous Merkle tree hash as defined in {{-certificate-transparency-v2}}.
@@ -303,6 +322,7 @@ this protects against implementation errors where the signature is verified but 
     ]
 )
 ~~~~
+{: #rfc9162_sha256_inclusion_receipt align="left" title="Example inclusion receipt"}
 
 ~~~~ cbor-diag
 {                                   / Protected                     /
@@ -311,6 +331,7 @@ this protects against implementation errors where the signature is verified but 
   -111: 1,                          / Verifiable Data Structure     /
 }
 ~~~~
+{: #rfc9162_sha256_inclusion_receipt_header align="left" title="Example inclusion receipt decoded protected header"}
 
 ~~~~ cbor-diag
 [                                   / Inclusion proof 1             /
@@ -323,6 +344,7 @@ this protects against implementation errors where the signature is verified but 
   ]
 ]
 ~~~~
+{: #rfc9162_sha256_inclusion_receipt_inclusion_proof align="left" title="Example inclusion receipt decoded inclusion proof"}
 
 ## Consistency Proof {#sec-rfc9162-sha256-consistency-proof}
 
@@ -341,11 +363,19 @@ consistency-proof = [
 
 Editors note: tree-size-1, could be ommited, if an inclusion-proof is always present, since the inclusion proof contains, tree-size-1.
 
-### Consistency Proof Signature
+### Consistency Receipt
 
 In a signed consistency proof, the latest merkle tree root, maps to tree-size-2, and is an attached payload.
 
 The protected header for an RFC9162_SHA256 consistency proof signature is:
+
+~~~~ cddl
+protected-header-map = {
+  &(alg: 1) => int
+  &(verifiable-data-structure: -111) => int
+  * cose-label => cose-value
+}
+~~~~
 
 * alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int / tstr.
 * verifiable-data-structure (label: TBD_1): REQUIRED. verifiable data structure algorithm identifier. Value type: int / tstr.
@@ -366,6 +396,7 @@ unprotected-header-map = {
 }
 ~~~~
 
+* verifiable-data-proof (label: -222): REQUIRED.
 * consistency-proof (label: -2): REQUIRED.
 
 The payload of an RFC9162_SHA256 consistency proof signature is:
@@ -390,6 +421,7 @@ The payload MUST be attached.
     ]
 )
 ~~~~
+{: #rfc9162_sha256_consistency_receipt align="left" title="Example consistency receipt"}
 
 ~~~~ cbor-diag
 {                                   / Protected                     /
@@ -398,6 +430,7 @@ The payload MUST be attached.
   -111: 1,                          / Verifiable Data Structure     /
 }
 ~~~~
+{: #rfc9162_sha256_consistency_receipt_header align="left" title="Example consistency receipt decoded protected header"}
 
 ~~~~ cbor-diag
 [                                   / Consistency proof 1           /
@@ -409,6 +442,7 @@ The payload MUST be attached.
   ]
 ]
 ~~~~
+{: #rfc9162_sha256_consistency_receipt_consistency_proof align="left" title="Example consistency receipt decoded consistency proof"}
 
 # Privacy Considerations
 
@@ -417,12 +451,43 @@ See the privacy considerations section of:
 - {{-certificate-transparency-v2}}
 - {{-COSE}}
 
+## Log Length
+
+Some structures and proofs leak the size of the log at the time of inclusion.
+In the case that a log only stores certain kinds of information, this can reveal details that could impact reputation.
+For example, if a transparency log only stored breach notices,
+a receipt for a breach notice would reveal the number of previous breaches at the time the notice was made transparent.
+
+## Header Parameters
+
+Additional header parameters can reveal information about the transparency service or its log entries.
+A privacy analysis SHOULD be performed for all mandatory fields in profiles based on this specification.
+
 # Security Considerations
 
 See the security considerations section of:
 
 - {{-certificate-transparency-v2}}
 - {{-COSE}}
+
+## Choice of Signature Algorithms
+
+A security analysis SHOULD be performed to ensure that the
+digitial signature algorithm `alg` is the appropriate strength to secure receipts.
+
+## Validity Period
+
+In some cases, receipts SHOULD have strict validity periods, for example,
+activation not too far in the future, or expiration, not too far in the past.
+See the `iat`, `nbf`, and `exp` claims in {{-CWT}}, for one way to accomplish this.
+The details of expressing validity periods are out of scope for this document.
+
+## Status Updates
+
+In some cases, receipts should be "revocable" or "suspendible",
+after being issued, regardless of their validity period.
+The details of expressing statuses are out of scope for this document.
+
 
 # Acknowledgements {#Acknowledgements}
 
