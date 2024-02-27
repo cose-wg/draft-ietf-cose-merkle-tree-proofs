@@ -43,12 +43,7 @@ author:
   country: UK
 
 normative:
-  RFC8949:
-  RFC6962: certificate-transparency-v1
   RFC9162: certificate-transparency-v2
-  RFC6234:
-  RFC8032:
-  RFC6979:
   RFC7049: CBOR
   RFC9053: COSE
   RFC8126: iana-considerations-guide
@@ -57,7 +52,6 @@ normative:
 
 informative:
   RFC8392: CWT
-  I-D.ietf-cose-countersign:
   I-D.ietf-scitt-architecture: scitt-architecture
   I-D.ietf-cose-cwt-claims-in-headers: cwt-header-claims
   I-D.ietf-cose-typ-header-parameter: cose-typ
