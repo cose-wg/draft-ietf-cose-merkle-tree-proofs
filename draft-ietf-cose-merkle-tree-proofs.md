@@ -1,7 +1,7 @@
 ---
 v: 3
 
-title: Concise Encoding of Signed Merkle Tree Proofs
+title: COSE Receipts
 abbrev: CoMETRE
 docname: draft-ietf-cose-merkle-tree-proofs-latest
 stand_alone: true
@@ -65,8 +65,8 @@ informative:
 
 --- abstract
 
-This specification describes verifiable data structures and associated proof types for use with COSE.
-The extensibility of the approach is demonstrated by providing CBOR encodings for RFC9162.
+This specification describes verifiable data structures and associated proof types for use with COSE (CBOR Object Signing and Encryption).
+The extensibility of the approach is demonstrated by providing CBOR (Concise Binary Object Representation) encodings for RFC9162.
 
 --- middle
 
@@ -88,11 +88,16 @@ can increase the burden for implementers, and create interoperability challenges
 
 This document describes how to convey verifiable data structures, and associated proof types in COSE envelopes.
 
+For conciseness, we refer to a COSE object securing a verifiable data structure and its associated proof types,
+as a COSE Receipt.
+
 ## Requirements Notation
 
 {::boilerplate bcp14-tagged}
 
 # CBOR Tags
+
+Editorial Note (To be removed by RFC Editor).
 
 This section will be removed before the document is completed,
 its purpose is to track the TBD code points references throughout the draft.
@@ -126,6 +131,15 @@ Proof Type:
 Proof Value:
 
 : An encoding of a Proof Type in CBOR.
+
+Entry:
+
+: An entry in a verifiable data structure for which proofs can be derived.
+
+Receipt:
+
+: A COSE Object containing the header parameters necessary to convey a proof types for verifiable data structures.
+
 
 # Verifiable Data Structures in CBOR {#sec-generic-verifiable-data-structures}
 
@@ -226,7 +240,7 @@ See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 # RFC9162_SHA256 {#sec-rfc-9162-verifiable-data-structure-definition}
 
 This section defines how the data structures described in {{-certificate-transparency-v2}}
-are mapped to the terminology defined in this document, using cbor and cose.
+are mapped to the terminology defined in this document, using CBOR and COSE.
 
 ## Verifiable Data Structure
 
@@ -243,10 +257,10 @@ for a complete description of this verifiable data structure.
 See {{-certificate-transparency-v2}}, 2.1.3.1. Generating an Inclusion Proof,
 for a complete description of this verifiable data structure proof type.
 
-The cbor representation of an inclusion proof for RFC9162_SHA256 is:
+The CBOR representation of an inclusion proof for RFC9162_SHA256 is:
 
 ~~~~ cddl
-inclusion-proof = [
+inclusion-proof = bstr .cbor [
     tree-size: int
     leaf-index: int
     inclusion-path: [ + bstr ]
@@ -284,7 +298,7 @@ The unprotected header for an RFC9162_SHA256 inclusion proof signature is:
 
 ~~~~ cddl
 
-inclusion-proofs = [ + bstr .cbor inclusion-proof ]
+inclusion-proofs = [ + inclusion-proof ]
 
 verifiable-proofs = {
   &(inclusion-proof: -1) => inclusion-proofs
@@ -304,7 +318,9 @@ The payload of an RFC9162_SHA256 inclusion proof signature is the previous Merkl
 The payload MUST be detached.
 
 Detaching the payload forces verifiers to recompute the root from the inclusion proof signature,
-this protects against implementation errors where the signature is verified but the root does not match the inclusion proof.
+this protects against implementation errors where the signature is verified but the merkle root does not match the inclusion proof.
+
+The CBOR Extended Diagnostic Notation (EDN) for a Receipt containing an inclusion proof for RFC9162_SHA256 is:
 
 ~~~~ cbor-diag
 18(                                 / COSE Sign 1                   /
@@ -324,6 +340,8 @@ this protects against implementation errors where the signature is verified but 
 ~~~~
 {: #rfc9162_sha256_inclusion_receipt align="left" title="Example inclusion receipt"}
 
+The CBOR Extended Diagnostic Notation (EDN) for the Protected Header in the example above is:
+
 ~~~~ cbor-diag
 {                                   / Protected                     /
   1: -7,                            / Algorithm                     /
@@ -332,6 +350,8 @@ this protects against implementation errors where the signature is verified but 
 }
 ~~~~
 {: #rfc9162_sha256_inclusion_receipt_header align="left" title="Example inclusion receipt decoded protected header"}
+
+The CBOR Extended Diagnostic Notation (EDN) for the inclusion proof in the Unprotected Header is:
 
 ~~~~ cbor-diag
 [                                   / Inclusion proof 1             /
@@ -346,6 +366,9 @@ this protects against implementation errors where the signature is verified but 
 ~~~~
 {: #rfc9162_sha256_inclusion_receipt_inclusion_proof align="left" title="Example inclusion receipt decoded inclusion proof"}
 
+Verifiers reconstruct, and attach the COSE Sign1 payload, by applying the inclusion proof to a possible entry (set member) bytes.
+If the resulting signature verifies, the Receipt has proved inclusion of the entry in the verifiable data structure.
+
 ## Consistency Proof {#sec-rfc9162-sha256-consistency-proof}
 
 See {{-certificate-transparency-v2}}, 2.1.4.1. Generating a Consistency Proof,
@@ -354,7 +377,7 @@ for a complete description of this verifiable data structure proof type.
 The cbor representation of a consistency proof for RFC9162_SHA256 is:
 
 ~~~~ cddl
-consistency-proof = [
+consistency-proof =  bstr .cbor [
     tree-size-1: int ; size of tree, at previous root
     tree-size-2: int ; size of tree, at latest root
     consistency-path: [ + bstr ] ; path from previous to latest root.
@@ -384,7 +407,7 @@ The unprotected header for an RFC9162_SHA256 consistency proof signature is:
 
 ~~~~ cddl
 
-consistency-proofs = [ + bstr ]
+consistency-proofs = [ + consistency-proof ]
 
 verifiable-proofs = {
   &(consistency-proof: -2) => consistency-proofs
@@ -405,6 +428,8 @@ The latest Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 
 The payload MUST be attached.
 
+The CBOR Extended Diagnostic Notation (EDN) for a Receipt containing a consistency proof for RFC9162_SHA256 is:
+
 ~~~~ cbor-diag
 18(                                 / COSE Sign 1                   /
     [
@@ -423,6 +448,8 @@ The payload MUST be attached.
 ~~~~
 {: #rfc9162_sha256_consistency_receipt align="left" title="Example consistency receipt"}
 
+The CBOR Extended Diagnostic Notation (EDN) for the Protected Header in the example above is:
+
 ~~~~ cbor-diag
 {                                   / Protected                     /
   1: -7,                            / Algorithm                     /
@@ -431,6 +458,8 @@ The payload MUST be attached.
 }
 ~~~~
 {: #rfc9162_sha256_consistency_receipt_header align="left" title="Example consistency receipt decoded protected header"}
+
+The CBOR Extended Diagnostic Notation (EDN) for the consistency proof in the Unprotected Header is:
 
 ~~~~ cbor-diag
 [                                   / Consistency proof 1           /
@@ -443,6 +472,9 @@ The payload MUST be attached.
 ]
 ~~~~
 {: #rfc9162_sha256_consistency_receipt_consistency_proof align="left" title="Example consistency receipt decoded consistency proof"}
+
+Verifiers apply a previous inclusion proof to a consistency proof, to confirm the append only property of a verifiable data structure.
+This approach is specific to RFC9162_SHA256, different verifiable data structures may not support consistency proofs.
 
 # Privacy Considerations
 
@@ -461,7 +493,7 @@ a receipt for a breach notice would reveal the number of previous breaches at th
 ## Header Parameters
 
 Additional header parameters can reveal information about the transparency service or its log entries.
-A privacy analysis SHOULD be performed for all mandatory fields in profiles based on this specification.
+A privacy analysis MUST be performed for all mandatory fields in profiles based on this specification.
 
 # Security Considerations
 
@@ -472,12 +504,15 @@ See the security considerations section of:
 
 ## Choice of Signature Algorithms
 
-A security analysis SHOULD be performed to ensure that the
+A security analysis MUST be performed to ensure that the
 digitial signature algorithm `alg` is the appropriate strength to secure receipts.
+
+It is recommended to select signature algorithms that share cryptographic components with the verifiable data structure used, for example:
+Both RFC9162_SHA256 and ES256 depend on the sha-256 hash function.
 
 ## Validity Period
 
-In some cases, receipts SHOULD have strict validity periods, for example,
+In some cases, receipts might require strict validity periods, for example,
 activation not too far in the future, or expiration, not too far in the past.
 See the `iat`, `nbf`, and `exp` claims in {{-CWT}}, for one way to accomplish this.
 The details of expressing validity periods are out of scope for this document.
@@ -537,6 +572,33 @@ Template:
 
 Initial contents: Provided in {{cose-verifiable-data-structures}}
 
+#### Expert Review
+
+This IANA registries is established under a Specification Required policy.
+
+This section gives some general guidelines for what the experts should be looking for,
+but they are being designated as experts for a reason, so they should be given
+substantial latitude.
+
+Expert reviewers should take into consideration the following points:
+
+*  Point squatting should be discouraged.  Reviewers are encouraged
+to get sufficient information for registration requests to ensure
+that the usage is not going to duplicate one that is already
+registered, and that the point is likely to be used in
+deployments.  The zones tagged as private use are intended for
+testing purposes and closed environments; code points in other
+ranges should not be assigned for testing.
+
+* Specifications are required for all point assignments.
+Early assignment before a specification is available is considered
+to be permissible, however, such registrations MUST be marked provisional,
+using the description field, by prefixing the entry with "PROVISIONAL: ".
+Provisional assignments to expired drafts MUST be removed from the registry.
+
+* Points assigned in this registry MUST have references that match the COSE Verifiable Data Structure Parameters registry.
+It is not permissible to assign points in this registry, for which no Verifiable Data Structure Parameters entries exist.
+
 ### COSE Verifiable Data Structure Parameters {#verifiable-data-structure-parameters-registry}
 
 IANA will be asked to establish a registry of verifiable data structure parameters,
@@ -552,6 +614,33 @@ Template:
 * Reference: Where the proof type is defined
 
 Initial contents: Provided in {{cose-verifiable-data-structures-parameters}}
+
+#### Expert Review
+
+This IANA registries is established under a Specification Required policy.
+
+This section gives some general guidelines for what the experts should be looking for,
+but they are being designated as experts for a reason, so they should be given
+substantial latitude.
+
+Expert reviewers should take into consideration the following points:
+
+*  Point squatting should be discouraged.  Reviewers are encouraged
+to get sufficient information for registration requests to ensure
+that the usage is not going to duplicate one that is already
+registered, and that the point is likely to be used in
+deployments.  The zones tagged as private use are intended for
+testing purposes and closed environments; code points in other
+ranges should not be assigned for testing.
+
+* Specifications are required for all point assignments.
+Early assignment before a specification is available is considered
+to be permissible, however, such registrations MUST be marked provisional,
+using the description field, by prefixing the entry with "PROVISIONAL: ".
+Provisional assignments to expired drafts MUST be removed from the registry.
+
+* Points assigned in this registry MUST have references that match the COSE Verifiable Data Structures registry.
+It is not permissible to assign points in this registry, for which no Verifiable Data Structure entry exists.
 
 --- back
 
