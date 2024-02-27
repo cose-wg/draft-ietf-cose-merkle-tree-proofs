@@ -5,21 +5,23 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 8 June 2024                                      Fraunhofer SIT
+Expires: 30 August 2024                                   Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                         6 December 2023
+                                                        27 February 2024
 
 
-             Concise Encoding of Signed Merkle Tree Proofs
+                             COSE Receipts
                draft-ietf-cose-merkle-tree-proofs-latest
 
 Abstract
 
    This specification describes verifiable data structures and
-   associated proof types for use with COSE.  The extensibility of the
-   approach is demonstrated by providing CBOR encodings for RFC9162.
+   associated proof types for use with COSE (CBOR Object Signing and
+   Encryption).  The extensibility of the approach is demonstrated by
+   providing CBOR (Concise Binary Object Representation) encodings for
+   RFC9162.
 
 Discussion Venues
 
@@ -47,11 +49,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 June 2024.
+   This Internet-Draft will expire on 30 August 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -133,6 +135,9 @@ Table of Contents
    This document describes how to convey verifiable data structures, and
    associated proof types in COSE envelopes.
 
+   For conciseness, we refer to a COSE object securing a verifiable data
+   structure and its associated proof types, as a COSE Receipt.
+
 1.1.  Requirements Notation
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -142,6 +147,8 @@ Table of Contents
    capitals, as shown here.
 
 2.  CBOR Tags
+
+   Editorial Note (To be removed by RFC Editor).
 
    This section will be removed before the document is completed, its
    purpose is to track the TBD code points references throughout the
@@ -171,6 +178,12 @@ Table of Contents
       Verifiable Data Structure.
 
    Proof Value:  An encoding of a Proof Type in CBOR.
+
+   Entry:  An entry in a verifiable data structure for which proofs can
+      be derived.
+
+   Receipt:  A COSE Object containing the header parameters necessary to
+      convey a proof types for verifiable data structures.
 
 4.  Verifiable Data Structures in CBOR
 
@@ -333,8 +346,8 @@ Table of Contents
 5.  RFC9162_SHA256
 
    This section defines how the data structures described in [RFC9162]
-   are mapped to the terminology defined in this document, using cbor
-   and cose.
+   are mapped to the terminology defined in this document, using CBOR
+   and COSE.
 
 5.1.  Verifiable Data Structure
 
@@ -352,9 +365,9 @@ Table of Contents
    See [RFC9162], 2.1.3.1.  Generating an Inclusion Proof, for a
    complete description of this verifiable data structure proof type.
 
-   The cbor representation of an inclusion proof for RFC9162_SHA256 is:
+   The CBOR representation of an inclusion proof for RFC9162_SHA256 is:
 
-   inclusion-proof = [
+   inclusion-proof = bstr .cbor [
        tree-size: int
        leaf-index: int
        inclusion-path: [ + bstr ]
@@ -399,7 +412,7 @@ Table of Contents
    The unprotected header for an RFC9162_SHA256 inclusion proof
    signature is:
 
-   inclusion-proofs = [ + bstr .cbor inclusion-proof ]
+   inclusion-proofs = [ + inclusion-proof ]
 
    verifiable-proofs = {
      &(inclusion-proof: -1) => inclusion-proofs
@@ -421,8 +434,11 @@ Table of Contents
 
    Detaching the payload forces verifiers to recompute the root from the
    inclusion proof signature, this protects against implementation
-   errors where the signature is verified but the root does not match
-   the inclusion proof.
+   errors where the signature is verified but the merkle root does not
+   match the inclusion proof.
+
+   The CBOR Extended Diagnostic Notation (EDN) for a Receipt containing
+   an inclusion proof for RFC9162_SHA256 is:
 
    18(                                 / COSE Sign 1                   /
        [
@@ -441,6 +457,9 @@ Table of Contents
 
                     Figure 1: Example inclusion receipt
 
+   The CBOR Extended Diagnostic Notation (EDN) for the Protected Header
+   in the example above is:
+
    {                                   / Protected                     /
      1: -7,                            / Algorithm                     /
      4: h'4930714e...7163316b',        / Key identifier                /
@@ -448,6 +467,9 @@ Table of Contents
    }
 
         Figure 2: Example inclusion receipt decoded protected header
+
+   The CBOR Extended Diagnostic Notation (EDN) for the inclusion proof
+   in the Unprotected Header is:
 
    [                                   / Inclusion proof 1             /
      8,                                / Tree size                     /
@@ -461,6 +483,11 @@ Table of Contents
 
         Figure 3: Example inclusion receipt decoded inclusion proof
 
+   Verifiers reconstruct, and attach the COSE Sign1 payload, by applying
+   the inclusion proof to a possible entry (set member) bytes.  If the
+   resulting signature verifies, the Receipt has proved inclusion of the
+   entry in the verifiable data structure.
+
 5.3.  Consistency Proof
 
    See [RFC9162], 2.1.4.1.  Generating a Consistency Proof, for a
@@ -468,7 +495,7 @@ Table of Contents
 
    The cbor representation of a consistency proof for RFC9162_SHA256 is:
 
-   consistency-proof = [
+   consistency-proof =  bstr .cbor [
        tree-size-1: int ; size of tree, at previous root
        tree-size-2: int ; size of tree, at latest root
        consistency-path: [ + bstr ] ; path from previous to latest root.
@@ -500,7 +527,7 @@ Table of Contents
    The unprotected header for an RFC9162_SHA256 consistency proof
    signature is:
 
-   consistency-proofs = [ + bstr ]
+   consistency-proofs = [ + consistency-proof ]
 
    verifiable-proofs = {
      &(consistency-proof: -2) => consistency-proofs
@@ -521,6 +548,9 @@ Table of Contents
 
    The payload MUST be attached.
 
+   The CBOR Extended Diagnostic Notation (EDN) for a Receipt containing
+   a consistency proof for RFC9162_SHA256 is:
+
    18(                                 / COSE Sign 1                   /
        [
          h'a3012604...392b6601',       / Protected                     /
@@ -538,6 +568,9 @@ Table of Contents
 
                    Figure 4: Example consistency receipt
 
+   The CBOR Extended Diagnostic Notation (EDN) for the Protected Header
+   in the example above is:
+
    {                                   / Protected                     /
      1: -7,                            / Algorithm                     /
      4: h'68747470...6d706c65',        / Key identifier                /
@@ -545,6 +578,9 @@ Table of Contents
    }
 
        Figure 5: Example consistency receipt decoded protected header
+
+   The CBOR Extended Diagnostic Notation (EDN) for the consistency proof
+   in the Unprotected Header is:
 
    [                                   / Consistency proof 1           /
      4,                                / Tree size 1                   /
@@ -556,6 +592,11 @@ Table of Contents
    ]
 
       Figure 6: Example consistency receipt decoded consistency proof
+
+   Verifiers apply a previous inclusion proof to a consistency proof, to
+   confirm the append only property of a verifiable data structure.
+   This approach is specific to RFC9162_SHA256, different verifiable
+   data structures may not support consistency proofs.
 
 6.  Privacy Considerations
 
@@ -577,8 +618,8 @@ Table of Contents
 6.2.  Header Parameters
 
    Additional header parameters can reveal information about the
-   transparency service or its log entries.  A privacy analysis SHOULD
-   be performed for all mandatory fields in profiles based on this
+   transparency service or its log entries.  A privacy analysis MUST be
+   performed for all mandatory fields in profiles based on this
    specification.
 
 7.  Security Considerations
@@ -591,13 +632,18 @@ Table of Contents
 
 7.1.  Choice of Signature Algorithms
 
-   A security analysis SHOULD be performed to ensure that the digitial
+   A security analysis MUST be performed to ensure that the digitial
    signature algorithm alg is the appropriate strength to secure
    receipts.
 
+   It is recommended to select signature algorithms that share
+   cryptographic components with the verifiable data structure used, for
+   example: Both RFC9162_SHA256 and ES256 depend on the sha-256 hash
+   function.
+
 7.2.  Validity Period
 
-   In some cases, receipts SHOULD have strict validity periods, for
+   In some cases, receipts might require strict validity periods, for
    example, activation not too far in the future, or expiration, not too
    far in the past.  See the iat, nbf, and exp claims in [RFC8392], for
    one way to accomplish this.  The details of expressing validity
@@ -669,6 +715,37 @@ Table of Contents
 
    Initial contents: Provided in Table 1
 
+9.1.2.1.  Expert Review
+
+   This IANA registries is established under a Specification Required
+   policy.
+
+   This section gives some general guidelines for what the experts
+   should be looking for, but they are being designated as experts for a
+   reason, so they should be given substantial latitude.
+
+   Expert reviewers should take into consideration the following points:
+
+   *  Point squatting should be discouraged.  Reviewers are encouraged
+      to get sufficient information for registration requests to ensure
+      that the usage is not going to duplicate one that is already
+      registered, and that the point is likely to be used in
+      deployments.  The zones tagged as private use are intended for
+      testing purposes and closed environments; code points in other
+      ranges should not be assigned for testing.
+
+   *  Specifications are required for all point assignments.  Early
+      assignment before a specification is available is considered to be
+      permissible, however, such registrations MUST be marked
+      provisional, using the description field, by prefixing the entry
+      with "PROVISIONAL: ".  Provisional assignments to expired drafts
+      MUST be removed from the registry.
+
+   *  Points assigned in this registry MUST have references that match
+      the COSE Verifiable Data Structure Parameters registry.  It is not
+      permissible to assign points in this registry, for which no
+      Verifiable Data Structure Parameters entries exist.
+
 9.1.3.  COSE Verifiable Data Structure Parameters
 
    IANA will be asked to establish a registry of verifiable data
@@ -693,6 +770,37 @@ Table of Contents
 
    Initial contents: Provided in Table 3
 
+9.1.3.1.  Expert Review
+
+   This IANA registries is established under a Specification Required
+   policy.
+
+   This section gives some general guidelines for what the experts
+   should be looking for, but they are being designated as experts for a
+   reason, so they should be given substantial latitude.
+
+   Expert reviewers should take into consideration the following points:
+
+   *  Point squatting should be discouraged.  Reviewers are encouraged
+      to get sufficient information for registration requests to ensure
+      that the usage is not going to duplicate one that is already
+      registered, and that the point is likely to be used in
+      deployments.  The zones tagged as private use are intended for
+      testing purposes and closed environments; code points in other
+      ranges should not be assigned for testing.
+
+   *  Specifications are required for all point assignments.  Early
+      assignment before a specification is available is considered to be
+      permissible, however, such registrations MUST be marked
+      provisional, using the description field, by prefixing the entry
+      with "PROVISIONAL: ".  Provisional assignments to expired drafts
+      MUST be removed from the registry.
+
+   *  Points assigned in this registry MUST have references that match
+      the COSE Verifiable Data Structures registry.  It is not
+      permissible to assign points in this registry, for which no
+      Verifiable Data Structure entry exists.
+
 10.  References
 
 10.1.  Normative References
@@ -707,28 +815,9 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
-   [RFC6234]  Eastlake 3rd, D. and T. Hansen, "US Secure Hash Algorithms
-              (SHA and SHA-based HMAC and HKDF)", RFC 6234,
-              DOI 10.17487/RFC6234, May 2011,
-              <https://www.rfc-editor.org/rfc/rfc6234>.
-
-   [RFC6962]  Laurie, B., Langley, A., and E. Kasper, "Certificate
-              Transparency", RFC 6962, DOI 10.17487/RFC6962, June 2013,
-              <https://www.rfc-editor.org/rfc/rfc6962>.
-
-   [RFC6979]  Pornin, T., "Deterministic Usage of the Digital Signature
-              Algorithm (DSA) and Elliptic Curve Digital Signature
-              Algorithm (ECDSA)", RFC 6979, DOI 10.17487/RFC6979, August
-              2013, <https://www.rfc-editor.org/rfc/rfc6979>.
-
    [RFC7049]  Bormann, C. and P. Hoffman, "Concise Binary Object
               Representation (CBOR)", RFC 7049, DOI 10.17487/RFC7049,
               October 2013, <https://www.rfc-editor.org/rfc/rfc7049>.
-
-   [RFC8032]  Josefsson, S. and I. Liusvaara, "Edwards-Curve Digital
-              Signature Algorithm (EdDSA)", RFC 8032,
-              DOI 10.17487/RFC8032, January 2017,
-              <https://www.rfc-editor.org/rfc/rfc8032>.
 
    [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
               Writing an IANA Considerations Section in RFCs", BCP 26,
@@ -738,11 +827,6 @@ Table of Contents
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
-
-   [RFC8949]  Bormann, C. and P. Hoffman, "Concise Binary Object
-              Representation (CBOR)", STD 94, RFC 8949,
-              DOI 10.17487/RFC8949, December 2020,
-              <https://www.rfc-editor.org/rfc/rfc8949>.
 
    [RFC9053]  Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Initial Algorithms", RFC 9053, DOI 10.17487/RFC9053,
@@ -754,13 +838,6 @@ Table of Contents
 
 10.2.  Informative References
 
-   [I-D.ietf-cose-countersign]
-              Schaad, J., "CBOR Object Signing and Encryption (COSE):
-              Countersignatures", Work in Progress, Internet-Draft,
-              draft-ietf-cose-countersign-10, 20 September 2022,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              countersign-10>.
-
    [I-D.ietf-cose-cwt-claims-in-headers]
               Looker, T. and M. B. Jones, "CBOR Web Token (CWT) Claims
               in COSE Headers", Work in Progress, Internet-Draft, draft-
@@ -771,17 +848,17 @@ Table of Contents
    [I-D.ietf-cose-typ-header-parameter]
               Jones, M. B. and O. Steele, "COSE "typ" (type) Header
               Parameter", Work in Progress, Internet-Draft, draft-ietf-
-              cose-typ-header-parameter-01, 7 November 2023,
+              cose-typ-header-parameter-03, 26 February 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              typ-header-parameter-01>.
+              typ-header-parameter-03>.
 
    [I-D.ietf-scitt-architecture]
               Birkholz, H., Delignat-Lavaud, A., Fournet, C., Deshpande,
               Y., and S. Lasker, "An Architecture for Trustworthy and
               Transparent Digital Supply Chains", Work in Progress,
-              Internet-Draft, draft-ietf-scitt-architecture-04, 23
-              October 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-scitt-architecture-04>.
+              Internet-Draft, draft-ietf-scitt-architecture-05, 9
+              February 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-scitt-architecture-05>.
 
    [RFC8392]  Jones, M., Wahlstroem, E., Erdtman, S., and H. Tschofenig,
               "CBOR Web Token (CWT)", RFC 8392, DOI 10.17487/RFC8392,
