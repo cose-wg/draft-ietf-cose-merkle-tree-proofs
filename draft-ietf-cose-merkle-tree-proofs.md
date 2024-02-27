@@ -506,7 +506,7 @@ Both RFC9162_SHA256 and ES256 depend on the sha-256 hash function.
 
 ## Validity Period
 
-In some cases, receipts might require strict validity periods, for example,
+In some cases, receipts MAY include strict validity periods, for example,
 activation not too far in the future, or expiration, not too far in the past.
 See the `iat`, `nbf`, and `exp` claims in {{-CWT}}, for one way to accomplish this.
 The details of expressing validity periods are out of scope for this document.
