@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-27T00:35:20.568604+00:00",
+  "timestamp": "2024-02-29T00:35:26.264842+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -188,7 +188,7 @@
             "abbreviatedOid": "101b308"
           },
           "author": "SteveLasker",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "APPROVED",
           "body": "LGTM",
           "createdAt": "2023-09-12T05:55:00Z",
@@ -491,6 +491,108 @@
               "body": "A minor edit to follow up on your minor edit.\r\n\r\n```suggestion\r\n: A verifiable process, that proves properties of a Verifiable Data Structure.\r\n```\r\n\r\nAs an aside, can a Proof Type only handle a Verifiable Data Structure, not more than one? That is implied by the edit here.",
               "createdAt": "2023-12-05T16:51:35Z",
               "updatedAt": "2023-12-05T16:53:33Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOKPwz585oD1d6",
+      "title": "Updates before IETF 119",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/11",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-27T15:17:44Z",
+      "updatedAt": "2024-02-27T15:42:49Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "325be82ae8543c87a13e402bec45eb4e35d28a38",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "feat/pref-119-updates",
+      "headRefOid": "cdec9ef24b6d86ff25ae778a5fd98190028cb9a3",
+      "closedAt": "2024-02-27T15:42:49Z",
+      "mergedAt": "2024-02-27T15:42:49Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "a73b6c7e7bb6ba9df72e866e99f587a14bc48d98"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz585xevth",
+          "commit": {
+            "abbreviatedOid": "bd1c95a"
+          },
+          "author": "fournet",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-27T15:33:43Z",
+          "updatedAt": "2024-02-27T15:33:43Z",
+          "comments": [
+            {
+              "originalPosition": 215,
+              "body": "```suggestion\r\ndigital signature algorithm `alg` has the appropriate strength to secure receipts.\r\n```",
+              "createdAt": "2024-02-27T15:33:43Z",
+              "updatedAt": "2024-02-27T15:33:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz585xexx4",
+          "commit": {
+            "abbreviatedOid": "bd1c95a"
+          },
+          "author": "fournet",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-27T15:35:39Z",
+          "updatedAt": "2024-02-27T15:35:39Z",
+          "comments": [
+            {
+              "originalPosition": 223,
+              "body": "\"Might require\" is unclear; I believe this refers to the inclusion of a validity period in the information authenticated by the receipt, not an abstract requirement. May go back to \"may include\" ? ",
+              "createdAt": "2024-02-27T15:35:39Z",
+              "updatedAt": "2024-02-27T15:35:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz585xe0QA",
+          "commit": {
+            "abbreviatedOid": "bd1c95a"
+          },
+          "author": "ad-l",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-27T15:38:08Z",
+          "updatedAt": "2024-02-27T15:38:08Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz585xe3Y9",
+          "commit": {
+            "abbreviatedOid": "8bb9234"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-27T15:40:48Z",
+          "updatedAt": "2024-02-27T15:40:48Z",
+          "comments": [
+            {
+              "originalPosition": 224,
+              "body": "```suggestion\r\nIn some cases, receipts MAY include strict validity periods, for example,\r\n```",
+              "createdAt": "2024-02-27T15:40:48Z",
+              "updatedAt": "2024-02-27T15:40:48Z"
             }
           ]
         }
