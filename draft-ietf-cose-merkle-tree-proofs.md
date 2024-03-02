@@ -2,7 +2,6 @@
 v: 3
 
 title: COSE Receipts
-abbrev: CoMETRE
 docname: draft-ietf-cose-merkle-tree-proofs-latest
 stand_alone: true
 ipr: trust200902
