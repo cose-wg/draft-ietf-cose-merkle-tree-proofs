@@ -1,6 +1,6 @@
-# Concise Encoding of Signed Merkle Tree Proofs
+# COSE Receipts
 
-This is the working area for the IETF [COSE Working Group](https://datatracker.ietf.org/wg/cose/documents/) Internet-Draft, "Concise Encoding of Signed Merkle Tree Proofs".
+This is the working area for the IETF [COSE Working Group](https://datatracker.ietf.org/wg/cose/documents/) Internet-Draft, "COSE Receipts".
 
 * [Editor's Copy](https://cose-wg.github.io/draft-ietf-cose-merkle-tree-proofs/#go.draft-ietf-cose-merkle-tree-proofs.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-cose-merkle-tree-proofs)
