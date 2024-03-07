@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-05T00:35:18.588573+00:00",
+  "timestamp": "2024-03-07T00:29:07.639606+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -86,6 +86,40 @@
       "body": "There is an editors note:\r\n\r\n> Editors note: tree-size-1, could be omitted, if an inclusion-proof is always present, since the inclusion proof contains, tree-size-1.\r\n\r\nThis note needs to be addressed with spec text.\r\n\r\nThis is a WGLC blocking issue.",
       "createdAt": "2024-03-02T15:33:13Z",
       "updatedAt": "2024-03-02T16:46:10Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOKPwz586BccGk",
+      "title": "Request early allocation of COSE Header Parameter Code Points?",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/15",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "wglc-blocker"
+      ],
+      "body": "",
+      "createdAt": "2024-03-06T15:01:33Z",
+      "updatedAt": "2024-03-06T15:02:30Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 16,
+      "id": "I_kwDOKPwz586BcdH_",
+      "title": "Early directorate reviews?",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/16",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": " - [ ] SEC DIR\r\n - [ ] IoT DIR\r\n \r\n Others?",
+      "createdAt": "2024-03-06T15:03:18Z",
+      "updatedAt": "2024-03-06T15:03:27Z",
       "closedAt": null,
       "comments": []
     }
