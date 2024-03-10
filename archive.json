@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-07T00:29:07.639606+00:00",
+  "timestamp": "2024-03-10T00:38:32.746575+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -85,9 +85,31 @@
       ],
       "body": "There is an editors note:\r\n\r\n> Editors note: tree-size-1, could be omitted, if an inclusion-proof is always present, since the inclusion proof contains, tree-size-1.\r\n\r\nThis note needs to be addressed with spec text.\r\n\r\nThis is a WGLC blocking issue.",
       "createdAt": "2024-03-02T15:33:13Z",
-      "updatedAt": "2024-03-02T16:46:10Z",
+      "updatedAt": "2024-03-08T16:05:36Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "robinbryce",
+          "authorAssociation": "NONE",
+          "body": "Do you think tree-size-1, tree-size-2 and path are sufficient to do consistency proofs for merkle mountain ranges ?\r\n\r\nMMR's are discussed [here](https://github.com/opentimestamps/opentimestamps-server/blob/master/doc/merkle-mountain-range.md) and [also here](https://github.com/mimblewimble/grin/blob/master/doc/mmr.md) in the context of blockchains but they seem to be generally a good thing.\r\n\r\nI haven't found a good clear description of what a consistency proof would look like for MMR's, but I *think* its sufficient to just prove inclusion of prior 'peaks' in the new log state at tree-size-2.  And that can just catenate the paths for each peak. Verification would just 'run off the end' if any single sub path was invalid. At least if the interior nodes commit to log position as H(POSITION, H-LEFT-CHILD, RIGHT-CHILD), I think that is all that is needed.",
+          "createdAt": "2024-03-08T09:10:11Z",
+          "updatedAt": "2024-03-08T09:10:11Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "No. In this draft Consistency Proofs are limited to RFC9162 definition.\r\n\r\nA separate document would be needed to describe MMRs as a VDS.",
+          "createdAt": "2024-03-08T14:30:47Z",
+          "updatedAt": "2024-03-08T14:30:47Z"
+        },
+        {
+          "author": "robinbryce",
+          "authorAssociation": "NONE",
+          "body": "Understood, I think I simply meant could the representation for the proof data be sensibly re-used in a separate document. the verification process would of course need to be described separately. but yes, this issue isn't the place for that conversation then.",
+          "createdAt": "2024-03-08T16:05:35Z",
+          "updatedAt": "2024-03-08T16:05:35Z"
+        }
+      ]
     },
     {
       "number": 15,
