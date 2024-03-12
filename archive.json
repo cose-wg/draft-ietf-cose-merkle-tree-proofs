@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-10T00:38:32.746575+00:00",
+  "timestamp": "2024-03-12T00:35:11.565779+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -85,7 +85,7 @@
       ],
       "body": "There is an editors note:\r\n\r\n> Editors note: tree-size-1, could be omitted, if an inclusion-proof is always present, since the inclusion proof contains, tree-size-1.\r\n\r\nThis note needs to be addressed with spec text.\r\n\r\nThis is a WGLC blocking issue.",
       "createdAt": "2024-03-02T15:33:13Z",
-      "updatedAt": "2024-03-08T16:05:36Z",
+      "updatedAt": "2024-03-10T14:29:16Z",
       "closedAt": null,
       "comments": [
         {
@@ -108,6 +108,13 @@
           "body": "Understood, I think I simply meant could the representation for the proof data be sensibly re-used in a separate document. the verification process would of course need to be described separately. but yes, this issue isn't the place for that conversation then.",
           "createdAt": "2024-03-08T16:05:35Z",
           "updatedAt": "2024-03-08T16:05:35Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@robinbryce its possible it could be, but even if the proofs were the same, the algorithm should be different, because the intended use is different.\r\n\r\nThe registry this draft establishes is 2 layers:\r\n\r\n- first layer is the data structure algorithm\r\n- second layer is the proof types that data structure supports\r\n\r\nto use the draft, you always need to start by address the first layer, and then mapping first layer code points to second layer code points.\r\n\r\nits possible the second layer proof definitions could look very similar, such as EC2 and OKP public keys both have \"x\" and \"d\"... but the meaning of \"x\" and \"d\" comes from the \"kty\" values, not from \"x\" or \"y\", alone.",
+          "createdAt": "2024-03-10T14:29:15Z",
+          "updatedAt": "2024-03-10T14:29:15Z"
         }
       ]
     },
