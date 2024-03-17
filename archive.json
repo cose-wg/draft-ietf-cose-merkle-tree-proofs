@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-14T00:35:11.842872+00:00",
+  "timestamp": "2024-03-17T00:38:35.395498+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -85,7 +85,7 @@
       ],
       "body": "There is an editors note:\r\n\r\n> Editors note: tree-size-1, could be omitted, if an inclusion-proof is always present, since the inclusion proof contains, tree-size-1.\r\n\r\nThis note needs to be addressed with spec text.\r\n\r\nThis is a WGLC blocking issue.",
       "createdAt": "2024-03-02T15:33:13Z",
-      "updatedAt": "2024-03-10T14:29:16Z",
+      "updatedAt": "2024-03-14T11:29:40Z",
       "closedAt": null,
       "comments": [
         {
@@ -115,6 +115,13 @@
           "body": "@robinbryce its possible it could be, but even if the proofs were the same, the algorithm should be different, because the intended use is different.\r\n\r\nThe registry this draft establishes is 2 layers:\r\n\r\n- first layer is the data structure algorithm\r\n- second layer is the proof types that data structure supports\r\n\r\nto use the draft, you always need to start by address the first layer, and then mapping first layer code points to second layer code points.\r\n\r\nits possible the second layer proof definitions could look very similar, such as EC2 and OKP public keys both have \"x\" and \"d\"... but the meaning of \"x\" and \"d\" comes from the \"kty\" values, not from \"x\" or \"y\", alone.",
           "createdAt": "2024-03-10T14:29:15Z",
           "updatedAt": "2024-03-10T14:29:15Z"
+        },
+        {
+          "author": "robinbryce",
+          "authorAssociation": "NONE",
+          "body": "That's a really helpful pointer. Thanks!",
+          "createdAt": "2024-03-14T11:29:38Z",
+          "updatedAt": "2024-03-14T11:29:38Z"
         }
       ]
     },
@@ -726,6 +733,32 @@
       "mergeCommit": {
         "oid": "aed36e841e41f9bf016c5ba883f5e6a41be7ff3d"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOKPwz585p0CpM",
+      "title": "Fix typos found while re-reviewing draft",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/17",
+      "state": "OPEN",
+      "author": "aj-stein-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As is my tradition, I come to you with gifts of low-effort changes of the typo fix variety while re-reviewing the current draft after confirming the typos exist in the current main branch of GitHub of course. \ud83d\ude04 ",
+      "createdAt": "2024-03-16T03:22:15Z",
+      "updatedAt": "2024-03-16T03:22:15Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "aed36e841e41f9bf016c5ba883f5e6a41be7ff3d",
+      "headRepository": "aj-stein-nist/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "chore-typo-fixes-119-draft",
+      "headRefOid": "9c0ee19af2091770771ee53e249f8ea4fc06506c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
