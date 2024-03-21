@@ -106,7 +106,7 @@ Verifiable Data Structure Parameters (vdp):
 : Parameters to a verifiable data structure that are used to prove properties, such as authentication, inclusion, consistency, and freshness.
   Parameters can include multiple proofs of a given type, or multiple types of proof (inclusion and consistency).
   This property is conceptually similar to COSE Header Parameter "epk" (-1) or CBOR Web Token (CWT) claim "cnf" (8), it is applied to a verifiable data structure, to confirm a property.
-  For example an encrypted messsage might be decrypted using epk and a private key, a digital signature for authentication might be verified using cnf and the (CWT) claim "nonce" and "audience", and an inclusion proof for a binary merkle tree might be verified with vdp and some entry that is being tested or inclusion in the tree.
+  For example an encrypted message might be decrypted using epk and a private key, a digital signature for authentication might be verified using cnf and the (CWT) claim "nonce" and "audience", and an inclusion proof for a binary merkle tree might be verified with vdp and some entry that is being tested or inclusion in the tree.
 
 
 Proof Type:
@@ -152,7 +152,7 @@ This document establishes a registry of verifiable data structure algorithms, wi
 | RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
 {: #cose-verifiable-data-structures align="left" title="COSE Verifiable Data Structures"}
 
-When desigining new verifiable data structures, please request the next available positive integer as your requested assignment, for example:
+When designing new verifiable data structures, please request the next available positive integer as your requested assignment, for example:
 
 
 | Name            | Value | Description                      | Reference
@@ -175,7 +175,7 @@ This document establishes a registry of verifiable data structure algorithms, wi
 {: #cose-verifiable-data-structures-parameters align="left" title="COSE Verifiable Data Structure Parameters"}
 
 Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
-Implementers should not expect interoperability accross "verifiable data structures", but they should expect conceptually similar properties across the different registered proof types.
+Implementers should not expect interoperability across "verifiable data structures", but they should expect conceptually similar properties across the different registered proof types.
 For example, 2 different merkle tree based verifiable data structures might both support proofs of inclusion.
 Protocols requiring proof of inclusion ought to be able to preserve their functionality, while switching from one verifiable data structure to another, so long as both structures support the same proof types.
 Security analysis SHOULD be conducted prior to migrating to new structures to ensure the new security and privacy assumptions are acceptable for the use case.
