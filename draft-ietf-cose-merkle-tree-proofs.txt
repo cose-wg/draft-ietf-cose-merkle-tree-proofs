@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 3 September 2024                                 Fraunhofer SIT
+Expires: 22 September 2024                                Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                            2 March 2024
+                                                           21 March 2024
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 September 2024.
+   This Internet-Draft will expire on 22 September 2024.
 
 Copyright Notice
 
@@ -177,7 +177,7 @@ Table of Contents
       property is conceptually similar to COSE Header Parameter "epk"
       (-1) or CBOR Web Token (CWT) claim "cnf" (8), it is applied to a
       verifiable data structure, to confirm a property.  For example an
-      encrypted messsage might be decrypted using epk and a private key,
+      encrypted message might be decrypted using epk and a private key,
       a digital signature for authentication might be verified using cnf
       and the (CWT) claim "nonce" and "audience", and an inclusion proof
       for a binary merkle tree might be verified with vdp and some entry
@@ -238,7 +238,7 @@ Table of Contents
 
                 Table 1: COSE Verifiable Data Structures
 
-   When desigining new verifiable data structures, please request the
+   When designing new verifiable data structures, please request the
    next available positive integer as your requested assignment, for
    example:
 
@@ -287,7 +287,7 @@ Table of Contents
    Proof types are specific to their associated "verifiable data
    structure", for example, different Merkle trees might support
    different representations of "inclusion proof" or "consistency
-   proof".  Implementers should not expect interoperability accross
+   proof".  Implementers should not expect interoperability across
    "verifiable data structures", but they should expect conceptually
    similar properties across the different registered proof types.  For
    example, 2 different merkle tree based verifiable data structures
@@ -868,9 +868,9 @@ Table of Contents
    [I-D.ietf-cose-typ-header-parameter]
               Jones, M. B. and O. Steele, "COSE "typ" (type) Header
               Parameter", Work in Progress, Internet-Draft, draft-ietf-
-              cose-typ-header-parameter-03, 26 February 2024,
+              cose-typ-header-parameter-04, 4 March 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              typ-header-parameter-03>.
+              typ-header-parameter-04>.
 
    [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
               Writing an IANA Considerations Section in RFCs", BCP 26,
