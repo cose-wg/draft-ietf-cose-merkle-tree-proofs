@@ -47,6 +47,7 @@ normative:
   RFC9162: certificate-transparency-v2
 
 informative:
+  RFC9052:
   RFC8610:
   RFC8949:
   RFC8126: iana-considerations-guide
@@ -74,7 +75,7 @@ Merkle trees can be constructed from simple operations such as concatenation and
 Verifiable data structure proofs can be used to prove a document is in a database (proof of inclusion), that a database is append only (proof of consistency), that a smaller set of statements are contained in a large set of statements (proof of disclosure, a special case of proof of inclusion), or proof that certain data is not yet present in a database (proofs of non inclusion).
 Differences in the representation of verifiable data structures, and verifiable data structure proof types, can increase the burden for implementers, and create interoperability challenges for transparency services.
 This document describes how to convey verifiable data structures, and associated proof types in COSE envelopes.
-For conciseness, we refer to a COSE object securing a verifiable data structure and its associated proof types, as a COSE Receipt.
+For conciseness, a COSE object securing a verifiable data structure and its associated proofs, is referred to as a COSE Receipt.
 
 ## Requirements Notation
 
@@ -132,7 +133,7 @@ Entry:
 
 Receipt:
 
-: A COSE Object containing the header parameters necessary to convey VDP for an associated VDS.
+: A COSE object, as defined in {{RFC9052}}, containing the header parameters necessary to convey VDP for an associated VDS.
 
 
 # Verifiable Data Structures in CBOR {#sec-generic-verifiable-data-structures}
@@ -140,7 +141,7 @@ Receipt:
 This section describes representations of verifiable data structure proofs in CBOR.
 For example, construction of a merkle tree leaf, or an inclusion proof from a leaf to a merkle root, might have several different representations, depending on the verifiable data structure used.
 Differences in representations are necessary to support efficient verification, unique security or privacy properties, and for compatibility with specific implementations.
-In order to improve interoperability we define two extension points for enabling verifiable data structures with COSE, and we provide concrete examples for the structures and proofs defined in {{-certificate-transparency-v2}}.
+This document defines two extension points for enabling verifiable data structures with COSE and provides concrete examples for the structures and proofs defined in {{-certificate-transparency-v2}}.
 The design of these structures is influenced by the conventions established for COSE Keys.
 
 During testing and development the experimental range SHOULD be used, unless early assignment for a provisional entry has been completed.
