@@ -133,9 +133,9 @@ Table of Contents
    structure proof types, can increase the burden for implementers, and
    create interoperability challenges for transparency services.  This
    document describes how to convey verifiable data structures, and
-   associated proof types in COSE envelopes.  For conciseness, we refer
-   to a COSE object securing a verifiable data structure and its
-   associated proof types, as a COSE Receipt.
+   associated proof types in COSE envelopes.  For conciseness, a COSE
+   object securing a verifiable data structure and its associated
+   proofs, is referred to as a COSE Receipt.
 
 1.1.  Requirements Notation
 
@@ -201,8 +201,8 @@ Table of Contents
    Entry:  An entry in a verifiable data structure for which proofs can
       be derived.
 
-   Receipt:  A COSE Object containing the header parameters necessary to
-      convey VDP for an associated VDS.
+   Receipt:  A COSE object, as defined in [RFC9052], containing the
+      header parameters necessary to convey VDP for an associated VDS.
 
 4.  Verifiable Data Structures in CBOR
 
@@ -212,12 +212,11 @@ Table of Contents
    different representations, depending on the verifiable data structure
    used.  Differences in representations are necessary to support
    efficient verification, unique security or privacy properties, and
-   for compatibility with specific implementations.  In order to improve
-   interoperability we define two extension points for enabling
-   verifiable data structures with COSE, and we provide concrete
-   examples for the structures and proofs defined in [RFC9162].  The
-   design of these structures is influenced by the conventions
-   established for COSE Keys.
+   for compatibility with specific implementations.  This document
+   defines two extension points for enabling verifiable data structures
+   with COSE and provides concrete examples for the structures and
+   proofs defined in [RFC9162].  The design of these structures is
+   influenced by the conventions established for COSE Keys.
 
    During testing and development the experimental range SHOULD be used,
    unless early assignment for a provisional entry has been completed.
@@ -990,6 +989,11 @@ Table of Contents
               Representation (CBOR)", STD 94, RFC 8949,
               DOI 10.17487/RFC8949, December 2020,
               <https://www.rfc-editor.org/rfc/rfc8949>.
+
+   [RFC9052]  Schaad, J., "CBOR Object Signing and Encryption (COSE):
+              Structures and Process", STD 96, RFC 9052,
+              DOI 10.17487/RFC9052, August 2022,
+              <https://www.rfc-editor.org/rfc/rfc9052>.
 
 Appendix A.  Implementation Status
 
