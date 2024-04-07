@@ -47,9 +47,12 @@ normative:
   RFC9162: certificate-transparency-v2
 
 informative:
+  RFC8610:
+  RFC8949:
   RFC8126: iana-considerations-guide
   BCP205: RFC7942
   RFC8392: CWT
+  I-D.draft-ietf-cbor-edn-literals: cbor-edn-literals
   I-D.ietf-cose-cwt-claims-in-headers: cwt-header-claims
   I-D.ietf-cose-typ-header-parameter: cose-typ
 
@@ -95,23 +98,29 @@ The other codepoints are assigned from the registries established in this draft,
 
 # Terminology
 
-Verifiable Data Structure (vds):
+CDDL:
+: Concise Data Definition Language (CDDL) is defined in {{RFC8610}}.
+
+EDN:
+: CBOR Extended Diagnostic Notation (EDN) is defined in {{RFC8949}}, where it is referred to as "diagnostic notation", and is revised in {{-cbor-edn-literals}}.
+
+Verifiable Data Structure (VDS):
 
 : A data structure which supports one or more Proof Types.
   This property is conceptually similar to "alg" (1), it described an algorithm used to maintain the verifiable data structure, for example a binary merkle tree algorithm.
 
 
-Verifiable Data Structure Parameters (vdp):
+Verifiable Data Structure Parameters (VDP):
 
 : Parameters to a verifiable data structure that are used to prove properties, such as authentication, inclusion, consistency, and freshness.
   Parameters can include multiple proofs of a given type, or multiple types of proof (inclusion and consistency).
   This property is conceptually similar to COSE Header Parameter "epk" (-1) or CBOR Web Token (CWT) claim "cnf" (8), it is applied to a verifiable data structure, to confirm a property.
-  For example an encrypted message might be decrypted using epk and a private key, a digital signature for authentication might be verified using cnf and the (CWT) claim "nonce" and "audience", and an inclusion proof for a binary merkle tree might be verified with vdp and some entry that is being tested or inclusion in the tree.
-
+  For example an encrypted message might be decrypted using epk and a private key, a digital signature for authentication might be verified using cnf and the (CWT) claim "nonce" and "audience", and an inclusion proof for a binary merkle tree might be verified with VDP and some entry that is being tested or inclusion in the tree.
 
 Proof Type:
 
 : A verifiable process, that proves properties of a Verifiable Data Structure.
+  For example, a VDS such as a binary merkle tree, can support multiple proofs of type "inclusion" where each proof, confirms a given entry is included in a merkle root.
 
 Proof Value:
 
@@ -123,7 +132,7 @@ Entry:
 
 Receipt:
 
-: A COSE Object containing the header parameters necessary to convey a proof types for verifiable data structures.
+: A COSE Object containing the header parameters necessary to convey VDP for an associated VDS.
 
 
 # Verifiable Data Structures in CBOR {#sec-generic-verifiable-data-structures}
@@ -134,6 +143,8 @@ Differences in representations are necessary to support efficient verification, 
 In order to improve interoperability we define two extension points for enabling verifiable data structures with COSE, and we provide concrete examples for the structures and proofs defined in {{-certificate-transparency-v2}}.
 The design of these structures is influenced by the conventions established for COSE Keys.
 
+During testing and development the experimental range SHOULD be used, unless early assignment for a provisional entry has been completed.
+
 ## Structures {#sec-cose-verifiable-data-structures}
 
 Similar to [COSE Key Types](https://www.iana.org/assignments/cose/cose.xhtml#key-type), different verifiable data structures support different algorithms.
@@ -141,19 +152,16 @@ As EC2 keys (1: 2) support both digital signature and key agreement algorithms, 
 
 This document establishes a registry of verifiable data structure algorithms, with the following initial contents:
 
-* Name: The name of the verifiable data structure
-* Value: The identifier for the verifiable data structure
-* Description: The identifier for the verifiable data structure
-* Reference: Where the verifiable data structure is defined
-
 | Name            | Value | Description                      | Reference
 |---
 | N/A             | 0     | N/A                              | N/A
 | RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
+| EXPERIMENTAL    | 11    | Unknown                          | RFC XXXX
+| EXPERIMENTAL    | 22    | Unknown                          | RFC XXXX
+| EXPERIMENTAL    | 33    | Unknown                          | RFC XXXX
 {: #cose-verifiable-data-structures align="left" title="COSE Verifiable Data Structures"}
 
 When designing new verifiable data structures, please request the next available positive integer as your requested assignment, for example:
-
 
 | Name            | Value | Description                      | Reference
 |---
@@ -172,6 +180,9 @@ This document establishes a registry of verifiable data structure algorithms, wi
 |---
 | 1                         | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-rfc9162-sha256-inclusion-proof}}
 | 1                         | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-rfc9162-sha256-consistency-proof}}
+| 11                        | unknown            | -1    | array (of bstr)  | Unknown                       | RFC XXXX
+| 22                        | unknown            | -1    | array (of bstr)  | Unknown                       | RFC XXXX
+| 33                        | unknown            | -1    | array (of bstr)  | Unknown                       | RFC XXXX
 {: #cose-verifiable-data-structures-parameters align="left" title="COSE Verifiable Data Structure Parameters"}
 
 Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
@@ -189,6 +200,54 @@ When designing new verifiable data structure parameters (or proof types), please
 |TBD (requested assignment 2) | new proof type     | -2    | tbd              | tbd                           | Your_Specification
 |TBD (requested assignment 2) | new proof type     | -3    | tbd              | tbd                           | Your_Specification
 {: #cose-verifiable-data-structures-parameters-registration-guidance align="left" title="How to register new parameters"}
+
+## Usage
+
+This document registered a new COSE Header Parameter `receipts` (394) to enable this Receipts to be conveyed in the protected and unprotected headers of COSE Objects.
+
+When the receipts parameter is present, the associated verifiable data structure and verifiable data structure proofs MUST match entries present in the registries established in RFC XXXX.
+
+The following informative CDDL is provided:
+
+~~~ cddl
+Receipt = #6.18(COSE_Sign1)
+
+Protected_Header = {
+  * cose-label => cose-value
+}
+
+Unprotected_Header = {
+  &(receipts: 394)  => [+ Receipt]
+  * cose-label => cose-value
+}
+
+COSE_Sign1 = [
+  protected   : bstr .cbor Protected_Header,
+  unprotected : Unprotected_Header,
+  payload     : bstr / nil,
+  signature   : bstr
+]
+~~~
+{: #fig-receipts-cddl title="CDDL for a COSE Sign1 with attached receipts"}
+
+The following informative EDN is provided:
+
+~~~ cbor-diag
+18(                                 / COSE Sign 1                   /
+    [
+      h'a4012603...6d706c65',       / Protected                     /
+      {                             / Unprotected                   /
+        394: [                      / Receipts (2)                  /
+          h'd284586c...4191f9d2'    / Receipt 1                     /
+          h'c624586c...8f4af97e'    / Receipt 2                     /
+        ]
+      },
+      nil,                          / Detached payload              /
+      h'79ada558...3a28bae4'        / Signature                     /
+    ]
+)
+~~~
+{: #fig-receipts-edn title="EDN for a COSE Sign1 with attached receipts"}
 
 ### Registration Requirements
 
@@ -269,7 +328,7 @@ unprotected-header-map = {
 The payload of an RFC9162_SHA256 inclusion proof signature is the previous Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 The payload MUST be detached.
 Detaching the payload forces verifiers to recompute the root from the inclusion proof signature, this protects against implementation errors where the signature is verified but the merkle root does not match the inclusion proof.
-The CBOR Extended Diagnostic Notation (EDN) for a Receipt containing an inclusion proof for RFC9162_SHA256 is:
+The EDN for a Receipt containing an inclusion proof for RFC9162_SHA256 is:
 
 ~~~~ cbor-diag
 18(                                 / COSE Sign 1                   /
@@ -289,7 +348,7 @@ The CBOR Extended Diagnostic Notation (EDN) for a Receipt containing an inclusio
 ~~~~
 {: #rfc9162_sha256_inclusion_receipt align="left" title="Example inclusion receipt"}
 
-The CBOR Extended Diagnostic Notation (EDN) for the Protected Header in the example above is:
+The EDN for the Protected Header in the example above is:
 
 ~~~~ cbor-diag
 {                                   / Protected                     /
@@ -300,9 +359,9 @@ The CBOR Extended Diagnostic Notation (EDN) for the Protected Header in the exam
 ~~~~
 {: #rfc9162_sha256_inclusion_receipt_header align="left" title="Example inclusion receipt decoded protected header"}
 
-The vds in the protected header is necessary to understand the vdp in the unprotected header.
+The VDS in the protected header is necessary to understand the VDP in the unprotected header.
 
-The CBOR Extended Diagnostic Notation (EDN) for the inclusion proof in the Unprotected Header is:
+The EDN for the inclusion proof in the Unprotected Header is:
 
 ~~~~ cbor-diag
 [                                   / Inclusion proof 1             /
@@ -317,7 +376,7 @@ The CBOR Extended Diagnostic Notation (EDN) for the inclusion proof in the Unpro
 ~~~~
 {: #rfc9162_sha256_inclusion_receipt_inclusion_proof align="left" title="Example inclusion receipt decoded inclusion proof"}
 
-The vds in the protected header is necessary to understand the inclusion proof structure in the unprotected header.
+The VDS in the protected header is necessary to understand the inclusion proof structure in the unprotected header.
 
 The inclusion proof and signature are verified in order.
 First the verifiers applies the inclusion proof to a possible entry (set member) bytes.
@@ -393,7 +452,7 @@ The payload of an RFC9162_SHA256 consistency proof signature is:
 The latest Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 The payload MUST be attached.
 
-The CBOR Extended Diagnostic Notation (EDN) for a Receipt containing a consistency proof for RFC9162_SHA256 is:
+The EDN for a Receipt containing a consistency proof for RFC9162_SHA256 is:
 
 ~~~~ cbor-diag
 18(                                 / COSE Sign 1                   /
@@ -413,9 +472,9 @@ The CBOR Extended Diagnostic Notation (EDN) for a Receipt containing a consisten
 ~~~~
 {: #rfc9162_sha256_consistency_receipt align="left" title="Example consistency receipt"}
 
-The vds in the protected header is necessary to understand the vdp in the unprotected header.
+The VDS in the protected header is necessary to understand the VDP in the unprotected header.
 
-The CBOR Extended Diagnostic Notation (EDN) for the Protected Header in the example above is:
+The EDN for the Protected Header in the example above is:
 
 ~~~~ cbor-diag
 {                                   / Protected                     /
@@ -426,7 +485,7 @@ The CBOR Extended Diagnostic Notation (EDN) for the Protected Header in the exam
 ~~~~
 {: #rfc9162_sha256_consistency_receipt_header align="left" title="Example consistency receipt decoded protected header"}
 
-The CBOR Extended Diagnostic Notation (EDN) for the consistency proof in the Unprotected Header is:
+The EDN for the consistency proof in the Unprotected Header is:
 
 ~~~~ cbor-diag
 [                                   / Consistency proof 1           /
@@ -440,7 +499,7 @@ The CBOR Extended Diagnostic Notation (EDN) for the consistency proof in the Unp
 ~~~~
 {: #rfc9162_sha256_consistency_receipt_consistency_proof align="left" title="Example consistency receipt decoded consistency proof"}
 
-The vds in the protected header is necessary to understand the consistency proof structure in the unprotected header.
+The VDS in the protected header is necessary to understand the consistency proof structure in the unprotected header.
 
 The signature and consistency proof are verified in order.
 
@@ -510,21 +569,36 @@ for their contributions (some of which substantial) to this draft and to the ini
 
 ### New Entries to the COSE Header Parameters Registry
 
-This document requests IANA to add new values to the 'COSE Algorithms' and to the 'COSE Header Algorithm Parameters' registries in the 'Standards Action With Expert Review category.
+This document requests IANA to add new values to the 'COSE Algorithms' and to the 'COSE Header Algorithm Parameters' registries in the 'Standards Action With Expert Review' category.
 
 #### COSE Header Algorithm Parameters
+
+##### Receipts
+
+* Name: receipts
+* Label: TBD_0 (requested assignment 394)
+* Value type: array (of bstr)
+* Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
+* Description: Priority ordered list of CBOR encoded Receipts.
+* Reference: RFC XXXX
+
+##### Verifiable Data Structure
 
 * Name: vds
 * Label: TBD_1
 * Value type: int
 * Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
 * Description: Algorithm name for verifiable data structure, used to produce verifiable data structure proofs.
+* Reference: RFC XXXX
+
+##### Verifiable Data Structure Proofs
 
 * Name: vdp
 * Label: TBD_2
 * Value type: int
 * Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
 * Description: Location for verifiable data structure proofs in COSE Header Parameters.
+* Reference: RFC XXXX
 
 ### COSE Verifiable Data Structures {#verifiable-data-structure-registry}
 
