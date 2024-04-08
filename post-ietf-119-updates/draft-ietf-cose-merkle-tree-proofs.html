@@ -1839,7 +1839,7 @@ The EDN for a Receipt containing an inclusion proof for RFC9162_SHA256 is:<a hre
     [
       h'a4012604...6d706c65',       / Protected                     /
       {                             / Unprotected                   /
-        396: {                     / Proofs                        /
+        396: {                      / Proofs                        /
           -1: [                     / Inclusion proofs (1)          /
             h'83080783...32568964', / Inclusion proof 1             /
           ]
@@ -1863,7 +1863,7 @@ The EDN for a Receipt containing an inclusion proof for RFC9162_SHA256 is:<a hre
 {                                   / Protected                     /
   1: -7,                            / Algorithm                     /
   4: h'4930714e...7163316b',        / Key identifier                /
-  395: 1,                          / Verifiable Data Structure     /
+  395: 1,                           / Verifiable Data Structure     /
 }
 </pre>
 </div>
@@ -2000,7 +2000,7 @@ The payload <span class="bcp14">MUST</span> be attached.<a href="#section-5.3.1-
     [
       h'a3012604...392b6601',       / Protected                     /
       {                             / Unprotected                   /
-        396: {                     / Proofs                        /
+        396: {                      / Proofs                        /
           -2: [                     / Consistency proofs (1)        /
             h'83040682...2e73a8ab', / Consistency proof 1           /
           ]
@@ -2025,7 +2025,7 @@ The payload <span class="bcp14">MUST</span> be attached.<a href="#section-5.3.1-
 {                                   / Protected                     /
   1: -7,                            / Algorithm                     /
   4: h'68747470...6d706c65',        / Key identifier                /
-  395: 1,                          / Verifiable Data Structure     /
+  395: 1,                           / Verifiable Data Structure     /
 }
 </pre>
 </div>
@@ -2248,7 +2248,7 @@ for their contributions (some of which substantial) to this draft and to the ini
                   <p id="section-9.1.1.1.3-1.2.1">Label: TBD_2<a href="#section-9.1.1.1.3-1.2.1" class="pilcrow">¶</a></p>
 </li>
                 <li class="normal" id="section-9.1.1.1.3-1.3">
-                  <p id="section-9.1.1.1.3-1.3.1">Value type: int<a href="#section-9.1.1.1.3-1.3.1" class="pilcrow">¶</a></p>
+                  <p id="section-9.1.1.1.3-1.3.1">Value type: map<a href="#section-9.1.1.1.3-1.3.1" class="pilcrow">¶</a></p>
 </li>
                 <li class="normal" id="section-9.1.1.1.3-1.4">
                   <p id="section-9.1.1.1.3-1.4.1">Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters<a href="#section-9.1.1.1.3-1.4.1" class="pilcrow">¶</a></p>
