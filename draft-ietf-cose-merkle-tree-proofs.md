@@ -587,7 +587,7 @@ This document requests IANA to add new values to the 'COSE Algorithms' and to th
 ##### Verifiable Data Structure
 
 * Name: vds
-* Label: TBD_1
+* Label: TBD_1 (requested assignment 395)
 * Value type: int
 * Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
 * Description: Algorithm name for verifiable data structure, used to produce verifiable data structure proofs.
@@ -595,7 +595,7 @@ This document requests IANA to add new values to the 'COSE Algorithms' and to th
 
 ##### Verifiable Data Structure Proofs
 
-* Name: vdp
+* Name: vdp (requested assignment 396)
 * Label: TBD_2
 * Value type: int
 * Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
