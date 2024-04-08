@@ -47,6 +47,7 @@ normative:
   RFC9162: certificate-transparency-v2
 
 informative:
+  RFC7120:
   RFC9052:
   RFC8610:
   RFC8949:
@@ -87,11 +88,11 @@ Editorial Note (To be removed by RFC Editor).
 
 This section will be removed before the document is completed, its purpose is to track the TBD code points references throughout the draft.
 
--111 is TBD_1:
+395 is TBD_1:
 
 : A requested cose header parameter representing the verifiable data structure used.
 
--222 is TBD_2:
+396 is TBD_2:
 
 : A requested cose header parameter representing the verifiable data structure parameters map (proofs map).
 
@@ -297,14 +298,14 @@ The protected header for an RFC9162_SHA256 inclusion proof signature is:
 ~~~~ cddl
 protected-header-map = {
   &(alg: 1) => int
-  &(vds: -111) => int
+  &(vds: 395) => int
   * cose-label => cose-value
 }
 ~~~~
 {: #vds-in-inclusion-receipt-protected-header align="left" title="Protected Header for a Receipt of Inclusion"}
 
 * alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int.
-* vds (label: -111): REQUIRED. verifiable data structure algorithm identifier. Value type: int.
+* vds (label: 395): REQUIRED. verifiable data structure algorithm identifier. Value type: int.
 
 The unprotected header for an RFC9162_SHA256 inclusion proof signature is:
 
@@ -317,13 +318,13 @@ verifiable-proofs = {
 }
 
 unprotected-header-map = {
-  &(vdp: -222) => verifiable-proofs
+  &(vdp: 396) => verifiable-proofs
   * cose-label => cose-value
 }
 ~~~~
 {: #vdp-in-unprotected-header align="left" title="A Verifiable Data Structure Proofs in an Unprotected Header"}
 
-* vdp (label: -222): REQUIRED. Verifiable data structure proofs. Value type: Map.
+* vdp (label: 396): REQUIRED. Verifiable data structure proofs. Value type: Map.
 * inclusion-proof (label: -1): REQUIRED. Inclusion proofs. Value type: Array of bstr.
 
 The payload of an RFC9162_SHA256 inclusion proof signature is the previous Merkle tree hash as defined in {{-certificate-transparency-v2}}.
@@ -336,7 +337,7 @@ The EDN for a Receipt containing an inclusion proof for RFC9162_SHA256 is:
     [
       h'a4012604...6d706c65',       / Protected                     /
       {                             / Unprotected                   /
-        -222: {                     / Proofs                        /
+        396: {                     / Proofs                        /
           -1: [                     / Inclusion proofs (1)          /
             h'83080783...32568964', / Inclusion proof 1             /
           ]
@@ -355,7 +356,7 @@ The EDN for the Protected Header in the example above is:
 {                                   / Protected                     /
   1: -7,                            / Algorithm                     /
   4: h'4930714e...7163316b',        / Key identifier                /
-  -111: 1,                          / Verifiable Data Structure     /
+  395: 1,                          / Verifiable Data Structure     /
 }
 ~~~~
 {: #rfc9162_sha256_inclusion_receipt_header align="left" title="Example inclusion receipt decoded protected header"}
@@ -421,7 +422,7 @@ The protected header for an RFC9162_SHA256 consistency proof signature is:
 ~~~~ cddl
 protected-header-map = {
   &(alg: 1) => int
-  &(vds: -111) => int
+  &(vds: 395) => int
   * cose-label => cose-value
 }
 ~~~~
@@ -441,12 +442,12 @@ verifiable-proofs = {
 }
 
 unprotected-header-map = {
-  &(vdp: -222) => verifiable-proofs
+  &(vdp: 396) => verifiable-proofs
   * cose-label => cose-value
 }
 ~~~~
 
-* vdp (label: -222): REQUIRED. Verifiable data structure proofs. Value type: Map.
+* vdp (label: 396): REQUIRED. Verifiable data structure proofs. Value type: Map.
 * consistency-proof (label: -2): REQUIRED. Consistency proofs. Value type: Array of bstr.
 
 The payload of an RFC9162_SHA256 consistency proof signature is:
@@ -460,7 +461,7 @@ The EDN for a Receipt containing a consistency proof for RFC9162_SHA256 is:
     [
       h'a3012604...392b6601',       / Protected                     /
       {                             / Unprotected                   /
-        -222: {                     / Proofs                        /
+        396: {                     / Proofs                        /
           -2: [                     / Consistency proofs (1)        /
             h'83040682...2e73a8ab', / Consistency proof 1           /
           ]
@@ -481,7 +482,7 @@ The EDN for the Protected Header in the example above is:
 {                                   / Protected                     /
   1: -7,                            / Algorithm                     /
   4: h'68747470...6d706c65',        / Key identifier                /
-  -111: 1,                          / Verifiable Data Structure     /
+  395: 1,                          / Verifiable Data Structure     /
 }
 ~~~~
 {: #rfc9162_sha256_consistency_receipt_header align="left" title="Example consistency receipt decoded protected header"}
@@ -626,7 +627,7 @@ Expert reviewers should take into consideration the following points:
 Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.
 
 * Specifications are required for all point assignments.
-Early assignment before a specification is available is considered to be permissible, however, such registrations MUST be marked provisional by prefixing the entry with "PROVISIONAL: ".
+Early Allocation is permissible, see Section 2 of {{RFC7120}}.
 Provisional assignments to expired drafts MUST be removed from the registry.
 
 * Points assigned in this registry MUST have references that match the COSE Verifiable Data Structure Parameters registry.
@@ -659,7 +660,7 @@ Expert reviewers should take into consideration the following points:
 Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.
 
 * Specifications are required for all point assignments.
-Early assignment before a specification is available is considered to be permissible, however, such registrations MUST be marked provisional by prefixing the entry with "PROVISIONAL: ".
+Early Allocation is permissible, see Section 2 of {{RFC7120}}.
 Provisional assignments to expired drafts MUST be removed from the registry.
 
 * Points assigned in this registry MUST have references that match the COSE Verifiable Data Structures registry.
