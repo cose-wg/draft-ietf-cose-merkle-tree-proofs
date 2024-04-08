@@ -337,7 +337,7 @@ The EDN for a Receipt containing an inclusion proof for RFC9162_SHA256 is:
     [
       h'a4012604...6d706c65',       / Protected                     /
       {                             / Unprotected                   /
-        396: {                     / Proofs                        /
+        396: {                      / Proofs                        /
           -1: [                     / Inclusion proofs (1)          /
             h'83080783...32568964', / Inclusion proof 1             /
           ]
@@ -356,7 +356,7 @@ The EDN for the Protected Header in the example above is:
 {                                   / Protected                     /
   1: -7,                            / Algorithm                     /
   4: h'4930714e...7163316b',        / Key identifier                /
-  395: 1,                          / Verifiable Data Structure     /
+  395: 1,                           / Verifiable Data Structure     /
 }
 ~~~~
 {: #rfc9162_sha256_inclusion_receipt_header align="left" title="Example inclusion receipt decoded protected header"}
@@ -461,7 +461,7 @@ The EDN for a Receipt containing a consistency proof for RFC9162_SHA256 is:
     [
       h'a3012604...392b6601',       / Protected                     /
       {                             / Unprotected                   /
-        396: {                     / Proofs                        /
+        396: {                      / Proofs                        /
           -2: [                     / Consistency proofs (1)        /
             h'83040682...2e73a8ab', / Consistency proof 1           /
           ]
@@ -482,7 +482,7 @@ The EDN for the Protected Header in the example above is:
 {                                   / Protected                     /
   1: -7,                            / Algorithm                     /
   4: h'68747470...6d706c65',        / Key identifier                /
-  395: 1,                          / Verifiable Data Structure     /
+  395: 1,                           / Verifiable Data Structure     /
 }
 ~~~~
 {: #rfc9162_sha256_consistency_receipt_header align="left" title="Example consistency receipt decoded protected header"}
@@ -597,7 +597,7 @@ This document requests IANA to add new values to the 'COSE Algorithms' and to th
 
 * Name: vdp (requested assignment 396)
 * Label: TBD_2
-* Value type: int
+* Value type: map
 * Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
 * Description: Location for verifiable data structure proofs in COSE Header Parameters.
 * Reference: RFC XXXX
