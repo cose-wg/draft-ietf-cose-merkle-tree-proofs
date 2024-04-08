@@ -192,9 +192,10 @@ Table of Contents
       that is being tested or inclusion in the tree.
 
    Proof Type:  A verifiable process, that proves properties of a
-      Verifiable Data Structure.  For example, a VDS such as a binary
+      Verifiable Data Structure.  For example, a VDS, such as a binary
       merkle tree, can support multiple proofs of type "inclusion" where
-      each proof, confirms a given entry is included in a merkle root.
+      each proof confirms that a given entry is included in a merkle
+      root.
 
    Proof Value:  An encoding of a Proof Type in CBOR.
 
