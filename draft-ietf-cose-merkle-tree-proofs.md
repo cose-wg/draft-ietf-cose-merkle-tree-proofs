@@ -122,7 +122,7 @@ Verifiable Data Structure Parameters (VDP):
 Proof Type:
 
 : A verifiable process, that proves properties of a Verifiable Data Structure.
-  For example, a VDS such as a binary merkle tree, can support multiple proofs of type "inclusion" where each proof, confirms a given entry is included in a merkle root.
+  For example, a VDS, such as a binary merkle tree, can support multiple proofs of type "inclusion" where each proof confirms that a given entry is included in a merkle root.
 
 Proof Value:
 
