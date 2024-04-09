@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-07T00:40:20.707278+00:00",
+  "timestamp": "2024-04-09T00:36:41.647786+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -133,13 +133,15 @@
       "state": "OPEN",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "OR13"
+      ],
       "labels": [
         "wglc-blocker"
       ],
-      "body": "",
+      "body": "Request assignment for `receipts`, `vds`, and `vdp`.",
       "createdAt": "2024-03-06T15:01:33Z",
-      "updatedAt": "2024-03-06T15:02:30Z",
+      "updatedAt": "2024-04-07T15:39:27Z",
       "closedAt": null,
       "comments": []
     },
@@ -774,6 +776,116 @@
           "body": "",
           "createdAt": "2024-03-21T23:56:01Z",
           "updatedAt": "2024-03-21T23:56:01Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOKPwz585r773F",
+      "title": "Post IETF 119 Updates",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/18",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Request registration of receipt parameter\r\n- Add experimental range to reduce provisional registration requests\r\n- editorial cleanup",
+      "createdAt": "2024-04-07T14:57:47Z",
+      "updatedAt": "2024-04-08T18:46:30Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "58021efb38865db52b6d4447694fb6b5ca9b045b",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "post-ietf-119-updates",
+      "headRefOid": "00e03dc556ce179003921c28da326a9acadb79db",
+      "closedAt": "2024-04-08T18:46:30Z",
+      "mergedAt": "2024-04-08T18:46:30Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "ded18330c3443159451b62fb280e2736babec724"
+      },
+      "comments": [
+        {
+          "author": "ad-l",
+          "authorAssociation": "NONE",
+          "body": "Looking good, thanks",
+          "createdAt": "2024-04-08T18:32:13Z",
+          "updatedAt": "2024-04-08T18:32:13Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz5852Yy9n",
+          "commit": {
+            "abbreviatedOid": "6bfd2bd"
+          },
+          "author": "robinbryce",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-04-08T12:03:34Z",
+          "updatedAt": "2024-04-08T12:03:34Z",
+          "comments": [
+            {
+              "originalPosition": 91,
+              "body": "Whats the deal with the experimental slots ?",
+              "createdAt": "2024-04-08T12:03:34Z",
+              "updatedAt": "2024-04-08T12:03:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz5852ZzKS",
+          "commit": {
+            "abbreviatedOid": "6bfd2bd"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-04-08T13:34:54Z",
+          "updatedAt": "2024-04-08T13:34:54Z",
+          "comments": [
+            {
+              "originalPosition": 91,
+              "body": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/18/files#diff-e456ca8fff23262339949e1ef0e3b1f5c757b63b05b691c26d656654bef76d6fR148\r\n\r\n^ if this is not clear, please suggest changes to it",
+              "createdAt": "2024-04-08T13:34:54Z",
+              "updatedAt": "2024-04-08T13:34:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz5852a6ts",
+          "commit": {
+            "abbreviatedOid": "0e1cc4a"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-04-08T15:21:37Z",
+          "updatedAt": "2024-04-08T15:21:37Z",
+          "comments": [
+            {
+              "originalPosition": 68,
+              "body": "```suggestion\r\n  For example, a VDS, such as a binary merkle tree, can support multiple proofs of type \"inclusion\" where each proof confirms that a given entry is included in a merkle root.\r\n```",
+              "createdAt": "2024-04-08T15:21:37Z",
+              "updatedAt": "2024-04-08T15:21:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz5852biA7",
+          "commit": {
+            "abbreviatedOid": "00e03dc"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "refs provide clarity & usage lgtm",
+          "createdAt": "2024-04-08T16:35:58Z",
+          "updatedAt": "2024-04-08T16:35:58Z",
           "comments": []
         }
       ]
