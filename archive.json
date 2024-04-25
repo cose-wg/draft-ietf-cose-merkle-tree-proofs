@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-23T00:37:05.755688+00:00",
+  "timestamp": "2024-04-25T00:39:28.926010+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -85,7 +85,7 @@
       ],
       "body": "There is an editors note:\r\n\r\n> Editors note: tree-size-1, could be omitted, if an inclusion-proof is always present, since the inclusion proof contains, tree-size-1.\r\n\r\nThis note needs to be addressed with spec text.\r\n\r\nThis is a WGLC blocking issue.",
       "createdAt": "2024-03-02T15:33:13Z",
-      "updatedAt": "2024-03-14T11:29:40Z",
+      "updatedAt": "2024-04-23T15:03:32Z",
       "closedAt": null,
       "comments": [
         {
@@ -122,6 +122,13 @@
           "body": "That's a really helpful pointer. Thanks!",
           "createdAt": "2024-03-14T11:29:38Z",
           "updatedAt": "2024-03-14T11:29:38Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The armored witness stuff seems to be using the consistency proofs like this, to help with the monitoring and auditing use case, for go:\r\n\r\n- https://www.youtube.com/watch?v=SOfOe_z37jQ\r\n- https://github.com/C2SP/C2SP/pull/66\r\n\r\n",
+          "createdAt": "2024-04-23T15:02:46Z",
+          "updatedAt": "2024-04-23T15:03:32Z"
         }
       ]
     },
