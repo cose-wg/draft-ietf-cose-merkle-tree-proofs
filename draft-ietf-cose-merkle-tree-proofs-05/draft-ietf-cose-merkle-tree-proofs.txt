@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 10 October 2024                                  Fraunhofer SIT
+Expires: 20 December 2024                                 Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                            8 April 2024
+                                                            18 June 2024
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 October 2024.
+   This Internet-Draft will expire on 20 December 2024.
 
 Copyright Notice
 
@@ -949,9 +949,8 @@ Table of Contents
               Bormann, C., "CBOR Extended Diagnostic Notation (EDN):
               Application-Oriented Literals, ABNF, and Media Type", Work
               in Progress, Internet-Draft, draft-ietf-cbor-edn-literals-
-              08, 1 February 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-cbor-
-              edn-literals-08>.
+              09, 18 May 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-cbor-edn-literals-09>.
 
    [I-D.ietf-cose-cwt-claims-in-headers]
               Looker, T. and M. B. Jones, "CBOR Web Token (CWT) Claims
