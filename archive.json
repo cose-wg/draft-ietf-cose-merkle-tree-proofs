@@ -1,0 +1,917 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-06-27T00:40:20.324851+00:00",
+  "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    },
+    {
+      "name": "wglc-blocker",
+      "description": "",
+      "color": "EC1D5D"
+    }
+  ],
+  "issues": [
+    {
+      "number": 12,
+      "id": "I_kwDOKPwz586A0rfE",
+      "title": "The term receipt does not appear in the abstract",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/12",
+      "state": "CLOSED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "From @henkbirkholz \r\n\r\nI don't consider this to be WGLC blocking.",
+      "createdAt": "2024-02-29T13:40:01Z",
+      "updatedAt": "2024-03-02T16:45:41Z",
+      "closedAt": "2024-03-02T16:45:41Z",
+      "comments": []
+    },
+    {
+      "number": 13,
+      "id": "I_kwDOKPwz586BCRfP",
+      "title": "Consistency Proofs not well defined",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/13",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "wglc-blocker"
+      ],
+      "body": "There is an editors note:\r\n\r\n> Editors note: tree-size-1, could be omitted, if an inclusion-proof is always present, since the inclusion proof contains, tree-size-1.\r\n\r\nThis note needs to be addressed with spec text.\r\n\r\nThis is a WGLC blocking issue.",
+      "createdAt": "2024-03-02T15:33:13Z",
+      "updatedAt": "2024-04-23T15:03:32Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "robinbryce",
+          "authorAssociation": "NONE",
+          "body": "Do you think tree-size-1, tree-size-2 and path are sufficient to do consistency proofs for merkle mountain ranges ?\r\n\r\nMMR's are discussed [here](https://github.com/opentimestamps/opentimestamps-server/blob/master/doc/merkle-mountain-range.md) and [also here](https://github.com/mimblewimble/grin/blob/master/doc/mmr.md) in the context of blockchains but they seem to be generally a good thing.\r\n\r\nI haven't found a good clear description of what a consistency proof would look like for MMR's, but I *think* its sufficient to just prove inclusion of prior 'peaks' in the new log state at tree-size-2.  And that can just catenate the paths for each peak. Verification would just 'run off the end' if any single sub path was invalid. At least if the interior nodes commit to log position as H(POSITION, H-LEFT-CHILD, RIGHT-CHILD), I think that is all that is needed.",
+          "createdAt": "2024-03-08T09:10:11Z",
+          "updatedAt": "2024-03-08T09:10:11Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "No. In this draft Consistency Proofs are limited to RFC9162 definition.\r\n\r\nA separate document would be needed to describe MMRs as a VDS.",
+          "createdAt": "2024-03-08T14:30:47Z",
+          "updatedAt": "2024-03-08T14:30:47Z"
+        },
+        {
+          "author": "robinbryce",
+          "authorAssociation": "NONE",
+          "body": "Understood, I think I simply meant could the representation for the proof data be sensibly re-used in a separate document. the verification process would of course need to be described separately. but yes, this issue isn't the place for that conversation then.",
+          "createdAt": "2024-03-08T16:05:35Z",
+          "updatedAt": "2024-03-08T16:05:35Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@robinbryce its possible it could be, but even if the proofs were the same, the algorithm should be different, because the intended use is different.\r\n\r\nThe registry this draft establishes is 2 layers:\r\n\r\n- first layer is the data structure algorithm\r\n- second layer is the proof types that data structure supports\r\n\r\nto use the draft, you always need to start by address the first layer, and then mapping first layer code points to second layer code points.\r\n\r\nits possible the second layer proof definitions could look very similar, such as EC2 and OKP public keys both have \"x\" and \"d\"... but the meaning of \"x\" and \"d\" comes from the \"kty\" values, not from \"x\" or \"y\", alone.",
+          "createdAt": "2024-03-10T14:29:15Z",
+          "updatedAt": "2024-03-10T14:29:15Z"
+        },
+        {
+          "author": "robinbryce",
+          "authorAssociation": "NONE",
+          "body": "That's a really helpful pointer. Thanks!",
+          "createdAt": "2024-03-14T11:29:38Z",
+          "updatedAt": "2024-03-14T11:29:38Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The armored witness stuff seems to be using the consistency proofs like this, to help with the monitoring and auditing use case, for go:\r\n\r\n- https://www.youtube.com/watch?v=SOfOe_z37jQ\r\n- https://github.com/C2SP/C2SP/pull/66\r\n\r\n",
+          "createdAt": "2024-04-23T15:02:46Z",
+          "updatedAt": "2024-04-23T15:03:32Z"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOKPwz586BccGk",
+      "title": "Request early allocation of COSE Header Parameter Code Points?",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/15",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "OR13"
+      ],
+      "labels": [
+        "wglc-blocker"
+      ],
+      "body": "Request assignment for `receipts`, `vds`, and `vdp`.",
+      "createdAt": "2024-03-06T15:01:33Z",
+      "updatedAt": "2024-04-07T15:39:27Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 16,
+      "id": "I_kwDOKPwz586BcdH_",
+      "title": "Early directorate reviews?",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/16",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": " - [ ] SEC DIR\r\n - [ ] IoT DIR\r\n \r\n Others?",
+      "createdAt": "2024-03-06T15:03:18Z",
+      "updatedAt": "2024-03-06T15:03:27Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 19,
+      "id": "I_kwDOKPwz586Nblca",
+      "title": "Align with Updated receipts header parameter references in SCITT Arch",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/19",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://github.com/ietf-wg-scitt/draft-ietf-scitt-architecture/issues/226#issuecomment-2099027426",
+      "createdAt": "2024-06-25T14:15:16Z",
+      "updatedAt": "2024-06-25T14:15:16Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOKPwz585ZtcIZ",
+      "title": "Letmaik/remove non rfc tree algs",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/1",
+      "state": "CLOSED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-06T18:12:58Z",
+      "updatedAt": "2023-10-20T21:26:43Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "d0dd02713e97813c6c7a9621ef217a3429086e54",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "letmaik/remove-non-rfc-tree-algs",
+      "headRefOid": "4a33c7046783e73145773dbfb1230a4f968864f6",
+      "closedAt": "2023-09-06T18:13:01Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOKPwz585ZtcML",
+      "title": "Revert 3 letmaik/ccf tree alg",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/2",
+      "state": "CLOSED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-06T18:13:11Z",
+      "updatedAt": "2023-10-20T21:26:51Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "d0dd02713e97813c6c7a9621ef217a3429086e54",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "revert-3-letmaik/ccf-tree-alg",
+      "headRefOid": "c37cf5eeabafbc01ddae3db047dd3c244fcc2d4c",
+      "closedAt": "2023-09-06T18:13:16Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOKPwz585ZtcQJ",
+      "title": "ccf tree alg",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/3",
+      "state": "CLOSED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-06T18:13:24Z",
+      "updatedAt": "2023-10-20T21:26:52Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "d0dd02713e97813c6c7a9621ef217a3429086e54",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "letmaik/ccf-tree-alg",
+      "headRefOid": "f484897f83a670a3134c381b1d5caccc4a4828a7",
+      "closedAt": "2023-09-06T18:13:28Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOKPwz585ZtcTr",
+      "title": "add OZ_keccak256 tree algorithm",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/4",
+      "state": "CLOSED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-06T18:13:35Z",
+      "updatedAt": "2023-10-20T21:26:50Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "d0dd02713e97813c6c7a9621ef217a3429086e54",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "letmaik/oz_keccak256",
+      "headRefOid": "e6577de8f46fbbff1bc17408bb74c5023b26f721",
+      "closedAt": "2023-09-06T18:13:40Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOKPwz585aDHVp",
+      "title": "Find replace on repo name",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/5",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I think this completes the setup work we needed to do.\r\n\r\ncc @henkbirkholz",
+      "createdAt": "2023-09-11T17:55:12Z",
+      "updatedAt": "2023-10-20T21:26:39Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "8858703181b9220234922fd7b13dc23bed1f0e4a",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "fix/repo-name-issues",
+      "headRefOid": "101b30804f6da32d6760d2b18216823ef4226dad",
+      "closedAt": "2023-09-12T13:15:56Z",
+      "mergedAt": "2023-09-12T13:15:56Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "09746b949e99d593156d2b0d4fcb114a706db8e7"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz585goz5h",
+          "commit": {
+            "abbreviatedOid": "101b308"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2023-09-12T05:55:00Z",
+          "updatedAt": "2023-09-12T05:55:00Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz585gqCcY",
+          "commit": {
+            "abbreviatedOid": "101b308"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-09-12T08:30:16Z",
+          "updatedAt": "2023-09-12T08:30:16Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOKPwz585aDtIO",
+      "title": "Updates",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/6",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- allow multiple proof types\r\n- address editors notes",
+      "createdAt": "2023-09-11T19:51:53Z",
+      "updatedAt": "2023-10-18T17:25:53Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "09746b949e99d593156d2b0d4fcb114a706db8e7",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "feat/address-editors-notes",
+      "headRefOid": "9ab5216cf20563193380124ed1a9e4e61408edac",
+      "closedAt": "2023-10-18T17:25:53Z",
+      "mergedAt": "2023-10-18T17:25:53Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "3fa4b8b39cc91298b80abebfa3f0280263247d4a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz585hQ5Uy",
+          "commit": {
+            "abbreviatedOid": "b1b4560"
+          },
+          "author": "JAG-UK",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "I have made the same single comment 5 times. Sorry about that, but it has many tentacles.",
+          "createdAt": "2023-09-18T19:26:17Z",
+          "updatedAt": "2023-09-18T19:28:03Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "Wouldn't it be better/simpler for this to ALWAYS be a list and sometimes only have 1 element?",
+              "createdAt": "2023-09-18T19:26:18Z",
+              "updatedAt": "2023-09-18T19:28:03Z"
+            },
+            {
+              "originalPosition": 23,
+              "body": "Wouldn't it be better/simpler for this to ALWAYS be a list and sometimes only have 1 element?",
+              "createdAt": "2023-09-18T19:26:33Z",
+              "updatedAt": "2023-09-18T19:28:03Z"
+            },
+            {
+              "originalPosition": 31,
+              "body": "Wouldn't it be better/simpler for this to ALWAYS be a list and sometimes only have 1 element?",
+              "createdAt": "2023-09-18T19:26:37Z",
+              "updatedAt": "2023-09-18T19:28:03Z"
+            },
+            {
+              "originalPosition": 41,
+              "body": "Wouldn't it be better/simpler for this to ALWAYS be a list and sometimes only have 1 element?",
+              "createdAt": "2023-09-18T19:26:49Z",
+              "updatedAt": "2023-09-18T19:28:03Z"
+            },
+            {
+              "originalPosition": 42,
+              "body": "Wouldn't it be better/simpler for this to ALWAYS be a list and sometimes only have 1 element?",
+              "createdAt": "2023-09-18T19:26:53Z",
+              "updatedAt": "2023-09-18T19:28:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz585hQ8zY",
+          "commit": {
+            "abbreviatedOid": "b1b4560"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-18T19:37:13Z",
+          "updatedAt": "2023-09-18T19:37:13Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "I agree, this was just my first attempt at an update... and I wanted to hear from @henkbirkholz and other CBOR / COSE experts on how best to address this.",
+              "createdAt": "2023-09-18T19:37:13Z",
+              "updatedAt": "2023-09-18T19:37:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz585jboAY",
+          "commit": {
+            "abbreviatedOid": "a315413"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-10T16:03:35Z",
+          "updatedAt": "2023-10-10T16:03:35Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Technically, that would be:\r\n\r\n```\r\nbstr / [ 2* bstr ]\r\n```\r\nor\r\n```\r\none-or-more<T> = T / [ 2* T ]\r\none-or-more<bstr> \r\n```\r\nand not\r\n```\r\n[ + bstr ]\r\n```\r\n\r\nas illustrated in https://github.com/ietf-wg-scitt/draft-ietf-scitt-architecture/issues/109#issue-1935673877",
+              "createdAt": "2023-10-10T16:03:35Z",
+              "updatedAt": "2023-10-10T16:03:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz585jbu7V",
+          "commit": {
+            "abbreviatedOid": "a315413"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-10T16:15:55Z",
+          "updatedAt": "2023-10-10T16:15:55Z",
+          "comments": [
+            {
+              "originalPosition": 103,
+              "body": "```suggestion\r\n  &(consistency-proof: TBD_3) => consistency-proofs\r\n```",
+              "createdAt": "2023-10-10T16:15:55Z",
+              "updatedAt": "2023-10-10T16:15:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz585jy3Ow",
+          "commit": {
+            "abbreviatedOid": "4dc2a11"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-12T14:07:01Z",
+          "updatedAt": "2023-10-12T14:07:01Z",
+          "comments": [
+            {
+              "originalPosition": 87,
+              "body": "```suggestion\r\n* kid (label: 4): OPTIONAL. Key identifier. Value type: bstr\r\n* crit (label: 2): OPTIONAL. Criticality marker. Value type: [ + label ]\r\n```",
+              "createdAt": "2023-10-12T14:07:01Z",
+              "updatedAt": "2023-10-12T14:07:01Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOKPwz585da-AM",
+      "title": "Updates for IETF 118",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/7",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Examples generated from WIP implementation here: https://github.com/transmute-industries/cose/pull/6/files",
+      "createdAt": "2023-10-20T21:18:05Z",
+      "updatedAt": "2023-10-20T21:26:38Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "3fa4b8b39cc91298b80abebfa3f0280263247d4a",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "feat/address-editors-notes",
+      "headRefOid": "d498294a90763f64eb4d3110c73dece901119fe3",
+      "closedAt": "2023-10-20T21:20:29Z",
+      "mergedAt": "2023-10-20T21:20:29Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "eb8f7d44300f8d787a69f91f8e0aa1a8d0a5cf4b"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOKPwz585dqgV9",
+      "title": "Update registry structure",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/8",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-10-24T16:59:51Z",
+      "updatedAt": "2023-11-17T21:26:52Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "46ceac400121ebc8c1759259909d7f46ec9a9985",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "feat/refactor-registry-request",
+      "headRefOid": "4229fe0e571b2c7e4743c53b1f7cdbdd6f9af02f",
+      "closedAt": "2023-11-08T09:09:33Z",
+      "mergedAt": "2023-11-08T09:09:33Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "39306371c054b9ae31db86b5435e8afa115e1dba"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOKPwz585dwHs2",
+      "title": "Add Acknowledgements",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/9",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-10-25T12:59:55Z",
+      "updatedAt": "2023-11-17T21:26:51Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "46ceac400121ebc8c1759259909d7f46ec9a9985",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "feat/ack",
+      "headRefOid": "bd69527cf2c92ad4a36b5ce086e47ad32dfd2cf9",
+      "closedAt": "2023-11-08T09:09:42Z",
+      "mergedAt": "2023-11-08T09:09:42Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "f8d1b35cb5ef37c9ca48c4a9558b82f97b515c47"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOKPwz585hMsaj",
+      "title": "Updates",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/10",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR makes editorial changes, clarifies some cddl, and adds considerations.",
+      "createdAt": "2023-12-05T16:12:01Z",
+      "updatedAt": "2023-12-11T14:50:33Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "82f82f10e5c7474a717ec66c6f4a09e20e69be9d",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "feat/revisions",
+      "headRefOid": "f3739264433e206e3d689de44f45339159293e64",
+      "closedAt": "2023-12-11T14:50:33Z",
+      "mergedAt": "2023-12-11T14:50:33Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "325be82ae8543c87a13e402bec45eb4e35d28a38"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz585pPYEe",
+          "commit": {
+            "abbreviatedOid": "b37b38c"
+          },
+          "author": "aj-stein-nist",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-12-05T16:51:35Z",
+          "updatedAt": "2023-12-05T16:53:33Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "A minor edit to follow up on your minor edit.\r\n\r\n```suggestion\r\n: A verifiable process, that proves properties of a Verifiable Data Structure.\r\n```\r\n\r\nAs an aside, can a Proof Type only handle a Verifiable Data Structure, not more than one? That is implied by the edit here.",
+              "createdAt": "2023-12-05T16:51:35Z",
+              "updatedAt": "2023-12-05T16:53:33Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOKPwz585oD1d6",
+      "title": "Updates before IETF 119",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/11",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-27T15:17:44Z",
+      "updatedAt": "2024-02-27T15:42:49Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "325be82ae8543c87a13e402bec45eb4e35d28a38",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "feat/pref-119-updates",
+      "headRefOid": "cdec9ef24b6d86ff25ae778a5fd98190028cb9a3",
+      "closedAt": "2024-02-27T15:42:49Z",
+      "mergedAt": "2024-02-27T15:42:49Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "a73b6c7e7bb6ba9df72e866e99f587a14bc48d98"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz585xevth",
+          "commit": {
+            "abbreviatedOid": "bd1c95a"
+          },
+          "author": "fournet",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-27T15:33:43Z",
+          "updatedAt": "2024-02-27T15:33:43Z",
+          "comments": [
+            {
+              "originalPosition": 215,
+              "body": "```suggestion\r\ndigital signature algorithm `alg` has the appropriate strength to secure receipts.\r\n```",
+              "createdAt": "2024-02-27T15:33:43Z",
+              "updatedAt": "2024-02-27T15:33:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz585xexx4",
+          "commit": {
+            "abbreviatedOid": "bd1c95a"
+          },
+          "author": "fournet",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-27T15:35:39Z",
+          "updatedAt": "2024-02-27T15:35:39Z",
+          "comments": [
+            {
+              "originalPosition": 223,
+              "body": "\"Might require\" is unclear; I believe this refers to the inclusion of a validity period in the information authenticated by the receipt, not an abstract requirement. May go back to \"may include\" ? ",
+              "createdAt": "2024-02-27T15:35:39Z",
+              "updatedAt": "2024-02-27T15:35:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz585xe0QA",
+          "commit": {
+            "abbreviatedOid": "bd1c95a"
+          },
+          "author": "ad-l",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-27T15:38:08Z",
+          "updatedAt": "2024-02-27T15:38:08Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz585xe3Y9",
+          "commit": {
+            "abbreviatedOid": "8bb9234"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-27T15:40:48Z",
+          "updatedAt": "2024-02-27T15:40:48Z",
+          "comments": [
+            {
+              "originalPosition": 224,
+              "body": "```suggestion\r\nIn some cases, receipts MAY include strict validity periods, for example,\r\n```",
+              "createdAt": "2024-02-27T15:40:48Z",
+              "updatedAt": "2024-02-27T15:40:48Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOKPwz585ofLaS",
+      "title": "Updates before IETF 119 Cut Off",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/14",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-02T16:23:34Z",
+      "updatedAt": "2024-03-02T16:45:35Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "a73b6c7e7bb6ba9df72e866e99f587a14bc48d98",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "feat/pre-119-updates",
+      "headRefOid": "1331caf8919f6461053e7eee88bbdb3f4f19f51e",
+      "closedAt": "2024-03-02T16:45:35Z",
+      "mergedAt": "2024-03-02T16:45:35Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "aed36e841e41f9bf016c5ba883f5e6a41be7ff3d"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOKPwz585p0CpM",
+      "title": "Fix typos found while re-reviewing draft",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/17",
+      "state": "MERGED",
+      "author": "aj-stein-nist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As is my tradition, I come to you with gifts of low-effort changes of the typo fix variety while re-reviewing the current draft after confirming the typos exist in the current main branch of GitHub of course. \ud83d\ude04 ",
+      "createdAt": "2024-03-16T03:22:15Z",
+      "updatedAt": "2024-03-21T23:56:12Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "aed36e841e41f9bf016c5ba883f5e6a41be7ff3d",
+      "headRepository": "aj-stein-nist/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "chore-typo-fixes-119-draft",
+      "headRefOid": "9c0ee19af2091770771ee53e249f8ea4fc06506c",
+      "closedAt": "2024-03-21T23:56:12Z",
+      "mergedAt": "2024-03-21T23:56:12Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "58021efb38865db52b6d4447694fb6b5ca9b045b"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz5850ctf7",
+          "commit": {
+            "abbreviatedOid": "9c0ee19"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-21T23:56:01Z",
+          "updatedAt": "2024-03-21T23:56:01Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOKPwz585r773F",
+      "title": "Post IETF 119 Updates",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/18",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Request registration of receipt parameter\r\n- Add experimental range to reduce provisional registration requests\r\n- editorial cleanup",
+      "createdAt": "2024-04-07T14:57:47Z",
+      "updatedAt": "2024-04-08T18:46:30Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "58021efb38865db52b6d4447694fb6b5ca9b045b",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "post-ietf-119-updates",
+      "headRefOid": "00e03dc556ce179003921c28da326a9acadb79db",
+      "closedAt": "2024-04-08T18:46:30Z",
+      "mergedAt": "2024-04-08T18:46:30Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "ded18330c3443159451b62fb280e2736babec724"
+      },
+      "comments": [
+        {
+          "author": "ad-l",
+          "authorAssociation": "NONE",
+          "body": "Looking good, thanks",
+          "createdAt": "2024-04-08T18:32:13Z",
+          "updatedAt": "2024-04-08T18:32:13Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz5852Yy9n",
+          "commit": {
+            "abbreviatedOid": "6bfd2bd"
+          },
+          "author": "robinbryce",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-04-08T12:03:34Z",
+          "updatedAt": "2024-04-08T12:03:34Z",
+          "comments": [
+            {
+              "originalPosition": 91,
+              "body": "Whats the deal with the experimental slots ?",
+              "createdAt": "2024-04-08T12:03:34Z",
+              "updatedAt": "2024-04-08T12:03:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz5852ZzKS",
+          "commit": {
+            "abbreviatedOid": "6bfd2bd"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-04-08T13:34:54Z",
+          "updatedAt": "2024-04-08T13:34:54Z",
+          "comments": [
+            {
+              "originalPosition": 91,
+              "body": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/18/files#diff-e456ca8fff23262339949e1ef0e3b1f5c757b63b05b691c26d656654bef76d6fR148\r\n\r\n^ if this is not clear, please suggest changes to it",
+              "createdAt": "2024-04-08T13:34:54Z",
+              "updatedAt": "2024-04-08T13:34:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz5852a6ts",
+          "commit": {
+            "abbreviatedOid": "0e1cc4a"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-04-08T15:21:37Z",
+          "updatedAt": "2024-04-08T15:21:37Z",
+          "comments": [
+            {
+              "originalPosition": 68,
+              "body": "```suggestion\r\n  For example, a VDS, such as a binary merkle tree, can support multiple proofs of type \"inclusion\" where each proof confirms that a given entry is included in a merkle root.\r\n```",
+              "createdAt": "2024-04-08T15:21:37Z",
+              "updatedAt": "2024-04-08T15:21:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz5852biA7",
+          "commit": {
+            "abbreviatedOid": "00e03dc"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "refs provide clarity & usage lgtm",
+          "createdAt": "2024-04-08T16:35:58Z",
+          "updatedAt": "2024-04-08T16:35:58Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
