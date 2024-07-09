@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-07T00:44:38.175463+00:00",
+  "timestamp": "2024-07-09T00:40:56.598034+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -76,7 +76,7 @@
       "id": "I_kwDOKPwz586BCRfP",
       "title": "Consistency Proofs not well defined",
       "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/13",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -85,8 +85,8 @@
       ],
       "body": "There is an editors note:\r\n\r\n> Editors note: tree-size-1, could be omitted, if an inclusion-proof is always present, since the inclusion proof contains, tree-size-1.\r\n\r\nThis note needs to be addressed with spec text.\r\n\r\nThis is a WGLC blocking issue.",
       "createdAt": "2024-03-02T15:33:13Z",
-      "updatedAt": "2024-04-23T15:03:32Z",
-      "closedAt": null,
+      "updatedAt": "2024-07-08T20:18:52Z",
+      "closedAt": "2024-07-08T20:18:52Z",
       "comments": [
         {
           "author": "robinbryce",
@@ -129,6 +129,13 @@
           "body": "The armored witness stuff seems to be using the consistency proofs like this, to help with the monitoring and auditing use case, for go:\r\n\r\n- https://www.youtube.com/watch?v=SOfOe_z37jQ\r\n- https://github.com/C2SP/C2SP/pull/66\r\n\r\n",
           "createdAt": "2024-04-23T15:02:46Z",
           "updatedAt": "2024-04-23T15:03:32Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Structure has not received objections, closing this issue",
+          "createdAt": "2024-07-08T20:18:52Z",
+          "updatedAt": "2024-07-08T20:18:52Z"
         }
       ]
     },
@@ -148,39 +155,81 @@
       ],
       "body": "Request assignment for `receipts`, `vds`, and `vdp`.",
       "createdAt": "2024-03-06T15:01:33Z",
-      "updatedAt": "2024-04-07T15:39:27Z",
+      "updatedAt": "2024-07-08T20:18:26Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I've requested these from Chairs / responsible AD.",
+          "createdAt": "2024-07-08T20:18:25Z",
+          "updatedAt": "2024-07-08T20:18:25Z"
+        }
+      ]
     },
     {
       "number": 16,
       "id": "I_kwDOKPwz586BcdH_",
       "title": "Early directorate reviews?",
       "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/16",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": " - [ ] SEC DIR\r\n - [ ] IoT DIR\r\n \r\n Others?",
       "createdAt": "2024-03-06T15:03:18Z",
-      "updatedAt": "2024-03-06T15:03:27Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2024-07-08T20:18:01Z",
+      "closedAt": "2024-07-08T20:18:01Z",
+      "comments": [
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Not going to ask for these",
+          "createdAt": "2024-07-08T20:18:01Z",
+          "updatedAt": "2024-07-08T20:18:01Z"
+        }
+      ]
     },
     {
       "number": 19,
       "id": "I_kwDOKPwz586Nblca",
       "title": "Align with Updated receipts header parameter references in SCITT Arch",
       "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/19",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "henkbirkholz",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "https://github.com/ietf-wg-scitt/draft-ietf-scitt-architecture/issues/226#issuecomment-2099027426",
       "createdAt": "2024-06-25T14:15:16Z",
-      "updatedAt": "2024-06-25T14:15:16Z",
+      "updatedAt": "2024-07-08T20:20:22Z",
+      "closedAt": "2024-07-08T20:20:21Z",
+      "comments": [
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This is not an issue for this draft... its an issue for the SCITT architecture, and I believe its been resolved.",
+          "createdAt": "2024-07-08T20:20:21Z",
+          "updatedAt": "2024-07-08T20:20:21Z"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "I_kwDOKPwz586O15T2",
+      "title": "Address Robin's comments",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/20",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "wglc-blocker"
+      ],
+      "body": "https://mailarchive.ietf.org/arch/msg/cose/ECdpstk4sSOKt6XiGz_OfWnuX1A/",
+      "createdAt": "2024-07-08T20:19:33Z",
+      "updatedAt": "2024-07-08T20:19:44Z",
       "closedAt": null,
       "comments": []
     }
