@@ -190,7 +190,6 @@ This document establishes a registry of verifiable data structure algorithms, wi
 Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
 Implementers should not expect interoperability across "verifiable data structures", but they should expect conceptually similar properties across the different registered proof types.
 For example, 2 different merkle tree based verifiable data structures might both support proofs of inclusion.
-Protocols requiring proof of inclusion ought to be able to preserve their functionality, while switching from one verifiable data structure to another, so long as both structures support the same proof types.
 Security analysis SHOULD be conducted prior to migrating to new structures to ensure the new security and privacy assumptions are acceptable for the use case.
 When designing new verifiable data structure parameters (or proof types), please start with -1, and count down for each proof type supported by your verifiable data structure:
 
