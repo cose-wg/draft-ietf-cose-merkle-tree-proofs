@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 10 October 2024                                  Fraunhofer SIT
+Expires: 7 February 2025                                  Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                            8 April 2024
+                                                           6 August 2024
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 October 2024.
+   This Internet-Draft will expire on 7 February 2025.
 
 Copyright Notice
 
@@ -314,15 +314,12 @@ Table of Contents
    "verifiable data structures", but they should expect conceptually
    similar properties across the different registered proof types.  For
    example, 2 different merkle tree based verifiable data structures
-   might both support proofs of inclusion.  Protocols requiring proof of
-   inclusion ought to be able to preserve their functionality, while
-   switching from one verifiable data structure to another, so long as
-   both structures support the same proof types.  Security analysis
-   SHOULD be conducted prior to migrating to new structures to ensure
-   the new security and privacy assumptions are acceptable for the use
-   case.  When designing new verifiable data structure parameters (or
-   proof types), please start with -1, and count down for each proof
-   type supported by your verifiable data structure:
+   might both support proofs of inclusion.  Security analysis SHOULD be
+   conducted prior to migrating to new structures to ensure the new
+   security and privacy assumptions are acceptable for the use case.
+   When designing new verifiable data structure parameters (or proof
+   types), please start with -1, and count down for each proof type
+   supported by your verifiable data structure:
 
    +==========+===========+=====+=====+===========+==================+
    |Verifiable|Name       |Label|CBOR |Description|Reference         |
@@ -946,12 +943,11 @@ Table of Contents
               <https://www.rfc-editor.org/rfc/rfc7942>.
 
    [I-D.draft-ietf-cbor-edn-literals]
-              Bormann, C., "CBOR Extended Diagnostic Notation (EDN):
-              Application-Oriented Literals, ABNF, and Media Type", Work
-              in Progress, Internet-Draft, draft-ietf-cbor-edn-literals-
-              08, 1 February 2024,
+              Bormann, C., "CBOR Extended Diagnostic Notation (EDN)",
+              Work in Progress, Internet-Draft, draft-ietf-cbor-edn-
+              literals-10, 4 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cbor-
-              edn-literals-08>.
+              edn-literals-10>.
 
    [I-D.ietf-cose-cwt-claims-in-headers]
               Looker, T. and M. B. Jones, "CBOR Web Token (CWT) Claims
