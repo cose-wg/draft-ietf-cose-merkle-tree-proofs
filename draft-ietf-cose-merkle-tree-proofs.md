@@ -257,8 +257,7 @@ Each specification MUST define how to encode the verifiable data structure and i
 Each specification MUST define how to produce and consume the supported proof types.
 See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 
-Where a specification supports a choice of hash algorithm,
-an IANA registration must be made for each individually supported algorithm.
+Where a specification supports a choice of hash algorithm, an IANA registration must be made for each individually supported algorithm.
 For example, to provide for both SHA256 and SHA3_256 with {{RFC9162}},
 both "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the relevant IANA registries.
 
