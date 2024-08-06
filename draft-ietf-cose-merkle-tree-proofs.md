@@ -277,10 +277,10 @@ The CBOR representation of an inclusion proof for RFC9162_SHA256 is:
 inclusion-proof = bstr .cbor [
 
     ; tree size at current merkle root
-    tree-size: int
+    tree-size: uint
 
     ; index of leaf in tree
-    leaf-index: int
+    leaf-index: uint
 
     ; path from leaf to current merkle root
     inclusion-path: [ + bstr ]
@@ -399,10 +399,10 @@ The cbor representation of a consistency proof for RFC9162_SHA256 is:
 consistency-proof =  bstr .cbor [
 
     ; previous merkle root tree size
-    tree-size-1: int
+    tree-size-1: uint
 
     ; latest merkle root tree size
-    tree-size-2: int
+    tree-size-2: uint
 
     ; path from previous merkle root to latest merkle root.
     consistency-path: [ + bstr ]
