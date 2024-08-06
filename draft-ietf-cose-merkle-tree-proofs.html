@@ -1744,11 +1744,11 @@ See <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>, 2.1.1. Defi
         <h3 id="name-inclusion-proof">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-inclusion-proof" class="section-name selfRef">Inclusion Proof</a>
         </h3>
-<p id="section-5.2-1">See <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>, 2.1.3.1. Generating an Inclusion Proof, for a complete description of this verifiable data structure proof type.
-The CBOR representation of an inclusion proof for RFC9162_SHA256 is:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">See <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>, 2.1.3.1. Generating an Inclusion Proof, for a complete description of this verifiable data structure proof type.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">The CBOR representation of an inclusion proof for RFC9162_SHA256 is:<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <span id="name-cbor-encoded-rfc9162-inclus"></span><div id="rfc9162-sha256-cbor-inclusion-proof">
 <figure id="figure-3">
-          <div class="lang-cddl sourcecode" id="section-5.2-2.1">
+          <div class="lang-cddl sourcecode" id="section-5.2-3.1">
 <pre>
 inclusion-proof = bstr .cbor [
 
@@ -1773,6 +1773,7 @@ inclusion-proof = bstr .cbor [
 <a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-receipt-of-inclusion" class="section-name selfRef">Receipt of Inclusion</a>
           </h4>
 <p id="section-5.2.1-1">In a signed inclusion proof, the previous merkle tree root, maps to tree-size-1, and is a detached payload.
+Specifications are encouraged to make payloads detached when possible, forcing validation-time comparison.
 Profiles of proof signatures are encouraged to make additional protected header parameters mandatory, to ensure that claims are processed with their intended semantics.
 One way to include this information in the COSE structure is use of the typ (type) Header Parameter, see <span>[<a href="#I-D.ietf-cose-typ-header-parameter" class="cite xref">I-D.ietf-cose-typ-header-parameter</a>]</span> and the similar guidance provided in <span>[<a href="#I-D.ietf-cose-cwt-claims-in-headers" class="cite xref">I-D.ietf-cose-cwt-claims-in-headers</a>]</span>.
 The protected header for an RFC9162_SHA256 inclusion proof signature is:<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
