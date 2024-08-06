@@ -274,6 +274,7 @@ See {{-certificate-transparency-v2}}, 2.1.1. Definition of the Merkle Tree, for 
 ## Inclusion Proof {#sec-rfc9162-sha256-inclusion-proof}
 
 See {{-certificate-transparency-v2}}, 2.1.3.1. Generating an Inclusion Proof, for a complete description of this verifiable data structure proof type.
+
 The CBOR representation of an inclusion proof for RFC9162_SHA256 is:
 
 ~~~~ cddl
@@ -294,6 +295,7 @@ inclusion-proof = bstr .cbor [
 ### Receipt of Inclusion
 
 In a signed inclusion proof, the previous merkle tree root, maps to tree-size-1, and is a detached payload.
+Specifications are encouraged to make payloads detached when possible, forcing validation-time comparison.
 Profiles of proof signatures are encouraged to make additional protected header parameters mandatory, to ensure that claims are processed with their intended semantics.
 One way to include this information in the COSE structure is use of the typ (type) Header Parameter, see {{-cose-typ}} and the similar guidance provided in {{-cwt-header-claims}}.
 The protected header for an RFC9162_SHA256 inclusion proof signature is:
