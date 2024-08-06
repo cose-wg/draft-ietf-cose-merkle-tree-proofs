@@ -279,7 +279,7 @@ inclusion-proof = bstr .cbor [
     ; tree size at current merkle root
     tree-size: int
 
-    ; index of leaf in tree
+    ; index of the leaf node in the tree
     leaf-index: int
 
     ; path from leaf to current merkle root
@@ -287,6 +287,12 @@ inclusion-proof = bstr .cbor [
 ]
 ~~~~
 {: #rfc9162-sha256-cbor-inclusion-proof align="left" title="CBOR Encoded RFC9162 Inclusion Proof"}
+
+The term `leaf-index` is used for alignment with the use established in {{RFC9162}}
+
+Note that {{RFC9162}} defines that verification MUST fail if leaf-index is >= tree-size,
+and inclusion proofs are defined only for leaf nodes.
+The identifying index of a leaf node is relative to all nodes in the tree size for which the proof was obtained.
 
 ### Receipt of Inclusion
 
