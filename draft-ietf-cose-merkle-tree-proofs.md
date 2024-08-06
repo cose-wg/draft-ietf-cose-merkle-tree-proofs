@@ -257,6 +257,9 @@ Each specification MUST define how to encode the verifiable data structure and i
 Each specification MUST define how to produce and consume the supported proof types.
 See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 
+Specifications are encouraged to reuse appropriate and relevant specifications,
+however such re-use is opaque to this document.
+
 # RFC9162_SHA256 {#sec-rfc-9162-verifiable-data-structure-definition}
 
 This section defines how the data structures described in {{-certificate-transparency-v2}} are mapped to the terminology defined in this document, using CBOR and COSE.
