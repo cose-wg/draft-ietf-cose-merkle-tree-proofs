@@ -292,7 +292,7 @@ inclusion-proof = bstr .cbor [
 ### Receipt of Inclusion
 
 In a signed inclusion proof, the previous merkle tree root, maps to tree-size-1, and is a detached payload.
-In general, all specifications are encouraged to make proof payloads detached in this way where possible.
+Specifications are encouraged to make payloads detached when possible, forcing validation-time comparison.
 Profiles of proof signatures are encouraged to make additional protected header parameters mandatory, to ensure that claims are processed with their intended semantics.
 One way to include this information in the COSE structure is use of the typ (type) Header Parameter, see {{-cose-typ}} and the similar guidance provided in {{-cwt-header-claims}}.
 The protected header for an RFC9162_SHA256 inclusion proof signature is:
