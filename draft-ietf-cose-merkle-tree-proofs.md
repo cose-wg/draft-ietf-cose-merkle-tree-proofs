@@ -190,7 +190,6 @@ This document establishes a registry of verifiable data structure algorithms, wi
 Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
 Implementers should not expect interoperability across "verifiable data structures", but they should expect conceptually similar properties across the different registered proof types.
 For example, 2 different merkle tree based verifiable data structures might both support proofs of inclusion.
-Protocols requiring proof of inclusion ought to be able to preserve their functionality, while switching from one verifiable data structure to another, so long as both structures support the same proof types.
 Security analysis SHOULD be conducted prior to migrating to new structures to ensure the new security and privacy assumptions are acceptable for the use case.
 When designing new verifiable data structure parameters (or proof types), please start with -1, and count down for each proof type supported by your verifiable data structure:
 
@@ -257,6 +256,10 @@ Each specification MUST define how to encode the verifiable data structure and i
 Each specification MUST define how to produce and consume the supported proof types.
 See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 
+Where a specification supports a choice of hash algorithm, an IANA registration must be made for each individually supported algorithm.
+For example, to provide for both SHA256 and SHA3_256 with {{RFC9162}},
+both "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the relevant IANA registries.
+
 # RFC9162_SHA256 {#sec-rfc-9162-verifiable-data-structure-definition}
 
 This section defines how the data structures described in {{-certificate-transparency-v2}} are mapped to the terminology defined in this document, using CBOR and COSE.
@@ -277,10 +280,10 @@ The CBOR representation of an inclusion proof for RFC9162_SHA256 is:
 inclusion-proof = bstr .cbor [
 
     ; tree size at current merkle root
-    tree-size: int
+    tree-size: uint
 
-    ; index of the leaf node in the tree
-    leaf-index: int
+    ; index of leaf in tree
+    leaf-index: uint
 
     ; path from leaf to current merkle root
     inclusion-path: [ + bstr ]
@@ -405,10 +408,10 @@ The cbor representation of a consistency proof for RFC9162_SHA256 is:
 consistency-proof =  bstr .cbor [
 
     ; previous merkle root tree size
-    tree-size-1: int
+    tree-size-1: uint
 
     ; latest merkle root tree size
-    tree-size-2: int
+    tree-size-2: uint
 
     ; path from previous merkle root to latest merkle root.
     consistency-path: [ + bstr ]
