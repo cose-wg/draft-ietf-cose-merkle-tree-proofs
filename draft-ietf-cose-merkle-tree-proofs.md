@@ -293,8 +293,7 @@ inclusion-proof = bstr .cbor [
 
 The term `leaf-index` is used for alignment with the use established in {{RFC9162}}
 
-Note that {{RFC9162}} defines that verification MUST fail if leaf-index is >= tree-size,
-and inclusion proofs are defined only for leaf nodes.
+Note that {{RFC9162}} defines that verification MUST fail if leaf-index is >= tree-size, and inclusion proofs are defined only for leaf nodes.
 The identifying index of a leaf node is relative to all nodes in the tree size for which the proof was obtained.
 
 ### Receipt of Inclusion
