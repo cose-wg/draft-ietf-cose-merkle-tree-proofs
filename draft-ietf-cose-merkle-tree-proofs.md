@@ -546,9 +546,14 @@ Both RFC9162_SHA256 and ES256 depend on the sha-256 hash function.
 
 ## Validity Period
 
-In some cases, receipts MAY include strict validity periods, for example, activation not too far in the future, or expiration, not too far in the past.
+In some cases, receipt signatures MAY include strict validity periods, for example,
+activation not too far in the future, or expiration, not too far in the past.
 See the `iat`, `nbf`, and `exp` claims in {{-CWT}}, for one way to accomplish this.
-The details of expressing validity periods are out of scope for this document.
+The details of expressing validity periods for signatures are out of scope for this document.
+
+The `iat`, `nbf`, and `exp` claims MUST not be overloaded to convey validity period for the proof material itself.
+Instead, if the VDS wishes to express a proof validity, or freshness, period,
+the specification MUST define them distinctly from the signature validity claims.
 
 ## Status Updates
 
