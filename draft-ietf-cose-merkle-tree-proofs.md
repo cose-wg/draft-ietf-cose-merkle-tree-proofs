@@ -408,13 +408,13 @@ The cbor representation of a consistency proof for RFC9162_SHA256 is:
 ~~~~ cddl
 consistency-proof =  bstr .cbor [
 
-    ; previous merkle root tree size
+    ; older merkle root tree size
     tree-size-1: uint
 
-    ; latest merkle root tree size
+    ; newer merkle root tree size
     tree-size-2: uint
 
-    ; path from previous merkle root to latest merkle root.
+    ; path from older merkle root to newer merkle root.
     consistency-path: [ + bstr ]
 
 ]
@@ -425,7 +425,7 @@ Editors note: tree-size-1, could be omitted, if an inclusion-proof is always pre
 
 ### Receipt of Consistency
 
-In a signed consistency proof, the latest merkle tree root (proven to be consistent with a previous merkle tree root) is an attached payload and corresponds to the log at size tree-size-2.
+In a signed consistency proof, the newer merkle tree root (proven to be consistent with an older merkle tree root) is an attached payload and corresponds to the log at size tree-size-2.
 
 The protected header for an RFC9162_SHA256 consistency proof signature is:
 
@@ -461,7 +461,7 @@ unprotected-header-map = {
 * consistency-proof (label: -2): REQUIRED. Consistency proofs. Value type: Array of bstr.
 
 The payload of an RFC9162_SHA256 consistency proof signature is:
-The latest Merkle tree hash as defined in {{-certificate-transparency-v2}}.
+The newer Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 The payload MUST be attached.
 
 The EDN for a Receipt containing a consistency proof for RFC9162_SHA256 is:
