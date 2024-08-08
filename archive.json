@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-08-06T00:42:01.872183+00:00",
+  "timestamp": "2024-08-08T00:42:25.467864+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -90,7 +90,7 @@
       "comments": [
         {
           "author": "robinbryce",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Do you think tree-size-1, tree-size-2 and path are sufficient to do consistency proofs for merkle mountain ranges ?\r\n\r\nMMR's are discussed [here](https://github.com/opentimestamps/opentimestamps-server/blob/master/doc/merkle-mountain-range.md) and [also here](https://github.com/mimblewimble/grin/blob/master/doc/mmr.md) in the context of blockchains but they seem to be generally a good thing.\r\n\r\nI haven't found a good clear description of what a consistency proof would look like for MMR's, but I *think* its sufficient to just prove inclusion of prior 'peaks' in the new log state at tree-size-2.  And that can just catenate the paths for each peak. Verification would just 'run off the end' if any single sub path was invalid. At least if the interior nodes commit to log position as H(POSITION, H-LEFT-CHILD, RIGHT-CHILD), I think that is all that is needed.",
           "createdAt": "2024-03-08T09:10:11Z",
           "updatedAt": "2024-03-08T09:10:11Z"
@@ -104,7 +104,7 @@
         },
         {
           "author": "robinbryce",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Understood, I think I simply meant could the representation for the proof data be sensibly re-used in a separate document. the verification process would of course need to be described separately. but yes, this issue isn't the place for that conversation then.",
           "createdAt": "2024-03-08T16:05:35Z",
           "updatedAt": "2024-03-08T16:05:35Z"
@@ -118,7 +118,7 @@
         },
         {
           "author": "robinbryce",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "That's a really helpful pointer. Thanks!",
           "createdAt": "2024-03-14T11:29:38Z",
           "updatedAt": "2024-03-14T11:29:38Z"
@@ -220,7 +220,7 @@
       "id": "I_kwDOKPwz586O15T2",
       "title": "Address Robin's comments",
       "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/20",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -229,16 +229,31 @@
       ],
       "body": "https://mailarchive.ietf.org/arch/msg/cose/ECdpstk4sSOKt6XiGz_OfWnuX1A/",
       "createdAt": "2024-07-08T20:19:33Z",
-      "updatedAt": "2024-07-08T20:19:44Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2024-08-06T16:10:44Z",
+      "closedAt": "2024-08-06T16:10:44Z",
+      "comments": [
+        {
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "body": "All have been merged/resolved.",
+          "createdAt": "2024-08-06T14:33:38Z",
+          "updatedAt": "2024-08-06T14:33:38Z"
+        },
+        {
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks, @robinbryce ",
+          "createdAt": "2024-08-06T16:10:44Z",
+          "updatedAt": "2024-08-06T16:10:44Z"
+        }
+      ]
     },
     {
       "number": 22,
       "id": "I_kwDOKPwz586R-StB",
       "title": "Address comments from Felix Linker",
       "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/22",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -247,7 +262,31 @@
       ],
       "body": "https://mailarchive.ietf.org/arch/msg/cose/b7ZLpC3U5CNhQscCi6ErDvFk9kg/",
       "createdAt": "2024-08-05T16:56:27Z",
-      "updatedAt": "2024-08-05T16:56:36Z",
+      "updatedAt": "2024-08-06T14:34:05Z",
+      "closedAt": "2024-08-06T14:34:05Z",
+      "comments": [
+        {
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Resolved with #21 ",
+          "createdAt": "2024-08-06T14:33:00Z",
+          "updatedAt": "2024-08-06T14:33:00Z"
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "id": "I_kwDOKPwz586SPXWc",
+      "title": "Detached Payload in Consistency Proofs",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/30",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://mailarchive.ietf.org/arch/msg/cose/Jr10No1nSA35PxhBzYmx49oYuuY/\r\n\r\nSome discussion on the list suggests that both inclusion and consistency proofs should have detached payloads.",
+      "createdAt": "2024-08-07T13:33:41Z",
+      "updatedAt": "2024-08-07T13:34:09Z",
       "closedAt": null,
       "comments": []
     }
@@ -390,7 +429,7 @@
             "abbreviatedOid": "101b308"
           },
           "author": "SteveLasker",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "LGTM",
           "createdAt": "2023-09-12T05:55:00Z",
@@ -784,7 +823,7 @@
             "abbreviatedOid": "8bb9234"
           },
           "author": "SteveLasker",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-02-27T15:40:48Z",
@@ -911,7 +950,7 @@
             "abbreviatedOid": "6bfd2bd"
           },
           "author": "robinbryce",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-04-08T12:03:34Z",
@@ -985,25 +1024,35 @@
       "id": "PR_kwDOKPwz5853d9lX",
       "title": "Remove line on switching VDSes",
       "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/21",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "felixlinker",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "I suggest removing the line on migrating between VDSes. I think it's good that the draft addresses an overlap in VDPs. However, I fear that the line I suggest removing might invite people to _not_ worry about security. I think it could be parsed as: \"Probably, switching works.\"\r\n\r\nWithout the line, I think the draft now emphasizes that (a) you shouldn't expect that overlap in similar concepts leads to the same result, and (b) you must always consider security when migrating.",
       "createdAt": "2024-08-05T16:15:27Z",
-      "updatedAt": "2024-08-05T16:55:48Z",
+      "updatedAt": "2024-08-06T14:10:09Z",
       "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "baseRefName": "main",
       "baseRefOid": "b6d209ad479019703af4bf7b03ff4d529883e43f",
       "headRepository": "felixlinker/draft-ietf-cose-merkle-tree-proofs",
       "headRefName": "main",
       "headRefOid": "958c5dc298b1e3cdc27e0b5027a8b9539601acdd",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "closedAt": "2024-08-06T14:10:09Z",
+      "mergedAt": "2024-08-06T14:10:09Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "e723283b432d80628bfca58865c56ccb929b3b42"
+      },
+      "comments": [
+        {
+          "author": "robinbryce",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This argument makese sense to me. I am conflicted about re-use too. I raised this PR today: https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/26\r\n\r\nIt could be seen as either \"making things worse\" according to this issue, but possibly \"threading the needle\" by pushing full responsibility for re-use on to the confirming specification.\r\n\r\nI am neutral on both this and my own PR, but very interested in the authors comments",
+          "createdAt": "2024-08-06T13:51:57Z",
+          "updatedAt": "2024-08-06T13:51:57Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOKPwz586ESngJ",
@@ -1016,6 +1065,766 @@
           "body": "",
           "createdAt": "2024-08-05T16:55:48Z",
           "updatedAt": "2024-08-05T16:55:48Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaEmF",
+          "commit": {
+            "abbreviatedOid": "958c5dc"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM, thanks for the PR, @felixlinker ",
+          "createdAt": "2024-08-06T14:08:57Z",
+          "updatedAt": "2024-08-06T14:08:57Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaE9c",
+          "commit": {
+            "abbreviatedOid": "958c5dc"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-08-06T14:09:31Z",
+          "updatedAt": "2024-08-06T14:09:31Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "id": "PR_kwDOKPwz5853knLm",
+      "title": "re issue#20 make accounting for hash algorithm agility explicit",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/23",
+      "state": "MERGED",
+      "author": "robinbryce",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The example RFC9162 supports hash algorithm agility. This change makes the implied requirement to register each \"instantiation\" seperately explicit.",
+      "createdAt": "2024-08-06T13:25:31Z",
+      "updatedAt": "2024-08-06T14:14:50Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "b6d209ad479019703af4bf7b03ff4d529883e43f",
+      "headRepository": "robinbryce/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "robin/issue-20/define-how-hash-alg-agility-is-accomplished",
+      "headRefOid": "31da6ff4e704f7a12dc772015632997f8e8bc512",
+      "closedAt": "2024-08-06T14:14:50Z",
+      "mergedAt": "2024-08-06T14:14:50Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "f8c2d227e6de2b7aee55309f6255e3822c5f39bf"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586EaF30",
+          "commit": {
+            "abbreviatedOid": "1c62a51"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-06T14:10:47Z",
+          "updatedAt": "2024-08-06T14:10:48Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nan IANA registration must be made for each individually supported algorithm.\r\n```",
+              "createdAt": "2024-08-06T14:10:48Z",
+              "updatedAt": "2024-08-06T14:10:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaG3T",
+          "commit": {
+            "abbreviatedOid": "1c62a51"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-06T14:12:07Z",
+          "updatedAt": "2024-08-06T14:12:07Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "```suggestion\r\nboth \"RFC9162_SHA256\" and \"RFC9162_SHA3_256\" require entries in the relevant IANA registries.\r\n```",
+              "createdAt": "2024-08-06T14:12:07Z",
+              "updatedAt": "2024-08-06T14:12:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaG4F",
+          "commit": {
+            "abbreviatedOid": "bbb8105"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-08-06T14:12:08Z",
+          "updatedAt": "2024-08-06T14:12:08Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaG-F",
+          "commit": {
+            "abbreviatedOid": "bbb8105"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-06T14:12:16Z",
+          "updatedAt": "2024-08-06T14:12:16Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nWhere a specification supports a choice of hash algorithm, an IANA registration must be made for each individually supported algorithm.\r\n```",
+              "createdAt": "2024-08-06T14:12:16Z",
+              "updatedAt": "2024-08-06T14:12:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaHG1",
+          "commit": {
+            "abbreviatedOid": "bbb8105"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-06T14:12:27Z",
+          "updatedAt": "2024-08-06T14:12:28Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "```suggestion\r\nFor example, to provide for both SHA256 and SHA3_256 with {{RFC9162}}, both \"RFC9162_SHA256\" and \"RFC9162_SHA3_256\" require entries in the relevant registries.\r\n```",
+              "createdAt": "2024-08-06T14:12:27Z",
+              "updatedAt": "2024-08-06T14:12:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaIWH",
+          "commit": {
+            "abbreviatedOid": "3bf5aa3"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-08-06T14:14:21Z",
+          "updatedAt": "2024-08-06T14:14:21Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaIgI",
+          "commit": {
+            "abbreviatedOid": "31da6ff"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2024-08-06T14:14:35Z",
+          "updatedAt": "2024-08-06T14:14:35Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "id": "PR_kwDOKPwz5853knXg",
+      "title": "issue #20 uint vs int for tree indices and sizes",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/24",
+      "state": "MERGED",
+      "author": "robinbryce",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Is there a reason the CBOR uses int (cose major type 1) in preference to uint ? If not, I suggest we use uint to preserve the full range of positive values possible.\r\n\r\nnote: I may need to update the dbor-diag output. If this change is acceptable in principal I am happy to go do that as a requirement to merge.",
+      "createdAt": "2024-08-06T13:25:55Z",
+      "updatedAt": "2024-08-06T14:16:29Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "b6d209ad479019703af4bf7b03ff4d529883e43f",
+      "headRepository": "robinbryce/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "robin/issue-20/uint-for-indices-and-sizes",
+      "headRefOid": "ed8a178fdce8f867ee61b1fe58c8eeba75f69070",
+      "closedAt": "2024-08-06T14:16:29Z",
+      "mergedAt": "2024-08-06T14:16:29Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "c5cf68b2cc1f2c9334b62090d48387f0328e8fd4"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586EaJQW",
+          "commit": {
+            "abbreviatedOid": "ed8a178"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-08-06T14:15:45Z",
+          "updatedAt": "2024-08-06T14:15:45Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaJk7",
+          "commit": {
+            "abbreviatedOid": "ed8a178"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "looks good and consistent",
+          "createdAt": "2024-08-06T14:16:17Z",
+          "updatedAt": "2024-08-06T14:16:17Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaJlt",
+          "commit": {
+            "abbreviatedOid": "ed8a178"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2024-08-06T14:16:18Z",
+          "updatedAt": "2024-08-06T14:16:18Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "PR_kwDOKPwz5853kneh",
+      "title": "re issue#20 suggested clarification regarding leaf-index",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/25",
+      "state": "MERGED",
+      "author": "robinbryce",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Depending on the audience the term leaf-index can be confusing. It is clear in the context of RFC9162.\r\n\r\nThis PR seeks to make it clear in the inline example for readers that have not absorbed the details of RFC9162",
+      "createdAt": "2024-08-06T13:26:09Z",
+      "updatedAt": "2024-08-06T16:11:24Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "c5cf68b2cc1f2c9334b62090d48387f0328e8fd4",
+      "headRepository": "robinbryce/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "robin/issue-20/leaf-index-clarification",
+      "headRefOid": "eb9bdb7ad6917ff8e7246dad519833ac72ea1f07",
+      "closedAt": "2024-08-06T16:11:24Z",
+      "mergedAt": "2024-08-06T16:11:24Z",
+      "mergedBy": "SteveLasker",
+      "mergeCommit": {
+        "oid": "ea261eef582eaa251a5b982690644e6534b3cfed"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586EaSn0",
+          "commit": {
+            "abbreviatedOid": "16b7d1f"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-08-06T14:29:51Z",
+          "updatedAt": "2024-08-06T14:29:51Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaS_Y",
+          "commit": {
+            "abbreviatedOid": "16b7d1f"
+          },
+          "author": "aj-stein-nist",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-08-06T14:30:23Z",
+          "updatedAt": "2024-08-06T14:30:23Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaTqS",
+          "commit": {
+            "abbreviatedOid": "16b7d1f"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-06T14:31:20Z",
+          "updatedAt": "2024-08-06T14:31:21Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "```suggestion\r\nNote that {{RFC9162}} defines that verification MUST fail if leaf-index is >= tree-size, and inclusion proofs are defined only for leaf nodes.\r\n```",
+              "createdAt": "2024-08-06T14:31:20Z",
+              "updatedAt": "2024-08-06T14:31:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaUG9",
+          "commit": {
+            "abbreviatedOid": "16b7d1f"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2024-08-06T14:31:57Z",
+          "updatedAt": "2024-08-06T14:31:57Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaUTc",
+          "commit": {
+            "abbreviatedOid": "eb9bdb7"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-08-06T14:32:14Z",
+          "updatedAt": "2024-08-06T14:32:14Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "id": "PR_kwDOKPwz5853kn9F",
+      "title": "re issue#20 provide a scentence encouraging re-use",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/26",
+      "state": "CLOSED",
+      "author": "robinbryce",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "If the authors think it worth calling attention to this, this change encourages re-use but places how that is accomplished out of scope.\r\n\r\nthis may be better addressed by https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/21 or it may be seen as complimentary",
+      "createdAt": "2024-08-06T13:27:07Z",
+      "updatedAt": "2024-08-06T14:31:01Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "b6d209ad479019703af4bf7b03ff4d529883e43f",
+      "headRepository": "robinbryce/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "robin/issue-20/encourage-reuse-but-define-as-opaque",
+      "headRefOid": "cc1094964db92f0eec291c605a7981cbaf6d5aee",
+      "closedAt": "2024-08-06T14:31:00Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "robinbryce",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "closed as redundant after discussion with authors. thanks!",
+          "createdAt": "2024-08-06T14:31:00Z",
+          "updatedAt": "2024-08-06T14:31:00Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586EaKj8",
+          "commit": {
+            "abbreviatedOid": "cc10949"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-06T14:17:51Z",
+          "updatedAt": "2024-08-06T14:17:51Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nSpecifications are encouraged to reuse appropriate and relevant specifications, however such re-use is opaque to this document.\r\n```",
+              "createdAt": "2024-08-06T14:17:51Z",
+              "updatedAt": "2024-08-06T14:17:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaKyM",
+          "commit": {
+            "abbreviatedOid": "cc10949"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "this is a throwaway sentence i think",
+          "createdAt": "2024-08-06T14:18:11Z",
+          "updatedAt": "2024-08-06T14:18:11Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "id": "PR_kwDOKPwz5853koIC",
+      "title": "re issue#20 validity period",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/27",
+      "state": "CLOSED",
+      "author": "robinbryce",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR seeks to clearly deliniate the validity period of the signature over the receipt from any potential validity period concept for the proof material itself.\r\n\r\nAnd particularly, to avoid a situation where VDS specifications make it impossible to express a signature validity period because it has \"camped\" on the appropriate COSE headers for doing so.",
+      "createdAt": "2024-08-06T13:27:29Z",
+      "updatedAt": "2024-08-06T14:25:03Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "b6d209ad479019703af4bf7b03ff4d529883e43f",
+      "headRepository": "robinbryce/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "robin/issue-20/validity-perioud-clarification",
+      "headRefOid": "929f5364271af1f06f02ee5428251393328e4c3c",
+      "closedAt": "2024-08-06T14:25:03Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "robinbryce",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "withdrawing after authors feedback",
+          "createdAt": "2024-08-06T14:25:03Z",
+          "updatedAt": "2024-08-06T14:25:03Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586EaLeb",
+          "commit": {
+            "abbreviatedOid": "55e97c8"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-06T14:19:09Z",
+          "updatedAt": "2024-08-06T14:19:09Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nIn some cases, receipt signatures MAY include strict validity periods, for example, activation not too far in the future, or expiration, not too far in the past.\r\n```",
+              "createdAt": "2024-08-06T14:19:09Z",
+              "updatedAt": "2024-08-06T14:19:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaLwv",
+          "commit": {
+            "abbreviatedOid": "55e97c8"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-06T14:19:37Z",
+          "updatedAt": "2024-08-06T14:19:37Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\nInstead, if the VDS wishes to express a proof of validity, or freshness, period, the specification MUST define them distinctly from the signature validity claims.\r\n```",
+              "createdAt": "2024-08-06T14:19:37Z",
+              "updatedAt": "2024-08-06T14:19:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaL1V",
+          "commit": {
+            "abbreviatedOid": "929f536"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-06T14:19:44Z",
+          "updatedAt": "2024-08-06T14:19:44Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nIn some cases, receipt MAY include strict validity periods, for example, activation not too far in the future, or expiration, not too far in the past.\r\n```",
+              "createdAt": "2024-08-06T14:19:44Z",
+              "updatedAt": "2024-08-06T14:19:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaL-V",
+          "commit": {
+            "abbreviatedOid": "929f536"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-06T14:19:56Z",
+          "updatedAt": "2024-08-06T14:19:57Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "validity periods apply to the full envelope",
+              "createdAt": "2024-08-06T14:19:56Z",
+              "updatedAt": "2024-08-06T14:19:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaM2D",
+          "commit": {
+            "abbreviatedOid": "929f536"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Seems like this document is the wrong place to put constraints on claims",
+          "createdAt": "2024-08-06T14:21:16Z",
+          "updatedAt": "2024-08-06T14:21:16Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaOKM",
+          "commit": {
+            "abbreviatedOid": "929f536"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-06T14:23:06Z",
+          "updatedAt": "2024-08-06T14:23:06Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "...receipt**s**",
+              "createdAt": "2024-08-06T14:23:06Z",
+              "updatedAt": "2024-08-06T14:23:06Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOKPwz5853kooi",
+      "title": "re issue#20 encourage use of detached payloads for proof formats",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/28",
+      "state": "MERGED",
+      "author": "robinbryce",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "It seems like a generaly strong and useful property that proof formats require that the payload be re-constructed from the proof prior to signature verification\r\n\r\nThis change adds a single scentence to the example inclusion proof to encourage this.",
+      "createdAt": "2024-08-06T13:28:30Z",
+      "updatedAt": "2024-08-06T14:29:15Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "b6d209ad479019703af4bf7b03ff4d529883e43f",
+      "headRepository": "robinbryce/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "robin/issue-20/explicitly-encourage-detached-roots",
+      "headRefOid": "98957d32f08d5e575682c6fb870473a082bd1345",
+      "closedAt": "2024-08-06T14:29:12Z",
+      "mergedAt": "2024-08-06T14:29:11Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "166962a5fbe65e0e0301236fabec961f0705e9da"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586EaOzZ",
+          "commit": {
+            "abbreviatedOid": "f7726fa"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-08-06T14:24:04Z",
+          "updatedAt": "2024-08-06T14:24:04Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaQOU",
+          "commit": {
+            "abbreviatedOid": "f7726fa"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-06T14:26:12Z",
+          "updatedAt": "2024-08-06T14:26:13Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\r\nSpecifications are encouraged to make payloads detached when possible, forcing validation-time comparison.\r\n```",
+              "createdAt": "2024-08-06T14:26:13Z",
+              "updatedAt": "2024-08-06T14:28:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586EaSO_",
+          "commit": {
+            "abbreviatedOid": "98957d3"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2024-08-06T14:29:15Z",
+          "updatedAt": "2024-08-06T14:29:15Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "id": "PR_kwDOKPwz5853tOJ5",
+      "title": "Editing after review",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/29",
+      "state": "OPEN",
+      "author": "felixlinker",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "With this PR I address my comments on editing in this review: https://mailarchive.ietf.org/arch/msg/cose/b7ZLpC3U5CNhQscCi6ErDvFk9kg/\r\n\r\nSome reasoning.\r\n- I replaced the terms \"latest\" and \"previous\" with \"newer\" and \"older.\" This is in-line with RFC 9126 and emphasizes that consistency proofs about the past can be generated.\r\n- I fixed what I believed to be errors at the beginning of 5.2.1. There, it said \"previous\" root (I believe correct would be just any root you wish to prove inclusion for) and \"tree-size-1\" (which I believe should be \"tree-size\").\r\n- I removed an ambiguous occurrence of the word \"signature.\" I think the text is clearer without it.",
+      "createdAt": "2024-08-07T12:30:42Z",
+      "updatedAt": "2024-08-07T19:32:12Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "ea261eef582eaa251a5b982690644e6534b3cfed",
+      "headRepository": "felixlinker/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "main",
+      "headRefOid": "a5eb93ea68174088451957d4ffa23d82a7c24367",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586EnUTV",
+          "commit": {
+            "abbreviatedOid": "05520ac"
+          },
+          "author": "aj-stein-nist",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-08-07T13:00:56Z",
+          "updatedAt": "2024-08-07T13:00:56Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586EnW35",
+          "commit": {
+            "abbreviatedOid": "05520ac"
+          },
+          "author": "robinbryce",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-07T13:02:41Z",
+          "updatedAt": "2024-08-07T13:02:41Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "I also believe it *should* be possible for a consistency proof to show consistency between two arbitrary points in the log. So the 'older' / 'newer' frazing seems like an improvement to me also",
+              "createdAt": "2024-08-07T13:02:41Z",
+              "updatedAt": "2024-08-07T13:02:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586En_bS",
+          "commit": {
+            "abbreviatedOid": "05520ac"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-07T13:29:40Z",
+          "updatedAt": "2024-08-07T13:29:40Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nIn a signed inclusion proof, the payload is the merkle tree root which corresponds to the log at size tree-size.\r\n```",
+              "createdAt": "2024-08-07T13:29:40Z",
+              "updatedAt": "2024-08-07T13:29:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586EoBwZ",
+          "commit": {
+            "abbreviatedOid": "05520ac"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I think the first sentence could be clearer, but the rest of these changes are improvements.",
+          "createdAt": "2024-08-07T13:31:11Z",
+          "updatedAt": "2024-08-07T13:31:11Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586Erljg",
+          "commit": {
+            "abbreviatedOid": "a5eb93e"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-07T19:27:22Z",
+          "updatedAt": "2024-08-07T19:27:22Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "seeing size tree-size was a bit confusing. Suggestion to change code fragments use `code` formatting.\r\n```suggestion\r\nIn a signed inclusion proof, the payload is the merkle tree root which corresponds to the log at size `tree-size`.\r\n```",
+              "createdAt": "2024-08-07T19:27:22Z",
+              "updatedAt": "2024-08-07T19:27:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586Erncs",
+          "commit": {
+            "abbreviatedOid": "a5eb93e"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM, with, or without the nit suggestion at [line 302](https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/29/files#diff-e456ca8fff23262339949e1ef0e3b1f5c757b63b05b691c26d656654bef76d6fR302)",
+          "createdAt": "2024-08-07T19:32:12Z",
+          "updatedAt": "2024-08-07T19:32:12Z",
           "comments": []
         }
       ]
