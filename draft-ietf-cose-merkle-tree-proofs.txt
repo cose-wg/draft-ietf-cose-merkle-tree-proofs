@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 7 February 2025                                  Fraunhofer SIT
+Expires: 10 February 2025                                 Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                           6 August 2024
+                                                           9 August 2024
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 February 2025.
+   This Internet-Draft will expire on 10 February 2025.
 
 Copyright Notice
 
@@ -460,8 +460,8 @@ Table of Contents
 
 5.2.1.  Receipt of Inclusion
 
-   In a signed inclusion proof, the previous merkle tree root, maps to
-   tree-size-1, and is a detached payload.  Specifications are
+   In a signed inclusion proof, the payload is the merkle tree root
+   which corresponds to the log at size tree-size.  Specifications are
    encouraged to make payloads detached when possible, forcing
    validation-time comparison.  Profiles of proof signatures are
    encouraged to make additional protected header parameters mandatory,
@@ -509,12 +509,12 @@ Table of Contents
       type: Array of bstr.
 
    The payload of an RFC9162_SHA256 inclusion proof signature is the
-   previous Merkle tree hash as defined in [RFC9162].  The payload MUST
-   be detached.  Detaching the payload forces verifiers to recompute the
-   root from the inclusion proof signature, this protects against
-   implementation errors where the signature is verified but the merkle
-   root does not match the inclusion proof.  The EDN for a Receipt
-   containing an inclusion proof for RFC9162_SHA256 is:
+   Merkle tree hash as defined in [RFC9162].  The payload MUST be
+   detached.  Detaching the payload forces verifiers to recompute the
+   root from the inclusion proof, this protects against implementation
+   errors where the signature is verified but the merkle root does not
+   match the inclusion proof.  The EDN for a Receipt containing an
+   inclusion proof for RFC9162_SHA256 is:
 
    18(                                 / COSE Sign 1                   /
        [
@@ -585,13 +585,13 @@ Table of Contents
 
    consistency-proof =  bstr .cbor [
 
-       ; previous merkle root tree size
+       ; older merkle root tree size
        tree-size-1: uint
 
-       ; latest merkle root tree size
+       ; newer merkle root tree size
        tree-size-2: uint
 
-       ; path from previous merkle root to latest merkle root.
+       ; path from older merkle root to newer merkle root.
        consistency-path: [ + bstr ]
 
    ]
@@ -603,8 +603,9 @@ Table of Contents
 
 5.3.1.  Receipt of Consistency
 
-   In a signed consistency proof, the latest merkle tree root, maps to
-   tree-size-2, and is an attached payload.
+   In a signed consistency proof, the newer merkle tree root (proven to
+   be consistent with an older merkle tree root) is an attached payload
+   and corresponds to the log at size tree-size-2.
 
    The protected header for an RFC9162_SHA256 consistency proof
    signature is:
@@ -644,7 +645,7 @@ Table of Contents
       Value type: Array of bstr.
 
    The payload of an RFC9162_SHA256 consistency proof signature is: The
-   latest Merkle tree hash as defined in [RFC9162].  The payload MUST be
+   newer Merkle tree hash as defined in [RFC9162].  The payload MUST be
    attached.
 
    The EDN for a Receipt containing a consistency proof for
