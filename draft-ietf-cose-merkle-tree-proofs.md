@@ -299,7 +299,7 @@ The identifying index of a leaf node is relative to all nodes in the tree size f
 
 ### Receipt of Inclusion
 
-In a signed inclusion proof, the previous merkle tree root, maps to tree-size-1, and is a detached payload.
+In a signed inclusion proof, the payload is the merkle tree root which corresponds to the log at size `tree-size`.
 Specifications are encouraged to make payloads detached when possible, forcing validation-time comparison.
 Profiles of proof signatures are encouraged to make additional protected header parameters mandatory, to ensure that claims are processed with their intended semantics.
 One way to include this information in the COSE structure is use of the typ (type) Header Parameter, see {{-cose-typ}} and the similar guidance provided in {{-cwt-header-claims}}.
@@ -337,9 +337,9 @@ unprotected-header-map = {
 * vdp (label: 396): REQUIRED. Verifiable data structure proofs. Value type: Map.
 * inclusion-proof (label: -1): REQUIRED. Inclusion proofs. Value type: Array of bstr.
 
-The payload of an RFC9162_SHA256 inclusion proof signature is the previous Merkle tree hash as defined in {{-certificate-transparency-v2}}.
+The payload of an RFC9162_SHA256 inclusion proof signature is the Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 The payload MUST be detached.
-Detaching the payload forces verifiers to recompute the root from the inclusion proof signature, this protects against implementation errors where the signature is verified but the merkle root does not match the inclusion proof.
+Detaching the payload forces verifiers to recompute the root from the inclusion proof, this protects against implementation errors where the signature is verified but the merkle root does not match the inclusion proof.
 The EDN for a Receipt containing an inclusion proof for RFC9162_SHA256 is:
 
 ~~~~ cbor-diag
@@ -408,13 +408,13 @@ The cbor representation of a consistency proof for RFC9162_SHA256 is:
 ~~~~ cddl
 consistency-proof =  bstr .cbor [
 
-    ; previous merkle root tree size
+    ; older merkle root tree size
     tree-size-1: uint
 
-    ; latest merkle root tree size
+    ; newer merkle root tree size
     tree-size-2: uint
 
-    ; path from previous merkle root to latest merkle root.
+    ; path from older merkle root to newer merkle root.
     consistency-path: [ + bstr ]
 
 ]
@@ -425,7 +425,7 @@ Editors note: tree-size-1, could be omitted, if an inclusion-proof is always pre
 
 ### Receipt of Consistency
 
-In a signed consistency proof, the latest merkle tree root, maps to tree-size-2, and is an attached payload.
+In a signed consistency proof, the newer merkle tree root (proven to be consistent with an older merkle tree root) is an attached payload and corresponds to the log at size tree-size-2.
 
 The protected header for an RFC9162_SHA256 consistency proof signature is:
 
@@ -461,7 +461,7 @@ unprotected-header-map = {
 * consistency-proof (label: -2): REQUIRED. Consistency proofs. Value type: Array of bstr.
 
 The payload of an RFC9162_SHA256 consistency proof signature is:
-The latest Merkle tree hash as defined in {{-certificate-transparency-v2}}.
+The newer Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 The payload MUST be attached.
 
 The EDN for a Receipt containing a consistency proof for RFC9162_SHA256 is:
