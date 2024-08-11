@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-08-08T00:42:25.467864+00:00",
+  "timestamp": "2024-08-11T00:46:45.060014+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -1708,24 +1708,26 @@
       "id": "PR_kwDOKPwz5853tOJ5",
       "title": "Editing after review",
       "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/29",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "felixlinker",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "With this PR I address my comments on editing in this review: https://mailarchive.ietf.org/arch/msg/cose/b7ZLpC3U5CNhQscCi6ErDvFk9kg/\r\n\r\nSome reasoning.\r\n- I replaced the terms \"latest\" and \"previous\" with \"newer\" and \"older.\" This is in-line with RFC 9126 and emphasizes that consistency proofs about the past can be generated.\r\n- I fixed what I believed to be errors at the beginning of 5.2.1. There, it said \"previous\" root (I believe correct would be just any root you wish to prove inclusion for) and \"tree-size-1\" (which I believe should be \"tree-size\").\r\n- I removed an ambiguous occurrence of the word \"signature.\" I think the text is clearer without it.",
       "createdAt": "2024-08-07T12:30:42Z",
-      "updatedAt": "2024-08-07T19:32:12Z",
+      "updatedAt": "2024-08-09T14:15:35Z",
       "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "baseRefName": "main",
       "baseRefOid": "ea261eef582eaa251a5b982690644e6534b3cfed",
       "headRepository": "felixlinker/draft-ietf-cose-merkle-tree-proofs",
       "headRefName": "main",
-      "headRefOid": "a5eb93ea68174088451957d4ffa23d82a7c24367",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "cc4196d152ad75f2e84331cc630d21ded97965c5",
+      "closedAt": "2024-08-09T14:15:35Z",
+      "mergedAt": "2024-08-09T14:15:35Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "9e7135666eb3f7cbcb509726909f398c9f3c94bc"
+      },
       "comments": [],
       "reviews": [
         {
