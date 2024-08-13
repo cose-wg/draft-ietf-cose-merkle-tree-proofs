@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-08-11T00:46:45.060014+00:00",
+  "timestamp": "2024-08-13T00:43:20.921400+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -1830,6 +1830,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 31,
+      "id": "PR_kwDOKPwz5854HgNs",
+      "title": "Introduction overhaul",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/31",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Shifting focus from hash trees to VDS & VDP",
+      "createdAt": "2024-08-12T14:34:33Z",
+      "updatedAt": "2024-08-12T14:36:18Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "9e7135666eb3f7cbcb509726909f398c9f3c94bc",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "intro-massage",
+      "headRefOid": "2862e709999b85c876fd8a52e18100140d953752",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
