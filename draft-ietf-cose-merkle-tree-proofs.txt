@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 10 February 2025                                 Fraunhofer SIT
+Expires: 1 March 2025                                     Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                           9 August 2024
+                                                          28 August 2024
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 February 2025.
+   This Internet-Draft will expire on 1 March 2025.
 
 Copyright Notice
 
@@ -116,26 +116,20 @@ Table of Contents
 
 1.  Introduction
 
-   Merkle trees are one of many verifiable data structures that enable
-   tamper evident secure information storage, through their ability to
-   protect the integrity of batches of documents or collections of
-   statements.  Merkle trees can be constructed from simple operations
-   such as concatenation and digest via a cryptographic hash function,
-   however, more advanced constructions enable proofs of different
-   properties of the underlying verifiable data structure.  Verifiable
-   data structure proofs can be used to prove a document is in a
-   database (proof of inclusion), that a database is append only (proof
-   of consistency), that a smaller set of statements are contained in a
-   large set of statements (proof of disclosure, a special case of proof
-   of inclusion), or proof that certain data is not yet present in a
-   database (proofs of non inclusion).  Differences in the
-   representation of verifiable data structures, and verifiable data
-   structure proof types, can increase the burden for implementers, and
-   create interoperability challenges for transparency services.  This
-   document describes how to convey verifiable data structures, and
-   associated proof types in COSE envelopes.  For conciseness, a COSE
-   object securing a verifiable data structure and its associated
-   proofs, is referred to as a COSE Receipt.
+   COSE Receipts are signed proofs that include metadata about about
+   certain states of a verifiable data structure (VDS) that are true
+   when the COSE Receipt was issued.  COSE Receipts can include proves
+   that a document is in a database (proof of inclusion), that a
+   database is append only (proof of consistency), that a smaller set of
+   statements are contained in a large set of statements (proof of
+   disclosure, a special case of proof of inclusion), or proof that
+   certain data is not yet present in a database (proofs of non
+   inclusion).  Different VDS can produce different verifiable data
+   structure proofs (VDP).  The combination of representations of
+   various VDS and VDP can significantly increase burden for
+   implementers and create interoperability challenges for transparency
+   services.  This document describes how to convey VDS and associated
+   VDP types in unified COSE envelopes.
 
 1.1.  Requirements Notation
 
@@ -963,9 +957,9 @@ Table of Contents
    [I-D.draft-ietf-cbor-edn-literals]
               Bormann, C., "CBOR Extended Diagnostic Notation (EDN)",
               Work in Progress, Internet-Draft, draft-ietf-cbor-edn-
-              literals-10, 4 July 2024,
+              literals-11, 21 August 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cbor-
-              edn-literals-10>.
+              edn-literals-11>.
 
    [I-D.ietf-cose-cwt-claims-in-headers]
               Looker, T. and M. B. Jones, "CBOR Web Token (CWT) Claims
