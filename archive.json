@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-03T00:43:50.535587+00:00",
+  "timestamp": "2024-09-05T00:44:33.846869+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -286,7 +286,7 @@
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/cose/Jr10No1nSA35PxhBzYmx49oYuuY/\r\n\r\nSome discussion on the list suggests that both inclusion and consistency proofs should have detached payloads.",
       "createdAt": "2024-08-07T13:33:41Z",
-      "updatedAt": "2024-08-28T13:28:55Z",
+      "updatedAt": "2024-09-04T11:59:53Z",
       "closedAt": null,
       "comments": [
         {
@@ -302,6 +302,20 @@
           "body": "Lets add a sentence explaining why consistency proof needs to be attached, and that verifying a consistency proof starts with having 2 roots... so detaching is not recommended",
           "createdAt": "2024-08-28T13:28:53Z",
           "updatedAt": "2024-08-28T13:28:53Z"
+        },
+        {
+          "author": "robinbryce",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This is very specific to this particular VDS. And I still I don't know why it would not be recommended. The reasons it make sense to require the root of a inclusion proof be generated as part of signature verification seem to apply at least to the second root.\r\n\r\nI supsect the reason here is \"because this is how we did it\" ? (and that is fine, but if so lets not alude to something more by accident)",
+          "createdAt": "2024-09-03T14:36:23Z",
+          "updatedAt": "2024-09-03T14:38:17Z"
+        },
+        {
+          "author": "robinbryce",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I'll try a pr for this this week, unless someone beats me to i",
+          "createdAt": "2024-09-04T11:59:52Z",
+          "updatedAt": "2024-09-04T11:59:52Z"
         }
       ]
     }
