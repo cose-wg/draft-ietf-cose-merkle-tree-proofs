@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 1 March 2025                                     Fraunhofer SIT
+Expires: 30 March 2025                                    Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                          28 August 2024
+                                                       26 September 2024
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 March 2025.
+   This Internet-Draft will expire on 30 March 2025.
 
 Copyright Notice
 
@@ -773,11 +773,11 @@ Table of Contents
 
 9.1.1.  New Entries to the COSE Header Parameters Registry
 
-   This document requests IANA to add new values to the 'COSE
-   Algorithms' and to the 'COSE Header Algorithm Parameters' registries
-   in the 'Standards Action With Expert Review' category.
+   This document requests IANA to add new values to the 'COSE Header
+   Parameters' registries in the 'Integer values between 1 and 255'
+   range with 'Specification Required' Registration Procedure.
 
-9.1.1.1.  COSE Header Algorithm Parameters
+9.1.1.1.  COSE Header Parameters
 
 9.1.1.1.1.  Receipts
 
@@ -957,9 +957,9 @@ Table of Contents
    [I-D.draft-ietf-cbor-edn-literals]
               Bormann, C., "CBOR Extended Diagnostic Notation (EDN)",
               Work in Progress, Internet-Draft, draft-ietf-cbor-edn-
-              literals-11, 21 August 2024,
+              literals-12, 1 September 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cbor-
-              edn-literals-11>.
+              edn-literals-12>.
 
    [I-D.ietf-cose-cwt-claims-in-headers]
               Looker, T. and M. B. Jones, "CBOR Web Token (CWT) Claims
