@@ -584,6 +584,17 @@ This document requests IANA to add new values to the 'COSE Header Parameters' re
 
 #### COSE Header Parameters
 
+##### COSE Receipts Earmark Range
+
+This request to IANA includes a range of labels for COSE header parameters to be "Earmarked for COSE Receipts" so that numbers in that earmark range ca be reassigned by IANA based on advice from the designated experts for the COSE Header Parameters registry.
+
+* Name: Earmarked for COSE Receipts
+* Label: 350-393,397-399
+* Value type: any
+* Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
+* Description: A range of Labels to be reassigned by IANA based on Designated Expert advice for COSE Receipt related Header Parameters
+* Reference: RFC XXXX
+
 ##### Receipts
 
 * Name: receipts
