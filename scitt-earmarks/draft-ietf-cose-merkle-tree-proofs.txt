@@ -775,7 +775,9 @@ Table of Contents
 
    This document requests IANA to add new values to the 'COSE Header
    Parameters' registries in the 'Integer values from 256 to 65535'
-   range with 'Specification Required' Registration Procedure.
+   range with 'Specification Required' Registration Procedure.  This
+   requests includes an earmarked label range from 350-399 and three
+   specific labels elaborated on below.
 
 9.1.1.1.  COSE Header Parameters
 
@@ -788,7 +790,7 @@ Table of Contents
 
    *  Name: Earmarked for COSE Receipts
 
-   *  Label: 350-393,397-399
+   *  Label: 350-399
 
    *  Value type: any
 
