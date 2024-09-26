@@ -580,7 +580,7 @@ for their contributions (some of which substantial) to this draft and to the ini
 
 ### New Entries to the COSE Header Parameters Registry
 
-This document requests IANA to add new values to the 'COSE Header Parameters' registries in the 'Integer values from 256 to 65535' range with 'Specification Required' Registration Procedure.
+This document requests IANA to add new values to the 'COSE Header Parameters' registries in the 'Integer values from 256 to 65535' range with 'Specification Required' Registration Procedure. This requests includes an earmarked label range from 350-399 and three specific labels elaborated on below.
 
 #### COSE Header Parameters
 
@@ -589,7 +589,7 @@ This document requests IANA to add new values to the 'COSE Header Parameters' re
 This request to IANA includes a range of labels for COSE header parameters to be "Earmarked for COSE Receipts" so that numbers in that earmark range ca be reassigned by IANA based on advice from the designated experts for the COSE Header Parameters registry.
 
 * Name: Earmarked for COSE Receipts
-* Label: 350-393,397-399
+* Label: 350-399
 * Value type: any
 * Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
 * Description: A range of Labels to be reassigned by IANA based on Designated Expert advice for COSE Receipt related Header Parameters
