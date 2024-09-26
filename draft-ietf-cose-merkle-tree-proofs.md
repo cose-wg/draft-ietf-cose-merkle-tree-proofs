@@ -580,7 +580,7 @@ for their contributions (some of which substantial) to this draft and to the ini
 
 ### New Entries to the COSE Header Parameters Registry
 
-This document requests IANA to add new values to the 'COSE Header Parameters' registries in the 'Integer values from 256 to 65535' range with 'Specification Required' Registration Procedure. This requests includes an earmarked label range from 350-399 and three specific labels elaborated on below.
+This document requests IANA to add new values to the 'COSE Header Parameters' registries in the 'Integer values from 256 to 65535' range with 'Specification Required' Registration Procedure. This requests includes an earmarked label range from 350-399 and three specific labels in that earmarked range elaborated on below.
 
 #### COSE Header Parameters
 
