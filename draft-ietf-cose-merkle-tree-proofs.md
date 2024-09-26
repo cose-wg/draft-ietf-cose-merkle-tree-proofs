@@ -580,9 +580,9 @@ for their contributions (some of which substantial) to this draft and to the ini
 
 ### New Entries to the COSE Header Parameters Registry
 
-This document requests IANA to add new values to the 'COSE Algorithms' and to the 'COSE Header Algorithm Parameters' registries in the 'Standards Action With Expert Review' category.
+This document requests IANA to add new values to the 'COSE Header Parameters' registries in the 'Integer values between 1 and 255' range with 'Specification Required' Registration Procedure.
 
-#### COSE Header Algorithm Parameters
+#### COSE Header Parameters
 
 ##### Receipts
 
