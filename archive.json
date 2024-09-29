@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-26T00:47:27.977632+00:00",
+  "timestamp": "2024-09-29T00:53:04.067865+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -354,6 +354,22 @@
           "updatedAt": "2024-09-17T14:39:40Z"
         }
       ]
+    },
+    {
+      "number": 32,
+      "id": "I_kwDOKPwz586X_xRL",
+      "title": "Mention of 'COSE Algorithms' in the IANA request",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/32",
+      "state": "CLOSED",
+      "author": "henkbirkholz",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Somehow the notion of 'COSE Algorithms' snug into the IANA request text. AFAIK, that does not really make sense here.",
+      "createdAt": "2024-09-26T09:44:17Z",
+      "updatedAt": "2024-09-26T16:53:51Z",
+      "closedAt": "2024-09-26T16:53:51Z",
+      "comments": []
     }
   ],
   "pulls": [
@@ -1935,6 +1951,161 @@
           "createdAt": "2024-08-28T13:05:37Z",
           "updatedAt": "2024-08-28T13:05:37Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 33,
+      "id": "PR_kwDOKPwz5858xOmV",
+      "title": "Cleaning up the IANA request",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/33",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "fixes #32 ",
+      "createdAt": "2024-09-26T09:44:38Z",
+      "updatedAt": "2024-09-26T16:53:50Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "a7145e5c39a19e07580b9e0636778eca045ad353",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "iana-fix",
+      "headRefOid": "93f8c95ae1e6dc0f99f72c3d523507092948825b",
+      "closedAt": "2024-09-26T16:53:50Z",
+      "mergedAt": "2024-09-26T16:53:50Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "6ab23d275c7f932e6325f27828dfc25d48417649"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586K-Z2j",
+          "commit": {
+            "abbreviatedOid": "93f8c95"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-09-26T15:10:05Z",
+          "updatedAt": "2024-09-26T15:10:05Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586K_ZM6",
+          "commit": {
+            "abbreviatedOid": "93f8c95"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-09-26T16:53:46Z",
+          "updatedAt": "2024-09-26T16:53:46Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 34,
+      "id": "PR_kwDOKPwz5858xZOa",
+      "title": "COSE Header Parameter Earmark Range for COSE Receipts",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/34",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "A proposal in support of early allocation, in general. This PR is related to Issue #15 ",
+      "createdAt": "2024-09-26T10:04:48Z",
+      "updatedAt": "2024-09-26T17:01:59Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "a7145e5c39a19e07580b9e0636778eca045ad353",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "scitt-earmarks",
+      "headRefOid": "7955afbcf816b9c4c5eec241fa4108ad30e30697",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586K-aeK",
+          "commit": {
+            "abbreviatedOid": "7955afb"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-26T15:11:07Z",
+          "updatedAt": "2024-09-26T15:11:07Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "why are we asking for a range, instead of just the assignments we are using?",
+              "createdAt": "2024-09-26T15:11:07Z",
+              "updatedAt": "2024-09-26T15:11:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586K_ZBy",
+          "commit": {
+            "abbreviatedOid": "7955afb"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "lets discuss this in higher bandwidth.",
+          "createdAt": "2024-09-26T16:53:26Z",
+          "updatedAt": "2024-09-26T16:53:26Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586K_cXN",
+          "commit": {
+            "abbreviatedOid": "7955afb"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-26T17:00:21Z",
+          "updatedAt": "2024-09-26T17:00:21Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\r\nThis request to IANA includes a range of labels for COSE header parameters to be \"Earmarked for COSE Receipts\" so that numbers in that earmark range can be reassigned by IANA based on advice from the designated experts for the COSE Header Parameters registry.\r\n```",
+              "createdAt": "2024-09-26T17:00:21Z",
+              "updatedAt": "2024-09-26T17:00:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586K_dIZ",
+          "commit": {
+            "abbreviatedOid": "7955afb"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-26T17:01:59Z",
+          "updatedAt": "2024-09-26T17:01:59Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "We should write the advice that is needed for DEs into this document, if we are requesting them to administer a range.",
+              "createdAt": "2024-09-26T17:01:59Z",
+              "updatedAt": "2024-09-26T17:02:44Z"
+            }
+          ]
         }
       ]
     }
