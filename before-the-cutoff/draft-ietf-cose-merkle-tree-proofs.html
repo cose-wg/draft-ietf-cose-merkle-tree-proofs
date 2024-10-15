@@ -1660,27 +1660,67 @@ COSE_Sign1 = [
           </figcaption></figure>
 </div>
 <p id="section-4.3-5">The following informative EDN is provided:<a href="#section-4.3-5" class="pilcrow">¶</a></p>
-<span id="name-edn-for-a-cose-sign1-with-a"></span><div id="fig-receipts-edn">
+<span id="name-a-cose-signature-with-multi"></span><div id="fig-receipts-edn">
 <figure id="figure-2">
-          <div class="lang-cbor-diag sourcecode" id="section-4.3-6.1">
+          <div class="breakable lang-cbor-diag sourcecode" id="section-4.3-6.1">
 <pre>
-18(                                 / COSE Sign 1                   /
-    [
-      h'a4012603...6d706c65',       / Protected                     /
-      {                             / Unprotected                   /
-        394: [                      / Receipts (2)                  /
-          h'd284586c...4191f9d2'    / Receipt 1                     /
-          h'c624586c...8f4af97e'    / Receipt 2                     /
-        ]
-      },
-      nil,                          / Detached payload              /
-      h'79ada558...3a28bae4'        / Signature                     /
-    ]
-)
+/ cose-sign1 / 18([
+  / protected   / &lt;&lt;{
+    / key / 4 : "vCl7UcS0ZZY99VpRthDc-0iUjLdfLtnmFqLJ2-Tt8N4",
+    / algorithm / 1 : -7,  # ES256
+  }&gt;&gt;,
+  / unprotected / {
+    / receipts / 394 : {
+      &lt;&lt;/ cose-sign1 / 18([
+        / protected   / &lt;&lt;{
+          / key / 4 : "mxA4KiOkQFZ-dkLebSo3mLOEPR7rN8XtxkJe45xuyJk",
+          / algorithm / 1 : -7,  # ES256
+          / vds       / 395 : 1, # RFC9162 SHA-256
+        }&gt;&gt;,
+        / unprotected / {
+          / proofs / 396 : {
+            / inclusion / -1 : [
+              &lt;&lt;[
+                / size / 9, / leaf / 8,
+                / inclusion path /
+                h'7558a95f...e02e35d6'
+              ]&gt;&gt;
+            ],
+          },
+        },
+        / payload     / null,
+        / signature   / h'02d227ed...ccd3774f'
+      ])&gt;&gt;,
+      &lt;&lt;/ cose-sign1 / 18([
+        / protected   / &lt;&lt;{
+          / key / 4 : "ajOkeBTJou_wPrlExLMw7L9OTCD5ZIOBYc-O6LESe9c",
+          / algorithm / 1 : -7,  # ES256
+          / vds       / 395 : 1, # RFC9162 SHA-256
+        }&gt;&gt;,
+        / unprotected / {
+          / proofs / 396 : {
+            / inclusion / -1 : [
+              &lt;&lt;[
+                / size / 6, / leaf / 5,
+                / inclusion path /
+                h'9352f974...4ffa7ce0',
+                h'54806f32...f007ea06'
+              ]&gt;&gt;
+            ],
+          },
+        },
+        / payload     / null,
+        / signature   / h'36581f38...a5581960'
+      ])&gt;&gt;
+    },
+  },
+  / payload     / h'0167c57c...deeed6d4',
+  / signature   / h'2544f2ed...5840893b'
+])
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
-<a href="#name-edn-for-a-cose-sign1-with-a" class="selfRef">EDN for a COSE Sign1 with attached receipts</a>
+<a href="#name-a-cose-signature-with-multi" class="selfRef">A COSE Signature with multiple receipts</a>
           </figcaption></figure>
 </div>
 <div id="registration-requirements">
