@@ -57,7 +57,7 @@ informative:
   I-D.draft-ietf-cbor-edn-literals: cbor-edn-literals
   I-D.ietf-cose-cwt-claims-in-headers: cwt-header-claims
   I-D.ietf-cose-typ-header-parameter: cose-typ
-
+---
 
 --- abstract
 
@@ -337,55 +337,34 @@ unprotected-header-map = {
 * inclusion-proof (label: -1): REQUIRED. Inclusion proofs. Value type: Array of bstr.
 
 The payload of an RFC9162_SHA256 inclusion proof signature is the Merkle tree hash as defined in {{-certificate-transparency-v2}}.
-The payload MUST be detached.
+The payload SHOULD be detached.
 Detaching the payload forces verifiers to recompute the root from the inclusion proof, this protects against implementation errors where the signature is verified but the merkle root does not match the inclusion proof.
 The EDN for a Receipt containing an inclusion proof for RFC9162_SHA256 is:
 
 ~~~~ cbor-diag
-18(                                 / COSE Sign 1                   /
-    [
-      h'a4012604...6d706c65',       / Protected                     /
-      {                             / Unprotected                   /
-        396: {                      / Proofs                        /
-          -1: [                     / Inclusion proofs (1)          /
-            h'83080783...32568964', / Inclusion proof 1             /
-          ]
-        },
-      },
-      nil,                          / Detached payload              /
-      h'2e34df43...8d74d55e'        / Signature                     /
-    ]
-)
+/ cose-sign1 / 18([
+  / protected   / <<{
+    / algorithm / 1 : -7,  # ES256
+    / vds       / 395 : 1, # RFC9162 SHA-256
+  }>>,
+  / unprotected / {
+    / proofs / 396 : {
+      / inclusion / -1 : [
+        <<[
+          / size / 20, / leaf / 17,
+          / inclusion path /
+          h'fc9f050f...221c92cb',
+          h'bd0136ad...6b28cf21',
+          h'd68af9d6...93b1632b'
+        ]>>
+      ],
+    },
+  },
+  / payload     / null,
+  / signature   / h'de24f0cc...9a5ade89'
+])
 ~~~~
-{: #rfc9162_sha256_inclusion_receipt align="left" title="Example inclusion receipt"}
-
-The EDN for the Protected Header in the example above is:
-
-~~~~ cbor-diag
-{                                   / Protected                     /
-  1: -7,                            / Algorithm                     /
-  4: h'4930714e...7163316b',        / Key identifier                /
-  395: 1,                           / Verifiable Data Structure     /
-}
-~~~~
-{: #rfc9162_sha256_inclusion_receipt_header align="left" title="Example inclusion receipt decoded protected header"}
-
-The VDS in the protected header is necessary to understand the VDP in the unprotected header.
-
-The EDN for the inclusion proof in the Unprotected Header is:
-
-~~~~ cbor-diag
-[                                   / Inclusion proof 1             /
-  8,                                / Tree size                     /
-  7,                                / Leaf index                    /
-  [                                 / Inclusion hashes (3)          /
-     h'2a8d7dfc...15d10b22'         / Intermediate hash 1           /
-     h'75f177fd...2e73a8ab'         / Intermediate hash 2           /
-     h'0bdaaed3...32568964'         / Intermediate hash 3           /
-  ]
-]
-~~~~
-{: #rfc9162_sha256_inclusion_receipt_inclusion_proof align="left" title="Example inclusion receipt decoded inclusion proof"}
+{: #rfc9162_sha256_inclusion_receipt align="left" title="Receipt of Inclusion"}
 
 The VDS in the protected header is necessary to understand the inclusion proof structure in the unprotected header.
 
@@ -419,8 +398,6 @@ consistency-proof =  bstr .cbor [
 ]
 ~~~~
 {: #rfc9162_sha256_consistency_proof align="left" title="CBOR Encoded RFC9162 Consistency Proof"}
-
-Editors note: tree-size-1, could be omitted, if an inclusion-proof is always present, since the inclusion proof contains, tree-size-1.
 
 ### Receipt of Consistency
 
@@ -461,54 +438,38 @@ unprotected-header-map = {
 
 The payload of an RFC9162_SHA256 consistency proof signature is:
 The newer Merkle tree hash as defined in {{-certificate-transparency-v2}}.
-The payload MUST be attached.
+The payload SHOULD be detached.
+Detaching the payload forces verifiers to recompute the root from the consistency proof, this protects against implementation errors where the signature is verified but the merkle root does not match the inclusion proof.
 
 The EDN for a Receipt containing a consistency proof for RFC9162_SHA256 is:
 
 ~~~~ cbor-diag
-18(                                 / COSE Sign 1                   /
-    [
-      h'a3012604...392b6601',       / Protected                     /
-      {                             / Unprotected                   /
-        396: {                      / Proofs                        /
-          -2: [                     / Consistency proofs (1)        /
-            h'83040682...2e73a8ab', / Consistency proof 1           /
-          ]
-        },
-      },
-      h'430b6fd7...f74c7fc4',       / Payload (Attached)            /
-      h'd97befea...f30631cb'        / Signature                     /
-    ]
-)
+/ cose-sign1 / 18([
+  / protected   / <<{
+    / algorithm / 1 : -7,  # ES256
+    / vds       / 395 : 1, # RFC9162 SHA-256
+  }>>,
+  / unprotected / {
+    / proofs / 396 : {
+      / consistency / -2 : [
+        <<[
+          / old / 20, / new / 104,
+          / consistency path /
+          h'e5b3e764...c4a813bc',
+          h'87e8a084...4f529f69',
+          h'f712f76d...92a0ff36',
+          h'd68af9d6...93b1632b',
+          h'249efab6...b7614ccd',
+          h'85dd6293...38914dc1'
+        ]>>
+      ],
+    },
+  },
+  / payload     / null,
+  / signature   / h'94469f73...52de67a1'
+])
 ~~~~
 {: #rfc9162_sha256_consistency_receipt align="left" title="Example consistency receipt"}
-
-The VDS in the protected header is necessary to understand the VDP in the unprotected header.
-
-The EDN for the Protected Header in the example above is:
-
-~~~~ cbor-diag
-{                                   / Protected                     /
-  1: -7,                            / Algorithm                     /
-  4: h'68747470...6d706c65',        / Key identifier                /
-  395: 1,                           / Verifiable Data Structure     /
-}
-~~~~
-{: #rfc9162_sha256_consistency_receipt_header align="left" title="Example consistency receipt decoded protected header"}
-
-The EDN for the consistency proof in the Unprotected Header is:
-
-~~~~ cbor-diag
-[                                   / Consistency proof 1           /
-  4,                                / Tree size 1                   /
-  6,                                / Tree size 2                   /
-  [                                 / Consistency hashes (2)        /
-     h'0bdaaed3...32568964'         / Intermediate hash 1           /
-     h'75f177fd...2e73a8ab'         / Intermediate hash 2           /
-  ]
-]
-~~~~
-{: #rfc9162_sha256_consistency_receipt_consistency_proof align="left" title="Example consistency receipt decoded consistency proof"}
 
 The VDS in the protected header is necessary to understand the consistency proof structure in the unprotected header.
 
@@ -691,43 +652,13 @@ Readers are advised to note that other implementations may exist.
 According to {{BCP205}}, "this will allow reviewers and working groups to assign due consideration to documents that have the benefit of running code, which may serve as evidence of valuable experimentation and feedback that have made the implemented protocols more mature.
 It is up to the individual working groups to use this information as they see fit".
 
-## Implementer
+## Transmute Prototype
 
 An open-source implementation was initiated and is maintained by the Transmute Industries Inc. - Transmute.
+An application demonstrating the concepts is available at [COSE SCITT Receipts](https://github.com/transmute-industries/cose?tab=readme-ov-file#transparent-statement)
 
-## Implementation Name
-
-An application demonstrating the concepts is available at [COSE SCITT Receipts](https://github.com/transmute-industries/cose?tab=readme-ov-file#scitt-receipts)
-
-## Implementation URL
-
-An open-source implementation is available at:
-
-- https://github.com/transmute-industries/cose
-
-## Maturity
-
-The code's level of maturity is considered to be "prototype".
-
-## Coverage and Version Compatibility
-
-The current version ('main') implements the verifiable data structure algorithm, inclusion proof and consistency proof concepts of this draft.
-
-## License
-
-The project and all corresponding code and data maintained on GitHub are provided under the Apache License, version 2.
-
-## Implementation Dependencies
-
-The implementation uses the Concise Binary Object Representation {{-CBOR}} (https://cbor.io/).
-
-The implementation uses the CBOR Object Signing and Encryption {{-COSE}}, maintained at:
-- https://github.com/erdtman/cose-js
-
-The implementation uses an implementation of {{-certificate-transparency-v2}}, maintained at:
-
-- https://github.com/transmute-industries/rfc9162/tree/main/src/CoMETRE
-
-## Contact
-
-Orie Steele (orie@transmute.industries)
+Implementation URL: https://github.com/transmute-industries/cose
+Maturity: The code's level of maturity is considered to be "prototype".
+Coverage and Version Compatibility: The current version ('main') implements the verifiable data structure algorithm, inclusion proof and consistency proof concepts of this draft.
+License: The project and all corresponding code and data maintained on GitHub are provided under the Apache License, version 2.
+Contact: Orie Steele (orie@transmute.industries)
