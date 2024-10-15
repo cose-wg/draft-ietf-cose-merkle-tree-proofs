@@ -233,21 +233,61 @@ COSE_Sign1 = [
 The following informative EDN is provided:
 
 ~~~ cbor-diag
-18(                                 / COSE Sign 1                   /
-    [
-      h'a4012603...6d706c65',       / Protected                     /
-      {                             / Unprotected                   /
-        394: [                      / Receipts (2)                  /
-          h'd284586c...4191f9d2'    / Receipt 1                     /
-          h'c624586c...8f4af97e'    / Receipt 2                     /
-        ]
-      },
-      nil,                          / Detached payload              /
-      h'79ada558...3a28bae4'        / Signature                     /
-    ]
-)
+/ cose-sign1 / 18([
+  / protected   / <<{
+    / key / 4 : "vCl7UcS0ZZY99VpRthDc-0iUjLdfLtnmFqLJ2-Tt8N4",
+    / algorithm / 1 : -7,  # ES256
+  }>>,
+  / unprotected / {
+    / receipts / 394 : {
+      <</ cose-sign1 / 18([
+        / protected   / <<{
+          / key / 4 : "mxA4KiOkQFZ-dkLebSo3mLOEPR7rN8XtxkJe45xuyJk",
+          / algorithm / 1 : -7,  # ES256
+          / vds       / 395 : 1, # RFC9162 SHA-256
+        }>>,
+        / unprotected / {
+          / proofs / 396 : {
+            / inclusion / -1 : [
+              <<[
+                / size / 9, / leaf / 8,
+                / inclusion path /
+                h'7558a95f...e02e35d6'
+              ]>>
+            ],
+          },
+        },
+        / payload     / null,
+        / signature   / h'02d227ed...ccd3774f'
+      ])>>,
+      <</ cose-sign1 / 18([
+        / protected   / <<{
+          / key / 4 : "ajOkeBTJou_wPrlExLMw7L9OTCD5ZIOBYc-O6LESe9c",
+          / algorithm / 1 : -7,  # ES256
+          / vds       / 395 : 1, # RFC9162 SHA-256
+        }>>,
+        / unprotected / {
+          / proofs / 396 : {
+            / inclusion / -1 : [
+              <<[
+                / size / 6, / leaf / 5,
+                / inclusion path /
+                h'9352f974...4ffa7ce0',
+                h'54806f32...f007ea06'
+              ]>>
+            ],
+          },
+        },
+        / payload     / null,
+        / signature   / h'36581f38...a5581960'
+      ])>>
+    },
+  },
+  / payload     / h'0167c57c...deeed6d4',
+  / signature   / h'2544f2ed...5840893b'
+])
 ~~~
-{: #fig-receipts-edn title="EDN for a COSE Sign1 with attached receipts"}
+{: #fig-receipts-edn title="A COSE Signature with multiple receipts"}
 
 ### Registration Requirements
 
