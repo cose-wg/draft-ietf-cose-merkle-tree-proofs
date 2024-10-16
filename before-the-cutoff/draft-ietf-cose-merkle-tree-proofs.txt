@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 18 April 2025                                    Fraunhofer SIT
+Expires: 19 April 2025                                    Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                         15 October 2024
+                                                         16 October 2024
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 April 2025.
+   This Internet-Draft will expire on 19 April 2025.
 
 Copyright Notice
 
@@ -653,7 +653,7 @@ Table of Contents
    be detached.  Detaching the payload forces verifiers to recompute the
    root from the consistency proof, this protects against implementation
    errors where the signature is verified but the merkle root does not
-   match the inclusion proof.
+   match the proof.
 
    The EDN for a Receipt containing a consistency proof for
    RFC9162_SHA256 is:
