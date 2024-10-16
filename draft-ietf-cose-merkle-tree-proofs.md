@@ -479,7 +479,7 @@ unprotected-header-map = {
 The payload of an RFC9162_SHA256 consistency proof signature is:
 The newer Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 The payload SHOULD be detached.
-Detaching the payload forces verifiers to recompute the root from the consistency proof, this protects against implementation errors where the signature is verified but the merkle root does not match the inclusion proof.
+Detaching the payload forces verifiers to recompute the root from the consistency proof, this protects against implementation errors where the signature is verified but the merkle root does not match the proof.
 
 The EDN for a Receipt containing a consistency proof for RFC9162_SHA256 is:
 
