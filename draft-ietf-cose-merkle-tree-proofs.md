@@ -124,7 +124,7 @@ Proof Type:
 
 Proof Value:
 
-: An encoding of a Proof Type in {{-CBOR}}.
+: An encoding of a Proof Type in CBOR {{-CBOR}}.
 
 Entry:
 
@@ -289,7 +289,7 @@ The following informative EDN is provided:
 
 ### Registration Requirements
 
-Each specification MUST define how to encode the verifiable data structure and its parameters (also called proof types) in {{-CBOR}}.
+Each specification MUST define how to encode the verifiable data structure and its parameters (also called proof types) in CBOR.
 Each specification MUST define how to produce and consume the supported proof types.
 See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 
@@ -312,7 +312,7 @@ See {{-certificate-transparency-v2}}, 2.1.1. Definition of the Merkle Tree, for 
 
 See {{-certificate-transparency-v2}}, 2.1.3.1. Generating an Inclusion Proof, for a complete description of this verifiable data structure proof type.
 
-The {{-CBOR}} representation of an inclusion proof for RFC9162_SHA256 is:
+The CBOR representation of an inclusion proof for RFC9162_SHA256 is:
 
 ~~~~ cddl
 inclusion-proof = bstr .cbor [
