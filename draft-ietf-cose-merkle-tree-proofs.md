@@ -110,7 +110,6 @@ Verifiable Data Structure (VDS):
 : A data structure which supports one or more Proof Types.
   This property is conceptually similar to "alg" (1), it described an algorithm used to maintain the verifiable data structure, for example a binary merkle tree algorithm.
 
-
 Verifiable Data Structure Parameters (VDP):
 
 : Parameters to a verifiable data structure that are used to prove properties, such as authentication, inclusion, consistency, and freshness.
@@ -125,7 +124,7 @@ Proof Type:
 
 Proof Value:
 
-: An encoding of a Proof Type in CBOR.
+: An encoding of a Proof Type in {{-CBOR}}.
 
 Entry:
 
@@ -135,10 +134,9 @@ Receipt:
 
 : A COSE object, as defined in {{RFC9052}}, containing the header parameters necessary to convey VDP for an associated VDS.
 
-
 # Verifiable Data Structures in CBOR {#sec-generic-verifiable-data-structures}
 
-This section describes representations of verifiable data structure proofs in CBOR.
+This section describes representations of verifiable data structure proofs in {{-CBOR}}.
 For example, construction of a merkle tree leaf, or an inclusion proof from a leaf to a merkle root, might have several different representations, depending on the verifiable data structure used.
 Differences in representations are necessary to support efficient verification, unique security or privacy properties, and for compatibility with specific implementations.
 This document defines two extension points for enabling verifiable data structures with COSE and provides concrete examples for the structures and proofs defined in {{-certificate-transparency-v2}}.
@@ -291,7 +289,7 @@ The following informative EDN is provided:
 
 ### Registration Requirements
 
-Each specification MUST define how to encode the verifiable data structure and its parameters (also called proof types) in CBOR.
+Each specification MUST define how to encode the verifiable data structure and its parameters (also called proof types) in {{-CBOR}}.
 Each specification MUST define how to produce and consume the supported proof types.
 See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 
@@ -301,7 +299,7 @@ both "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the relevant IAN
 
 # RFC9162_SHA256 {#sec-rfc-9162-verifiable-data-structure-definition}
 
-This section defines how the data structures described in {{-certificate-transparency-v2}} are mapped to the terminology defined in this document, using CBOR and COSE.
+This section defines how the data structures described in {{-certificate-transparency-v2}} are mapped to the terminology defined in this document, using {{-CBOR}} and {{-COSE}}.
 
 ## Verifiable Data Structure
 
@@ -314,7 +312,7 @@ See {{-certificate-transparency-v2}}, 2.1.1. Definition of the Merkle Tree, for 
 
 See {{-certificate-transparency-v2}}, 2.1.3.1. Generating an Inclusion Proof, for a complete description of this verifiable data structure proof type.
 
-The CBOR representation of an inclusion proof for RFC9162_SHA256 is:
+The {{-CBOR}} representation of an inclusion proof for RFC9162_SHA256 is:
 
 ~~~~ cddl
 inclusion-proof = bstr .cbor [
@@ -353,8 +351,8 @@ protected-header-map = {
 ~~~~
 {: #vds-in-inclusion-receipt-protected-header align="left" title="Protected Header for a Receipt of Inclusion"}
 
-* alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int.
-* vds (label: 395): REQUIRED. verifiable data structure algorithm identifier. Value type: int.
+- alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int.
+- vds (label: 395): REQUIRED. verifiable data structure algorithm identifier. Value type: int.
 
 The unprotected header for an RFC9162_SHA256 inclusion proof signature is:
 
@@ -373,8 +371,8 @@ unprotected-header-map = {
 ~~~~
 {: #vdp-in-unprotected-header align="left" title="A Verifiable Data Structure Proofs in an Unprotected Header"}
 
-* vdp (label: 396): REQUIRED. Verifiable data structure proofs. Value type: Map.
-* inclusion-proof (label: -1): REQUIRED. Inclusion proofs. Value type: Array of bstr.
+- vdp (label: 396): REQUIRED. Verifiable data structure proofs. Value type: Map.
+- inclusion-proof (label: -1): REQUIRED. Inclusion proofs. Value type: Array of bstr.
 
 The payload of an RFC9162_SHA256 inclusion proof signature is the Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 The payload SHOULD be detached.
@@ -454,8 +452,8 @@ protected-header-map = {
 ~~~~
 {: #vds-in-consistency-receipt-protected-header align="left" title="Protected Header for a Receipt of Consistency"}
 
-* alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int.
-* vds (label: TBD_1): REQUIRED. Verifiable data structure algorithm identifier. Value type: int.
+- alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int.
+- vds (label: TBD_1): REQUIRED. Verifiable data structure algorithm identifier. Value type: int.
 
 The unprotected header for an RFC9162_SHA256 consistency proof signature is:
 
@@ -473,8 +471,8 @@ unprotected-header-map = {
 }
 ~~~~
 
-* vdp (label: 396): REQUIRED. Verifiable data structure proofs. Value type: Map.
-* consistency-proof (label: -2): REQUIRED. Consistency proofs. Value type: Array of bstr.
+- vdp (label: 396): REQUIRED. Verifiable data structure proofs. Value type: Map.
+- consistency-proof (label: -2): REQUIRED. Consistency proofs. Value type: Array of bstr.
 
 The payload of an RFC9162_SHA256 consistency proof signature is:
 The newer Merkle tree hash as defined in {{-certificate-transparency-v2}}.
@@ -587,30 +585,30 @@ This document requests IANA to add new values to the 'COSE Header Parameters' re
 
 ##### Receipts
 
-* Name: receipts
-* Label: TBD_0 (requested assignment 394)
-* Value type: array (of bstr)
-* Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
-* Description: Priority ordered list of CBOR encoded Receipts.
-* Reference: RFC XXXX
+- Name: receipts
+- Label: TBD_0 (requested assignment 394)
+- Value type: array (of bstr)
+- Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
+- Description: Priority ordered list of CBOR encoded Receipts.
+- Reference: RFC XXXX
 
 ##### Verifiable Data Structure
 
-* Name: vds
-* Label: TBD_1 (requested assignment 395)
-* Value type: int
-* Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
-* Description: Algorithm name for verifiable data structure, used to produce verifiable data structure proofs.
-* Reference: RFC XXXX
+- Name: vds
+- Label: TBD_1 (requested assignment 395)
+- Value type: int
+- Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
+- Description: Algorithm name for verifiable data structure, used to produce verifiable data structure proofs.
+- Reference: RFC XXXX
 
 ##### Verifiable Data Structure Proofs
 
-* Name: vdp (requested assignment 396)
-* Label: TBD_2
-* Value type: map
-* Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
-* Description: Location for verifiable data structure proofs in COSE Header Parameters.
-* Reference: RFC XXXX
+- Name: vdp (requested assignment 396)
+- Label: TBD_2
+- Value type: map
+- Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
+- Description: Location for verifiable data structure proofs in COSE Header Parameters.
+- Reference: RFC XXXX
 
 ### COSE Verifiable Data Structures {#verifiable-data-structure-registry}
 
@@ -618,10 +616,10 @@ IANA will be asked to establish a registry of verifiable data structure identifi
 
 Template:
 
-* Name: The name of the verifiable data structure
-* Value: The identifier for the verifiable data structure
-* Description: A brief description of the verifiable data structure
-* Reference: Where the verifiable data structure is defined
+- Name: The name of the verifiable data structure
+- Value: The identifier for the verifiable data structure
+- Description: A brief description of the verifiable data structure
+- Reference: Where the verifiable data structure is defined
 
 Initial contents: Provided in {{cose-verifiable-data-structures}}
 
@@ -633,14 +631,14 @@ This section gives some general guidelines for what the experts should be lookin
 
 Expert reviewers should take into consideration the following points:
 
-*  Point squatting should be discouraged.
+- Point squatting should be discouraged.
 Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.
 
-* Specifications are required for all point assignments.
+- Specifications are required for all point assignments.
 Early Allocation is permissible, see Section 2 of {{RFC7120}}.
 Provisional assignments to expired drafts MUST be removed from the registry.
 
-* Points assigned in this registry MUST have references that match the COSE Verifiable Data Structure Parameters registry.
+- Points assigned in this registry MUST have references that match the COSE Verifiable Data Structure Parameters registry.
 It is not permissible to assign points in this registry, for which no Verifiable Data Structure Parameters entries exist.
 
 ### COSE Verifiable Data Structure Parameters {#verifiable-data-structure-parameters-registry}
@@ -649,12 +647,12 @@ IANA will be asked to establish a registry of verifiable data structure paramete
 
 Template:
 
-* Verifiable Data Structure: The identifier for the verifiable data structure
-* Name: The name of the proof type
-* Label: The integer of the proof type
-* CBOR Type: The cbor data type of the proof
-* Description: The description of the proof type
-* Reference: Where the proof type is defined
+- Verifiable Data Structure: The identifier for the verifiable data structure
+- Name: The name of the proof type
+- Label: The integer of the proof type
+- CBOR Type: The cbor data type of the proof
+- Description: The description of the proof type
+- Reference: Where the proof type is defined
 
 Initial contents: Provided in {{cose-verifiable-data-structures-parameters}}
 
@@ -666,14 +664,14 @@ This section gives some general guidelines for what the experts should be lookin
 
 Expert reviewers should take into consideration the following points:
 
-*  Point squatting should be discouraged.
+- Point squatting should be discouraged.
 Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.
 
-* Specifications are required for all point assignments.
+- Specifications are required for all point assignments.
 Early Allocation is permissible, see Section 2 of {{RFC7120}}.
 Provisional assignments to expired drafts MUST be removed from the registry.
 
-* Points assigned in this registry MUST have references that match the COSE Verifiable Data Structures registry.
+- Points assigned in this registry MUST have references that match the COSE Verifiable Data Structures registry.
 It is not permissible to assign points in this registry, for which no Verifiable Data Structure entry exists.
 
 --- back
