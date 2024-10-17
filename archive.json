@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-15T00:49:15.327173+00:00",
+  "timestamp": "2024-10-17T00:48:11.274455+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -2144,6 +2144,66 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 36,
+      "id": "PR_kwDOKPwz585-vMPO",
+      "title": "Before the cutoff",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/36",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-15T21:47:37Z",
+      "updatedAt": "2024-10-16T20:52:33Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "b15926f3d9a8f227de2a86ab8325a461b819395b",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "before-the-cutoff",
+      "headRefOid": "a8965b1465d89f27315916eee50be75ad4f423d1",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586NaR0Y",
+          "commit": {
+            "abbreviatedOid": "b6ee34a"
+          },
+          "author": "robinbryce",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-16T13:28:35Z",
+          "updatedAt": "2024-10-16T13:28:35Z",
+          "comments": [
+            {
+              "originalPosition": 179,
+              "body": "```suggestion\r\nDetaching the payload forces verifiers to recompute the root from the consistency proof, this protects against implementation errors where the signature is verified but the merkle root does not match the proof.\r\n```",
+              "createdAt": "2024-10-16T13:28:35Z",
+              "updatedAt": "2024-10-16T13:28:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586Ney_P",
+          "commit": {
+            "abbreviatedOid": "a8965b1"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2024-10-16T20:52:26Z",
+          "updatedAt": "2024-10-16T20:52:26Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
