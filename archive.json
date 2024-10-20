@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-17T00:48:11.274455+00:00",
+  "timestamp": "2024-10-20T00:53:25.283183+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -369,6 +369,22 @@
       "createdAt": "2024-09-26T09:44:17Z",
       "updatedAt": "2024-09-26T16:53:51Z",
       "closedAt": "2024-09-26T16:53:51Z",
+      "comments": []
+    },
+    {
+      "number": 37,
+      "id": "I_kwDOKPwz586asNkH",
+      "title": "Remove reference to RFC7049 from -07",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/37",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-17T17:04:08Z",
+      "updatedAt": "2024-10-17T17:04:08Z",
+      "closedAt": null,
       "comments": []
     }
   ],
@@ -2150,24 +2166,26 @@
       "id": "PR_kwDOKPwz585-vMPO",
       "title": "Before the cutoff",
       "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/36",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-10-15T21:47:37Z",
-      "updatedAt": "2024-10-16T20:52:33Z",
+      "updatedAt": "2024-10-17T16:33:17Z",
       "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "baseRefName": "main",
       "baseRefOid": "b15926f3d9a8f227de2a86ab8325a461b819395b",
       "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "headRefName": "before-the-cutoff",
       "headRefOid": "a8965b1465d89f27315916eee50be75ad4f423d1",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-10-17T16:33:17Z",
+      "mergedAt": "2024-10-17T16:33:17Z",
+      "mergedBy": "SteveLasker",
+      "mergeCommit": {
+        "oid": "ff9e160f180c21c7a3753218c6e9cc9bb676f6c0"
+      },
       "comments": [],
       "reviews": [
         {
@@ -2202,8 +2220,47 @@
           "createdAt": "2024-10-16T20:52:26Z",
           "updatedAt": "2024-10-16T20:52:26Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586NgdT6",
+          "commit": {
+            "abbreviatedOid": "a8965b1"
+          },
+          "author": "aj-stein",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-17T04:02:30Z",
+          "updatedAt": "2024-10-17T04:02:30Z",
+          "comments": []
         }
       ]
+    },
+    {
+      "number": 38,
+      "id": "PR_kwDOKPwz585-_4Df",
+      "title": "Markdown nits",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/38",
+      "state": "OPEN",
+      "author": "SteveLasker",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-17T17:21:40Z",
+      "updatedAt": "2024-10-17T17:21:40Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "ff9e160f180c21c7a3753218c6e9cc9bb676f6c0",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "steve/markdown-nits",
+      "headRefOid": "856e7cbd72d5541eced881a49ebe364e1a6df0b9",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
