@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 20 April 2025                                    Fraunhofer SIT
+Expires: 2 May 2025                                       Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                         17 October 2024
+                                                         29 October 2024
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 April 2025.
+   This Internet-Draft will expire on 2 May 2025.
 
 Copyright Notice
 
@@ -184,7 +184,7 @@ Table of Contents
       each proof confirms that a given entry is included in a merkle
       root.
 
-   Proof Value:  An encoding of a Proof Type in CBOR.
+   Proof Value:  An encoding of a Proof Type in CBOR [RFC7049].
 
    Entry:  An entry in a verifiable data structure for which proofs can
       be derived.
@@ -195,16 +195,17 @@ Table of Contents
 4.  Verifiable Data Structures in CBOR
 
    This section describes representations of verifiable data structure
-   proofs in CBOR.  For example, construction of a merkle tree leaf, or
-   an inclusion proof from a leaf to a merkle root, might have several
-   different representations, depending on the verifiable data structure
-   used.  Differences in representations are necessary to support
-   efficient verification, unique security or privacy properties, and
-   for compatibility with specific implementations.  This document
-   defines two extension points for enabling verifiable data structures
-   with COSE and provides concrete examples for the structures and
-   proofs defined in [RFC9162].  The design of these structures is
-   influenced by the conventions established for COSE Keys.
+   proofs in [RFC7049].  For example, construction of a merkle tree
+   leaf, or an inclusion proof from a leaf to a merkle root, might have
+   several different representations, depending on the verifiable data
+   structure used.  Differences in representations are necessary to
+   support efficient verification, unique security or privacy
+   properties, and for compatibility with specific implementations.
+   This document defines two extension points for enabling verifiable
+   data structures with COSE and provides concrete examples for the
+   structures and proofs defined in [RFC9162].  The design of these
+   structures is influenced by the conventions established for COSE
+   Keys.
 
    During testing and development the experimental range SHOULD be used,
    unless early assignment for a provisional entry has been completed.
@@ -445,8 +446,8 @@ Table of Contents
 5.  RFC9162_SHA256
 
    This section defines how the data structures described in [RFC9162]
-   are mapped to the terminology defined in this document, using CBOR
-   and COSE.
+   are mapped to the terminology defined in this document, using
+   [RFC7049] and [RFC9053].
 
 5.1.  Verifiable Data Structure
 
