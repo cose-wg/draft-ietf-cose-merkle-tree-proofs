@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-29T00:50:32.596063+00:00",
+  "timestamp": "2024-10-31T00:49:49.429145+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -2241,26 +2241,42 @@
       "id": "PR_kwDOKPwz585-_4Df",
       "title": "Markdown nits",
       "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/38",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "SteveLasker",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-10-17T17:21:40Z",
-      "updatedAt": "2024-10-17T17:21:40Z",
+      "updatedAt": "2024-10-29T14:07:43Z",
       "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "baseRefName": "main",
       "baseRefOid": "ff9e160f180c21c7a3753218c6e9cc9bb676f6c0",
       "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "headRefName": "steve/markdown-nits",
       "headRefOid": "856e7cbd72d5541eced881a49ebe364e1a6df0b9",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-10-29T14:07:43Z",
+      "mergedAt": "2024-10-29T14:07:43Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "6e6776476ba29658d7c1935e29783d40640b9a20"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586PLAnr",
+          "commit": {
+            "abbreviatedOid": "856e7cb"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-29T14:07:39Z",
+          "updatedAt": "2024-10-29T14:07:39Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
