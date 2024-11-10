@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-07T00:47:32.761566+00:00",
+  "timestamp": "2024-11-10T00:51:42.489040+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -384,6 +384,22 @@
       "body": "",
       "createdAt": "2024-10-17T17:04:08Z",
       "updatedAt": "2024-10-17T17:04:08Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 39,
+      "id": "I_kwDOKPwz586dmnbK",
+      "title": "Define a normative value of typ(6) for COSE Merkle Proofs",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/39",
+      "state": "OPEN",
+      "author": "achamayou",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Although relying parties can implicitly check for the presence of `vds(395)` to decide if a COSE document is a COSE Merkle Proof, I think it would be clearer and less open to ambiguity to define a specific value of `typ(6)`.\r\n\r\nHaving validators check for the presence of fields to decide what they are looking is making implementation more error prone than necessary. It would be possible to construct a document that would have both a `vds(395)` and the TBD fields of COSE Hash Envelope for example, and whose validation may end up depending on the order in which implementations check for the presence of fields. Dispatching on `typ` values is more likely to be implemented consistently.\r\n\r\n5.2.1 makes the following suggestion:\r\n\r\n> Profiles of proof signatures are\r\n> encouraged to make additional protected header parameters mandatory,\r\n> to ensure that claims are processed with their intended semantics.\r\n> One way to include this information in the COSE structure is use of\r\n> the typ (type) Header Parameter, see\r\n> [I-D.ietf-cose-typ-header-parameter] and the similar guidance\r\n\r\nBut none of the proposed profiles have defined a `typ`, which would be redundant with `vds(395)`.",
+      "createdAt": "2024-11-08T14:04:37Z",
+      "updatedAt": "2024-11-08T14:04:37Z",
       "closedAt": null,
       "comments": []
     }
