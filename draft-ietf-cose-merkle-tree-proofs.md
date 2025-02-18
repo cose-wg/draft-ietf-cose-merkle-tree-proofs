@@ -57,7 +57,9 @@ informative:
   I-D.draft-ietf-cbor-edn-literals: cbor-edn-literals
   I-D.ietf-cose-cwt-claims-in-headers: cwt-header-claims
   I-D.ietf-cose-typ-header-parameter: cose-typ
----
+
+entity:
+  SELF: "RFCthis"
 
 --- abstract
 
@@ -81,21 +83,23 @@ This document describes how to convey VDS and associated VDP types in unified CO
 
 {::boilerplate bcp14-tagged}
 
-# CBOR Tags
+# New COSE Header Parameters {#param-list}
 
-Editorial Note (To be removed by RFC Editor).
+This document defines three new COSE header parameters, which are introduced up-front in this Section and elaborated on later in this document.
 
-This section will be removed before the document is completed, its purpose is to track the TBD code points references throughout the draft.
+TBD_0 (requested assignment 394):
 
-395 is TBD_1:
+: A COSE header parameter named `receipts` with a value type of array where the array contains one ore more COSE Receipts as specified in this document.
 
-: A requested cose header parameter representing the verifiable data structure used.
+TBD_1 (requested assignment 395):
 
-396 is TBD_2:
+: A COSE header parameter named `vds` with a value type of integer where the integer is a verifiable data structure (VDS) algorithm identifier as specified in this document. Correspondingly, this document introduces a new verifiable data structure algorithm identifier registry that registers the integers used as values for this COSE header parameter.
 
-: A requested cose header parameter representing the verifiable data structure parameters map (proofs map).
+TBD_2 (requested assignment 396):
 
-The other codepoints are assigned from the registries established in this draft, they are therefore not marked TBD.
+: A COSE header parameter named `vdp` with a value type of map where the map contains verifiable data structure proofs (VDP) as specified in this this document. Correspondingly, this document introduces a new verifiable data structure proof registry that registers the integers that are used as labels in the map of this COSE header parameter.
+
+The other codepoints in this document are assigned from the registries established in this draft, they are therefore not marked TBD.
 
 # Terminology
 
@@ -199,11 +203,11 @@ When designing new verifiable data structure parameters (or proof types), please
 |TBD (requested assignment 2) | new proof type     | -3    | tbd              | tbd                           | Your_Specification
 {: #cose-verifiable-data-structures-parameters-registration-guidance align="left" title="How to register new parameters"}
 
-## Usage
+## Usage {#receipt-spec}
 
 This document registered a new COSE Header Parameter `receipts` (394) to enable this Receipts to be conveyed in the protected and unprotected headers of COSE Objects.
 
-When the receipts parameter is present, the associated verifiable data structure and verifiable data structure proofs MUST match entries present in the registries established in RFC XXXX.
+When the receipts header parameter is present, the associated verifiable data structure and verifiable data structure proofs MUST match entries present in the registries established in this specification.
 
 The following informative CDDL is provided:
 
@@ -575,42 +579,16 @@ for their contributions (some of which substantial) to this draft and to the ini
 
 # IANA Considerations
 
-## Additions to Existing Registries
+## COSE Header Parameter
 
-### New Entries to the COSE Header Parameters Registry
+IANA is requested to add the following COSE header parameters defined in {{param-list}} to the "COSE Header Parameters" registry {{!IANA.cose_header-parameters}} in the 'Integer values from 256 to 65535' range with a 'Specification Required' Registration Procedure.
 
-This document requests IANA to add new values to the 'COSE Header Parameters' registries in the 'Integer values between 1 and 255' range with 'Specification Required' Registration Procedure.
+| Name | Label | Value Type | Value Registry | Description | Reference |
+| `receipts` | TBD_0 (requested assignment: 394) | array | https://www.iana.org/assignments/cose/cose.xhtml#header-parameters | Priority ordered sequence of CBOR encoded Receipts | {{&SELF}}, {{param-list}} |
+| `vds` | TBD_1 (requested assignment: 395) | int | https://www.iana.org/assignments/cose/cose.xhtml#header-parameters | Algorithm identifier for verifiable data structure, used to produce verifiable data structure proofs | {{&SELF}}, {{param-list}} |
+| `vdp` | TBD_2 (requested assignment: 396) | map | https://www.iana.org/assignments/cose/cose.xhtml#header-parameters | Location for verifiable data structure proofs in COSE Header Parameters | {{&SELF}}, {{param-list}} |
 
-#### COSE Header Parameters
-
-##### Receipts
-
-- Name: receipts
-- Label: TBD_0 (requested assignment 394)
-- Value type: array (of bstr)
-- Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
-- Description: Priority ordered list of CBOR encoded Receipts.
-- Reference: RFC XXXX
-
-##### Verifiable Data Structure
-
-- Name: vds
-- Label: TBD_1 (requested assignment 395)
-- Value type: int
-- Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
-- Description: Algorithm name for verifiable data structure, used to produce verifiable data structure proofs.
-- Reference: RFC XXXX
-
-##### Verifiable Data Structure Proofs
-
-- Name: vdp (requested assignment 396)
-- Label: TBD_2
-- Value type: map
-- Value registry: https://www.iana.org/assignments/cose/cose.xhtml#header-parameters
-- Description: Location for verifiable data structure proofs in COSE Header Parameters.
-- Reference: RFC XXXX
-
-### COSE Verifiable Data Structures {#verifiable-data-structure-registry}
+## COSE Verifiable Data Structures {#verifiable-data-structure-registry}
 
 IANA will be asked to establish a registry of verifiable data structure identifiers, named "COSE Verifiable Data Structures" to be administered under a Specification Required policy {{-iana-considerations-guide}}.
 
@@ -623,7 +601,7 @@ Template:
 
 Initial contents: Provided in {{cose-verifiable-data-structures}}
 
-#### Expert Review
+### Expert Review
 
 This IANA registries is established under a Specification Required policy.
 
@@ -641,7 +619,7 @@ Provisional assignments to expired drafts MUST be removed from the registry.
 - Points assigned in this registry MUST have references that match the COSE Verifiable Data Structure Parameters registry.
 It is not permissible to assign points in this registry, for which no Verifiable Data Structure Parameters entries exist.
 
-### COSE Verifiable Data Structure Parameters {#verifiable-data-structure-parameters-registry}
+## COSE Verifiable Data Structure Parameters {#verifiable-data-structure-parameters-registry}
 
 IANA will be asked to establish a registry of verifiable data structure parameters, named "COSE Verifiable Data Structure Parameters" to be administered under a Specification Required policy {{-iana-considerations-guide}}.
 
@@ -656,7 +634,7 @@ Template:
 
 Initial contents: Provided in {{cose-verifiable-data-structures-parameters}}
 
-#### Expert Review
+### Expert Review
 
 This IANA registries is established under a Specification Required policy.
 
