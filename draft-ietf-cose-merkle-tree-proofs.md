@@ -581,12 +581,15 @@ for their contributions (some of which substantial) to this draft and to the ini
 
 ## COSE Header Parameter
 
-IANA is requested to add the following COSE header parameters defined in {{param-list}} to the "COSE Header Parameters" registry {{!IANA.cose_header-parameters}} in the 'Integer values from 256 to 65535' range with a 'Specification Required' Registration Procedure.
+IANA is requested to add the COSE header parameters defined in {{param-list}}, as listed in {{iana-header-params}}, to the "COSE Header Parameters" registry {{!IANA.cose_header-parameters}} in the 'Integer values from 256 to 65535' range ('Specification Required' Registration Procedure).
+All new entries use https://www.iana.org/assignments/cose/cose.xhtml#header-parameters as the value for the "Value Registry" column.
 
-| Name | Label | Value Type | Value Registry | Description | Reference |
-| `receipts` | TBD_0 (requested assignment: 394) | array | https://www.iana.org/assignments/cose/cose.xhtml#header-parameters | Priority ordered sequence of CBOR encoded Receipts | {{&SELF}}, {{param-list}} |
-| `vds` | TBD_1 (requested assignment: 395) | int | https://www.iana.org/assignments/cose/cose.xhtml#header-parameters | Algorithm identifier for verifiable data structure, used to produce verifiable data structure proofs | {{&SELF}}, {{param-list}} |
-| `vdp` | TBD_2 (requested assignment: 396) | map | https://www.iana.org/assignments/cose/cose.xhtml#header-parameters | Location for verifiable data structure proofs in COSE Header Parameters | {{&SELF}}, {{param-list}} |
+| Name       | Label                             | Value Type | Description                                                                                          | Reference             |
+|------------|-----------------------------------|------------|------------------------------------------------------------------------------------------------------|-----------------------|
+| `receipts` | TBD_0 (requested assignment: 394) | array      | Priority ordered sequence of CBOR encoded Receipts                                                   | {{&SELF}}, {{param-list}} |
+| `vds`      | TBD_1 (requested assignment: 395) | int        | Algorithm identifier for verifiable data structure, used to produce verifiable data structure proofs | {{&SELF}}, {{param-list}} |
+| `vdp`      | TBD_2 (requested assignment: 396) | map        | Location for verifiable data structure proofs in COSE Header Parameters                              | {{&SELF}}, {{param-list}} |
+{: #iana-header-params title="Newly registered COSE Header Parameters"}
 
 ## COSE Verifiable Data Structures {#verifiable-data-structure-registry}
 
