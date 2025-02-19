@@ -581,11 +581,8 @@ for their contributions (some of which substantial) to this draft and to the ini
 
 ## COSE Header Parameter
 
-IANA is requested to add the COSE header parameters defined in {{param-list}}, as listed in {{iana-header-params}}, to the "COSE Header Parameters" registry {{!IANA.cose_header-parameters}} in the 'Integer
-values from 256 to 65535' range ('Specification Required' Registration Procedure).
-All new entries use
-https://www.iana.org/assignments/cose/cose.xhtml#header-parameters as
-the value for the "Value Registry" column.
+IANA is requested to add the COSE header parameters defined in {{param-list}}, as listed in {{iana-header-params}}, to the "COSE Header Parameters" registry {{!IANA.cose_header-parameters}} in the 'Integer values from 256 to 65535' range ('Specification Required' Registration Procedure).
+All new entries use https://www.iana.org/assignments/cose/cose.xhtml#header-parameters as the value for the "Value Registry" column.
 
 | Name       | Label                             | Value Type | Description                                                                                          | Reference             |
 |------------|-----------------------------------|------------|------------------------------------------------------------------------------------------------------|-----------------------|
