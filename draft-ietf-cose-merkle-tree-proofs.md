@@ -605,7 +605,7 @@ This IANA registries is established under a Specification Required policy.
 
 Expert reviewers should take into consideration the following points:
 
-- Experts should assign the next available negative integer for proof types.
+- Experts are advised to assign the next available negative integer for proof types.
 
 - Point squatting should be discouraged.
 Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.
