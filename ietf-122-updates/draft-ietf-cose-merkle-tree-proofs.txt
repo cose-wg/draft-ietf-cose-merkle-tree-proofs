@@ -824,8 +824,8 @@ Table of Contents
 
 9.  Acknowledgements
 
-   We would like to thank Maik Riechert, Jon Geater, Mike Jones, Mike
-   Prorock, Ilari Liusvaara, for their contributions (some of which
+   We would like to thank Maik Riechert, Jon Geater, Michael B.  Jones,
+   Mike Prorock, Ilari Liusvaara, for their contributions (some of which
    substantial) to this draft and to the initial set of implementations.
 
 10.  References
