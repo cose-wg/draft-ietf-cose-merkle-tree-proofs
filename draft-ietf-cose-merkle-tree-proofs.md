@@ -159,19 +159,8 @@ This document establishes a registry of verifiable data structure algorithms, wi
 |---
 | N/A             | 0     | N/A                              | N/A
 | RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
-| EXPERIMENTAL    | 11    | Unknown                          | RFC XXXX
-| EXPERIMENTAL    | 22    | Unknown                          | RFC XXXX
-| EXPERIMENTAL    | 33    | Unknown                          | RFC XXXX
 {: #cose-verifiable-data-structures align="left" title="COSE Verifiable Data Structures"}
 
-When designing new verifiable data structures, please request the next available positive integer as your requested assignment, for example:
-
-| Name            | Value | Description                      | Reference
-|---
-| N/A             | 0     | N/A                              | N/A
-| RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
-| Your name       | TBD (requested assignment 2) | tbd       | Your specification
-{: #cose-verifiable-data-structures-registration-guidance align="left" title="How to register new structures"}
 
 ## Parameters {#sec-cose-verifiable-data-structure-parameters}
 
@@ -183,25 +172,12 @@ This document establishes a registry of verifiable data structure algorithms, wi
 |---
 | 1                         | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-rfc9162-sha256-inclusion-proof}}
 | 1                         | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-rfc9162-sha256-consistency-proof}}
-| 11                        | unknown            | -1    | array (of bstr)  | Unknown                       | RFC XXXX
-| 22                        | unknown            | -1    | array (of bstr)  | Unknown                       | RFC XXXX
-| 33                        | unknown            | -1    | array (of bstr)  | Unknown                       | RFC XXXX
 {: #cose-verifiable-data-structures-parameters align="left" title="COSE Verifiable Data Structure Parameters"}
 
 Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
 Implementers should not expect interoperability across "verifiable data structures", but they should expect conceptually similar properties across the different registered proof types.
 For example, 2 different merkle tree based verifiable data structures might both support proofs of inclusion.
 Security analysis SHOULD be conducted prior to migrating to new structures to ensure the new security and privacy assumptions are acceptable for the use case.
-When designing new verifiable data structure parameters (or proof types), please start with -1, and count down for each proof type supported by your verifiable data structure:
-
-| Verifiable Data Structure | Name               | Label | CBOR Type        | Description                   | Reference
-|---
-| 1                           | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-rfc9162-sha256-inclusion-proof}}
-| 1                           | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-rfc9162-sha256-consistency-proof}}
-|TBD (requested assignment 2) | new proof type     | -1    | tbd              | tbd                           | Your_Specification
-|TBD (requested assignment 2) | new proof type     | -2    | tbd              | tbd                           | Your_Specification
-|TBD (requested assignment 2) | new proof type     | -3    | tbd              | tbd                           | Your_Specification
-{: #cose-verifiable-data-structures-parameters-registration-guidance align="left" title="How to register new parameters"}
 
 ## Usage {#receipt-spec}
 
@@ -567,16 +543,6 @@ The details of expressing validity periods are out of scope for this document.
 In some cases, receipts should be "revocable" or "suspendible", after being issued, regardless of their validity period.
 The details of expressing statuses are out of scope for this document.
 
-# Acknowledgements {#Acknowledgements}
-
-We would like to thank
-Maik Riechert,
-Jon Geater,
-Mike Jones,
-Mike Prorock,
-Ilari Liusvaara,
-for their contributions (some of which substantial) to this draft and to the initial set of implementations.
-
 # IANA Considerations
 
 ## COSE Header Parameter
@@ -655,6 +621,17 @@ Provisional assignments to expired drafts MUST be removed from the registry.
 - Points assigned in this registry MUST have references that match the COSE Verifiable Data Structures registry.
 It is not permissible to assign points in this registry, for which no Verifiable Data Structure entry exists.
 
+# Acknowledgements {#Acknowledgements}
+
+We would like to thank
+Maik Riechert,
+Jon Geater,
+Mike Jones,
+Mike Prorock,
+Ilari Liusvaara,
+for their contributions (some of which substantial) to this draft and to the initial set of implementations.
+
+
 --- back
 
 # Implementation Status
@@ -681,3 +658,28 @@ Maturity: The code's level of maturity is considered to be "prototype".
 Coverage and Version Compatibility: The current version ('main') implements the verifiable data structure algorithm, inclusion proof and consistency proof concepts of this draft.
 License: The project and all corresponding code and data maintained on GitHub are provided under the Apache License, version 2.
 Contact: Orie Steele (orie@transmute.industries)
+
+## New Registration Examples
+
+This section provides an examples for new registrations to explain the process of adding new verifiable data structure and proof types.
+
+
+When designing new verifiable data structures, please request the next available positive integer as your requested assignment, for example:
+
+| Name            | Value | Description                      | Reference
+|---
+| N/A             | 0     | N/A                              | N/A
+| RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
+| Your name       | TBD (requested assignment 2) | tbd       | Your specification
+{: #cose-verifiable-data-structures-registration-guidance align="left" title="How to register new structures"}
+
+When designing new verifiable data structure parameters (or proof types), please start with -1, and count down for each proof type supported by your verifiable data structure:
+
+| Verifiable Data Structure | Name               | Label | CBOR Type        | Description                   | Reference
+|---
+| 1                           | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-rfc9162-sha256-inclusion-proof}}
+| 1                           | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-rfc9162-sha256-consistency-proof}}
+|TBD (requested assignment 2) | new proof type     | -1    | tbd              | tbd                           | Your_Specification
+|TBD (requested assignment 2) | new proof type     | -2    | tbd              | tbd                           | Your_Specification
+|TBD (requested assignment 2) | new proof type     | -3    | tbd              | tbd                           | Your_Specification
+{: #cose-verifiable-data-structures-parameters-registration-guidance align="left" title="How to register new parameters"}
