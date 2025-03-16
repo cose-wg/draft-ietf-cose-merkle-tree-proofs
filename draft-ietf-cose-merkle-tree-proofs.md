@@ -623,7 +623,7 @@ It is not permissible to assign points in this registry, for which no Verifiable
 We would like to thank
 Maik Riechert,
 Jon Geater,
-Mike Jones,
+Michael B. Jones,
 Mike Prorock,
 Ilari Liusvaara,
 for their contributions (some of which substantial) to this draft and to the initial set of implementations.
