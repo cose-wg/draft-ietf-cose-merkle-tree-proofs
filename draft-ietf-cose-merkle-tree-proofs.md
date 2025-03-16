@@ -572,7 +572,7 @@ This IANA registries is established under a Specification Required policy.
 
 Expert reviewers should take into consideration the following points:
 
-- Experts should assign the next available positive integer for verifiable data structures.
+- Experts are advised to assign the next available positive integer for verifiable data structures.
 
 - Point squatting should be discouraged.
 Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.
