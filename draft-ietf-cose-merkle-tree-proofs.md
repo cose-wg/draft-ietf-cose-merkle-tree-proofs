@@ -115,7 +115,7 @@ Verifiable Data Structure (VDS):
 : A data structure which supports one or more Verifiable Data Structure Parameters.
   This property describes an algorithm used to maintain a verifiable data structure, for example a binary merkle tree algorithm.
 
-Verifiable Data structure Parameters (VDP):
+Verifiable Data Structure Parameters (VDP):
 
 : Parameters to a verifiable data structure that are used to prove properties, such as authentication, inclusion, consistency, and freshness.
   Parameters can include multiple proofs of a given type, or multiple types of proof (inclusion and consistency).
