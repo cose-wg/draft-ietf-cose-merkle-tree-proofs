@@ -45,6 +45,8 @@ normative:
   RFC7049: CBOR
   RFC9053: COSE
   RFC9162: certificate-transparency-v2
+  RFC9597: cwt-header-claims
+  RFC9596: cose-typ
 
 informative:
   RFC7120:
@@ -55,8 +57,7 @@ informative:
   BCP205: RFC7942
   RFC8392: CWT
   I-D.draft-ietf-cbor-edn-literals: cbor-edn-literals
-  I-D.ietf-cose-cwt-claims-in-headers: cwt-header-claims
-  I-D.ietf-cose-typ-header-parameter: cose-typ
+  
 
 entity:
   SELF: "RFCthis"
@@ -111,16 +112,14 @@ EDN:
 
 Verifiable Data Structure (VDS):
 
-: A data structure which supports one or more Proof Types.
-  This property is conceptually similar to "alg" (1), it described an algorithm used to maintain the verifiable data structure, for example a binary merkle tree algorithm.
+: A data structure which supports one or more Verifiable Data Structure Parameters.
+  This property describes an algorithm used to maintain a verifiable data structure, for example a binary merkle tree algorithm.
 
-Verifiable Data Structure Parameters (VDP):
+Verifiable Data structure Parameters (VDP):
 
 : Parameters to a verifiable data structure that are used to prove properties, such as authentication, inclusion, consistency, and freshness.
   Parameters can include multiple proofs of a given type, or multiple types of proof (inclusion and consistency).
-  This property is conceptually similar to COSE Header Parameter "epk" (-1) or CBOR Web Token (CWT) claim "cnf" (8), it is applied to a verifiable data structure, to confirm a property.
-  For example an encrypted message might be decrypted using epk and a private key, a digital signature for authentication might be verified using cnf and the (CWT) claim "nonce" and "audience", and an inclusion proof for a binary merkle tree might be verified with VDP and some entry that is being tested or inclusion in the tree.
-
+  
 Proof Type:
 
 : A verifiable process, that proves properties of a Verifiable Data Structure.
@@ -146,8 +145,6 @@ Differences in representations are necessary to support efficient verification, 
 This document defines two extension points for enabling verifiable data structures with COSE and provides concrete examples for the structures and proofs defined in {{-certificate-transparency-v2}}.
 The design of these structures is influenced by the conventions established for COSE Keys.
 
-During testing and development the experimental range SHOULD be used, unless early assignment for a provisional entry has been completed.
-
 ## Structures {#sec-cose-verifiable-data-structures}
 
 Similar to [COSE Key Types](https://www.iana.org/assignments/cose/cose.xhtml#key-type), different verifiable data structures support different algorithms.
@@ -157,10 +154,9 @@ This document establishes a registry of verifiable data structure algorithms, wi
 
 | Name            | Value | Description                      | Reference
 |---
-| N/A             | 0     | N/A                              | N/A
+| Reserved        | 0     | Reserved                         | Reserved
 | RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
 {: #cose-verifiable-data-structures align="left" title="COSE Verifiable Data Structures"}
-
 
 ## Parameters {#sec-cose-verifiable-data-structure-parameters}
 
@@ -574,9 +570,9 @@ Initial contents: Provided in {{cose-verifiable-data-structures}}
 
 This IANA registries is established under a Specification Required policy.
 
-This section gives some general guidelines for what the experts should be looking for, but they are being designated as experts for a reason, so they should be given substantial latitude.
-
 Expert reviewers should take into consideration the following points:
+
+- Experts should assign the next available positive integer for verifiable data structures.
 
 - Point squatting should be discouraged.
 Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.
@@ -607,9 +603,9 @@ Initial contents: Provided in {{cose-verifiable-data-structures-parameters}}
 
 This IANA registries is established under a Specification Required policy.
 
-This section gives some general guidelines for what the experts should be looking for, but they are being designated as experts for a reason, so they should be given substantial latitude.
-
 Expert reviewers should take into consideration the following points:
+
+- Experts should assign the next available negative integer for proof types.
 
 - Point squatting should be discouraged.
 Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.
@@ -620,6 +616,7 @@ Provisional assignments to expired drafts MUST be removed from the registry.
 
 - Points assigned in this registry MUST have references that match the COSE Verifiable Data Structures registry.
 It is not permissible to assign points in this registry, for which no Verifiable Data Structure entry exists.
+
 
 # Acknowledgements {#Acknowledgements}
 
