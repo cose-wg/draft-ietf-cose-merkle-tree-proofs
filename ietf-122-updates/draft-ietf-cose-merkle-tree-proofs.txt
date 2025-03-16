@@ -803,8 +803,8 @@ Table of Contents
 
    Expert reviewers should take into consideration the following points:
 
-   *  Experts should assign the next available negative integer for
-      proof types.
+   *  Experts are advised to assign the next available negative integer
+      for proof types.
 
    *  Point squatting should be discouraged.  Reviewers are encouraged
       to get sufficient information for registration requests to ensure
