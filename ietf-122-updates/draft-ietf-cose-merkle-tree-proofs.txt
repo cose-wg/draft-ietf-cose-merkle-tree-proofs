@@ -106,7 +106,6 @@ Table of Contents
      10.2.  Informative References
    Appendix A.  Implementation Status
      A.1.  Transmute Prototype
-     A.2.  New Registration Examples
    Authors' Addresses
 
 1.  Introduction
@@ -173,24 +172,15 @@ Table of Contents
       is revised in [I-D.draft-ietf-cbor-edn-literals].
 
    Verifiable Data Structure (VDS):  A data structure which supports one
-      or more Proof Types.  This property is conceptually similar to
-      "alg" (1), it described an algorithm used to maintain the
-      verifiable data structure, for example a binary merkle tree
-      algorithm.
+      or more Verifiable Data Structure Parameters.  This property
+      describes an algorithm used to maintain a verifiable data
+      structure, for example a binary merkle tree algorithm.
 
-   Verifiable Data Structure Parameters (VDP):  Parameters to a
+   Verifiable Data structure Parameters (VDP):  Parameters to a
       verifiable data structure that are used to prove properties, such
       as authentication, inclusion, consistency, and freshness.
       Parameters can include multiple proofs of a given type, or
-      multiple types of proof (inclusion and consistency).  This
-      property is conceptually similar to COSE Header Parameter "epk"
-      (-1) or CBOR Web Token (CWT) claim "cnf" (8), it is applied to a
-      verifiable data structure, to confirm a property.  For example an
-      encrypted message might be decrypted using epk and a private key,
-      a digital signature for authentication might be verified using cnf
-      and the (CWT) claim "nonce" and "audience", and an inclusion proof
-      for a binary merkle tree might be verified with VDP and some entry
-      that is being tested or inclusion in the tree.
+      multiple types of proof (inclusion and consistency).
 
    Proof Type:  A verifiable process, that proves properties of a
       Verifiable Data Structure.  For example, a VDS, such as a binary
@@ -221,9 +211,6 @@ Table of Contents
    structures is influenced by the conventions established for COSE
    Keys.
 
-   During testing and development the experimental range SHOULD be used,
-   unless early assignment for a provisional entry has been completed.
-
 4.1.  Structures
 
    Similar to COSE Key Types (https://www.iana.org/assignments/cose/
@@ -238,7 +225,7 @@ Table of Contents
    +================+=======+===========================+===========+
    | Name           | Value | Description               | Reference |
    +================+=======+===========================+===========+
-   | N/A            | 0     | N/A                       | N/A       |
+   | Reserved       | 0     | Reserved                  | Reserved  |
    +----------------+-------+---------------------------+-----------+
    | RFC9162_SHA256 | 1     | SHA256 Binary Merkle Tree | [RFC9162] |
    +----------------+-------+---------------------------+-----------+
@@ -378,9 +365,9 @@ Table of Contents
 4.3.1.  Registration Requirements
 
    Each specification MUST define how to encode the verifiable data
-   structure and its parameters (also called proof types) in CBOR.  Each
-   specification MUST define how to produce and consume the supported
-   proof types.  See Section 5 as an example.
+   structure identifier and its parameters (also called proof types) in
+   CBOR.  Each specification MUST define how to produce and consume the
+   supported proof types.  See Section 5 as an example.
 
    Where a specification supports a choice of hash algorithm, an IANA
    registration must be made for each individually supported algorithm.
@@ -440,10 +427,9 @@ Table of Contents
    encouraged to make additional protected header parameters mandatory,
    to ensure that claims are processed with their intended semantics.
    One way to include this information in the COSE structure is use of
-   the typ (type) Header Parameter, see
-   [I-D.ietf-cose-typ-header-parameter] and the similar guidance
-   provided in [I-D.ietf-cose-cwt-claims-in-headers].  The protected
-   header for an RFC9162_SHA256 inclusion proof signature is:
+   the typ (type) Header Parameter, see [RFC9596] and the similar
+   guidance provided in [RFC9597].  The protected header for an
+   RFC9162_SHA256 inclusion proof signature is:
 
    protected-header-map = {
      &(alg: 1) => int
@@ -456,7 +442,7 @@ Table of Contents
    *  alg (label: 1): REQUIRED.  Signature algorithm identifier.  Value
       type: int.
 
-   *  vds (label: 395): REQUIRED. verifiable data structure algorithm
+   *  vds (label: 395): REQUIRED.  Verifiable data structure algorithm
       identifier.  Value type: int.
 
    The unprotected header for an RFC9162_SHA256 inclusion proof
@@ -765,11 +751,10 @@ Table of Contents
    This IANA registries is established under a Specification Required
    policy.
 
-   This section gives some general guidelines for what the experts
-   should be looking for, but they are being designated as experts for a
-   reason, so they should be given substantial latitude.
-
    Expert reviewers should take into consideration the following points:
+
+   *  Experts should assign the next available positive integer for
+      verifiable data structures.
 
    *  Point squatting should be discouraged.  Reviewers are encouraged
       to get sufficient information for registration requests to ensure
@@ -816,11 +801,10 @@ Table of Contents
    This IANA registries is established under a Specification Required
    policy.
 
-   This section gives some general guidelines for what the experts
-   should be looking for, but they are being designated as experts for a
-   reason, so they should be given substantial latitude.
-
    Expert reviewers should take into consideration the following points:
+
+   *  Experts should assign the next available negative integer for
+      proof types.
 
    *  Point squatting should be discouraged.  Reviewers are encouraged
       to get sufficient information for registration requests to ensure
@@ -873,6 +857,15 @@ Table of Contents
               Transparency Version 2.0", RFC 9162, DOI 10.17487/RFC9162,
               December 2021, <https://www.rfc-editor.org/rfc/rfc9162>.
 
+   [RFC9596]  Jones, M.B. and O. Steele, "CBOR Object Signing and
+              Encryption (COSE) "typ" (type) Header Parameter",
+              RFC 9596, DOI 10.17487/RFC9596, June 2024,
+              <https://www.rfc-editor.org/rfc/rfc9596>.
+
+   [RFC9597]  Looker, T. and M.B. Jones, "CBOR Web Token (CWT) Claims in
+              COSE Headers", RFC 9597, DOI 10.17487/RFC9597, June 2024,
+              <https://www.rfc-editor.org/rfc/rfc9597>.
+
 10.2.  Informative References
 
    [BCP205]   Sheffer, Y. and A. Farrel, "Improving Awareness of Running
@@ -886,20 +879,6 @@ Table of Contents
               literals-16, 8 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cbor-
               edn-literals-16>.
-
-   [I-D.ietf-cose-cwt-claims-in-headers]
-              Looker, T. and M. B. Jones, "CBOR Web Token (CWT) Claims
-              in COSE Headers", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cwt-claims-in-headers-10, 29 November 2023,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cwt-claims-in-headers-10>.
-
-   [I-D.ietf-cose-typ-header-parameter]
-              Jones, M. B. and O. Steele, "COSE "typ" (type) Header
-              Parameter", Work in Progress, Internet-Draft, draft-ietf-
-              cose-typ-header-parameter-05, 3 April 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              typ-header-parameter-05>.
 
    [RFC7120]  Cotton, M., "Early IANA Allocation of Standards Track Code
               Points", BCP 100, RFC 7120, DOI 10.17487/RFC7120, January
@@ -970,64 +949,6 @@ A.1.  Transmute Prototype
    License: The project and all corresponding code and data maintained
    on GitHub are provided under the Apache License, version 2.  Contact:
    Orie Steele (orie@transmute.industries)
-
-A.2.  New Registration Examples
-
-   This section provides an examples for new registrations to explain
-   the process of adding new verifiable data structure and proof types.
-
-   When designing new verifiable data structures, please request the
-   next available positive integer as your requested assignment, for
-   example:
-
-   +================+================+===============+===============+
-   | Name           | Value          | Description   | Reference     |
-   +================+================+===============+===============+
-   | N/A            | 0              | N/A           | N/A           |
-   +----------------+----------------+---------------+---------------+
-   | RFC9162_SHA256 | 1              | SHA256 Binary | [RFC9162]     |
-   |                |                | Merkle Tree   |               |
-   +----------------+----------------+---------------+---------------+
-   | Your name      | TBD (requested | tbd           | Your          |
-   |                | assignment 2)  |               | specification |
-   +----------------+----------------+---------------+---------------+
-
-                 Table 4: How to register new structures
-
-   When designing new verifiable data structure parameters (or proof
-   types), please start with -1, and count down for each proof type
-   supported by your verifiable data structure:
-
-   +==========+===========+=====+=====+===========+==================+
-   |Verifiable|Name       |Label|CBOR |Description|Reference         |
-   |Data      |           |     |Type |           |                  |
-   |Structure |           |     |     |           |                  |
-   +==========+===========+=====+=====+===========+==================+
-   |1         |inclusion  |-1   |array|Proof of   |Section 5.2       |
-   |          |proofs     |     |(of  |inclusion  |                  |
-   |          |           |     |bstr)|           |                  |
-   +----------+-----------+-----+-----+-----------+------------------+
-   |1         |consistency|-2   |array|Proof of   |Section 5.3       |
-   |          |proofs     |     |(of  |append only|                  |
-   |          |           |     |bstr)|property   |                  |
-   +----------+-----------+-----+-----+-----------+------------------+
-   |TBD       |new proof  |-1   |tbd  |tbd        |Your_Specification|
-   |(requested|type       |     |     |           |                  |
-   |assignment|           |     |     |           |                  |
-   |2)        |           |     |     |           |                  |
-   +----------+-----------+-----+-----+-----------+------------------+
-   |TBD       |new proof  |-2   |tbd  |tbd        |Your_Specification|
-   |(requested|type       |     |     |           |                  |
-   |assignment|           |     |     |           |                  |
-   |2)        |           |     |     |           |                  |
-   +----------+-----------+-----+-----+-----------+------------------+
-   |TBD       |new proof  |-3   |tbd  |tbd        |Your_Specification|
-   |(requested|type       |     |     |           |                  |
-   |assignment|           |     |     |           |                  |
-   |2)        |           |     |     |           |                  |
-   +----------+-----------+-----+-----+-----------+------------------+
-
-                 Table 5: How to register new parameters
 
 Authors' Addresses
 
