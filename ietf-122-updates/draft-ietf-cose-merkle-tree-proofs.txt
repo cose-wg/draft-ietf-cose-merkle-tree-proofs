@@ -753,8 +753,8 @@ Table of Contents
 
    Expert reviewers should take into consideration the following points:
 
-   *  Experts should assign the next available positive integer for
-      verifiable data structures.
+   *  Experts are advised to assign the next available positive integer
+      for verifiable data structures.
 
    *  Point squatting should be discouraged.  Reviewers are encouraged
       to get sufficient information for registration requests to ensure
