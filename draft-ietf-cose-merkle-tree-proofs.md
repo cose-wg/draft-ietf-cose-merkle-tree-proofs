@@ -57,7 +57,7 @@ informative:
   BCP205: RFC7942
   RFC8392: CWT
   I-D.draft-ietf-cbor-edn-literals: cbor-edn-literals
-  
+
 
 entity:
   SELF: "RFCthis"
@@ -119,7 +119,7 @@ Verifiable Data structure Parameters (VDP):
 
 : Parameters to a verifiable data structure that are used to prove properties, such as authentication, inclusion, consistency, and freshness.
   Parameters can include multiple proofs of a given type, or multiple types of proof (inclusion and consistency).
-  
+
 Proof Type:
 
 : A verifiable process, that proves properties of a Verifiable Data Structure.
@@ -265,7 +265,7 @@ The following informative EDN is provided:
 
 ### Registration Requirements
 
-Each specification MUST define how to encode the verifiable data structure and its parameters (also called proof types) in CBOR.
+Each specification MUST define how to encode the verifiable data structure identifier and its parameters (also called proof types) in CBOR.
 Each specification MUST define how to produce and consume the supported proof types.
 See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 
@@ -328,7 +328,7 @@ protected-header-map = {
 {: #vds-in-inclusion-receipt-protected-header align="left" title="Protected Header for a Receipt of Inclusion"}
 
 - alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int.
-- vds (label: 395): REQUIRED. verifiable data structure algorithm identifier. Value type: int.
+- vds (label: 395): REQUIRED. Verifiable data structure algorithm identifier. Value type: int.
 
 The unprotected header for an RFC9162_SHA256 inclusion proof signature is:
 
@@ -655,28 +655,3 @@ Maturity: The code's level of maturity is considered to be "prototype".
 Coverage and Version Compatibility: The current version ('main') implements the verifiable data structure algorithm, inclusion proof and consistency proof concepts of this draft.
 License: The project and all corresponding code and data maintained on GitHub are provided under the Apache License, version 2.
 Contact: Orie Steele (orie@transmute.industries)
-
-## New Registration Examples
-
-This section provides an examples for new registrations to explain the process of adding new verifiable data structure and proof types.
-
-
-When designing new verifiable data structures, please request the next available positive integer as your requested assignment, for example:
-
-| Name            | Value | Description                      | Reference
-|---
-| N/A             | 0     | N/A                              | N/A
-| RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
-| Your name       | TBD (requested assignment 2) | tbd       | Your specification
-{: #cose-verifiable-data-structures-registration-guidance align="left" title="How to register new structures"}
-
-When designing new verifiable data structure parameters (or proof types), please start with -1, and count down for each proof type supported by your verifiable data structure:
-
-| Verifiable Data Structure | Name               | Label | CBOR Type        | Description                   | Reference
-|---
-| 1                           | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-rfc9162-sha256-inclusion-proof}}
-| 1                           | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-rfc9162-sha256-consistency-proof}}
-|TBD (requested assignment 2) | new proof type     | -1    | tbd              | tbd                           | Your_Specification
-|TBD (requested assignment 2) | new proof type     | -2    | tbd              | tbd                           | Your_Specification
-|TBD (requested assignment 2) | new proof type     | -3    | tbd              | tbd                           | Your_Specification
-{: #cose-verifiable-data-structures-parameters-registration-guidance align="left" title="How to register new parameters"}
