@@ -45,6 +45,8 @@ normative:
   RFC7049: CBOR
   RFC9053: COSE
   RFC9162: certificate-transparency-v2
+  RFC9597: cwt-header-claims
+  RFC9596: cose-typ
 
 informative:
   RFC7120:
@@ -55,8 +57,7 @@ informative:
   BCP205: RFC7942
   RFC8392: CWT
   I-D.draft-ietf-cbor-edn-literals: cbor-edn-literals
-  I-D.ietf-cose-cwt-claims-in-headers: cwt-header-claims
-  I-D.ietf-cose-typ-header-parameter: cose-typ
+
 
 entity:
   SELF: "RFCthis"
@@ -111,15 +112,13 @@ EDN:
 
 Verifiable Data Structure (VDS):
 
-: A data structure which supports one or more Proof Types.
-  This property is conceptually similar to "alg" (1), it described an algorithm used to maintain the verifiable data structure, for example a binary merkle tree algorithm.
+: A data structure which supports one or more Verifiable Data Structure Parameters.
+  This property describes an algorithm used to maintain a verifiable data structure, for example a binary merkle tree algorithm.
 
 Verifiable Data Structure Parameters (VDP):
 
 : Parameters to a verifiable data structure that are used to prove properties, such as authentication, inclusion, consistency, and freshness.
   Parameters can include multiple proofs of a given type, or multiple types of proof (inclusion and consistency).
-  This property is conceptually similar to COSE Header Parameter "epk" (-1) or CBOR Web Token (CWT) claim "cnf" (8), it is applied to a verifiable data structure, to confirm a property.
-  For example an encrypted message might be decrypted using epk and a private key, a digital signature for authentication might be verified using cnf and the (CWT) claim "nonce" and "audience", and an inclusion proof for a binary merkle tree might be verified with VDP and some entry that is being tested or inclusion in the tree.
 
 Proof Type:
 
@@ -146,8 +145,6 @@ Differences in representations are necessary to support efficient verification, 
 This document defines two extension points for enabling verifiable data structures with COSE and provides concrete examples for the structures and proofs defined in {{-certificate-transparency-v2}}.
 The design of these structures is influenced by the conventions established for COSE Keys.
 
-During testing and development the experimental range SHOULD be used, unless early assignment for a provisional entry has been completed.
-
 ## Structures {#sec-cose-verifiable-data-structures}
 
 Similar to [COSE Key Types](https://www.iana.org/assignments/cose/cose.xhtml#key-type), different verifiable data structures support different algorithms.
@@ -157,21 +154,9 @@ This document establishes a registry of verifiable data structure algorithms, wi
 
 | Name            | Value | Description                      | Reference
 |---
-| N/A             | 0     | N/A                              | N/A
+| Reserved        | 0     | Reserved                         | Reserved
 | RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
-| EXPERIMENTAL    | 11    | Unknown                          | RFC XXXX
-| EXPERIMENTAL    | 22    | Unknown                          | RFC XXXX
-| EXPERIMENTAL    | 33    | Unknown                          | RFC XXXX
 {: #cose-verifiable-data-structures align="left" title="COSE Verifiable Data Structures"}
-
-When designing new verifiable data structures, please request the next available positive integer as your requested assignment, for example:
-
-| Name            | Value | Description                      | Reference
-|---
-| N/A             | 0     | N/A                              | N/A
-| RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
-| Your name       | TBD (requested assignment 2) | tbd       | Your specification
-{: #cose-verifiable-data-structures-registration-guidance align="left" title="How to register new structures"}
 
 ## Parameters {#sec-cose-verifiable-data-structure-parameters}
 
@@ -183,25 +168,12 @@ This document establishes a registry of verifiable data structure algorithms, wi
 |---
 | 1                         | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-rfc9162-sha256-inclusion-proof}}
 | 1                         | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-rfc9162-sha256-consistency-proof}}
-| 11                        | unknown            | -1    | array (of bstr)  | Unknown                       | RFC XXXX
-| 22                        | unknown            | -1    | array (of bstr)  | Unknown                       | RFC XXXX
-| 33                        | unknown            | -1    | array (of bstr)  | Unknown                       | RFC XXXX
 {: #cose-verifiable-data-structures-parameters align="left" title="COSE Verifiable Data Structure Parameters"}
 
 Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
 Implementers should not expect interoperability across "verifiable data structures", but they should expect conceptually similar properties across the different registered proof types.
 For example, 2 different merkle tree based verifiable data structures might both support proofs of inclusion.
 Security analysis SHOULD be conducted prior to migrating to new structures to ensure the new security and privacy assumptions are acceptable for the use case.
-When designing new verifiable data structure parameters (or proof types), please start with -1, and count down for each proof type supported by your verifiable data structure:
-
-| Verifiable Data Structure | Name               | Label | CBOR Type        | Description                   | Reference
-|---
-| 1                           | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-rfc9162-sha256-inclusion-proof}}
-| 1                           | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-rfc9162-sha256-consistency-proof}}
-|TBD (requested assignment 2) | new proof type     | -1    | tbd              | tbd                           | Your_Specification
-|TBD (requested assignment 2) | new proof type     | -2    | tbd              | tbd                           | Your_Specification
-|TBD (requested assignment 2) | new proof type     | -3    | tbd              | tbd                           | Your_Specification
-{: #cose-verifiable-data-structures-parameters-registration-guidance align="left" title="How to register new parameters"}
 
 ## Usage {#receipt-spec}
 
@@ -293,7 +265,7 @@ The following informative EDN is provided:
 
 ### Registration Requirements
 
-Each specification MUST define how to encode the verifiable data structure and its parameters (also called proof types) in CBOR.
+Each specification MUST define how to encode the verifiable data structure identifier and its parameters (also called proof types) in CBOR.
 Each specification MUST define how to produce and consume the supported proof types.
 See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 
@@ -356,7 +328,7 @@ protected-header-map = {
 {: #vds-in-inclusion-receipt-protected-header align="left" title="Protected Header for a Receipt of Inclusion"}
 
 - alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int.
-- vds (label: 395): REQUIRED. verifiable data structure algorithm identifier. Value type: int.
+- vds (label: 395): REQUIRED. Verifiable data structure algorithm identifier. Value type: int.
 
 The unprotected header for an RFC9162_SHA256 inclusion proof signature is:
 
@@ -567,16 +539,6 @@ The details of expressing validity periods are out of scope for this document.
 In some cases, receipts should be "revocable" or "suspendible", after being issued, regardless of their validity period.
 The details of expressing statuses are out of scope for this document.
 
-# Acknowledgements {#Acknowledgements}
-
-We would like to thank
-Maik Riechert,
-Jon Geater,
-Mike Jones,
-Mike Prorock,
-Ilari Liusvaara,
-for their contributions (some of which substantial) to this draft and to the initial set of implementations.
-
 # IANA Considerations
 
 ## COSE Header Parameter
@@ -608,9 +570,9 @@ Initial contents: Provided in {{cose-verifiable-data-structures}}
 
 This IANA registries is established under a Specification Required policy.
 
-This section gives some general guidelines for what the experts should be looking for, but they are being designated as experts for a reason, so they should be given substantial latitude.
-
 Expert reviewers should take into consideration the following points:
+
+- Experts are advised to assign the next available positive integer for verifiable data structures.
 
 - Point squatting should be discouraged.
 Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.
@@ -641,9 +603,9 @@ Initial contents: Provided in {{cose-verifiable-data-structures-parameters}}
 
 This IANA registries is established under a Specification Required policy.
 
-This section gives some general guidelines for what the experts should be looking for, but they are being designated as experts for a reason, so they should be given substantial latitude.
-
 Expert reviewers should take into consideration the following points:
+
+- Experts are advised to assign the next available negative integer for proof types.
 
 - Point squatting should be discouraged.
 Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.
@@ -654,6 +616,18 @@ Provisional assignments to expired drafts MUST be removed from the registry.
 
 - Points assigned in this registry MUST have references that match the COSE Verifiable Data Structures registry.
 It is not permissible to assign points in this registry, for which no Verifiable Data Structure entry exists.
+
+
+# Acknowledgements {#Acknowledgements}
+
+We would like to thank
+Maik Riechert,
+Jon Geater,
+Michael B. Jones,
+Mike Prorock,
+Ilari Liusvaara,
+for their contributions (some of which substantial) to this draft and to the initial set of implementations.
+
 
 --- back
 
