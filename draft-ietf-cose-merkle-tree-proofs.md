@@ -579,7 +579,6 @@ Reviewers are encouraged to get sufficient information for registration requests
 
 - Specifications are required for all point assignments.
 Early Allocation is permissible, see Section 2 of {{RFC7120}}.
-Provisional assignments to expired drafts MUST be removed from the registry.
 
 - Points assigned in this registry MUST have references that match the COSE Verifiable Data Structure Parameters registry.
 It is not permissible to assign points in this registry, for which no Verifiable Data Structure Parameters entries exist.
@@ -612,7 +611,6 @@ Reviewers are encouraged to get sufficient information for registration requests
 
 - Specifications are required for all point assignments.
 Early Allocation is permissible, see Section 2 of {{RFC7120}}.
-Provisional assignments to expired drafts MUST be removed from the registry.
 
 - Points assigned in this registry MUST have references that match the COSE Verifiable Data Structures registry.
 It is not permissible to assign points in this registry, for which no Verifiable Data Structure entry exists.
