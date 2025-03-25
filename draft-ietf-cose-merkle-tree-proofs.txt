@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 2 May 2025                                       Fraunhofer SIT
+Expires: 26 September 2025                                Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                         29 October 2024
+                                                           25 March 2025
 
 
                              COSE Receipts
@@ -54,11 +54,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 May 2025.
+   This Internet-Draft will expire on 26 September 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -74,7 +74,7 @@ Table of Contents
 
    1.  Introduction
      1.1.  Requirements Notation
-   2.  CBOR Tags
+   2.  New COSE Header Parameters
    3.  Terminology
    4.  Verifiable Data Structures in CBOR
      4.1.  Structures
@@ -94,12 +94,13 @@ Table of Contents
      7.1.  Choice of Signature Algorithms
      7.2.  Validity Period
      7.3.  Status Updates
-   8.  Acknowledgements
-   9.  IANA Considerations
-     9.1.  Additions to Existing Registries
-       9.1.1.  New Entries to the COSE Header Parameters Registry
-       9.1.2.  COSE Verifiable Data Structures
-       9.1.3.  COSE Verifiable Data Structure Parameters
+   8.  IANA Considerations
+     8.1.  COSE Header Parameter
+     8.2.  COSE Verifiable Data Structures
+       8.2.1.  Expert Review
+     8.3.  COSE Verifiable Data Structure Parameters
+       8.3.1.  Expert Review
+   9.  Acknowledgements
    10. References
      10.1.  Normative References
      10.2.  Informative References
@@ -132,22 +133,34 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-2.  CBOR Tags
+2.  New COSE Header Parameters
 
-   Editorial Note (To be removed by RFC Editor).
+   This document defines three new COSE header parameters, which are
+   introduced up-front in this Section and elaborated on later in this
+   document.
 
-   This section will be removed before the document is completed, its
-   purpose is to track the TBD code points references throughout the
-   draft.
+   TBD_0 (requested assignment 394):  A COSE header parameter named
+      receipts with a value type of array where the array contains one
+      ore more COSE Receipts as specified in this document.
 
-   395 is TBD_1:  A requested cose header parameter representing the
-      verifiable data structure used.
+   TBD_1 (requested assignment 395):  A COSE header parameter named vds
+      with a value type of integer where the integer is a verifiable
+      data structure (VDS) algorithm identifier as specified in this
+      document.  Correspondingly, this document introduces a new
+      verifiable data structure algorithm identifier registry that
+      registers the integers used as values for this COSE header
+      parameter.
 
-   396 is TBD_2:  A requested cose header parameter representing the
-      verifiable data structure parameters map (proofs map).
+   TBD_2 (requested assignment 396):  A COSE header parameter named vdp
+      with a value type of map where the map contains verifiable data
+      structure proofs (VDP) as specified in this this document.
+      Correspondingly, this document introduces a new verifiable data
+      structure proof registry that registers the integers that are used
+      as labels in the map of this COSE header parameter.
 
-   The other codepoints are assigned from the registries established in
-   this draft, they are therefore not marked TBD.
+   The other codepoints in this document are assigned from the
+   registries established in this draft, they are therefore not marked
+   TBD.
 
 3.  Terminology
 
@@ -159,24 +172,15 @@ Table of Contents
       is revised in [I-D.draft-ietf-cbor-edn-literals].
 
    Verifiable Data Structure (VDS):  A data structure which supports one
-      or more Proof Types.  This property is conceptually similar to
-      "alg" (1), it described an algorithm used to maintain the
-      verifiable data structure, for example a binary merkle tree
-      algorithm.
+      or more Verifiable Data Structure Parameters.  This property
+      describes an algorithm used to maintain a verifiable data
+      structure, for example a binary merkle tree algorithm.
 
    Verifiable Data Structure Parameters (VDP):  Parameters to a
       verifiable data structure that are used to prove properties, such
       as authentication, inclusion, consistency, and freshness.
       Parameters can include multiple proofs of a given type, or
-      multiple types of proof (inclusion and consistency).  This
-      property is conceptually similar to COSE Header Parameter "epk"
-      (-1) or CBOR Web Token (CWT) claim "cnf" (8), it is applied to a
-      verifiable data structure, to confirm a property.  For example an
-      encrypted message might be decrypted using epk and a private key,
-      a digital signature for authentication might be verified using cnf
-      and the (CWT) claim "nonce" and "audience", and an inclusion proof
-      for a binary merkle tree might be verified with VDP and some entry
-      that is being tested or inclusion in the tree.
+      multiple types of proof (inclusion and consistency).
 
    Proof Type:  A verifiable process, that proves properties of a
       Verifiable Data Structure.  For example, a VDS, such as a binary
@@ -207,9 +211,6 @@ Table of Contents
    structures is influenced by the conventions established for COSE
    Keys.
 
-   During testing and development the experimental range SHOULD be used,
-   unless early assignment for a provisional entry has been completed.
-
 4.1.  Structures
 
    Similar to COSE Key Types (https://www.iana.org/assignments/cose/
@@ -224,36 +225,12 @@ Table of Contents
    +================+=======+===========================+===========+
    | Name           | Value | Description               | Reference |
    +================+=======+===========================+===========+
-   | N/A            | 0     | N/A                       | N/A       |
+   | Reserved       | 0     | Reserved                  | Reserved  |
    +----------------+-------+---------------------------+-----------+
    | RFC9162_SHA256 | 1     | SHA256 Binary Merkle Tree | [RFC9162] |
    +----------------+-------+---------------------------+-----------+
-   | EXPERIMENTAL   | 11    | Unknown                   | RFC XXXX  |
-   +----------------+-------+---------------------------+-----------+
-   | EXPERIMENTAL   | 22    | Unknown                   | RFC XXXX  |
-   +----------------+-------+---------------------------+-----------+
-   | EXPERIMENTAL   | 33    | Unknown                   | RFC XXXX  |
-   +----------------+-------+---------------------------+-----------+
 
                 Table 1: COSE Verifiable Data Structures
-
-   When designing new verifiable data structures, please request the
-   next available positive integer as your requested assignment, for
-   example:
-
-   +================+================+===============+===============+
-   | Name           | Value          | Description   | Reference     |
-   +================+================+===============+===============+
-   | N/A            | 0              | N/A           | N/A           |
-   +----------------+----------------+---------------+---------------+
-   | RFC9162_SHA256 | 1              | SHA256 Binary | [RFC9162]     |
-   |                |                | Merkle Tree   |               |
-   +----------------+----------------+---------------+---------------+
-   | Your name      | TBD (requested | tbd           | Your          |
-   |                | assignment 2)  |               | specification |
-   +----------------+----------------+---------------+---------------+
-
-                 Table 2: How to register new structures
 
 4.2.  Parameters
 
@@ -280,20 +257,8 @@ Table of Contents
    |            | proofs      |     | (of   | append only | 5.3       |
    |            |             |     | bstr) | property    |           |
    +------------+-------------+-----+-------+-------------+-----------+
-   | 11         | unknown     |-1   | array | Unknown     | RFC XXXX  |
-   |            |             |     | (of   |             |           |
-   |            |             |     | bstr) |             |           |
-   +------------+-------------+-----+-------+-------------+-----------+
-   | 22         | unknown     |-1   | array | Unknown     | RFC XXXX  |
-   |            |             |     | (of   |             |           |
-   |            |             |     | bstr) |             |           |
-   +------------+-------------+-----+-------+-------------+-----------+
-   | 33         | unknown     |-1   | array | Unknown     | RFC XXXX  |
-   |            |             |     | (of   |             |           |
-   |            |             |     | bstr) |             |           |
-   +------------+-------------+-----+-------+-------------+-----------+
 
-            Table 3: COSE Verifiable Data Structure Parameters
+            Table 2: COSE Verifiable Data Structure Parameters
 
    Proof types are specific to their associated "verifiable data
    structure", for example, different Merkle trees might support
@@ -305,40 +270,6 @@ Table of Contents
    might both support proofs of inclusion.  Security analysis SHOULD be
    conducted prior to migrating to new structures to ensure the new
    security and privacy assumptions are acceptable for the use case.
-   When designing new verifiable data structure parameters (or proof
-   types), please start with -1, and count down for each proof type
-   supported by your verifiable data structure:
-
-   +==========+===========+=====+=====+===========+==================+
-   |Verifiable|Name       |Label|CBOR |Description|Reference         |
-   |Data      |           |     |Type |           |                  |
-   |Structure |           |     |     |           |                  |
-   +==========+===========+=====+=====+===========+==================+
-   |1         |inclusion  |-1   |array|Proof of   |Section 5.2       |
-   |          |proofs     |     |(of  |inclusion  |                  |
-   |          |           |     |bstr)|           |                  |
-   +----------+-----------+-----+-----+-----------+------------------+
-   |1         |consistency|-2   |array|Proof of   |Section 5.3       |
-   |          |proofs     |     |(of  |append only|                  |
-   |          |           |     |bstr)|property   |                  |
-   +----------+-----------+-----+-----+-----------+------------------+
-   |TBD       |new proof  |-1   |tbd  |tbd        |Your_Specification|
-   |(requested|type       |     |     |           |                  |
-   |assignment|           |     |     |           |                  |
-   |2)        |           |     |     |           |                  |
-   +----------+-----------+-----+-----+-----------+------------------+
-   |TBD       |new proof  |-2   |tbd  |tbd        |Your_Specification|
-   |(requested|type       |     |     |           |                  |
-   |assignment|           |     |     |           |                  |
-   |2)        |           |     |     |           |                  |
-   +----------+-----------+-----+-----+-----------+------------------+
-   |TBD       |new proof  |-3   |tbd  |tbd        |Your_Specification|
-   |(requested|type       |     |     |           |                  |
-   |assignment|           |     |     |           |                  |
-   |2)        |           |     |     |           |                  |
-   +----------+-----------+-----+-----+-----------+------------------+
-
-                 Table 4: How to register new parameters
 
 4.3.  Usage
 
@@ -346,9 +277,10 @@ Table of Contents
    to enable this Receipts to be conveyed in the protected and
    unprotected headers of COSE Objects.
 
-   When the receipts parameter is present, the associated verifiable
-   data structure and verifiable data structure proofs MUST match
-   entries present in the registries established in RFC XXXX.
+   When the receipts header parameter is present, the associated
+   verifiable data structure and verifiable data structure proofs MUST
+   match entries present in the registries established in this
+   specification.
 
    The following informative CDDL is provided:
 
@@ -433,9 +365,9 @@ Table of Contents
 4.3.1.  Registration Requirements
 
    Each specification MUST define how to encode the verifiable data
-   structure and its parameters (also called proof types) in CBOR.  Each
-   specification MUST define how to produce and consume the supported
-   proof types.  See Section 5 as an example.
+   structure identifier and its parameters (also called proof types) in
+   CBOR.  Each specification MUST define how to produce and consume the
+   supported proof types.  See Section 5 as an example.
 
    Where a specification supports a choice of hash algorithm, an IANA
    registration must be made for each individually supported algorithm.
@@ -495,10 +427,9 @@ Table of Contents
    encouraged to make additional protected header parameters mandatory,
    to ensure that claims are processed with their intended semantics.
    One way to include this information in the COSE structure is use of
-   the typ (type) Header Parameter, see
-   [I-D.ietf-cose-typ-header-parameter] and the similar guidance
-   provided in [I-D.ietf-cose-cwt-claims-in-headers].  The protected
-   header for an RFC9162_SHA256 inclusion proof signature is:
+   the typ (type) Header Parameter, see [RFC9596] and the similar
+   guidance provided in [RFC9597].  The protected header for an
+   RFC9162_SHA256 inclusion proof signature is:
 
    protected-header-map = {
      &(alg: 1) => int
@@ -511,7 +442,7 @@ Table of Contents
    *  alg (label: 1): REQUIRED.  Signature algorithm identifier.  Value
       type: int.
 
-   *  vds (label: 395): REQUIRED. verifiable data structure algorithm
+   *  vds (label: 395): REQUIRED.  Verifiable data structure algorithm
       identifier.  Value type: int.
 
    The unprotected header for an RFC9162_SHA256 inclusion proof
@@ -759,72 +690,45 @@ Table of Contents
    being issued, regardless of their validity period.  The details of
    expressing statuses are out of scope for this document.
 
-8.  Acknowledgements
+8.  IANA Considerations
 
-   We would like to thank Maik Riechert, Jon Geater, Mike Jones, Mike
-   Prorock, Ilari Liusvaara, for their contributions (some of which
-   substantial) to this draft and to the initial set of implementations.
+8.1.  COSE Header Parameter
 
-9.  IANA Considerations
+   IANA is requested to add the COSE header parameters defined in
+   Section 2, as listed in Table 3, to the "COSE Header Parameters"
+   registry [IANA.cose_header-parameters] in the 'Integer values from
+   256 to 65535' range ('Specification Required' Registration
+   Procedure).  All new entries use
+   https://www.iana.org/assignments/cose/cose.xhtml#header-parameters as
+   the value for the "Value Registry" column.
 
-9.1.  Additions to Existing Registries
+   +==========+=============+=======+======================+===========+
+   | Name     | Label       | Value | Description          | Reference |
+   |          |             | Type  |                      |           |
+   +==========+=============+=======+======================+===========+
+   | receipts | TBD_0       | array | Priority ordered     | RFCthis,  |
+   |          | (requested  |       | sequence of CBOR     | Section 2 |
+   |          | assignment: |       | encoded Receipts     |           |
+   |          | 394)        |       |                      |           |
+   +----------+-------------+-------+----------------------+-----------+
+   | vds      | TBD_1       | int   | Algorithm            | RFCthis,  |
+   |          | (requested  |       | identifier for       | Section 2 |
+   |          | assignment: |       | verifiable data      |           |
+   |          | 395)        |       | structure, used      |           |
+   |          |             |       | to produce           |           |
+   |          |             |       | verifiable data      |           |
+   |          |             |       | structure proofs     |           |
+   +----------+-------------+-------+----------------------+-----------+
+   | vdp      | TBD_2       | map   | Location for         | RFCthis,  |
+   |          | (requested  |       | verifiable data      | Section 2 |
+   |          | assignment: |       | structure proofs     |           |
+   |          | 396)        |       | in COSE Header       |           |
+   |          |             |       | Parameters           |           |
+   +----------+-------------+-------+----------------------+-----------+
 
-9.1.1.  New Entries to the COSE Header Parameters Registry
+              Table 3: Newly registered COSE Header Parameters
 
-   This document requests IANA to add new values to the 'COSE Header
-   Parameters' registries in the 'Integer values between 1 and 255'
-   range with 'Specification Required' Registration Procedure.
-
-9.1.1.1.  COSE Header Parameters
-
-9.1.1.1.1.  Receipts
-
-   *  Name: receipts
-
-   *  Label: TBD_0 (requested assignment 394)
-
-   *  Value type: array (of bstr)
-
-   *  Value registry: https://www.iana.org/assignments/cose/
-      cose.xhtml#header-parameters
-
-   *  Description: Priority ordered list of CBOR encoded Receipts.
-
-   *  Reference: RFC XXXX
-
-9.1.1.1.2.  Verifiable Data Structure
-
-   *  Name: vds
-
-   *  Label: TBD_1 (requested assignment 395)
-
-   *  Value type: int
-
-   *  Value registry: https://www.iana.org/assignments/cose/
-      cose.xhtml#header-parameters
-
-   *  Description: Algorithm name for verifiable data structure, used to
-      produce verifiable data structure proofs.
-
-   *  Reference: RFC XXXX
-
-9.1.1.1.3.  Verifiable Data Structure Proofs
-
-   *  Name: vdp (requested assignment 396)
-
-   *  Label: TBD_2
-
-   *  Value type: map
-
-   *  Value registry: https://www.iana.org/assignments/cose/
-      cose.xhtml#header-parameters
-
-   *  Description: Location for verifiable data structure proofs in COSE
-      Header Parameters.
-
-   *  Reference: RFC XXXX
-
-9.1.2.  COSE Verifiable Data Structures
+8.2.  COSE Verifiable Data Structures
 
    IANA will be asked to establish a registry of verifiable data
    structure identifiers, named "COSE Verifiable Data Structures" to be
@@ -842,16 +746,15 @@ Table of Contents
 
    Initial contents: Provided in Table 1
 
-9.1.2.1.  Expert Review
+8.2.1.  Expert Review
 
    This IANA registries is established under a Specification Required
    policy.
 
-   This section gives some general guidelines for what the experts
-   should be looking for, but they are being designated as experts for a
-   reason, so they should be given substantial latitude.
-
    Expert reviewers should take into consideration the following points:
+
+   *  Experts are advised to assign the next available positive integer
+      for verifiable data structures.
 
    *  Point squatting should be discouraged.  Reviewers are encouraged
       to get sufficient information for registration requests to ensure
@@ -869,7 +772,7 @@ Table of Contents
       permissible to assign points in this registry, for which no
       Verifiable Data Structure Parameters entries exist.
 
-9.1.3.  COSE Verifiable Data Structure Parameters
+8.3.  COSE Verifiable Data Structure Parameters
 
    IANA will be asked to establish a registry of verifiable data
    structure parameters, named "COSE Verifiable Data Structure
@@ -891,18 +794,17 @@ Table of Contents
 
    *  Reference: Where the proof type is defined
 
-   Initial contents: Provided in Table 3
+   Initial contents: Provided in Table 2
 
-9.1.3.1.  Expert Review
+8.3.1.  Expert Review
 
    This IANA registries is established under a Specification Required
    policy.
 
-   This section gives some general guidelines for what the experts
-   should be looking for, but they are being designated as experts for a
-   reason, so they should be given substantial latitude.
-
    Expert reviewers should take into consideration the following points:
+
+   *  Experts are advised to assign the next available negative integer
+      for proof types.
 
    *  Point squatting should be discouraged.  Reviewers are encouraged
       to get sufficient information for registration requests to ensure
@@ -920,9 +822,19 @@ Table of Contents
       permissible to assign points in this registry, for which no
       Verifiable Data Structure entry exists.
 
+9.  Acknowledgements
+
+   We would like to thank Maik Riechert, Jon Geater, Michael B.  Jones,
+   Mike Prorock, Ilari Liusvaara, for their contributions (some of which
+   substantial) to this draft and to the initial set of implementations.
+
 10.  References
 
 10.1.  Normative References
+
+   [IANA.cose_header-parameters]
+              IANA, "COSE Header Parameters",
+              <https://www.iana.org/assignments/cose>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -945,6 +857,15 @@ Table of Contents
               Transparency Version 2.0", RFC 9162, DOI 10.17487/RFC9162,
               December 2021, <https://www.rfc-editor.org/rfc/rfc9162>.
 
+   [RFC9596]  Jones, M.B. and O. Steele, "CBOR Object Signing and
+              Encryption (COSE) "typ" (type) Header Parameter",
+              RFC 9596, DOI 10.17487/RFC9596, June 2024,
+              <https://www.rfc-editor.org/rfc/rfc9596>.
+
+   [RFC9597]  Looker, T. and M.B. Jones, "CBOR Web Token (CWT) Claims in
+              COSE Headers", RFC 9597, DOI 10.17487/RFC9597, June 2024,
+              <https://www.rfc-editor.org/rfc/rfc9597>.
+
 10.2.  Informative References
 
    [BCP205]   Sheffer, Y. and A. Farrel, "Improving Awareness of Running
@@ -955,23 +876,9 @@ Table of Contents
    [I-D.draft-ietf-cbor-edn-literals]
               Bormann, C., "CBOR Extended Diagnostic Notation (EDN)",
               Work in Progress, Internet-Draft, draft-ietf-cbor-edn-
-              literals-12, 1 September 2024,
+              literals-16, 8 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cbor-
-              edn-literals-12>.
-
-   [I-D.ietf-cose-cwt-claims-in-headers]
-              Looker, T. and M. B. Jones, "CBOR Web Token (CWT) Claims
-              in COSE Headers", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cwt-claims-in-headers-10, 29 November 2023,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cwt-claims-in-headers-10>.
-
-   [I-D.ietf-cose-typ-header-parameter]
-              Jones, M. B. and O. Steele, "COSE "typ" (type) Header
-              Parameter", Work in Progress, Internet-Draft, draft-ietf-
-              cose-typ-header-parameter-05, 3 April 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              typ-header-parameter-05>.
+              edn-literals-16>.
 
    [RFC7120]  Cotton, M., "Early IANA Allocation of Standards Track Code
               Points", BCP 100, RFC 7120, DOI 10.17487/RFC7120, January
