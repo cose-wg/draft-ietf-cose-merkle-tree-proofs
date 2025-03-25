@@ -764,8 +764,6 @@ Table of Contents
 
    *  Specifications are required for all point assignments.  Early
       Allocation is permissible, see Section 2 of [RFC7120].
-      Provisional assignments to expired drafts MUST be removed from the
-      registry.
 
    *  Points assigned in this registry MUST have references that match
       the COSE Verifiable Data Structure Parameters registry.  It is not
@@ -814,8 +812,6 @@ Table of Contents
 
    *  Specifications are required for all point assignments.  Early
       Allocation is permissible, see Section 2 of [RFC7120].
-      Provisional assignments to expired drafts MUST be removed from the
-      registry.
 
    *  Points assigned in this registry MUST have references that match
       the COSE Verifiable Data Structures registry.  It is not
