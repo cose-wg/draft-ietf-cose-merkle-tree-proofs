@@ -557,7 +557,7 @@ All new entries use https://www.iana.org/assignments/cose/cose.xhtml#header-para
 
 ## Verifiable Data Structure Registries
 
-The IANA has established the COSE Verifiable Data Structures and COSE Verifiable Data Structure Parameters Registries under a Specification Required policy as described in {{RFC8126}}.
+IANA established the COSE Verifiable Data Structures and COSE Verifiable Data Structure Parameters Registries under a Specification Required policy as described in {{RFC8126}}.
 
 ### Expert Review
 Expert reviewers should take into consideration the following points:
