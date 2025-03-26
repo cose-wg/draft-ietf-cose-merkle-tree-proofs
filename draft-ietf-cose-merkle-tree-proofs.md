@@ -570,7 +570,7 @@ Reviewers are encouraged to get sufficient information for registration requests
 - Specifications are required for all point assignments.
 Early Allocation is permissible, see Section 2 of {{RFC7120}}.
 
-- It is not permissible to assign points in COSE Verifiable Data Structures, for which no corresponding COSE Verifiable Data Structure Parameters entry exists, and vice versa.
+- It is not permissible to assign points in COSE Verifiable Data Structures, for which no corresponding COSE Verifiable Data Structure Proofs entry exists, and vice versa.
 
 ### COSE Verifiable Data Structures {#verifiable-data-structure-registry}
 
