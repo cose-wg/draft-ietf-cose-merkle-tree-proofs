@@ -729,7 +729,7 @@ Table of Contents
 
 8.2.  Verifiable Data Structure Registries
 
-   The IANA has established the COSE Verifiable Data Structures and COSE
+   IANA established the COSE Verifiable Data Structures and COSE
    Verifiable Data Structure Parameters Registries under a Specification
    Required policy as described in [RFC8126].
 
