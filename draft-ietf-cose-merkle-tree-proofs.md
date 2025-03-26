@@ -99,7 +99,7 @@ TBD_1 (requested assignment 395):
 
 TBD_2 (requested assignment 396):
 
-: A COSE header parameter named `vdp` (short for "verifiable data structure parameters"), which conveys a map containing verifiable data structure proofs organized by proof type.
+: A COSE header parameter named `vdp` (short for "verifiable data structure proofs"), which conveys a map containing verifiable data structure proofs organized by proof type.
   Correspondingly, this document introduces a new verifiable data structure proof registry that registers the integers used to identify verifiable data structure proof types.
 
 The other codepoints in this document are assigned from the registries established in this draft, they are therefore not marked TBD.
@@ -117,7 +117,7 @@ Verifiable Data Structure (VDS):
 : A data structure which supports one or more Verifiable Data Structure Proof Types.
   This property describes an algorithm used to maintain a verifiable data structure, for example a binary merkle tree algorithm.
 
-Verifiable Data Structure Parameters (VDP):
+Verifiable Data Structure Proofs (VDP):
 
 : A data structure used to convey proof types for proving different properties, such as authentication, inclusion, consistency, and freshness.
   Parameters can include multiple proofs of a given type, or multiple types of proof (inclusion and consistency).
@@ -160,7 +160,7 @@ This document establishes a registry of verifiable data structure algorithms, wi
 | RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
 {: #cose-verifiable-data-structures align="left" title="COSE Verifiable Data Structures"}
 
-## Parameters {#sec-cose-verifiable-data-structure-parameters}
+## Proofs {#sec-cose-verifiable-data-structure-proofs}
 
 Similar to [COSE Key Type Parameters](https://www.iana.org/assignments/cose/cose.xhtml#key-type-parameters), as EC2 keys (1: 2) keys require and give meaning to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d), RFC9162_SHA256 (TBD_1 : 1) supports both (-1) inclusion and (-2) consistency proofs.
 
@@ -170,7 +170,7 @@ This document establishes a registry of verifiable data structure algorithms, wi
 |---
 | 1                         | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-rfc9162-sha256-inclusion-proof}}
 | 1                         | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-rfc9162-sha256-consistency-proof}}
-{: #cose-verifiable-data-structures-parameters align="left" title="COSE Verifiable Data Structure Parameters"}
+{: #cose-verifiable-data-structure-proofs align="left" title="COSE Verifiable Data Structure Proofs"}
 
 Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
 Implementers should not expect interoperability across "verifiable data structures", but they should expect conceptually similar properties across the different registered proof types.
@@ -267,7 +267,7 @@ The following informative EDN is provided:
 
 ### Registration Requirements
 
-Each specification MUST define how to encode the verifiable data structure identifier and its parameters (also called proof types) in CBOR.
+Each specification MUST define how to encode the verifiable data structure identifier and its proof types in CBOR.
 Each specification MUST define how to produce and consume the supported proof types.
 See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 
@@ -583,7 +583,7 @@ Registration Template:
 
 Initial contents: Provided in {{cose-verifiable-data-structures}}
 
-### COSE Verifiable Data Structure Parameters {#verifiable-data-structure-parameters-registry}
+### COSE Verifiable Data Structure Proofs {#verifiable-data-structure-proofs-registry}
 
 Registration Template:
 
@@ -594,7 +594,7 @@ Registration Template:
 - Description: The description of the proof type
 - Reference: Where the proof type is defined
 
-Initial contents: Provided in {{cose-verifiable-data-structures-parameters}}
+Initial contents: Provided in {{cose-verifiable-data-structure-proofs}}
 
 # Acknowledgements {#Acknowledgements}
 
