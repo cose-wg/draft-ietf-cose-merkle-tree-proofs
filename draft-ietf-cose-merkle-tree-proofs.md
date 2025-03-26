@@ -94,11 +94,13 @@ TBD_0 (requested assignment 394):
 
 TBD_1 (requested assignment 395):
 
-: A COSE header parameter named `vds` with a value type of integer where the integer is a verifiable data structure (VDS) algorithm identifier as specified in this document. Correspondingly, this document introduces a new verifiable data structure algorithm identifier registry that registers the integers used as values for this COSE header parameter.
+: A COSE header parameter named `vds` (short for "verifiable data structure"), which conveys the algorithm identifier for a verifiable data structure.
+  Correspondingly, this document introduces a new verifiable data structure registry that registers the integers used to identify verifiable data structures.
 
 TBD_2 (requested assignment 396):
 
-: A COSE header parameter named `vdp` with a value type of map where the map contains verifiable data structure proofs (VDP) as specified in this document. Correspondingly, this document introduces a new verifiable data structure proof registry that registers the integers that are used as labels in the map of this COSE header parameter.
+: A COSE header parameter named `vdp` (short for "verifiable data structure parameters"), which conveys a map containing verifiable data structure proofs organized by proof type.
+  Correspondingly, this document introduces a new verifiable data structure proof registry that registers the integers used to identify verifiable data structure proof types.
 
 The other codepoints in this document are assigned from the registries established in this draft, they are therefore not marked TBD.
 
@@ -112,12 +114,12 @@ EDN:
 
 Verifiable Data Structure (VDS):
 
-: A data structure which supports one or more Verifiable Data Structure Parameters.
+: A data structure which supports one or more Verifiable Data Structure Proof Types.
   This property describes an algorithm used to maintain a verifiable data structure, for example a binary merkle tree algorithm.
 
 Verifiable Data Structure Parameters (VDP):
 
-: Parameters to a verifiable data structure that are used to prove properties, such as authentication, inclusion, consistency, and freshness.
+: A data structure used to convey proof types for proving different properties, such as authentication, inclusion, consistency, and freshness.
   Parameters can include multiple proofs of a given type, or multiple types of proof (inclusion and consistency).
 
 Proof Type:
@@ -553,23 +555,11 @@ All new entries use https://www.iana.org/assignments/cose/cose.xhtml#header-para
 | `vdp`      | TBD_2 (requested assignment: 396) | map        | Location for verifiable data structure proofs in COSE Header Parameters                              | {{&SELF}}, {{param-list}} |
 {: #iana-header-params title="Newly registered COSE Header Parameters"}
 
-## COSE Verifiable Data Structures {#verifiable-data-structure-registry}
+## Verifiable Data Structure Registries
 
-IANA will be asked to establish a registry of verifiable data structure identifiers, named "COSE Verifiable Data Structures" to be administered under a Specification Required policy {{-iana-considerations-guide}}.
-
-Template:
-
-- Name: The name of the verifiable data structure
-- Value: The identifier for the verifiable data structure
-- Description: A brief description of the verifiable data structure
-- Reference: Where the verifiable data structure is defined
-
-Initial contents: Provided in {{cose-verifiable-data-structures}}
+The IANA has established the COSE Verifiable Data Structures and COSE Verifiable Data Structure Parameters Registries under a Specification Required policy as described in {{RFC8126}}.
 
 ### Expert Review
-
-This IANA registries is established under a Specification Required policy.
-
 Expert reviewers should take into consideration the following points:
 
 - Experts are advised to assign the next available positive integer for verifiable data structures.
@@ -580,14 +570,22 @@ Reviewers are encouraged to get sufficient information for registration requests
 - Specifications are required for all point assignments.
 Early Allocation is permissible, see Section 2 of {{RFC7120}}.
 
-- Points assigned in this registry MUST have references that match the COSE Verifiable Data Structure Parameters registry.
-It is not permissible to assign points in this registry, for which no Verifiable Data Structure Parameters entries exist.
+- It is not permissible to assign points in COSE Verifiable Data Structures, for which no corresponding COSE Verifiable Data Structure Parameters entry exists, and vice versa.
 
-## COSE Verifiable Data Structure Parameters {#verifiable-data-structure-parameters-registry}
+### COSE Verifiable Data Structures {#verifiable-data-structure-registry}
 
-IANA will be asked to establish a registry of verifiable data structure parameters, named "COSE Verifiable Data Structure Parameters" to be administered under a Specification Required policy {{-iana-considerations-guide}}.
+Registration Template:
 
-Template:
+- Name: The name of the verifiable data structure
+- Value: The identifier for the verifiable data structure
+- Description: A brief description of the verifiable data structure
+- Reference: Where the verifiable data structure is defined
+
+Initial contents: Provided in {{cose-verifiable-data-structures}}
+
+### COSE Verifiable Data Structure Parameters {#verifiable-data-structure-parameters-registry}
+
+Registration Template:
 
 - Verifiable Data Structure: The identifier for the verifiable data structure
 - Name: The name of the proof type
@@ -598,24 +596,6 @@ Template:
 
 Initial contents: Provided in {{cose-verifiable-data-structures-parameters}}
 
-### Expert Review
-
-This IANA registries is established under a Specification Required policy.
-
-Expert reviewers should take into consideration the following points:
-
-- Experts are advised to assign the next available negative integer for proof types.
-
-- Point squatting should be discouraged.
-Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.
-
-- Specifications are required for all point assignments.
-Early Allocation is permissible, see Section 2 of {{RFC7120}}.
-
-- Points assigned in this registry MUST have references that match the COSE Verifiable Data Structures registry.
-It is not permissible to assign points in this registry, for which no Verifiable Data Structure entry exists.
-
-
 # Acknowledgements {#Acknowledgements}
 
 We would like to thank
@@ -624,8 +604,8 @@ Jon Geater,
 Michael B. Jones,
 Mike Prorock,
 Ilari Liusvaara,
+Amaury Chamayou,
 for their contributions (some of which substantial) to this draft and to the initial set of implementations.
-
 
 --- back
 
