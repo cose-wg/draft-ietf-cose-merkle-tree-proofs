@@ -751,7 +751,7 @@ Table of Contents
 
    *  It is not permissible to assign points in COSE Verifiable Data
       Structures, for which no corresponding COSE Verifiable Data
-      Structure Parameters entry exists, and vice versa.
+      Structure Proofs entry exists, and vice versa.
 
 8.2.2.  COSE Verifiable Data Structures
 
