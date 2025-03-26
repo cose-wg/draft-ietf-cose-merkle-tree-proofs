@@ -74,7 +74,7 @@ The extensibility of the approach is demonstrated by providing CBOR encodings fo
 
 # Introduction
 
-COSE Receipts are signed proofs that include metadata about about certain states of a verifiable data structure (VDS) that are true when the COSE Receipt was issued.
+COSE Receipts are signed proofs that include metadata about certain states of a verifiable data structure (VDS) that are true when the COSE Receipt was issued.
 COSE Receipts can include proves that a document is in a database (proof of inclusion), that a database is append only (proof of consistency), that a smaller set of statements are contained in a large set of statements (proof of disclosure, a special case of proof of inclusion), or proof that certain data is not yet present in a database (proofs of non inclusion).
 Different VDS can produce different verifiable data structure proofs (VDP).
 The combination of representations of various VDS and VDP can significantly increase burden for implementers and create interoperability challenges for transparency services.
@@ -94,11 +94,13 @@ TBD_0 (requested assignment 394):
 
 TBD_1 (requested assignment 395):
 
-: A COSE header parameter named `vds` with a value type of integer where the integer is a verifiable data structure (VDS) algorithm identifier as specified in this document. Correspondingly, this document introduces a new verifiable data structure algorithm identifier registry that registers the integers used as values for this COSE header parameter.
+: A COSE header parameter named `vds` (Verifiable Data Structure), which conveys the algorithm identifier for a verifiable data structure.
+  Correspondingly, this document introduces a new verifiable data structure registry that registers the integers used to identify verifiable data structures.
 
 TBD_2 (requested assignment 396):
 
-: A COSE header parameter named `vdp` with a value type of map where the map contains verifiable data structure proofs (VDP) as specified in this this document. Correspondingly, this document introduces a new verifiable data structure proof registry that registers the integers that are used as labels in the map of this COSE header parameter.
+: A COSE header parameter named `vdp` (short for "verifiable data structure proofs"), which conveys a map containing verifiable data structure proofs organized by proof type.
+  Correspondingly, this document introduces a new verifiable data structure proof registry that registers the integers used to identify verifiable data structure proof types.
 
 The other codepoints in this document are assigned from the registries established in this draft, they are therefore not marked TBD.
 
@@ -112,12 +114,12 @@ EDN:
 
 Verifiable Data Structure (VDS):
 
-: A data structure which supports one or more Verifiable Data Structure Parameters.
+: A data structure which supports one or more Verifiable Data Structure Proof Types.
   This property describes an algorithm used to maintain a verifiable data structure, for example a binary merkle tree algorithm.
 
-Verifiable Data Structure Parameters (VDP):
+Verifiable Data Structure Proofs (VDP):
 
-: Parameters to a verifiable data structure that are used to prove properties, such as authentication, inclusion, consistency, and freshness.
+: A data structure used to convey proof types for proving different properties, such as authentication, inclusion, consistency, and freshness.
   Parameters can include multiple proofs of a given type, or multiple types of proof (inclusion and consistency).
 
 Proof Type:
@@ -158,7 +160,7 @@ This document establishes a registry of verifiable data structure algorithms, wi
 | RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
 {: #cose-verifiable-data-structures align="left" title="COSE Verifiable Data Structures"}
 
-## Parameters {#sec-cose-verifiable-data-structure-parameters}
+## Proofs {#sec-cose-verifiable-data-structure-proofs}
 
 Similar to [COSE Key Type Parameters](https://www.iana.org/assignments/cose/cose.xhtml#key-type-parameters), as EC2 keys (1: 2) keys require and give meaning to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d), RFC9162_SHA256 (TBD_1 : 1) supports both (-1) inclusion and (-2) consistency proofs.
 
@@ -168,7 +170,7 @@ This document establishes a registry of verifiable data structure algorithms, wi
 |---
 | 1                         | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-rfc9162-sha256-inclusion-proof}}
 | 1                         | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-rfc9162-sha256-consistency-proof}}
-{: #cose-verifiable-data-structures-parameters align="left" title="COSE Verifiable Data Structure Parameters"}
+{: #cose-verifiable-data-structure-proofs align="left" title="COSE Verifiable Data Structure Proofs"}
 
 Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
 Implementers should not expect interoperability across "verifiable data structures", but they should expect conceptually similar properties across the different registered proof types.
@@ -265,7 +267,7 @@ The following informative EDN is provided:
 
 ### Registration Requirements
 
-Each specification MUST define how to encode the verifiable data structure identifier and its parameters (also called proof types) in CBOR.
+Each specification MUST define how to encode the verifiable data structure identifier and its proof types in CBOR.
 Each specification MUST define how to produce and consume the supported proof types.
 See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 
@@ -553,23 +555,11 @@ All new entries use https://www.iana.org/assignments/cose/cose.xhtml#header-para
 | `vdp`      | TBD_2 (requested assignment: 396) | map        | Location for verifiable data structure proofs in COSE Header Parameters                              | {{&SELF}}, {{param-list}} |
 {: #iana-header-params title="Newly registered COSE Header Parameters"}
 
-## COSE Verifiable Data Structures {#verifiable-data-structure-registry}
+## Verifiable Data Structure Registries
 
-IANA will be asked to establish a registry of verifiable data structure identifiers, named "COSE Verifiable Data Structures" to be administered under a Specification Required policy {{-iana-considerations-guide}}.
-
-Template:
-
-- Name: The name of the verifiable data structure
-- Value: The identifier for the verifiable data structure
-- Description: A brief description of the verifiable data structure
-- Reference: Where the verifiable data structure is defined
-
-Initial contents: Provided in {{cose-verifiable-data-structures}}
+IANA established the COSE Verifiable Data Structures and COSE Verifiable Data Structure Parameters Registries under a Specification Required policy as described in {{RFC8126}}.
 
 ### Expert Review
-
-This IANA registries is established under a Specification Required policy.
-
 Expert reviewers should take into consideration the following points:
 
 - Experts are advised to assign the next available positive integer for verifiable data structures.
@@ -579,16 +569,23 @@ Reviewers are encouraged to get sufficient information for registration requests
 
 - Specifications are required for all point assignments.
 Early Allocation is permissible, see Section 2 of {{RFC7120}}.
-Provisional assignments to expired drafts MUST be removed from the registry.
 
-- Points assigned in this registry MUST have references that match the COSE Verifiable Data Structure Parameters registry.
-It is not permissible to assign points in this registry, for which no Verifiable Data Structure Parameters entries exist.
+- It is not permissible to assign points in COSE Verifiable Data Structures, for which no corresponding COSE Verifiable Data Structure Proofs entry exists, and vice versa.
 
-## COSE Verifiable Data Structure Parameters {#verifiable-data-structure-parameters-registry}
+### COSE Verifiable Data Structures {#verifiable-data-structure-registry}
 
-IANA will be asked to establish a registry of verifiable data structure parameters, named "COSE Verifiable Data Structure Parameters" to be administered under a Specification Required policy {{-iana-considerations-guide}}.
+Registration Template:
 
-Template:
+- Name: The name of the verifiable data structure
+- Value: The identifier for the verifiable data structure
+- Description: A brief description of the verifiable data structure
+- Reference: Where the verifiable data structure is defined
+
+Initial contents: Provided in {{cose-verifiable-data-structures}}
+
+### COSE Verifiable Data Structure Proofs {#verifiable-data-structure-proofs-registry}
+
+Registration Template:
 
 - Verifiable Data Structure: The identifier for the verifiable data structure
 - Name: The name of the proof type
@@ -597,26 +594,7 @@ Template:
 - Description: The description of the proof type
 - Reference: Where the proof type is defined
 
-Initial contents: Provided in {{cose-verifiable-data-structures-parameters}}
-
-### Expert Review
-
-This IANA registries is established under a Specification Required policy.
-
-Expert reviewers should take into consideration the following points:
-
-- Experts are advised to assign the next available negative integer for proof types.
-
-- Point squatting should be discouraged.
-Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.
-
-- Specifications are required for all point assignments.
-Early Allocation is permissible, see Section 2 of {{RFC7120}}.
-Provisional assignments to expired drafts MUST be removed from the registry.
-
-- Points assigned in this registry MUST have references that match the COSE Verifiable Data Structures registry.
-It is not permissible to assign points in this registry, for which no Verifiable Data Structure entry exists.
-
+Initial contents: Provided in {{cose-verifiable-data-structure-proofs}}
 
 # Acknowledgements {#Acknowledgements}
 
@@ -626,8 +604,8 @@ Jon Geater,
 Michael B. Jones,
 Mike Prorock,
 Ilari Liusvaara,
+Amaury Chamayou,
 for their contributions (some of which substantial) to this draft and to the initial set of implementations.
-
 
 --- back
 
