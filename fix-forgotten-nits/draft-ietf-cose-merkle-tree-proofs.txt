@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 26 September 2025                                Fraunhofer SIT
+Expires: 27 September 2025                                Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                           25 March 2025
+                                                           26 March 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 September 2025.
+   This Internet-Draft will expire on 27 September 2025.
 
 Copyright Notice
 
@@ -78,7 +78,7 @@ Table of Contents
    3.  Terminology
    4.  Verifiable Data Structures in CBOR
      4.1.  Structures
-     4.2.  Parameters
+     4.2.  Proofs
      4.3.  Usage
        4.3.1.  Registration Requirements
    5.  RFC9162_SHA256
@@ -96,10 +96,10 @@ Table of Contents
      7.3.  Status Updates
    8.  IANA Considerations
      8.1.  COSE Header Parameter
-     8.2.  COSE Verifiable Data Structures
+     8.2.  Verifiable Data Structure Registries
        8.2.1.  Expert Review
-     8.3.  COSE Verifiable Data Structure Parameters
-       8.3.1.  Expert Review
+       8.2.2.  COSE Verifiable Data Structures
+       8.2.3.  COSE Verifiable Data Structure Proofs
    9.  Acknowledgements
    10. References
      10.1.  Normative References
@@ -144,19 +144,18 @@ Table of Contents
       ore more COSE Receipts as specified in this document.
 
    TBD_1 (requested assignment 395):  A COSE header parameter named vds
-      with a value type of integer where the integer is a verifiable
-      data structure (VDS) algorithm identifier as specified in this
-      document.  Correspondingly, this document introduces a new
-      verifiable data structure algorithm identifier registry that
-      registers the integers used as values for this COSE header
-      parameter.
+      (short for "verifiable data structure"), which conveys the
+      algorithm identifier for a verifiable data structure.
+      Correspondingly, this document introduces a new verifiable data
+      structure registry that registers the integers used to identify
+      verifiable data structures.
 
    TBD_2 (requested assignment 396):  A COSE header parameter named vdp
-      with a value type of map where the map contains verifiable data
-      structure proofs (VDP) as specified in this document.
-      Correspondingly, this document introduces a new verifiable data
-      structure proof registry that registers the integers that are used
-      as labels in the map of this COSE header parameter.
+      (short for "verifiable data structure proofs"), which conveys a
+      map containing verifiable data structure proofs organized by proof
+      type.  Correspondingly, this document introduces a new verifiable
+      data structure proof registry that registers the integers used to
+      identify verifiable data structure proof types.
 
    The other codepoints in this document are assigned from the
    registries established in this draft, they are therefore not marked
@@ -172,15 +171,15 @@ Table of Contents
       is revised in [I-D.draft-ietf-cbor-edn-literals].
 
    Verifiable Data Structure (VDS):  A data structure which supports one
-      or more Verifiable Data Structure Parameters.  This property
+      or more Verifiable Data Structure Proof Types.  This property
       describes an algorithm used to maintain a verifiable data
       structure, for example a binary merkle tree algorithm.
 
-   Verifiable Data Structure Parameters (VDP):  Parameters to a
-      verifiable data structure that are used to prove properties, such
-      as authentication, inclusion, consistency, and freshness.
-      Parameters can include multiple proofs of a given type, or
-      multiple types of proof (inclusion and consistency).
+   Verifiable Data Structure Proofs (VDP):  A data structure used to
+      convey proof types for proving different properties, such as
+      authentication, inclusion, consistency, and freshness.  Parameters
+      can include multiple proofs of a given type, or multiple types of
+      proof (inclusion and consistency).
 
    Proof Type:  A verifiable process, that proves properties of a
       Verifiable Data Structure.  For example, a VDS, such as a binary
@@ -232,7 +231,7 @@ Table of Contents
 
                 Table 1: COSE Verifiable Data Structures
 
-4.2.  Parameters
+4.2.  Proofs
 
    Similar to COSE Key Type Parameters
    (https://www.iana.org/assignments/cose/cose.xhtml#key-type-
@@ -258,7 +257,7 @@ Table of Contents
    |            |             |     | bstr) | property    |           |
    +------------+-------------+-----+-------+-------------+-----------+
 
-            Table 2: COSE Verifiable Data Structure Parameters
+              Table 2: COSE Verifiable Data Structure Proofs
 
    Proof types are specific to their associated "verifiable data
    structure", for example, different Merkle trees might support
@@ -365,9 +364,9 @@ Table of Contents
 4.3.1.  Registration Requirements
 
    Each specification MUST define how to encode the verifiable data
-   structure identifier and its parameters (also called proof types) in
-   CBOR.  Each specification MUST define how to produce and consume the
-   supported proof types.  See Section 5 as an example.
+   structure identifier and its proof types in CBOR.  Each specification
+   MUST define how to produce and consume the supported proof types.
+   See Section 5 as an example.
 
    Where a specification supports a choice of hash algorithm, an IANA
    registration must be made for each individually supported algorithm.
@@ -728,28 +727,13 @@ Table of Contents
 
               Table 3: Newly registered COSE Header Parameters
 
-8.2.  COSE Verifiable Data Structures
+8.2.  Verifiable Data Structure Registries
 
-   IANA will be asked to establish a registry of verifiable data
-   structure identifiers, named "COSE Verifiable Data Structures" to be
-   administered under a Specification Required policy [RFC8126].
-
-   Template:
-
-   *  Name: The name of the verifiable data structure
-
-   *  Value: The identifier for the verifiable data structure
-
-   *  Description: A brief description of the verifiable data structure
-
-   *  Reference: Where the verifiable data structure is defined
-
-   Initial contents: Provided in Table 1
+   The IANA has established the COSE Verifiable Data Structures and COSE
+   Verifiable Data Structure Parameters Registries under a Specification
+   Required policy as described in [RFC8126].
 
 8.2.1.  Expert Review
-
-   This IANA registries is established under a Specification Required
-   policy.
 
    Expert reviewers should take into consideration the following points:
 
@@ -765,19 +749,27 @@ Table of Contents
    *  Specifications are required for all point assignments.  Early
       Allocation is permissible, see Section 2 of [RFC7120].
 
-   *  Points assigned in this registry MUST have references that match
-      the COSE Verifiable Data Structure Parameters registry.  It is not
-      permissible to assign points in this registry, for which no
-      Verifiable Data Structure Parameters entries exist.
+   *  It is not permissible to assign points in COSE Verifiable Data
+      Structures, for which no corresponding COSE Verifiable Data
+      Structure Parameters entry exists, and vice versa.
 
-8.3.  COSE Verifiable Data Structure Parameters
+8.2.2.  COSE Verifiable Data Structures
 
-   IANA will be asked to establish a registry of verifiable data
-   structure parameters, named "COSE Verifiable Data Structure
-   Parameters" to be administered under a Specification Required policy
-   [RFC8126].
+   Registration Template:
 
-   Template:
+   *  Name: The name of the verifiable data structure
+
+   *  Value: The identifier for the verifiable data structure
+
+   *  Description: A brief description of the verifiable data structure
+
+   *  Reference: Where the verifiable data structure is defined
+
+   Initial contents: Provided in Table 1
+
+8.2.3.  COSE Verifiable Data Structure Proofs
+
+   Registration Template:
 
    *  Verifiable Data Structure: The identifier for the verifiable data
       structure
@@ -794,35 +786,12 @@ Table of Contents
 
    Initial contents: Provided in Table 2
 
-8.3.1.  Expert Review
-
-   This IANA registries is established under a Specification Required
-   policy.
-
-   Expert reviewers should take into consideration the following points:
-
-   *  Experts are advised to assign the next available negative integer
-      for proof types.
-
-   *  Point squatting should be discouraged.  Reviewers are encouraged
-      to get sufficient information for registration requests to ensure
-      that the usage is not going to duplicate one that is already
-      registered, and that the point is likely to be used in
-      deployments.
-
-   *  Specifications are required for all point assignments.  Early
-      Allocation is permissible, see Section 2 of [RFC7120].
-
-   *  Points assigned in this registry MUST have references that match
-      the COSE Verifiable Data Structures registry.  It is not
-      permissible to assign points in this registry, for which no
-      Verifiable Data Structure entry exists.
-
 9.  Acknowledgements
 
    We would like to thank Maik Riechert, Jon Geater, Michael B.  Jones,
-   Mike Prorock, Ilari Liusvaara, for their contributions (some of which
-   substantial) to this draft and to the initial set of implementations.
+   Mike Prorock, Ilari Liusvaara, Amaury Chamayou, for their
+   contributions (some of which substantial) to this draft and to the
+   initial set of implementations.
 
 10.  References
 
