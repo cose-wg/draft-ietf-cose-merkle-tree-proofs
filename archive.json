@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-30T00:46:38.042112+00:00",
+  "timestamp": "2025-03-27T00:52:49.757531+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -2306,6 +2306,426 @@
           "body": "",
           "createdAt": "2024-10-29T14:07:39Z",
           "updatedAt": "2024-10-29T14:07:39Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 41,
+      "id": "PR_kwDOKPwz586LrAP7",
+      "title": "Preperation of Early Allocation (IANA)",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/41",
+      "state": "MERGED",
+      "author": "henkbirkholz",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "made it a table, compacted content and reshuffled Section 2 that is now an early summary referenced by the IANA ConSec.",
+      "createdAt": "2025-02-18T23:09:57Z",
+      "updatedAt": "2025-02-19T19:22:59Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "6e6776476ba29658d7c1935e29783d40640b9a20",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "iana-compacting",
+      "headRefOid": "2872169dbca514cf8e28fa8637565b89817128ec",
+      "closedAt": "2025-02-19T19:22:59Z",
+      "mergedAt": "2025-02-19T19:22:59Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "68e9cdd3aaf5722c91270d7045fa61d7fd23edad"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586ceiEi",
+          "commit": {
+            "abbreviatedOid": "b45dcca"
+          },
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-18T23:11:55Z",
+          "updatedAt": "2025-02-18T23:11:55Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "id": "PR_kwDOKPwz586LxsxZ",
+      "title": "Better use of table in IANA considerations",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/42",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-19T16:28:44Z",
+      "updatedAt": "2025-02-19T16:36:49Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "iana-compacting",
+      "baseRefOid": "b45dccae42d8f0115dab62c4fca55794c12e7b30",
+      "headRepository": "cabo/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "fix-iana",
+      "headRefOid": "7252c4f86362b2065c72598b57f2eb3b8d9eafee",
+      "closedAt": "2025-02-19T16:36:49Z",
+      "mergedAt": "2025-02-19T16:36:49Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "2872169dbca514cf8e28fa8637565b89817128ec"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586cmnl_",
+          "commit": {
+            "abbreviatedOid": "0bfd211"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-19T16:30:59Z",
+          "updatedAt": "2025-02-19T16:31:00Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\nIANA is requested to add the COSE header parameters defined in {{param-list}}, as listed in {{iana-header-params}}, to the \"COSE Header Parameters\" registry {{!IANA.cose_header-parameters}} in the 'Integer\r\nvalues from 256 to 65535' range ('Specification Required' Registration Procedure).\r\n```",
+              "createdAt": "2025-02-19T16:30:59Z",
+              "updatedAt": "2025-02-19T16:31:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586cmovz",
+          "commit": {
+            "abbreviatedOid": "6ede59c"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-19T16:32:45Z",
+          "updatedAt": "2025-02-19T16:32:46Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\nIANA is requested to add the COSE header parameters defined in {{param-list}}, as listed in {{iana-header-params}}, to the \"COSE Header Parameters\" registry {{!IANA.cose_header-parameters}} in the 'Integer values from 256 to 65535' range ('Specification Required' Registration Procedure).\r\nAll new entries use https://www.iana.org/assignments/cose/cose.xhtml#header-parameters as the value for the \"Value Registry\" column.\r\n```",
+              "createdAt": "2025-02-19T16:32:45Z",
+              "updatedAt": "2025-02-19T16:32:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586cmpko",
+          "commit": {
+            "abbreviatedOid": "7252c4f"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "small newline changes",
+          "createdAt": "2025-02-19T16:34:02Z",
+          "updatedAt": "2025-02-19T16:34:02Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 43,
+      "id": "PR_kwDOKPwz586OzggR",
+      "title": "Address AD Review",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/43",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Move acknowledgement sections\r\n- Remove experimental registrations\r\n- Remove example registration tables\r\n- Clarify Terminology\r\n",
+      "createdAt": "2025-03-16T03:03:40Z",
+      "updatedAt": "2025-03-25T16:44:01Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "68e9cdd3aaf5722c91270d7045fa61d7fd23edad",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "ietf-122-updates",
+      "headRefOid": "ba95902479193f42110766e143bef845d93adee8",
+      "closedAt": "2025-03-25T16:44:01Z",
+      "mergedAt": "2025-03-25T16:44:01Z",
+      "mergedBy": "OR13",
+      "mergeCommit": {
+        "oid": "2888d4229b50c6545cdb44f48aec68866c005215"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586gP0Rt",
+          "commit": {
+            "abbreviatedOid": "598130a"
+          },
+          "author": "selfissued",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-16T03:07:50Z",
+          "updatedAt": "2025-03-16T03:07:51Z",
+          "comments": [
+            {
+              "originalPosition": 72,
+              "body": "```suggestion\r\nMichael B. Jones,\r\n```\r\n\r\nToo many people share my name, so I use this moniker professionally.  In person, of course, I'm just \"Mike\".",
+              "createdAt": "2025-03-16T03:07:50Z",
+              "updatedAt": "2025-03-16T03:07:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586gP0S4",
+          "commit": {
+            "abbreviatedOid": "598130a"
+          },
+          "author": "selfissued",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Approved with a trivial change request.",
+          "createdAt": "2025-03-16T03:08:45Z",
+          "updatedAt": "2025-03-16T03:08:45Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586gP1u5",
+          "commit": {
+            "abbreviatedOid": "fa1cd34"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-16T04:12:34Z",
+          "updatedAt": "2025-03-16T04:12:35Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "```suggestion\r\nVerifiable Data Structure Parameters (VDP):\r\n```\r\n\r\nPaul, no.",
+              "createdAt": "2025-03-16T04:12:34Z",
+              "updatedAt": "2025-03-16T04:12:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586gP10y",
+          "commit": {
+            "abbreviatedOid": "fa1cd34"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-16T04:17:02Z",
+          "updatedAt": "2025-03-16T04:17:03Z",
+          "comments": [
+            {
+              "originalPosition": 140,
+              "body": "```suggestion\r\n- Experts are advised to assign the next available positive integer for verifiable data structures.\r\n```",
+              "createdAt": "2025-03-16T04:17:02Z",
+              "updatedAt": "2025-03-16T04:17:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586gP110",
+          "commit": {
+            "abbreviatedOid": "fa1cd34"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-16T04:17:31Z",
+          "updatedAt": "2025-03-16T04:17:31Z",
+          "comments": [
+            {
+              "originalPosition": 153,
+              "body": "```suggestion\r\n- Experts are advised to assign the next available negative integer for proof types.\r\n```",
+              "createdAt": "2025-03-16T04:17:31Z",
+              "updatedAt": "2025-03-16T04:17:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586gP14A",
+          "commit": {
+            "abbreviatedOid": "ba95902"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "with fixes to nits to merge",
+          "createdAt": "2025-03-16T04:19:00Z",
+          "updatedAt": "2025-03-16T04:19:00Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586g_ttJ",
+          "commit": {
+            "abbreviatedOid": "ba95902"
+          },
+          "author": "aj-stein",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-03-20T03:00:10Z",
+          "updatedAt": "2025-03-20T03:00:10Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 44,
+      "id": "PR_kwDOKPwz586QF8cd",
+      "title": "Address AD Review Part 2",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/44",
+      "state": "MERGED",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://mailarchive.ietf.org/arch/msg/cose/MrRSPhCvXyfr4dMZgAA6gEK-we4/\r\n\r\nIn my last revision, I missed the nits and an important comment about registry operation.\r\n\r\n```\r\nThis sentence, along with the earlier \"must pick the next number\", could\r\nlead to\r\nissues where some implementations use a number for one thing, and other\r\nimplementations\r\nuse it for something else. \"Provisional assignments\", which I assume to be\r\nEarly Code\r\nPoint allocations, should be burned, not re-used. So perhaps the advise\r\nhere should be\r\nto \"MUST replace expired code point with 'reserved'\" ?\r\n\r\nMaybe 9.3.1 and 9.3.2 can be combined in a way to remove duplication ?\r\n```",
+      "createdAt": "2025-03-25T18:30:27Z",
+      "updatedAt": "2025-03-26T17:29:38Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "febb46c95569614b47cfd2d1a69f3edf9c307a74",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "fix-forgotten-nits",
+      "headRefOid": "fd9366a9271198a434c05dd335ddbb25bf8a4af7",
+      "closedAt": "2025-03-26T17:29:38Z",
+      "mergedAt": "2025-03-26T17:29:38Z",
+      "mergedBy": "SteveLasker",
+      "mergeCommit": {
+        "oid": "db4b147a031a8064af68baa029cbaa47f5c9709c"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586h939i",
+          "commit": {
+            "abbreviatedOid": "c51bc36"
+          },
+          "author": "achamayou",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-26T14:08:20Z",
+          "updatedAt": "2025-03-26T14:08:21Z",
+          "comments": [
+            {
+              "originalPosition": 102,
+              "body": "```suggestion\r\n- It is not permissible to assign points in COSE Verifiable Data Structures, for which no corresponding COSE Verifiable Data Structure Proofs entry exists, and vice versa.\r\n```\r\n?",
+              "createdAt": "2025-03-26T14:08:21Z",
+              "updatedAt": "2025-03-26T14:08:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586h-An4",
+          "commit": {
+            "abbreviatedOid": "c51bc36"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-26T14:15:18Z",
+          "updatedAt": "2025-03-26T14:15:18Z",
+          "comments": [
+            {
+              "originalPosition": 102,
+              "body": "lgtm",
+              "createdAt": "2025-03-26T14:15:18Z",
+              "updatedAt": "2025-03-26T14:15:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586h-LUu",
+          "commit": {
+            "abbreviatedOid": "c51bc36"
+          },
+          "author": "achamayou",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-03-26T14:23:11Z",
+          "updatedAt": "2025-03-26T14:23:11Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586h-9B9",
+          "commit": {
+            "abbreviatedOid": "c51bc36"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-03-26T15:14:17Z",
+          "updatedAt": "2025-03-26T15:14:17Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586iAlXh",
+          "commit": {
+            "abbreviatedOid": "c51bc36"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-26T17:25:10Z",
+          "updatedAt": "2025-03-26T17:25:11Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\n: A COSE header parameter named `vds` (Verifiable Data Structure), which conveys the algorithm identifier for a verifiable data structure.\r\n```",
+              "createdAt": "2025-03-26T17:25:11Z",
+              "updatedAt": "2025-03-26T17:25:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586iAmjW",
+          "commit": {
+            "abbreviatedOid": "0f4fe78"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-26T17:27:01Z",
+          "updatedAt": "2025-03-26T17:27:01Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "```suggestion\r\nIANA established the COSE Verifiable Data Structures and COSE Verifiable Data Structure Parameters Registries under a Specification Required policy as described in {{RFC8126}}.\r\n```",
+              "createdAt": "2025-03-26T17:27:01Z",
+              "updatedAt": "2025-03-26T17:27:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586iAoDg",
+          "commit": {
+            "abbreviatedOid": "fd9366a"
+          },
+          "author": "SteveLasker",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-03-26T17:29:25Z",
+          "updatedAt": "2025-03-26T17:29:25Z",
           "comments": []
         }
       ]
