@@ -580,7 +580,7 @@ Registration Template:
 
 - Name:
   This is a descriptive name for the verifiable data structure that enables easier reference to the item.
-  
+
 - Value:
   This is the value used to identify the verifiable data structure.
 
@@ -601,10 +601,10 @@ Registration Template:
 
 - Verifiable Data Structure:
   This value used identifies the related verifiable data structure.
-  
+
 - Name:
   This is a descriptive name for the proof type that enables easier reference to the item.
-  
+
 - Label:
   This is the value used to identify the verifiable data structure proof type.
 
