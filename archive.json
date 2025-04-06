@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-01T01:00:05.928996+00:00",
+  "timestamp": "2025-04-06T00:57:03.147403+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -418,6 +418,30 @@
       "updatedAt": "2024-12-16T22:42:53Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 45,
+      "id": "I_kwDOKPwz586xOjet",
+      "title": "Add Change Controller to Registries",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/45",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The new registries established by this document should have a change controller field.\n\nThe change controller field should be an organization identifier, such as a working group name, or organization name, that is reponsible for maintaining the reference.\n\nThe guidance to DEs should include a note to ensure that changes to the description or reference should only be possible by the change controller.\n\n```\nChange Controller:\n      For Standards Track RFCs, list the \"IETF\".  For others, give the\n      name of the responsible party.  Other details (e.g., postal\n      address, email address, home page URI) may also be included.\n```",
+      "createdAt": "2025-04-04T21:15:25Z",
+      "updatedAt": "2025-04-04T21:17:31Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "selfissued",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Yes, do this. :-)",
+          "createdAt": "2025-04-04T21:17:30Z",
+          "updatedAt": "2025-04-04T21:17:30Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -2726,6 +2750,46 @@
           "body": "LGTM",
           "createdAt": "2025-03-26T17:29:25Z",
           "updatedAt": "2025-03-26T17:29:25Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 46,
+      "id": "PR_kwDOKPwz586Rdl_o",
+      "title": "Update registration templates",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/46",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Addresses https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/45",
+      "createdAt": "2025-04-04T21:31:21Z",
+      "updatedAt": "2025-04-04T21:37:01Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "db4b147a031a8064af68baa029cbaa47f5c9709c",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "OR13-patch-1",
+      "headRefOid": "204a1aa194b8d8ac82ddf6d0987a36f09fe2a9db",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586jkGXm",
+          "commit": {
+            "abbreviatedOid": "204a1aa"
+          },
+          "author": "selfissued",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-04-04T21:37:01Z",
+          "updatedAt": "2025-04-04T21:37:01Z",
           "comments": []
         }
       ]
