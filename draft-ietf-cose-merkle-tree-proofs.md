@@ -183,7 +183,7 @@ This document registered a new COSE Header Parameter `receipts` (394) to enable 
 
 When the receipts header parameter is present, the associated verifiable data structure and verifiable data structure proofs MUST match entries present in the registries established in this specification.
 
-The following informative CDDL is provided:
+The following CDDL definition is provided:
 
 ~~~ cddl
 Receipt = #6.18(COSE_Sign1)
