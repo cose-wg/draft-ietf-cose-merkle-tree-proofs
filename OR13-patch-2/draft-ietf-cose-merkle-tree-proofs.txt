@@ -697,7 +697,9 @@ Table of Contents
    Section 2, as listed in Table 3, to the "COSE Header Parameters"
    registry [IANA.cose_header-parameters] in the 'Integer values from
    256 to 65535' range ('Specification Required' Registration
-   Procedure).
+   Procedure).  The Value Registry for "vds" is the Verifiable Data
+   Structure registry.  The map labels in the "vdp" are assigned from
+   the Verifiable Data Structure Proofs registry.
 
    +==========+=============+=======+======================+===========+
    | Name     | Label       | Value | Description          | Reference |
