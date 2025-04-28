@@ -553,7 +553,8 @@ The details of expressing statuses are out of scope for this document.
 ## COSE Header Parameter
 
 IANA is requested to add the COSE header parameters defined in {{param-list}}, as listed in {{iana-header-params}}, to the "COSE Header Parameters" registry {{!IANA.cose_header-parameters}} in the 'Integer values from 256 to 65535' range ('Specification Required' Registration Procedure).
-All new entries use https://www.iana.org/assignments/cose/cose.xhtml#header-parameters as the value for the "Value Registry" column.
+The Value Registry for "vds" is the Verifiable Data Structure registry.
+The map labels in the "vdp" are assigned from the Verifiable Data Structure Proofs registry.
 
 | Name       | Label                             | Value Type | Description                                                                                          | Reference             |
 |------------|-----------------------------------|------------|------------------------------------------------------------------------------------------------------|-----------------------|
