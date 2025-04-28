@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 27 October 2025                                  Fraunhofer SIT
+Expires: 30 October 2025                                  Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                           25 April 2025
+                                                           28 April 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 October 2025.
+   This Internet-Draft will expire on 30 October 2025.
 
 Copyright Notice
 
@@ -763,17 +763,29 @@ Table of Contents
       Structures, for which no corresponding COSE Verifiable Data
       Structure Proofs entry exists, and vice versa.
 
+   *  The Change Controller for related registrations of structures and
+      proofs should be the same.
+
 8.2.2.  COSE Verifiable Data Structures
 
    Registration Template:
 
-   *  Name: The name of the verifiable data structure
+   *  Name: This is a descriptive name for the verifiable data structure
+      that enables easier reference to the item.
 
-   *  Value: The identifier for the verifiable data structure
+   *  Value: This is the value used to identify the verifiable data
+      structure.
 
-   *  Description: A brief description of the verifiable data structure
+   *  Description: This field contains a brief description of the
+      verifiable data structure.
 
-   *  Reference: Where the verifiable data structure is defined
+   *  Reference: This contains a pointer to the public specification for
+      the verifiable data structure.
+
+   *  Change Controller: For Standards Track RFCs, list the "IETF".  For
+      others, give the name of the responsible party.  Other details
+      (e.g., postal address, email address, home page URI) may also be
+      included.
 
    Initial contents: Provided in Table 1
 
@@ -781,18 +793,28 @@ Table of Contents
 
    Registration Template:
 
-   *  Verifiable Data Structure: The identifier for the verifiable data
-      structure
+   *  Verifiable Data Structure: This value used identifies the related
+      verifiable data structure.
 
-   *  Name: The name of the proof type
+   *  Name: This is a descriptive name for the proof type that enables
+      easier reference to the item.
 
-   *  Label: The integer of the proof type
+   *  Label: This is the value used to identify the verifiable data
+      structure proof type.
 
-   *  CBOR Type: The cbor data type of the proof
+   *  CBOR Type: This contains the CBOR type for the value portion of
+      the label.
 
-   *  Description: The description of the proof type
+   *  Description: This field contains a brief description of the proof
+      type.
 
-   *  Reference: Where the proof type is defined
+   *  Reference: This contains a pointer to the public specification for
+      the proof type.
+
+   *  Change Controller: For Standards Track RFCs, list the "IETF".  For
+      others, give the name of the responsible party.  Other details
+      (e.g., postal address, email address, home page URI) may also be
+      included.
 
    Initial contents: Provided in Table 2
 
