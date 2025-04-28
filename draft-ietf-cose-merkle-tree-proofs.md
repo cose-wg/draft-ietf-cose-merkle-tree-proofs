@@ -579,14 +579,26 @@ Early Allocation is permissible, see Section 2 of {{RFC7120}}.
 
 - It is not permissible to assign points in COSE Verifiable Data Structures, for which no corresponding COSE Verifiable Data Structure Proofs entry exists, and vice versa.
 
+- The Change Controller for related registrations of structures and proofs should be the same.
+
 ### COSE Verifiable Data Structures {#verifiable-data-structure-registry}
 
 Registration Template:
 
-- Name: The name of the verifiable data structure
-- Value: The identifier for the verifiable data structure
-- Description: A brief description of the verifiable data structure
-- Reference: Where the verifiable data structure is defined
+- Name:
+  This is a descriptive name for the verifiable data structure that enables easier reference to the item.
+
+- Value:
+  This is the value used to identify the verifiable data structure.
+
+- Description:
+  This field contains a brief description of the verifiable data structure.
+
+- Reference:
+  This contains a pointer to the public specification for the verifiable data structure.
+
+- Change Controller:
+  For Standards Track RFCs, list the "IETF".  For others, give the name of the responsible party.  Other details (e.g., postal address, email address, home page URI) may also be included.
 
 Initial contents: Provided in {{cose-verifiable-data-structures}}
 
@@ -594,12 +606,26 @@ Initial contents: Provided in {{cose-verifiable-data-structures}}
 
 Registration Template:
 
-- Verifiable Data Structure: The identifier for the verifiable data structure
-- Name: The name of the proof type
-- Label: The integer of the proof type
-- CBOR Type: The cbor data type of the proof
-- Description: The description of the proof type
-- Reference: Where the proof type is defined
+- Verifiable Data Structure:
+  This value used identifies the related verifiable data structure.
+
+- Name:
+  This is a descriptive name for the proof type that enables easier reference to the item.
+
+- Label:
+  This is the value used to identify the verifiable data structure proof type.
+
+- CBOR Type:
+  This contains the CBOR type for the value portion of the label.
+
+- Description:
+  This field contains a brief description of the proof type.
+
+- Reference:
+  This contains a pointer to the public specification for the proof type.
+
+- Change Controller:
+  For Standards Track RFCs, list the "IETF".  For others, give the name of the responsible party.  Other details (e.g., postal address, email address, home page URI) may also be included.
 
 Initial contents: Provided in {{cose-verifiable-data-structure-proofs}}
 
