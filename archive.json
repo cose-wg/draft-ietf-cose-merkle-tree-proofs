@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-27T00:58:44.256679+00:00",
+  "timestamp": "2025-04-29T00:55:23.763299+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -2759,24 +2759,26 @@
       "id": "PR_kwDOKPwz586Rdl_o",
       "title": "Update registration templates",
       "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/46",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Addresses https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/issues/45",
       "createdAt": "2025-04-04T21:31:21Z",
-      "updatedAt": "2025-04-04T21:37:01Z",
+      "updatedAt": "2025-04-28T08:31:00Z",
       "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "baseRefName": "main",
       "baseRefOid": "db4b147a031a8064af68baa029cbaa47f5c9709c",
       "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "headRefName": "OR13-patch-1",
       "headRefOid": "204a1aa194b8d8ac82ddf6d0987a36f09fe2a9db",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-04-28T08:31:00Z",
+      "mergedAt": "2025-04-28T08:31:00Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "a0f784313ac071d950bee4dd6bc8f9f795d68033"
+      },
       "comments": [],
       "reviews": [
         {
@@ -2791,6 +2793,19 @@
           "createdAt": "2025-04-04T21:37:01Z",
           "updatedAt": "2025-04-04T21:37:01Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOKPwz586mzT7b",
+          "commit": {
+            "abbreviatedOid": "204a1aa"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-28T08:29:43Z",
+          "updatedAt": "2025-04-28T08:29:43Z",
+          "comments": []
         }
       ]
     },
@@ -2799,24 +2814,26 @@
       "id": "PR_kwDOKPwz586T7c_s",
       "title": "Update draft-ietf-cose-merkle-tree-proofs.md",
       "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/47",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "OR13",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-04-25T15:08:08Z",
-      "updatedAt": "2025-04-25T15:15:06Z",
+      "updatedAt": "2025-04-28T08:32:30Z",
       "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "baseRefName": "main",
       "baseRefOid": "db4b147a031a8064af68baa029cbaa47f5c9709c",
       "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "headRefName": "OR13-patch-2",
       "headRefOid": "44ed6f9b849d604b19abfec15e78c85ee59a4140",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-04-28T08:32:30Z",
+      "mergedAt": "2025-04-28T08:32:30Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "6b447e2c933a49c314b0fa166531f5de0159dd54"
+      },
       "comments": [],
       "reviews": [
         {
@@ -2858,6 +2875,19 @@
               "updatedAt": "2025-04-25T15:15:02Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOKPwz586mzUYR",
+          "commit": {
+            "abbreviatedOid": "44ed6f9"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-28T08:30:10Z",
+          "updatedAt": "2025-04-28T08:30:10Z",
+          "comments": []
         }
       ]
     },
@@ -2873,7 +2903,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-04-25T15:17:40Z",
-      "updatedAt": "2025-04-25T15:17:40Z",
+      "updatedAt": "2025-04-28T08:30:39Z",
       "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
       "baseRefName": "main",
       "baseRefOid": "db4b147a031a8064af68baa029cbaa47f5c9709c",
@@ -2885,7 +2915,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586mzU3A",
+          "commit": {
+            "abbreviatedOid": "b6a2826"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-28T08:30:39Z",
+          "updatedAt": "2025-04-28T08:30:39Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
