@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 27 October 2025                                  Fraunhofer SIT
+Expires: 31 October 2025                                  Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                           25 April 2025
+                                                           29 April 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 October 2025.
+   This Internet-Draft will expire on 31 October 2025.
 
 Copyright Notice
 
@@ -135,6 +135,8 @@ Table of Contents
 
 2.  New COSE Header Parameters
 
+   This section will be removed before publication.
+
    This document defines three new COSE header parameters, which are
    introduced up-front in this Section and elaborated on later in this
    document.
@@ -146,16 +148,15 @@ Table of Contents
    TBD_1 (requested assignment 395):  A COSE header parameter named vds
       (Verifiable Data Structure), which conveys the algorithm
       identifier for a verifiable data structure.  Correspondingly, this
-      document introduces a new verifiable data structure registry that
-      registers the integers used to identify verifiable data
-      structures.
+      document introduces a new Section 8.2.2 that registers the
+      integers used to identify verifiable data structures.
 
    TBD_2 (requested assignment 396):  A COSE header parameter named vdp
       (short for "verifiable data structure proofs"), which conveys a
       map containing verifiable data structure proofs organized by proof
-      type.  Correspondingly, this document introduces a new verifiable
-      data structure proof registry that registers the integers used to
-      identify verifiable data structure proof types.
+      type.  Correspondingly, this document introduces a new
+      Section 8.2.3 that registers the integers used to identify
+      verifiable data structure proof types.
 
    The other codepoints in this document are assigned from the
    registries established in this draft, they are therefore not marked
@@ -187,7 +188,7 @@ Table of Contents
       each proof confirms that a given entry is included in a merkle
       root.
 
-   Proof Value:  An encoding of a Proof Type in CBOR [RFC7049].
+   Proof Value:  An encoding of a Proof Type in CBOR [RFC8949].
 
    Entry:  An entry in a verifiable data structure for which proofs can
       be derived.
@@ -198,7 +199,7 @@ Table of Contents
 4.  Verifiable Data Structures in CBOR
 
    This section describes representations of verifiable data structure
-   proofs in [RFC7049].  For example, construction of a merkle tree
+   proofs in [RFC8949].  For example, construction of a merkle tree
    leaf, or an inclusion proof from a leaf to a merkle root, might have
    several different representations, depending on the verifiable data
    structure used.  Differences in representations are necessary to
@@ -281,7 +282,9 @@ Table of Contents
    match entries present in the registries established in this
    specification.
 
-   The following CDDL definition is provided:
+   Receipts MUST be tagged as COSE_Sign1.
+
+   The following CDDL definition CDDL is provided:
 
    Receipt = #6.18(COSE_Sign1)
 
@@ -361,6 +364,13 @@ Table of Contents
 
              Figure 2: A COSE Signature with multiple receipts
 
+   The specific structure of COSE Receipts are dependent on the
+   structure of the COSE_Sign1 payload and the verifiable data structure
+   proofs contained in the COSE_Sign1 unprotected header.  The CDDL for
+   specific verifiable data structure proofs is verifiable data
+   structure specific.  This document describes proofs for
+   RFC9162_SHA256 in the following sections.
+
 4.3.1.  Registration Requirements
 
    Each specification MUST define how to encode the verifiable data
@@ -378,7 +388,7 @@ Table of Contents
 
    This section defines how the data structures described in [RFC9162]
    are mapped to the terminology defined in this document, using
-   [RFC7049] and [RFC9053].
+   [RFC8949] and [RFC9053].
 
 5.1.  Verifiable Data Structure
 
@@ -697,9 +707,9 @@ Table of Contents
    Section 2, as listed in Table 3, to the "COSE Header Parameters"
    registry [IANA.cose_header-parameters] in the 'Integer values from
    256 to 65535' range ('Specification Required' Registration
-   Procedure).  All new entries use
-   https://www.iana.org/assignments/cose/cose.xhtml#header-parameters as
-   the value for the "Value Registry" column.
+   Procedure).  The Value Registry for "vds" is the Verifiable Data
+   Structure registry.  The map labels in the "vdp" are assigned from
+   the Verifiable Data Structure Proofs registry.
 
    +==========+=============+=======+======================+===========+
    | Name     | Label       | Value | Description          | Reference |
@@ -730,7 +740,7 @@ Table of Contents
 8.2.  Verifiable Data Structure Registries
 
    IANA established the COSE Verifiable Data Structures and COSE
-   Verifiable Data Structure Parameters Registries under a Specification
+   Verifiable Data Structure Proofs registries under a Specification
    Required policy as described in [RFC8126].
 
 8.2.1.  Expert Review
@@ -753,17 +763,29 @@ Table of Contents
       Structures, for which no corresponding COSE Verifiable Data
       Structure Proofs entry exists, and vice versa.
 
+   *  The Change Controller for related registrations of structures and
+      proofs should be the same.
+
 8.2.2.  COSE Verifiable Data Structures
 
    Registration Template:
 
-   *  Name: The name of the verifiable data structure
+   *  Name: This is a descriptive name for the verifiable data structure
+      that enables easier reference to the item.
 
-   *  Value: The identifier for the verifiable data structure
+   *  Value: This is the value used to identify the verifiable data
+      structure.
 
-   *  Description: A brief description of the verifiable data structure
+   *  Description: This field contains a brief description of the
+      verifiable data structure.
 
-   *  Reference: Where the verifiable data structure is defined
+   *  Reference: This contains a pointer to the public specification for
+      the verifiable data structure.
+
+   *  Change Controller: For Standards Track RFCs, list the "IETF".  For
+      others, give the name of the responsible party.  Other details
+      (e.g., postal address, email address, home page URI) may also be
+      included.
 
    Initial contents: Provided in Table 1
 
@@ -771,18 +793,28 @@ Table of Contents
 
    Registration Template:
 
-   *  Verifiable Data Structure: The identifier for the verifiable data
-      structure
+   *  Verifiable Data Structure: This value used identifies the related
+      verifiable data structure.
 
-   *  Name: The name of the proof type
+   *  Name: This is a descriptive name for the proof type that enables
+      easier reference to the item.
 
-   *  Label: The integer of the proof type
+   *  Label: This is the value used to identify the verifiable data
+      structure proof type.
 
-   *  CBOR Type: The cbor data type of the proof
+   *  CBOR Type: This contains the CBOR type for the value portion of
+      the label.
 
-   *  Description: The description of the proof type
+   *  Description: This field contains a brief description of the proof
+      type.
 
-   *  Reference: Where the proof type is defined
+   *  Reference: This contains a pointer to the public specification for
+      the proof type.
+
+   *  Change Controller: For Standards Track RFCs, list the "IETF".  For
+      others, give the name of the responsible party.  Other details
+      (e.g., postal address, email address, home page URI) may also be
+      included.
 
    Initial contents: Provided in Table 2
 
@@ -806,13 +838,14 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
-   [RFC7049]  Bormann, C. and P. Hoffman, "Concise Binary Object
-              Representation (CBOR)", RFC 7049, DOI 10.17487/RFC7049,
-              October 2013, <https://www.rfc-editor.org/rfc/rfc7049>.
-
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC8949]  Bormann, C. and P. Hoffman, "Concise Binary Object
+              Representation (CBOR)", STD 94, RFC 8949,
+              DOI 10.17487/RFC8949, December 2020,
+              <https://www.rfc-editor.org/rfc/rfc8949>.
 
    [RFC9053]  Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Initial Algorithms", RFC 9053, DOI 10.17487/RFC9053,
@@ -863,11 +896,6 @@ Table of Contents
               Express Concise Binary Object Representation (CBOR) and
               JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
               June 2019, <https://www.rfc-editor.org/rfc/rfc8610>.
-
-   [RFC8949]  Bormann, C. and P. Hoffman, "Concise Binary Object
-              Representation (CBOR)", STD 94, RFC 8949,
-              DOI 10.17487/RFC8949, December 2020,
-              <https://www.rfc-editor.org/rfc/rfc8949>.
 
    [RFC9052]  Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Structures and Process", STD 96, RFC 9052,
