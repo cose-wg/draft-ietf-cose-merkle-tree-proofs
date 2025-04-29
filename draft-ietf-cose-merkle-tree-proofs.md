@@ -191,12 +191,14 @@ The following CDDL definition CDDL is provided:
 ~~~ cddl
 Receipt = #6.18(COSE_Sign1)
 
+cose-value = any
+
 Protected_Header = {
   * cose-label => cose-value
 }
 
 Unprotected_Header = {
-  &(receipts: 394)  => [+ Receipt]
+  &(receipts: 394)  => [+ bstr .cbor Receipt]
   * cose-label => cose-value
 }
 
