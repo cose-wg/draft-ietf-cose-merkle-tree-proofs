@@ -42,7 +42,7 @@ author:
   country: UK
 
 normative:
-  RFC7049: CBOR
+  RFC8949: CBOR
   RFC9053: COSE
   RFC9162: certificate-transparency-v2
   RFC9597: cwt-header-claims
@@ -52,7 +52,6 @@ informative:
   RFC7120:
   RFC9052:
   RFC8610:
-  RFC8949:
   RFC8126: iana-considerations-guide
   BCP205: RFC7942
   RFC8392: CWT
@@ -86,6 +85,8 @@ This document describes how to convey VDS and associated VDP types in unified CO
 
 # New COSE Header Parameters {#param-list}
 
+This section will be removed before publication.
+
 This document defines three new COSE header parameters, which are introduced up-front in this Section and elaborated on later in this document.
 
 TBD_0 (requested assignment 394):
@@ -95,12 +96,12 @@ TBD_0 (requested assignment 394):
 TBD_1 (requested assignment 395):
 
 : A COSE header parameter named `vds` (Verifiable Data Structure), which conveys the algorithm identifier for a verifiable data structure.
-  Correspondingly, this document introduces a new verifiable data structure registry that registers the integers used to identify verifiable data structures.
+  Correspondingly, this document introduces a new {{verifiable-data-structure-registry}} that registers the integers used to identify verifiable data structures.
 
 TBD_2 (requested assignment 396):
 
 : A COSE header parameter named `vdp` (short for "verifiable data structure proofs"), which conveys a map containing verifiable data structure proofs organized by proof type.
-  Correspondingly, this document introduces a new verifiable data structure proof registry that registers the integers used to identify verifiable data structure proof types.
+  Correspondingly, this document introduces a new {{verifiable-data-structure-proofs-registry}} that registers the integers used to identify verifiable data structure proof types.
 
 The other codepoints in this document are assigned from the registries established in this draft, they are therefore not marked TBD.
 
@@ -183,7 +184,9 @@ This document registered a new COSE Header Parameter `receipts` (394) to enable 
 
 When the receipts header parameter is present, the associated verifiable data structure and verifiable data structure proofs MUST match entries present in the registries established in this specification.
 
-The following CDDL definition is provided:
+Receipts MUST be tagged as COSE_Sign1.
+
+The following CDDL definition CDDL is provided:
 
 ~~~ cddl
 Receipt = #6.18(COSE_Sign1)
@@ -264,6 +267,10 @@ The following informative EDN is provided:
 ])
 ~~~
 {: #fig-receipts-edn title="A COSE Signature with multiple receipts"}
+
+The specific structure of COSE Receipts are dependent on the structure of the COSE_Sign1 payload and the verifiable data structure proofs contained in the COSE_Sign1 unprotected header.
+The CDDL for specific verifiable data structure proofs is verifiable data structure specific.
+This document describes proofs for RFC9162_SHA256 in the following sections.
 
 ### Registration Requirements
 
@@ -546,7 +553,8 @@ The details of expressing statuses are out of scope for this document.
 ## COSE Header Parameter
 
 IANA is requested to add the COSE header parameters defined in {{param-list}}, as listed in {{iana-header-params}}, to the "COSE Header Parameters" registry {{!IANA.cose_header-parameters}} in the 'Integer values from 256 to 65535' range ('Specification Required' Registration Procedure).
-All new entries use https://www.iana.org/assignments/cose/cose.xhtml#header-parameters as the value for the "Value Registry" column.
+The Value Registry for "vds" is the Verifiable Data Structure registry.
+The map labels in the "vdp" are assigned from the Verifiable Data Structure Proofs registry.
 
 | Name       | Label                             | Value Type | Description                                                                                          | Reference             |
 |------------|-----------------------------------|------------|------------------------------------------------------------------------------------------------------|-----------------------|
@@ -557,7 +565,7 @@ All new entries use https://www.iana.org/assignments/cose/cose.xhtml#header-para
 
 ## Verifiable Data Structure Registries
 
-IANA established the COSE Verifiable Data Structures and COSE Verifiable Data Structure Parameters Registries under a Specification Required policy as described in {{RFC8126}}.
+IANA established the COSE Verifiable Data Structures and COSE Verifiable Data Structure Proofs registries under a Specification Required policy as described in {{RFC8126}}.
 
 ### Expert Review
 Expert reviewers should take into consideration the following points:
@@ -572,14 +580,26 @@ Early Allocation is permissible, see Section 2 of {{RFC7120}}.
 
 - It is not permissible to assign points in COSE Verifiable Data Structures, for which no corresponding COSE Verifiable Data Structure Proofs entry exists, and vice versa.
 
+- The Change Controller for related registrations of structures and proofs should be the same.
+
 ### COSE Verifiable Data Structures {#verifiable-data-structure-registry}
 
 Registration Template:
 
-- Name: The name of the verifiable data structure
-- Value: The identifier for the verifiable data structure
-- Description: A brief description of the verifiable data structure
-- Reference: Where the verifiable data structure is defined
+- Name:
+  This is a descriptive name for the verifiable data structure that enables easier reference to the item.
+
+- Value:
+  This is the value used to identify the verifiable data structure.
+
+- Description:
+  This field contains a brief description of the verifiable data structure.
+
+- Reference:
+  This contains a pointer to the public specification for the verifiable data structure.
+
+- Change Controller:
+  For Standards Track RFCs, list the "IETF".  For others, give the name of the responsible party.  Other details (e.g., postal address, email address, home page URI) may also be included.
 
 Initial contents: Provided in {{cose-verifiable-data-structures}}
 
@@ -587,12 +607,26 @@ Initial contents: Provided in {{cose-verifiable-data-structures}}
 
 Registration Template:
 
-- Verifiable Data Structure: The identifier for the verifiable data structure
-- Name: The name of the proof type
-- Label: The integer of the proof type
-- CBOR Type: The cbor data type of the proof
-- Description: The description of the proof type
-- Reference: Where the proof type is defined
+- Verifiable Data Structure:
+  This value used identifies the related verifiable data structure.
+
+- Name:
+  This is a descriptive name for the proof type that enables easier reference to the item.
+
+- Label:
+  This is the value used to identify the verifiable data structure proof type.
+
+- CBOR Type:
+  This contains the CBOR type for the value portion of the label.
+
+- Description:
+  This field contains a brief description of the proof type.
+
+- Reference:
+  This contains a pointer to the public specification for the proof type.
+
+- Change Controller:
+  For Standards Track RFCs, list the "IETF".  For others, give the name of the responsible party.  Other details (e.g., postal address, email address, home page URI) may also be included.
 
 Initial contents: Provided in {{cose-verifiable-data-structure-proofs}}
 
