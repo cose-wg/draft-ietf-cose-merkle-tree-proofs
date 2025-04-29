@@ -1520,12 +1520,14 @@ Security analysis <span class="bcp14">SHOULD</span> be conducted prior to migrat
 <pre>
 Receipt = #6.18(COSE_Sign1)
 
+cose-value = any
+
 Protected_Header = {
   * cose-label =&gt; cose-value
 }
 
 Unprotected_Header = {
-  &amp;(receipts: 394)  =&gt; [+ Receipt]
+  &amp;(receipts: 394)  =&gt; [+ bstr .cbor Receipt]
   * cose-label =&gt; cose-value
 }
 
