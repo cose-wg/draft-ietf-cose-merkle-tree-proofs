@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 30 October 2025                                  Fraunhofer SIT
+Expires: 31 October 2025                                  Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                           28 April 2025
+                                                           29 April 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 October 2025.
+   This Internet-Draft will expire on 31 October 2025.
 
 Copyright Notice
 
@@ -284,7 +284,7 @@ Table of Contents
 
    Receipts MUST be tagged as COSE_Sign1.
 
-   The following informative CDDL is provided:
+   The following CDDL definition CDDL is provided:
 
    Receipt = #6.18(COSE_Sign1)
 
