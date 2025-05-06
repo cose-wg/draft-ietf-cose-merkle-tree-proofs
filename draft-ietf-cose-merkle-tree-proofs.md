@@ -85,8 +85,6 @@ This document describes how to convey VDS and associated VDP types in unified CO
 
 # New COSE Header Parameters {#param-list}
 
-This section will be removed before publication.
-
 This document defines three new COSE header parameters, which are introduced up-front in this Section and elaborated on later in this document.
 
 TBD_0 (requested assignment 394):
@@ -102,8 +100,6 @@ TBD_2 (requested assignment 396):
 
 : A COSE header parameter named `vdp` (short for "verifiable data structure proofs"), which conveys a map containing verifiable data structure proofs organized by proof type.
   Correspondingly, this document introduces a new {{verifiable-data-structure-proofs-registry}} that registers the integers used to identify verifiable data structure proof types.
-
-The other codepoints in this document are assigned from the registries established in this draft, they are therefore not marked TBD.
 
 # Terminology
 
