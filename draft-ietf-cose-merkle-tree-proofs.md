@@ -558,11 +558,11 @@ IANA is requested to add the COSE header parameters defined in {{param-list}}, a
 The Value Registry for "vds" is the Verifiable Data Structure registry.
 The map labels in the "vdp" are assigned from the Verifiable Data Structure Proofs registry.
 
-| Name       | Label                             | Value Type | Description                                                                                          | Reference             |
-|------------|-----------------------------------|------------|------------------------------------------------------------------------------------------------------|-----------------------|
-| `receipts` | TBD_0 (requested assignment: 394) | array      | Priority ordered sequence of CBOR encoded Receipts                                                   | {{&SELF}}, {{param-list}} |
-| `vds`      | TBD_1 (requested assignment: 395) | int        | Algorithm identifier for verifiable data structure, used to produce verifiable data structure proofs | {{&SELF}}, {{param-list}} |
-| `vdp`      | TBD_2 (requested assignment: 396) | map        | Location for verifiable data structure proofs in COSE Header Parameters                              | {{&SELF}}, {{param-list}} |
+| Name       | Label                             | Value Type | Description                                                                                                     | Reference                 |
+|------------|-----------------------------------|------------|-----------------------------------------------------------------------------------------------------------------|---------------------------|
+| `receipts` | TBD_0 (requested assignment: 394) | array      | Priority ordered sequence of CBOR encoded Receipts                                                              | {{&SELF}}, {{param-list}} |
+| `vds`      | TBD_1 (requested assignment: 395) | int        | Algorithm identifier for COSE Verifiable Data Structures, used to produce COSE Verifiable Data Structure Proofs | {{&SELF}}, {{param-list}} |
+| `vdp`      | TBD_2 (requested assignment: 396) | map        | Map key for COSE Verifiable Data Structure Proofs in COSE Header Parameters                                     | {{&SELF}}, {{param-list}} |
 {: #iana-header-params title="Newly registered COSE Header Parameters"}
 
 ## Verifiable Data Structure Registries
