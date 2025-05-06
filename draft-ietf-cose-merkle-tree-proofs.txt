@@ -135,8 +135,6 @@ Table of Contents
 
 2.  New COSE Header Parameters
 
-   This section will be removed before publication.
-
    This document defines three new COSE header parameters, which are
    introduced up-front in this Section and elaborated on later in this
    document.
@@ -157,10 +155,6 @@ Table of Contents
       type.  Correspondingly, this document introduces a new
       Section 8.2.3 that registers the integers used to identify
       verifiable data structure proof types.
-
-   The other codepoints in this document are assigned from the
-   registries established in this draft, they are therefore not marked
-   TBD.
 
 3.  Terminology
 
