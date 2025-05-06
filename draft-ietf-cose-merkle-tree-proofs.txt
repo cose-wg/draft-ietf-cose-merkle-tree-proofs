@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 31 October 2025                                  Fraunhofer SIT
+Expires: 7 November 2025                                  Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                           29 April 2025
+                                                              6 May 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 October 2025.
+   This Internet-Draft will expire on 7 November 2025.
 
 Copyright Notice
 
@@ -723,17 +723,17 @@ Table of Contents
    |          | 394)        |       |                      |           |
    +----------+-------------+-------+----------------------+-----------+
    | vds      | TBD_1       | int   | Algorithm            | RFCthis,  |
-   |          | (requested  |       | identifier for       | Section 2 |
-   |          | assignment: |       | verifiable data      |           |
-   |          | 395)        |       | structure, used      |           |
-   |          |             |       | to produce           |           |
-   |          |             |       | verifiable data      |           |
-   |          |             |       | structure proofs     |           |
+   |          | (requested  |       | identifier for COSE  | Section 2 |
+   |          | assignment: |       | Verifiable Data      |           |
+   |          | 395)        |       | Structures, used to  |           |
+   |          |             |       | produce COSE         |           |
+   |          |             |       | Verifiable Data      |           |
+   |          |             |       | Structure Proofs     |           |
    +----------+-------------+-------+----------------------+-----------+
-   | vdp      | TBD_2       | map   | Location for         | RFCthis,  |
-   |          | (requested  |       | verifiable data      | Section 2 |
-   |          | assignment: |       | structure proofs     |           |
-   |          | 396)        |       | in COSE Header       |           |
+   | vdp      | TBD_2       | map   | Map key for COSE     | RFCthis,  |
+   |          | (requested  |       | Verifiable Data      | Section 2 |
+   |          | assignment: |       | Structure Proofs in  |           |
+   |          | 396)        |       | COSE Header          |           |
    |          |             |       | Parameters           |           |
    +----------+-------------+-------+----------------------+-----------+
 
