@@ -182,7 +182,7 @@ When the receipts header parameter is present, the associated verifiable data st
 
 Receipts MUST be tagged as COSE_Sign1.
 
-The following CDDL definition CDDL is provided:
+The following CDDL definition is provided:
 
 ~~~ cddl
 Receipt = #6.18(COSE_Sign1)
