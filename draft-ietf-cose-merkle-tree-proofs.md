@@ -182,7 +182,7 @@ When the receipts header parameter is present, the associated verifiable data st
 
 Receipts MUST be tagged as COSE_Sign1.
 
-The following CDDL definition CDDL is provided:
+The following CDDL definition is provided:
 
 ~~~ cddl
 Receipt = #6.18(COSE_Sign1)
@@ -551,14 +551,14 @@ The details of expressing statuses are out of scope for this document.
 ## COSE Header Parameter
 
 IANA is requested to add the COSE header parameters defined in {{param-list}}, as listed in {{iana-header-params}}, to the "COSE Header Parameters" registry {{!IANA.cose_header-parameters}} in the 'Integer values from 256 to 65535' range ('Specification Required' Registration Procedure).
-The Value Registry for "vds" is the Verifiable Data Structure registry.
-The map labels in the "vdp" are assigned from the Verifiable Data Structure Proofs registry.
+The Value Registry for "vds" is the COSE Verifiable Data Structure registry.
+The map labels in the "vdp" are assigned from the COSE Verifiable Data Structure Proofs registry.
 
-| Name       | Label                             | Value Type | Description                                                                                                     | Reference                 |
-|------------|-----------------------------------|------------|-----------------------------------------------------------------------------------------------------------------|---------------------------|
-| `receipts` | TBD_0 (requested assignment: 394) | array      | Priority ordered sequence of CBOR encoded Receipts                                                              | {{&SELF}}, {{param-list}} |
-| `vds`      | TBD_1 (requested assignment: 395) | int        | Algorithm identifier for COSE Verifiable Data Structures, used to produce COSE Verifiable Data Structure Proofs | {{&SELF}}, {{param-list}} |
-| `vdp`      | TBD_2 (requested assignment: 396) | map        | Map key for COSE Verifiable Data Structure Proofs in COSE Header Parameters                                     | {{&SELF}}, {{param-list}} |
+| Name       | Label                             | Value Type | Value Registry | Description                                                                                                     | Reference                 |
+|------------|-----------------------------------|------------|----------------|-----------------------------------------------------------------------------------------------------------------|---------------------------|
+| `receipts` | TBD_0 (requested assignment: 394) | array      |                | Priority ordered sequence of CBOR encoded Receipts                                                              | {{&SELF}}, {{param-list}} |
+| `vds`      | TBD_1 (requested assignment: 395) | int        | COSE Verifiable Data Structure | Algorithm identifier for verifiable data structures, used to produce verifiable data structure proofs | {{&SELF}}, {{param-list}} |
+| `vdp`      | TBD_2 (requested assignment: 396) | map        | map key in COSE Verifiable Data Structure Proofs | Location for verifiable data structure proofs in COSE Header Parameters                                     | {{&SELF}}, {{param-list}} |
 {: #iana-header-params title="Newly registered COSE Header Parameters"}
 
 ## Verifiable Data Structure Registries
