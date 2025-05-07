@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 7 November 2025                                  Fraunhofer SIT
+Expires: 8 November 2025                                  Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                              6 May 2025
+                                                              7 May 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 November 2025.
+   This Internet-Draft will expire on 8 November 2025.
 
 Copyright Notice
 
@@ -278,7 +278,7 @@ Table of Contents
 
    Receipts MUST be tagged as COSE_Sign1.
 
-   The following CDDL definition CDDL is provided:
+   The following CDDL definition is provided:
 
    Receipt = #6.18(COSE_Sign1)
 
@@ -703,33 +703,43 @@ Table of Contents
    Section 2, as listed in Table 3, to the "COSE Header Parameters"
    registry [IANA.cose_header-parameters] in the 'Integer values from
    256 to 65535' range ('Specification Required' Registration
-   Procedure).  The Value Registry for "vds" is the Verifiable Data
+   Procedure).  The Value Registry for "vds" is the COSE Verifiable Data
    Structure registry.  The map labels in the "vdp" are assigned from
-   the Verifiable Data Structure Proofs registry.
+   the COSE Verifiable Data Structure Proofs registry.
 
-   +==========+=============+=======+======================+===========+
-   | Name     | Label       | Value | Description          | Reference |
-   |          |             | Type  |                      |           |
-   +==========+=============+=======+======================+===========+
-   | receipts | TBD_0       | array | Priority ordered     | RFCthis,  |
-   |          | (requested  |       | sequence of CBOR     | Section 2 |
-   |          | assignment: |       | encoded Receipts     |           |
-   |          | 394)        |       |                      |           |
-   +----------+-------------+-------+----------------------+-----------+
-   | vds      | TBD_1       | int   | Algorithm            | RFCthis,  |
-   |          | (requested  |       | identifier for COSE  | Section 2 |
-   |          | assignment: |       | Verifiable Data      |           |
-   |          | 395)        |       | Structures, used to  |           |
-   |          |             |       | produce COSE         |           |
-   |          |             |       | Verifiable Data      |           |
-   |          |             |       | Structure Proofs     |           |
-   +----------+-------------+-------+----------------------+-----------+
-   | vdp      | TBD_2       | map   | Map key for COSE     | RFCthis,  |
-   |          | (requested  |       | Verifiable Data      | Section 2 |
-   |          | assignment: |       | Structure Proofs in  |           |
-   |          | 396)        |       | COSE Header          |           |
-   |          |             |       | Parameters           |           |
-   +----------+-------------+-------+----------------------+-----------+
+    +========+=============+=====+============+=============+=========+
+    |Name    | Label       |Value| Value      | Description |Reference|
+    |        |             |Type | Registry   |             |         |
+    +========+=============+=====+============+=============+=========+
+    |receipts| TBD_0       |array|            | Priority    |RFCthis, |
+    |        | (requested  |     |            | ordered     |Section 2|
+    |        | assignment: |     |            | sequence of |         |
+    |        | 394)        |     |            | CBOR        |         |
+    |        |             |     |            | encoded     |         |
+    |        |             |     |            | Receipts    |         |
+    +--------+-------------+-----+------------+-------------+---------+
+    |vds     | TBD_1       |int  | COSE       | Algorithm   |RFCthis, |
+    |        | (requested  |     | Verifiable | identifier  |Section 2|
+    |        | assignment: |     | Data       | for         |         |
+    |        | 395)        |     | Structure  | verifiable  |         |
+    |        |             |     |            | data        |         |
+    |        |             |     |            | structures, |         |
+    |        |             |     |            | used to     |         |
+    |        |             |     |            | produce     |         |
+    |        |             |     |            | verifiable  |         |
+    |        |             |     |            | data        |         |
+    |        |             |     |            | structure   |         |
+    |        |             |     |            | proofs      |         |
+    +--------+-------------+-----+------------+-------------+---------+
+    |vdp     | TBD_2       |map  | map key in | Location    |RFCthis, |
+    |        | (requested  |     | COSE       | for         |Section 2|
+    |        | assignment: |     | Verifiable | verifiable  |         |
+    |        | 396)        |     | Data       | data        |         |
+    |        |             |     | Structure  | structure   |         |
+    |        |             |     | Proofs     | proofs in   |         |
+    |        |             |     |            | COSE Header |         |
+    |        |             |     |            | Parameters  |         |
+    +--------+-------------+-----+------------+-------------+---------+
 
               Table 3: Newly registered COSE Header Parameters
 
