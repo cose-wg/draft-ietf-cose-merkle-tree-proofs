@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-01T01:01:04.644347+00:00",
+  "timestamp": "2025-05-08T00:56:50.460694+00:00",
   "repo": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
   "labels": [
     {
@@ -3162,6 +3162,98 @@
           "body": "",
           "createdAt": "2025-04-29T14:19:08Z",
           "updatedAt": "2025-04-29T14:19:08Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 52,
+      "id": "PR_kwDOKPwz586VEJut",
+      "title": "Update draft-ietf-cose-merkle-tree-proofs.md",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/52",
+      "state": "MERGED",
+      "author": "achamayou",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Minor wording update to address IANA feedback",
+      "createdAt": "2025-05-06T08:49:37Z",
+      "updatedAt": "2025-05-06T08:50:47Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "9b4485074f89d0f8ddf6e686b1fa78cd4003878b",
+      "headRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "achamayou-patch-2",
+      "headRefOid": "20ef310645bf05f4bd926f59c8a099781c1093df",
+      "closedAt": "2025-05-06T08:50:47Z",
+      "mergedAt": "2025-05-06T08:50:47Z",
+      "mergedBy": "henkbirkholz",
+      "mergeCommit": {
+        "oid": "90a3d5e51fee0abff7734124f0f3c5e4cb0f53e4"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586n7ncE",
+          "commit": {
+            "abbreviatedOid": "20ef310"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-06T08:50:17Z",
+          "updatedAt": "2025-05-06T08:50:17Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 53,
+      "id": "PR_kwDOKPwz586VOS2O",
+      "title": "IANA considerations - COSE Header Parameters registry",
+      "url": "https://github.com/cose-wg/draft-ietf-cose-merkle-tree-proofs/pull/53",
+      "state": "MERGED",
+      "author": "fpalombini",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixing the Value Registry of the COSE Header Parameter registrations\r\n\r\n(+ a small typo)",
+      "createdAt": "2025-05-07T07:47:53Z",
+      "updatedAt": "2025-05-07T10:36:39Z",
+      "baseRepository": "cose-wg/draft-ietf-cose-merkle-tree-proofs",
+      "baseRefName": "main",
+      "baseRefOid": "563edef3b7dc13389fddafefe0076e5d9a7fb032",
+      "headRepository": "fpalombini/draft-ietf-cose-merkle-tree-proofs",
+      "headRefName": "main",
+      "headRefOid": "39846bb573556a235a81b8f37114e7a00407ebab",
+      "closedAt": "2025-05-07T10:36:39Z",
+      "mergedAt": "2025-05-07T10:36:39Z",
+      "mergedBy": "achamayou",
+      "mergeCommit": {
+        "oid": "18b8a777fc4dc30f8191567ee9577c498fca1318"
+      },
+      "comments": [
+        {
+          "author": "achamayou",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@fpalombini thank you!",
+          "createdAt": "2025-05-07T10:36:19Z",
+          "updatedAt": "2025-05-07T10:36:19Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKPwz586oKQ-X",
+          "commit": {
+            "abbreviatedOid": "39846bb"
+          },
+          "author": "achamayou",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-07T10:36:02Z",
+          "updatedAt": "2025-05-07T10:36:02Z",
           "comments": []
         }
       ]
