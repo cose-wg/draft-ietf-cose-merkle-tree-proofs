@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 31 October 2025                                  Fraunhofer SIT
+Expires: 9 January 2026                                   Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                           29 April 2025
+                                                             8 July 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 October 2025.
+   This Internet-Draft will expire on 9 January 2026.
 
 Copyright Notice
 
@@ -135,8 +135,6 @@ Table of Contents
 
 2.  New COSE Header Parameters
 
-   This section will be removed before publication.
-
    This document defines three new COSE header parameters, which are
    introduced up-front in this Section and elaborated on later in this
    document.
@@ -158,10 +156,6 @@ Table of Contents
       Section 8.2.3 that registers the integers used to identify
       verifiable data structure proof types.
 
-   The other codepoints in this document are assigned from the
-   registries established in this draft, they are therefore not marked
-   TBD.
-
 3.  Terminology
 
    CDDL:  Concise Data Definition Language (CDDL) is defined in
@@ -174,7 +168,7 @@ Table of Contents
    Verifiable Data Structure (VDS):  A data structure which supports one
       or more Verifiable Data Structure Proof Types.  This property
       describes an algorithm used to maintain a verifiable data
-      structure, for example a binary merkle tree algorithm.
+      structure, for example a binary Merkle tree algorithm.
 
    Verifiable Data Structure Proofs (VDP):  A data structure used to
       convey proof types for proving different properties, such as
@@ -184,8 +178,8 @@ Table of Contents
 
    Proof Type:  A verifiable process, that proves properties of a
       Verifiable Data Structure.  For example, a VDS, such as a binary
-      merkle tree, can support multiple proofs of type "inclusion" where
-      each proof confirms that a given entry is included in a merkle
+      Merkle tree, can support multiple proofs of type "inclusion" where
+      each proof confirms that a given entry is included in a Merkle
       root.
 
    Proof Value:  An encoding of a Proof Type in CBOR [RFC8949].
@@ -199,8 +193,8 @@ Table of Contents
 4.  Verifiable Data Structures in CBOR
 
    This section describes representations of verifiable data structure
-   proofs in [RFC8949].  For example, construction of a merkle tree
-   leaf, or an inclusion proof from a leaf to a merkle root, might have
+   proofs in [RFC8949].  For example, construction of a Merkle tree
+   leaf, or an inclusion proof from a leaf to a Merkle root, might have
    several different representations, depending on the verifiable data
    structure used.  Differences in representations are necessary to
    support efficient verification, unique security or privacy
@@ -266,7 +260,7 @@ Table of Contents
    proof".  Implementers should not expect interoperability across
    "verifiable data structures", but they should expect conceptually
    similar properties across the different registered proof types.  For
-   example, 2 different merkle tree based verifiable data structures
+   example, 2 different Merkle tree based verifiable data structures
    might both support proofs of inclusion.  Security analysis SHOULD be
    conducted prior to migrating to new structures to ensure the new
    security and privacy assumptions are acceptable for the use case.
@@ -284,7 +278,7 @@ Table of Contents
 
    Receipts MUST be tagged as COSE_Sign1.
 
-   The following CDDL definition CDDL is provided:
+   The following CDDL definition is provided:
 
    Receipt = #6.18(COSE_Sign1)
 
@@ -409,13 +403,13 @@ Table of Contents
 
    inclusion-proof = bstr .cbor [
 
-       ; tree size at current merkle root
+       ; tree size at current Merkle root
        tree-size: uint
 
        ; index of leaf in tree
        leaf-index: uint
 
-       ; path from leaf to current merkle root
+       ; path from leaf to current Merkle root
        inclusion-path: [ + bstr ]
    ]
 
@@ -431,7 +425,7 @@ Table of Contents
 
 5.2.1.  Receipt of Inclusion
 
-   In a signed inclusion proof, the payload is the merkle tree root
+   In a signed inclusion proof, the payload is the Merkle tree root
    which corresponds to the log at size tree-size.  Specifications are
    encouraged to make payloads detached when possible, forcing
    validation-time comparison.  Profiles of proof signatures are
@@ -482,7 +476,7 @@ Table of Contents
    Merkle tree hash as defined in [RFC9162].  The payload SHOULD be
    detached.  Detaching the payload forces verifiers to recompute the
    root from the inclusion proof, this protects against implementation
-   errors where the signature is verified but the merkle root does not
+   errors where the signature is verified but the Merkle root does not
    match the inclusion proof.  The EDN for a Receipt containing an
    inclusion proof for RFC9162_SHA256 is:
 
@@ -516,7 +510,7 @@ Table of Contents
    The inclusion proof and signature are verified in order.  First the
    verifiers applies the inclusion proof to a possible entry (set
    member) bytes.  If this process fails, the inclusion proof may have
-   been tampered with.  If this process succeeds, the result is a merkle
+   been tampered with.  If this process succeeds, the result is a Merkle
    root, which in the attached as the COSE Sign1 payload.  Second the
    verifier checks the signature of the COSE Sign1.  If the resulting
    signature verifies, the Receipt has proved inclusion of the entry in
@@ -535,13 +529,13 @@ Table of Contents
 
    consistency-proof =  bstr .cbor [
 
-       ; older merkle root tree size
+       ; older Merkle root tree size
        tree-size-1: uint
 
-       ; newer merkle root tree size
+       ; newer Merkle root tree size
        tree-size-2: uint
 
-       ; path from older merkle root to newer merkle root.
+       ; path from older Merkle root to newer Merkle root.
        consistency-path: [ + bstr ]
 
    ]
@@ -550,8 +544,8 @@ Table of Contents
 
 5.3.1.  Receipt of Consistency
 
-   In a signed consistency proof, the newer merkle tree root (proven to
-   be consistent with an older merkle tree root) is an attached payload
+   In a signed consistency proof, the newer Merkle tree root (proven to
+   be consistent with an older Merkle tree root) is an attached payload
    and corresponds to the log at size tree-size-2.
 
    The protected header for an RFC9162_SHA256 consistency proof
@@ -595,7 +589,7 @@ Table of Contents
    newer Merkle tree hash as defined in [RFC9162].  The payload SHOULD
    be detached.  Detaching the payload forces verifiers to recompute the
    root from the consistency proof, this protects against implementation
-   errors where the signature is verified but the merkle root does not
+   errors where the signature is verified but the Merkle root does not
    match the proof.
 
    The EDN for a Receipt containing a consistency proof for
@@ -709,33 +703,43 @@ Table of Contents
    Section 2, as listed in Table 3, to the "COSE Header Parameters"
    registry [IANA.cose_header-parameters] in the 'Integer values from
    256 to 65535' range ('Specification Required' Registration
-   Procedure).  The Value Registry for "vds" is the Verifiable Data
+   Procedure).  The Value Registry for "vds" is the COSE Verifiable Data
    Structure registry.  The map labels in the "vdp" are assigned from
-   the Verifiable Data Structure Proofs registry.
+   the COSE Verifiable Data Structure Proofs registry.
 
-   +==========+=============+=======+======================+===========+
-   | Name     | Label       | Value | Description          | Reference |
-   |          |             | Type  |                      |           |
-   +==========+=============+=======+======================+===========+
-   | receipts | TBD_0       | array | Priority ordered     | RFCthis,  |
-   |          | (requested  |       | sequence of CBOR     | Section 2 |
-   |          | assignment: |       | encoded Receipts     |           |
-   |          | 394)        |       |                      |           |
-   +----------+-------------+-------+----------------------+-----------+
-   | vds      | TBD_1       | int   | Algorithm            | RFCthis,  |
-   |          | (requested  |       | identifier for       | Section 2 |
-   |          | assignment: |       | verifiable data      |           |
-   |          | 395)        |       | structure, used      |           |
-   |          |             |       | to produce           |           |
-   |          |             |       | verifiable data      |           |
-   |          |             |       | structure proofs     |           |
-   +----------+-------------+-------+----------------------+-----------+
-   | vdp      | TBD_2       | map   | Location for         | RFCthis,  |
-   |          | (requested  |       | verifiable data      | Section 2 |
-   |          | assignment: |       | structure proofs     |           |
-   |          | 396)        |       | in COSE Header       |           |
-   |          |             |       | Parameters           |           |
-   +----------+-------------+-------+----------------------+-----------+
+    +========+=============+=====+============+=============+=========+
+    |Name    | Label       |Value| Value      | Description |Reference|
+    |        |             |Type | Registry   |             |         |
+    +========+=============+=====+============+=============+=========+
+    |receipts| TBD_0       |array|            | Priority    |RFCthis, |
+    |        | (requested  |     |            | ordered     |Section 2|
+    |        | assignment: |     |            | sequence of |         |
+    |        | 394)        |     |            | CBOR        |         |
+    |        |             |     |            | encoded     |         |
+    |        |             |     |            | Receipts    |         |
+    +--------+-------------+-----+------------+-------------+---------+
+    |vds     | TBD_1       |int  | COSE       | Algorithm   |RFCthis, |
+    |        | (requested  |     | Verifiable | identifier  |Section 2|
+    |        | assignment: |     | Data       | for         |         |
+    |        | 395)        |     | Structure  | verifiable  |         |
+    |        |             |     |            | data        |         |
+    |        |             |     |            | structures, |         |
+    |        |             |     |            | used to     |         |
+    |        |             |     |            | produce     |         |
+    |        |             |     |            | verifiable  |         |
+    |        |             |     |            | data        |         |
+    |        |             |     |            | structure   |         |
+    |        |             |     |            | proofs      |         |
+    +--------+-------------+-----+------------+-------------+---------+
+    |vdp     | TBD_2       |map  | map key in | Location    |RFCthis, |
+    |        | (requested  |     | COSE       | for         |Section 2|
+    |        | assignment: |     | Verifiable | verifiable  |         |
+    |        | 396)        |     | Data       | data        |         |
+    |        |             |     | Structure  | structure   |         |
+    |        |             |     | Proofs     | proofs in   |         |
+    |        |             |     |            | COSE Header |         |
+    |        |             |     |            | Parameters  |         |
+    +--------+-------------+-----+------------+-------------+---------+
 
               Table 3: Newly registered COSE Header Parameters
 
@@ -876,9 +880,9 @@ Table of Contents
    [I-D.draft-ietf-cbor-edn-literals]
               Bormann, C., "CBOR Extended Diagnostic Notation (EDN)",
               Work in Progress, Internet-Draft, draft-ietf-cbor-edn-
-              literals-16, 8 January 2025,
+              literals-18, 7 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cbor-
-              edn-literals-16>.
+              edn-literals-18>.
 
    [RFC7120]  Cotton, M., "Early IANA Allocation of Standards Track Code
               Points", BCP 100, RFC 7120, DOI 10.17487/RFC7120, January
