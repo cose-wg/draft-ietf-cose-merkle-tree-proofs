@@ -121,7 +121,7 @@ Verifiable Data Structure Proofs (VDP):
 
 Proof Type:
 
-: A property that a proof provides over or or more entries in a Verifiable Data Structure.
+: A property that a proof provides over one or more entries in a Verifiable Data Structure.
   For example, a VDS, such as a binary merkle tree, can support proofs of type "inclusion" where each proof confirms that a given entry is included in a merkle root.
 
 Proof Value:
