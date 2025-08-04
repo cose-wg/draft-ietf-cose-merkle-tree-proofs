@@ -74,7 +74,7 @@ The extensibility of the approach is demonstrated by providing CBOR encodings fo
 # Introduction
 
 COSE Receipts are signed proofs that include metadata about certain states of a verifiable data structure (VDS) that are true when the COSE Receipt was issued.
-COSE Receipts can include proves that a document is in a database (proof of inclusion), that a database is append only (proof of consistency), that a smaller set of statements are contained in a large set of statements (proof of disclosure, a special case of proof of inclusion), or proof that certain data is not yet present in a database (proofs of non inclusion).
+COSE Receipts can include proofs that a document is in a database (proof of inclusion), that a database is append only (proof of consistency), that a smaller set of statements are contained in a large set of statements (proof of disclosure, a special case of proof of inclusion), or proof that certain data is not yet present in a database (proofs of non inclusion).
 Different VDS can produce different verifiable data structure proofs (VDP).
 The combination of representations of various VDS and VDP can significantly increase burden for implementers and create interoperability challenges for transparency services.
 This document describes how to convey VDS and associated VDP types in unified COSE envelopes.
@@ -89,7 +89,7 @@ This document defines three new COSE header parameters, which are introduced up-
 
 TBD_0 (requested assignment 394):
 
-: A COSE header parameter named `receipts` with a value type of array where the array contains one ore more COSE Receipts as specified in this document.
+: A COSE header parameter named `receipts` with a value type of array where the array contains one or more COSE Receipts as specified in this document.
 
 TBD_1 (requested assignment 395):
 
@@ -112,7 +112,7 @@ EDN:
 Verifiable Data Structure (VDS):
 
 : A data structure which supports one or more Verifiable Data Structure Proof Types.
-  This property describes an algorithm used to maintain a verifiable data structure, for example a binary merkle tree algorithm.
+  This property describes an algorithm used to maintain a verifiable data structure, for example a binary Merkle tree algorithm.
 
 Verifiable Data Structure Proofs (VDP):
 
@@ -122,7 +122,7 @@ Verifiable Data Structure Proofs (VDP):
 Proof Type:
 
 : A property that can be obtained by verifying a given proof over one or more entries in a Verifiable Data Structure.
-  For example, a VDS, such as a binary merkle tree, can support proofs of type "inclusion" where each proof confirms that a given entry is included in a merkle root.
+  For example, a VDS, such as a binary merkle tree, can support proofs of type "inclusion" where each proof confirms that a given entry is included in a Merkle root.
 
 Proof Value:
 
@@ -139,7 +139,7 @@ Receipt:
 # Verifiable Data Structures in CBOR {#sec-generic-verifiable-data-structures}
 
 This section describes representations of verifiable data structure proofs in {{-CBOR}}.
-For example, construction of a merkle tree leaf, or an inclusion proof from a leaf to a merkle root, might have several different representations, depending on the verifiable data structure used.
+For example, construction of a Merkle tree leaf, or an inclusion proof from a leaf to a Merkle root, might have several different representations, depending on the verifiable data structure used.
 Differences in representations are necessary to support efficient verification, unique security or privacy properties, and for compatibility with specific implementations.
 This document defines two extension points for enabling verifiable data structures with COSE and provides concrete examples for the structures and proofs defined in {{-certificate-transparency-v2}}.
 The design of these structures is influenced by the conventions established for COSE Keys.
@@ -171,7 +171,7 @@ This document establishes a registry of verifiable data structure algorithms, wi
 
 Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
 Implementers should not expect interoperability across "verifiable data structures", but they should expect conceptually similar properties across the different registered proof types.
-For example, 2 different merkle tree based verifiable data structures might both support proofs of inclusion.
+For example, 2 different Merkle tree based verifiable data structures might both support proofs of inclusion.
 Security analysis SHOULD be conducted prior to migrating to new structures to ensure the new security and privacy assumptions are acceptable for the use case.
 
 ## Usage {#receipt-spec}
@@ -300,13 +300,13 @@ The CBOR representation of an inclusion proof for RFC9162_SHA256 is:
 ~~~~ cddl
 inclusion-proof = bstr .cbor [
 
-    ; tree size at current merkle root
+    ; tree size at current Merkle root
     tree-size: uint
 
     ; index of leaf in tree
     leaf-index: uint
 
-    ; path from leaf to current merkle root
+    ; path from leaf to current Merkle root
     inclusion-path: [ + bstr ]
 ]
 ~~~~
@@ -319,7 +319,7 @@ The identifying index of a leaf node is relative to all nodes in the tree size f
 
 ### Receipt of Inclusion
 
-In a signed inclusion proof, the payload is the merkle tree root which corresponds to the log at size `tree-size`.
+In a signed inclusion proof, the payload is the Merkle tree root which corresponds to the log at size `tree-size`.
 Specifications are encouraged to make payloads detached when possible, forcing validation-time comparison.
 Profiles of proof signatures are encouraged to make additional protected header parameters mandatory, to ensure that claims are processed with their intended semantics.
 One way to include this information in the COSE structure is use of the typ (type) Header Parameter, see {{-cose-typ}} and the similar guidance provided in {{-cwt-header-claims}}.
@@ -359,7 +359,7 @@ unprotected-header-map = {
 
 The payload of an RFC9162_SHA256 inclusion proof signature is the Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 The payload SHOULD be detached.
-Detaching the payload forces verifiers to recompute the root from the inclusion proof, this protects against implementation errors where the signature is verified but the merkle root does not match the inclusion proof.
+Detaching the payload forces verifiers to recompute the root from the inclusion proof, this protects against implementation errors where the signature is verified but the Merkle root does not match the inclusion proof.
 The EDN for a Receipt containing an inclusion proof for RFC9162_SHA256 is:
 
 ~~~~ cbor-diag
@@ -392,7 +392,7 @@ The VDS in the protected header is necessary to understand the inclusion proof s
 The inclusion proof and signature are verified in order.
 First the verifiers applies the inclusion proof to a possible entry (set member) bytes.
 If this process fails, the inclusion proof may have been tampered with.
-If this process succeeds, the result is a merkle root, which in the attached as the COSE Sign1 payload.
+If this process succeeds, the result is a Merkle root, which in the attached as the COSE Sign1 payload.
 Second the verifier checks the signature of the COSE Sign1.
 If the resulting signature verifies, the Receipt has proved inclusion of the entry in the verifiable data structure.
 If the resulting signature does not verify, the signature may have been tampered with.
@@ -407,13 +407,13 @@ The cbor representation of a consistency proof for RFC9162_SHA256 is:
 ~~~~ cddl
 consistency-proof =  bstr .cbor [
 
-    ; older merkle root tree size
+    ; older Merkle root tree size
     tree-size-1: uint
 
-    ; newer merkle root tree size
+    ; newer Merkle root tree size
     tree-size-2: uint
 
-    ; path from older merkle root to newer merkle root.
+    ; path from older Merkle root to newer Merkle root.
     consistency-path: [ + bstr ]
 
 ]
@@ -422,7 +422,7 @@ consistency-proof =  bstr .cbor [
 
 ### Receipt of Consistency
 
-In a signed consistency proof, the newer merkle tree root (proven to be consistent with an older merkle tree root) is an attached payload and corresponds to the log at size tree-size-2.
+In a signed consistency proof, the newer Merkle tree root (proven to be consistent with an older Merkle tree root) is an attached payload and corresponds to the log at size tree-size-2.
 
 The protected header for an RFC9162_SHA256 consistency proof signature is:
 
@@ -460,7 +460,7 @@ unprotected-header-map = {
 The payload of an RFC9162_SHA256 consistency proof signature is:
 The newer Merkle tree hash as defined in {{-certificate-transparency-v2}}.
 The payload SHOULD be detached.
-Detaching the payload forces verifiers to recompute the root from the consistency proof, this protects against implementation errors where the signature is verified but the merkle root does not match the proof.
+Detaching the payload forces verifiers to recompute the root from the consistency proof, this protects against implementation errors where the signature is verified but the Merkle root does not match the proof.
 
 The EDN for a Receipt containing a consistency proof for RFC9162_SHA256 is:
 
