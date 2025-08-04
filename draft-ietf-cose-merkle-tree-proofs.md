@@ -74,7 +74,7 @@ The extensibility of the approach is demonstrated by providing CBOR encodings fo
 # Introduction
 
 COSE Receipts are signed proofs that include metadata about certain states of a verifiable data structure (VDS) that are true when the COSE Receipt was issued.
-COSE Receipts can include proves that a document is in a database (proof of inclusion), that a database is append only (proof of consistency), that a smaller set of statements are contained in a large set of statements (proof of disclosure, a special case of proof of inclusion), or proof that certain data is not yet present in a database (proofs of non inclusion).
+COSE Receipts can include proofs that a document is in a database (proof of inclusion), that a database is append only (proof of consistency), that a smaller set of statements are contained in a large set of statements (proof of disclosure, a special case of proof of inclusion), or proof that certain data is not yet present in a database (proofs of non inclusion).
 Different VDS can produce different verifiable data structure proofs (VDP).
 The combination of representations of various VDS and VDP can significantly increase burden for implementers and create interoperability challenges for transparency services.
 This document describes how to convey VDS and associated VDP types in unified COSE envelopes.
@@ -89,7 +89,7 @@ This document defines three new COSE header parameters, which are introduced up-
 
 TBD_0 (requested assignment 394):
 
-: A COSE header parameter named `receipts` with a value type of array where the array contains one ore more COSE Receipts as specified in this document.
+: A COSE header parameter named `receipts` with a value type of array where the array contains one or more COSE Receipts as specified in this document.
 
 TBD_1 (requested assignment 395):
 
