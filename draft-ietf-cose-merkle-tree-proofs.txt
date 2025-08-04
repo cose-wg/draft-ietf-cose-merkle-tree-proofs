@@ -112,7 +112,7 @@ Table of Contents
 
    COSE Receipts are signed proofs that include metadata about certain
    states of a verifiable data structure (VDS) that are true when the
-   COSE Receipt was issued.  COSE Receipts can include proves that a
+   COSE Receipt was issued.  COSE Receipts can include proofs that a
    document is in a database (proof of inclusion), that a database is
    append only (proof of consistency), that a smaller set of statements
    are contained in a large set of statements (proof of disclosure, a
@@ -141,7 +141,7 @@ Table of Contents
 
    TBD_0 (requested assignment 394):  A COSE header parameter named
       receipts with a value type of array where the array contains one
-      ore more COSE Receipts as specified in this document.
+      or more COSE Receipts as specified in this document.
 
    TBD_1 (requested assignment 395):  A COSE header parameter named vds
       (Verifiable Data Structure), which conveys the algorithm

@@ -1302,7 +1302,7 @@ The extensibility of the approach is demonstrated by providing CBOR encodings fo
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">COSE Receipts are signed proofs that include metadata about certain states of a verifiable data structure (VDS) that are true when the COSE Receipt was issued.
-COSE Receipts can include proves that a document is in a database (proof of inclusion), that a database is append only (proof of consistency), that a smaller set of statements are contained in a large set of statements (proof of disclosure, a special case of proof of inclusion), or proof that certain data is not yet present in a database (proofs of non inclusion).
+COSE Receipts can include proofs that a document is in a database (proof of inclusion), that a database is append only (proof of consistency), that a smaller set of statements are contained in a large set of statements (proof of disclosure, a special case of proof of inclusion), or proof that certain data is not yet present in a database (proofs of non inclusion).
 Different VDS can produce different verifiable data structure proofs (VDP).
 The combination of representations of various VDS and VDP can significantly increase burden for implementers and create interoperability challenges for transparency services.
 This document describes how to convey VDS and associated VDP types in unified COSE envelopes.<a href="#section-1-1" class="pilcrow">¶</a></p>
@@ -1328,7 +1328,7 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
 <span class="break"></span><dl class="dlParallel" id="section-2-2">
         <dt id="section-2-2.1">TBD_0 (requested assignment 394):</dt>
         <dd style="margin-left: 1.5em" id="section-2-2.2">
-          <p id="section-2-2.2.1">A COSE header parameter named <code>receipts</code> with a value type of array where the array contains one ore more COSE Receipts as specified in this document.<a href="#section-2-2.2.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.2.1">A COSE header parameter named <code>receipts</code> with a value type of array where the array contains one or more COSE Receipts as specified in this document.<a href="#section-2-2.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-2-2.3">TBD_1 (requested assignment 395):</dt>
