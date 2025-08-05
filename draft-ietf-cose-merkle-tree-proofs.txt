@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 5 February 2026                                  Fraunhofer SIT
+Expires: 6 February 2026                                  Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                           4 August 2025
+                                                           5 August 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 February 2026.
+   This Internet-Draft will expire on 6 February 2026.
 
 Copyright Notice
 
@@ -176,11 +176,11 @@ Table of Contents
       can include multiple proofs of a given type, or multiple types of
       proof (inclusion and consistency).
 
-   Proof Type:  A verifiable process, that proves properties of a
-      Verifiable Data Structure.  For example, a VDS, such as a binary
-      Merkle tree, can support multiple proofs of type "inclusion" where
-      each proof confirms that a given entry is included in a Merkle
-      root.
+   Proof Type:  A property that can be obtained by verifying a given
+      proof over one or more entries in a Verifiable Data Structure.
+      For example, a VDS, such as a binary Merkle tree, can support
+      proofs of type "inclusion" where each proof confirms that a given
+      entry is included in a Merkle root.
 
    Proof Value:  An encoding of a Proof Type in CBOR [RFC8949].
 
@@ -210,8 +210,9 @@ Table of Contents
    Similar to COSE Key Types (https://www.iana.org/assignments/cose/
    cose.xhtml#key-type), different verifiable data structures support
    different algorithms.  As EC2 keys (1: 2) support both digital
-   signature and key agreement algorithms, RFC9162_SHA256 (TBD_1 : 1)
-   supports both inclusion and consistency proofs.
+   signature and key agreement algorithms, RFC9162_SHA256 (TBD_1
+   (requested assignment 395) : 1) supports both inclusion and
+   consistency proofs.
 
    This document establishes a registry of verifiable data structure
    algorithms, with the following initial contents:
@@ -232,8 +233,8 @@ Table of Contents
    (https://www.iana.org/assignments/cose/cose.xhtml#key-type-
    parameters), as EC2 keys (1: 2) keys require and give meaning to
    specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d),
-   RFC9162_SHA256 (TBD_1 : 1) supports both (-1) inclusion and (-2)
-   consistency proofs.
+   RFC9162_SHA256 (TBD_1 (requested assignment 395) : 1) supports both
+   (-1) inclusion and (-2) consistency proofs.
 
    This document establishes a registry of verifiable data structure
    algorithms, with the following initial contents:
@@ -267,9 +268,9 @@ Table of Contents
 
 4.3.  Usage
 
-   This document registered a new COSE Header Parameter receipts (394)
-   to enable this Receipts to be conveyed in the protected and
-   unprotected headers of COSE Objects.
+   This document registers a new COSE Header Parameter receipts (394) to
+   enable this Receipts to be conveyed in the protected and unprotected
+   headers of COSE Objects.
 
    When the receipts header parameter is present, the associated
    verifiable data structure and verifiable data structure proofs MUST
@@ -562,8 +563,8 @@ Table of Contents
    *  alg (label: 1): REQUIRED.  Signature algorithm identifier.  Value
       type: int.
 
-   *  vds (label: TBD_1): REQUIRED.  Verifiable data structure algorithm
-      identifier.  Value type: int.
+   *  vds (label: TBD_1 (requested assignment 395)): REQUIRED.
+      Verifiable data structure algorithm identifier.  Value type: int.
 
    The unprotected header for an RFC9162_SHA256 consistency proof
    signature is:
