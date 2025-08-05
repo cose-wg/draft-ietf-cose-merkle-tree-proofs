@@ -121,8 +121,8 @@ Verifiable Data Structure Proofs (VDP):
 
 Proof Type:
 
-: A verifiable process, that proves properties of a Verifiable Data Structure.
-  For example, a VDS, such as a binary Merkle tree, can support multiple proofs of type "inclusion" where each proof confirms that a given entry is included in a Merkle root.
+: A property that can be obtained by verifying a given proof over one or more entries in a Verifiable Data Structure.
+  For example, a VDS, such as a binary Merkle tree, can support proofs of type "inclusion" where each proof confirms that a given entry is included in a Merkle root.
 
 Proof Value:
 
@@ -147,7 +147,7 @@ The design of these structures is influenced by the conventions established for 
 ## Structures {#sec-cose-verifiable-data-structures}
 
 Similar to [COSE Key Types](https://www.iana.org/assignments/cose/cose.xhtml#key-type), different verifiable data structures support different algorithms.
-As EC2 keys (1: 2) support both digital signature and key agreement algorithms, RFC9162_SHA256 (TBD_1 : 1) supports both inclusion and consistency proofs.
+As EC2 keys (1: 2) support both digital signature and key agreement algorithms, RFC9162_SHA256 (TBD_1 (requested assignment 395) : 1) supports both inclusion and consistency proofs.
 
 This document establishes a registry of verifiable data structure algorithms, with the following initial contents:
 
@@ -159,7 +159,7 @@ This document establishes a registry of verifiable data structure algorithms, wi
 
 ## Proofs {#sec-cose-verifiable-data-structure-proofs}
 
-Similar to [COSE Key Type Parameters](https://www.iana.org/assignments/cose/cose.xhtml#key-type-parameters), as EC2 keys (1: 2) keys require and give meaning to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d), RFC9162_SHA256 (TBD_1 : 1) supports both (-1) inclusion and (-2) consistency proofs.
+Similar to [COSE Key Type Parameters](https://www.iana.org/assignments/cose/cose.xhtml#key-type-parameters), as EC2 keys (1: 2) keys require and give meaning to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d), RFC9162_SHA256 (TBD_1 (requested assignment 395) : 1) supports both (-1) inclusion and (-2) consistency proofs.
 
 This document establishes a registry of verifiable data structure algorithms, with the following initial contents:
 
@@ -176,7 +176,7 @@ Security analysis SHOULD be conducted prior to migrating to new structures to en
 
 ## Usage {#receipt-spec}
 
-This document registered a new COSE Header Parameter `receipts` (394) to enable this Receipts to be conveyed in the protected and unprotected headers of COSE Objects.
+This document registers a new COSE Header Parameter `receipts` (394) to enable this Receipts to be conveyed in the protected and unprotected headers of COSE Objects.
 
 When the receipts header parameter is present, the associated verifiable data structure and verifiable data structure proofs MUST match entries present in the registries established in this specification.
 
@@ -436,7 +436,7 @@ protected-header-map = {
 {: #vds-in-consistency-receipt-protected-header align="left" title="Protected Header for a Receipt of Consistency"}
 
 - alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int.
-- vds (label: TBD_1): REQUIRED. Verifiable data structure algorithm identifier. Value type: int.
+- vds (label: TBD_1 (requested assignment 395)): REQUIRED. Verifiable data structure algorithm identifier. Value type: int.
 
 The unprotected header for an RFC9162_SHA256 consistency proof signature is:
 
