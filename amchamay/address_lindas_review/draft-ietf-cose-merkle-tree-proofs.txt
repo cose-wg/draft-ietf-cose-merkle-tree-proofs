@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 5 February 2026                                  Fraunhofer SIT
+Expires: 6 February 2026                                  Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                           4 August 2025
+                                                           5 August 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 February 2026.
+   This Internet-Draft will expire on 6 February 2026.
 
 Copyright Notice
 
@@ -178,7 +178,7 @@ Table of Contents
 
    Proof Type:  A property that can be obtained by verifying a given
       proof over one or more entries in a Verifiable Data Structure.
-      For example, a VDS, such as a binary merkle tree, can support
+      For example, a VDS, such as a binary Merkle tree, can support
       proofs of type "inclusion" where each proof confirms that a given
       entry is included in a Merkle root.
 
