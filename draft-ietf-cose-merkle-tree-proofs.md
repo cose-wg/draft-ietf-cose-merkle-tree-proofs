@@ -52,7 +52,6 @@ normative:
 informative:
   RFC7120:
   RFC9052:
-  RFC8610:
   RFC8126: iana-considerations-guide
   BCP205: RFC7942
   RFC8392: CWT
