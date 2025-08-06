@@ -147,7 +147,6 @@ The design of these structures is influenced by the conventions established for 
 ## Structures {#sec-cose-verifiable-data-structures}
 
 Similar to [COSE Key Types](https://www.iana.org/assignments/cose/cose.xhtml#key-type), different verifiable data structures support different algorithms.
-As EC2 keys (1: 2) support both digital signature and key agreement algorithms, RFC9162_SHA256 (TBD_1 (requested assignment 395) : 1) supports both inclusion and consistency proofs.
 
 This document establishes a registry of verifiable data structure algorithms, with the following initial contents:
 
