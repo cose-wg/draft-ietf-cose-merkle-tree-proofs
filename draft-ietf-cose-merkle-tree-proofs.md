@@ -175,7 +175,7 @@ Security analysis MUST be conducted prior to migrating to new structures to ensu
 
 ## Usage {#receipt-spec}
 
-This document registers a new COSE Header Parameter `receipts` (394) to enable this Receipts to be conveyed in the protected and unprotected headers of COSE Objects.
+This document registers a new COSE Header Parameter `receipts` (TBD_0 (requested assignment 394)) to enable this Receipts to be conveyed in the protected and unprotected headers of COSE Objects.
 
 When the receipts header parameter is present, the associated verifiable data structure and verifiable data structure proofs MUST match entries present in the registries established in this specification.
 
@@ -334,7 +334,7 @@ protected-header-map = {
 {: #vds-in-inclusion-receipt-protected-header align="left" title="Protected Header for a Receipt of Inclusion"}
 
 - alg (label: 1): REQUIRED. Signature algorithm identifier. Value type: int.
-- vds (label: 395): REQUIRED. Verifiable data structure algorithm identifier. Value type: int.
+- vds (label: TBD_1 (requested assignment 395)): REQUIRED. Verifiable data structure algorithm identifier. Value type: int.
 
 The unprotected header for an RFC9162_SHA256 inclusion proof signature is:
 
@@ -353,7 +353,7 @@ unprotected-header-map = {
 ~~~~
 {: #vdp-in-unprotected-header align="left" title="A Verifiable Data Structure Proofs in an Unprotected Header"}
 
-- vdp (label: 396): REQUIRED. Verifiable data structure proofs. Value type: Map.
+- vdp (label: TBD_2 (requested assignment 396)): REQUIRED. Verifiable data structure proofs. Value type: Map.
 - inclusion-proof (label: -1): REQUIRED. Inclusion proofs. Value type: Array of bstr.
 
 The payload of an RFC9162_SHA256 inclusion proof signature is the Merkle tree hash as defined in {{-certificate-transparency-v2}}.
@@ -453,7 +453,7 @@ unprotected-header-map = {
 }
 ~~~~
 
-- vdp (label: 396): REQUIRED. Verifiable data structure proofs. Value type: Map.
+- vdp (label: TBD_2 (requested assignment 396)): REQUIRED. Verifiable data structure proofs. Value type: Map.
 - consistency-proof (label: -2): REQUIRED. Consistency proofs. Value type: Array of bstr.
 
 The payload of an RFC9162_SHA256 consistency proof signature is:
