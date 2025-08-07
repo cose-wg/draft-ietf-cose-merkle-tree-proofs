@@ -638,11 +638,8 @@ Table of Contents
 
 6.  Privacy Considerations
 
-   See the privacy considerations section of:
-
-   *  [RFC9162]
-
-   *  [RFC9053]
+   The privacy considerations section of [RFC9162] and [RFC9053] apply
+   to this document.
 
 6.1.  Log Length
 
