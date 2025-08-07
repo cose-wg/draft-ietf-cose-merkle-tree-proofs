@@ -176,7 +176,7 @@ Security analysis SHOULD be conducted prior to migrating to new structures to en
 
 ## Usage {#receipt-spec}
 
-This document registers a new COSE Header Parameter `receipts` (TBD_0) to enable this Receipts to be conveyed in the protected and unprotected headers of COSE Objects.
+This document registers a new COSE Header Parameter `receipts` (TBD_0 (requested assignment 394)) to enable this Receipts to be conveyed in the protected and unprotected headers of COSE Objects.
 
 When the receipts header parameter is present, the associated verifiable data structure and verifiable data structure proofs MUST match entries present in the registries established in this specification.
 
