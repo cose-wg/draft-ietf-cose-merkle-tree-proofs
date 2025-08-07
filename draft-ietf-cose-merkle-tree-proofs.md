@@ -504,10 +504,7 @@ It is recommended that implementations return a single boolean result for Receip
 
 # Privacy Considerations
 
-See the privacy considerations section of:
-
-- {{-certificate-transparency-v2}}
-- {{-COSE}}
+The privacy considerations section of {{-certificate-transparency-v2}} and {{-COSE}} apply to this document.
 
 ## Log Length
 
