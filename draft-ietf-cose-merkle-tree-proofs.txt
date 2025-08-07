@@ -356,7 +356,7 @@ Table of Contents
      / signature   / h'2544f2ed...5840893b'
    ])
 
-             Figure 2: A COSE Signature with multiple receipts
+         Figure 2: An example COSE Signature with multiple receipts
 
    The specific structure of COSE Receipts are dependent on the
    structure of the COSE_Sign1 payload and the verifiable data structure
