@@ -42,6 +42,7 @@ author:
   country: UK
 
 normative:
+  RFC8610: CDDL
   RFC8949: CBOR
   RFC9053: COSE
   RFC9162: certificate-transparency-v2
@@ -51,7 +52,6 @@ normative:
 informative:
   RFC7120:
   RFC9052:
-  RFC8610:
   RFC8126: iana-considerations-guide
   BCP205: RFC7942
   RFC8392: CWT
@@ -181,7 +181,7 @@ When the receipts header parameter is present, the associated verifiable data st
 
 Receipts MUST be tagged as COSE_Sign1.
 
-The following CDDL definition is provided:
+The following {{-CDDL}} definition is provided:
 
 ~~~ cddl
 Receipt = #6.18(COSE_Sign1)
