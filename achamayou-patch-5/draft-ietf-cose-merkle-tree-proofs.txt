@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 7 February 2026                                  Fraunhofer SIT
+Expires: 8 February 2026                                  Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                           6 August 2025
+                                                           7 August 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 February 2026.
+   This Internet-Draft will expire on 8 February 2026.
 
 Copyright Notice
 
@@ -268,9 +268,9 @@ Table of Contents
 
 4.3.  Usage
 
-   This document registers a new COSE Header Parameter receipts (TBD_0)
-   to enable this Receipts to be conveyed in the protected and
-   unprotected headers of COSE Objects.
+   This document registers a new COSE Header Parameter receipts (TBD_0
+   (requested assignment 394)) to enable this Receipts to be conveyed in
+   the protected and unprotected headers of COSE Objects.
 
    When the receipts header parameter is present, the associated
    verifiable data structure and verifiable data structure proofs MUST
