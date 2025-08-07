@@ -259,7 +259,7 @@ Table of Contents
    "verifiable data structures", but they should expect conceptually
    similar properties across the different registered proof types.  For
    example, 2 different Merkle tree based verifiable data structures
-   might both support proofs of inclusion.  Security analysis SHOULD be
+   might both support proofs of inclusion.  Security analysis MUST be
    conducted prior to migrating to new structures to ensure the new
    security and privacy assumptions are acceptable for the use case.
 
