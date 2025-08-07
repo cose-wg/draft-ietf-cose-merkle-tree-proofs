@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                                 Transmute
 Intended status: Standards Track                             H. Birkholz
-Expires: 6 February 2026                                  Fraunhofer SIT
+Expires: 8 February 2026                                  Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                           5 August 2025
+                                                           7 August 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 February 2026.
+   This Internet-Draft will expire on 8 February 2026.
 
 Copyright Notice
 
@@ -209,10 +209,7 @@ Table of Contents
 
    Similar to COSE Key Types (https://www.iana.org/assignments/cose/
    cose.xhtml#key-type), different verifiable data structures support
-   different algorithms.  As EC2 keys (1: 2) support both digital
-   signature and key agreement algorithms, RFC9162_SHA256 (TBD_1
-   (requested assignment 395) : 1) supports both inclusion and
-   consistency proofs.
+   different algorithms.
 
    This document establishes a registry of verifiable data structure
    algorithms, with the following initial contents:
