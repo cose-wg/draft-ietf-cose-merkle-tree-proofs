@@ -42,29 +42,29 @@ author:
   country: UK
 
 contributor:
-- ins: A. Chamayou
-  name: Amaury Chamayou
-  organization: Microsoft
-  email: amaury.chamayou@microsoft.com
-  country: United Kingdom
-- ins: S. Lasker
-  name: Steve Lasker
-  email: stevenlasker@hotmail.com
-- ins: R. A. Martin
-  name: Robert Martin
-  organization: MITRE Corporation
-  email: ramartin@mitre.org
-  country: United States
-- ins: M. Wiseman
-  name: Monty Wiseman
-  org:
-  country: USA
-  email: mwiseman32@acm.org
-- ins: R. Williams
-  name: Roy Williams
-  org:
-  country: USA
-  email: roywill@msn.com
+  - ins: A. Chamayou
+    name: Amaury Chamayou
+    organization: Microsoft
+    email: amaury.chamayou@microsoft.com
+    country: United Kingdom
+  - ins: S. Lasker
+    name: Steve Lasker
+    email: stevenlasker@hotmail.com
+  - ins: R. A. Martin
+    name: Robert Martin
+    organization: MITRE Corporation
+    email: ramartin@mitre.org
+    country: United States
+  - ins: M. Wiseman
+    name: Monty Wiseman
+    org:
+    country: USA
+    email: mwiseman32@acm.org
+  - ins: R. Williams
+    name: Roy Williams
+    org:
+    country: USA
+    email: roywill@msn.com
   
 normative:
   RFC8610: CDDL
