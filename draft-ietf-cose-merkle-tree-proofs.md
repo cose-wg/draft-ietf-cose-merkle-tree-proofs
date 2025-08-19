@@ -271,7 +271,7 @@ This document describes proofs for RFC9162_SHA256 in the following sections.
 
 ### Registration Requirements
 
-Each specification MUST define how to encode the verifiable data structure identifier and its proof types in CBOR.
+Each verifiable data structure specification applying for inclusion in this registry MUST define how to encode the verifiable data structure identifier and its proof types in CBOR.
 Each specification MUST define how to produce and consume the supported proof types.
 See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 
