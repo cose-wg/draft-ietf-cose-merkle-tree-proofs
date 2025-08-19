@@ -164,8 +164,8 @@ This document establishes a registry of verifiable data structure algorithms, wi
 
 | Verifiable Data Structure | Name               | Label | CBOR Type        | Description                   | Reference
 |---
-| 1                         | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-rfc9162-sha256-inclusion-proof}}
-| 1                         | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-rfc9162-sha256-consistency-proof}}
+| 1                         | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{&SELF}}, {{sec-rfc9162-sha256-inclusion-proof}}
+| 1                         | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{&SELF}}, {{sec-rfc9162-sha256-consistency-proof}}
 {: #cose-verifiable-data-structure-proofs align="left" title="COSE Verifiable Data Structure Proofs"}
 
 Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
