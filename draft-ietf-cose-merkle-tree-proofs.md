@@ -526,7 +526,7 @@ See the security considerations section of:
 
 ## Choice of Signature Algorithms
 
-A security analysis MUST be performed to ensure that the digital signature algorithm `alg` has the appropriate strength to secure receipts.
+A security analysis ought to be performed to ensure that the digital signature algorithm `alg` has the appropriate strength to secure receipts.
 
 It is recommended to select signature algorithms that share cryptographic components with the verifiable data structure used, for example:
 Both RFC9162_SHA256 and ES256 depend on the sha-256 hash function.
