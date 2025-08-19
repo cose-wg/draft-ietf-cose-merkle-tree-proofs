@@ -177,7 +177,7 @@ Security analysis MUST be conducted prior to migrating to new structures to ensu
 
 This document registers a new COSE Header Parameter `receipts` (TBD_0 (requested assignment 394)) to enable this Receipts to be conveyed in the protected and unprotected headers of COSE Objects.
 
-When the receipts header parameter is present, the associated verifiable data structure and verifiable data structure proofs MUST match entries present in the registries established in this specification.
+When the receipts header parameter is present, the verifier MUST confirm that the associated verifiable data structure and verifiable data structure proofs match entries present in the registries established in this specification.
 
 Receipts MUST be tagged as COSE_Sign1.
 
@@ -515,7 +515,7 @@ For example, if a transparency log only stored breach notices, a receipt for a b
 ## Header Parameters
 
 Additional header parameters can reveal information about the transparency service or its log entries.
-A privacy analysis MUST be performed for all mandatory fields in profiles based on this specification.
+The receipt producer MUST perform a privacy analysis for all mandatory fields in profiles based on this specification.
 
 # Security Considerations
 
