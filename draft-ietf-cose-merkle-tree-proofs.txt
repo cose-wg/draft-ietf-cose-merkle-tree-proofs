@@ -366,7 +366,8 @@ Table of Contents
 
 4.3.1.  Registration Requirements
 
-   Each specification MUST define how to encode the verifiable data
+   Each verifiable data structure specification applying for inclusion
+   in this registry MUST define how to encode the verifiable data
    structure identifier and its proof types in CBOR.  Each specification
    MUST define how to produce and consume the supported proof types.
    See Section 5 as an example.
