@@ -270,7 +270,7 @@ Table of Contents
    When the receipts header parameter is present, the associated
    verifiable data structure and verifiable data structure proofs MUST
    match entries present in the registries established in this
-   specification.
+   specification, including values added in subsequent registrations.
 
    Receipts MUST be tagged as COSE_Sign1.
 
