@@ -267,10 +267,11 @@ Table of Contents
    (requested assignment 394)) to enable this Receipts to be conveyed in
    the protected and unprotected headers of COSE Objects.
 
-   When the receipts header parameter is present, the associated
-   verifiable data structure and verifiable data structure proofs MUST
-   match entries present in the registries established in this
-   specification, including values added in subsequent registrations.
+   When the receipts header parameter is present, the verifier MUST
+   confirm that the associated verifiable data structure and verifiable
+   data structure proofs match entries present in the registries
+   established in this specification, including values added in
+   subsequent registrations..
 
    Receipts MUST be tagged as COSE_Sign1.
 
@@ -649,9 +650,9 @@ Table of Contents
 6.2.  Header Parameters
 
    Additional header parameters can reveal information about the
-   transparency service or its log entries.  A privacy analysis MUST be
-   performed for all mandatory fields in profiles based on this
-   specification.
+   transparency service or its log entries.  The receipt producer MUST
+   perform a privacy analysis for all mandatory fields in profiles based
+   on this specification.
 
 7.  Security Considerations
 
