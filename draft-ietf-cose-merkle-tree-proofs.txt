@@ -669,7 +669,7 @@ Table of Contents
 
 7.1.  Choice of Signature Algorithms
 
-   A security analysis MUST be performed to ensure that the digital
+   A security analysis ought to be performed to ensure that the digital
    signature algorithm alg has the appropriate strength to secure
    receipts.
 
