@@ -3,13 +3,13 @@
 
 
 COSE                                                           O. Steele
-Internet-Draft                                                 Transmute
+Internet-Draft                                              Tradeverifyd
 Intended status: Standards Track                             H. Birkholz
-Expires: 20 February 2026                                 Fraunhofer SIT
+Expires: 21 February 2026                                 Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                          19 August 2025
+                                                          20 August 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 February 2026.
+   This Internet-Draft will expire on 21 February 2026.
 
 Copyright Notice
 
@@ -106,6 +106,7 @@ Table of Contents
      10.2.  Informative References
    Appendix A.  Implementation Status
      A.1.  Transmute Prototype
+   Contributors
    Authors' Addresses
 
 1.  Introduction
@@ -241,13 +242,13 @@ Table of Contents
    | Data       |             |     | Type  |             |           |
    | Structure  |             |     |       |             |           |
    +============+=============+=====+=======+=============+===========+
-   | 1          | inclusion   |-1   | array | Proof of    | Section   |
-   |            | proofs      |     | (of   | inclusion   | 5.2       |
-   |            |             |     | bstr) |             |           |
+   | 1          | inclusion   |-1   | array | Proof of    | RFCthis,  |
+   |            | proofs      |     | (of   | inclusion   | Section   |
+   |            |             |     | bstr) |             | 5.2       |
    +------------+-------------+-----+-------+-------------+-----------+
-   | 1          | consistency |-2   | array | Proof of    | Section   |
-   |            | proofs      |     | (of   | append only | 5.3       |
-   |            |             |     | bstr) | property    |           |
+   | 1          | consistency |-2   | array | Proof of    | RFCthis,  |
+   |            | proofs      |     | (of   | append only | Section   |
+   |            |             |     | bstr) | property    | 5.3       |
    +------------+-------------+-----+-------+-------------+-----------+
 
               Table 2: COSE Verifiable Data Structure Proofs
@@ -256,12 +257,9 @@ Table of Contents
    structure", for example, different Merkle trees might support
    different representations of "inclusion proof" or "consistency
    proof".  Implementers should not expect interoperability across
-   "verifiable data structures", but they should expect conceptually
-   similar properties across the different registered proof types.  For
-   example, 2 different Merkle tree based verifiable data structures
-   might both support proofs of inclusion.  Security analysis MUST be
-   conducted prior to migrating to new structures to ensure the new
-   security and privacy assumptions are acceptable for the use case.
+   "verifiable data structures".  Security analysis MUST be conducted
+   prior to migrating to new structures to ensure the new security and
+   privacy assumptions are acceptable for the use case.
 
 4.3.  Usage
 
@@ -272,7 +270,8 @@ Table of Contents
    When the receipts header parameter is present, the verifier MUST
    confirm that the associated verifiable data structure and verifiable
    data structure proofs match entries present in the registries
-   established in this specification.
+   established in this specification, including values added in
+   subsequent registrations..
 
    Receipts MUST be tagged as COSE_Sign1.
 
@@ -388,8 +387,9 @@ Table of Contents
 
    The integer identifier for this Verifiable Data Structure is 1.  The
    string identifier for this Verifiable Data Structure is
-   "RFC9162_SHA256".  See Table 1.  See [RFC9162], 2.1.1.  Definition of
-   the Merkle Tree, for a complete description of this verifiable data
+   "RFC9162_SHA256", a Merkle Tree where SHA256 is used as the hash
+   algorithm.  See Table 1.  See [RFC9162], 2.1.1.  Definition of the
+   Merkle Tree, for a complete description of this verifiable data
    structure.
 
 5.2.  Inclusion Proof
@@ -414,7 +414,7 @@ Table of Contents
                Figure 3: CBOR Encoded RFC9162 Inclusion Proof
 
    The term leaf-index is used for alignment with the use established in
-   [RFC9162]
+   Section 2.1.3.2 of [RFC9162].
 
    Note that [RFC9162] defines that verification MUST fail if leaf-index
    is >= tree-size, and inclusion proofs are defined only for leaf
@@ -513,10 +513,7 @@ Table of Contents
    verifier checks the signature of the COSE Sign1.  If the resulting
    signature verifies, the Receipt has proved inclusion of the entry in
    the verifiable data structure.  If the resulting signature does not
-   verify, the signature may have been tampered with.  It is recommended
-   that implementations return a single boolean result for Receipt
-   verification operations, to reduce the chance of accepting a valid
-   signature over an invalid inclusion proof.
+   verify, the signature may have been tampered with.
 
 5.3.  Consistency Proof
 
@@ -667,7 +664,7 @@ Table of Contents
 
 7.1.  Choice of Signature Algorithms
 
-   A security analysis MUST be performed to ensure that the digital
+   A security analysis ought to be performed to ensure that the digital
    signature algorithm alg has the appropriate strength to secure
    receipts.
 
@@ -944,12 +941,40 @@ A.1.  Transmute Prototype
    on GitHub are provided under the Apache License, version 2.  Contact:
    Orie Steele (orie@transmute.industries)
 
+Contributors
+
+   Amaury Chamayou
+   Microsoft
+   United Kingdom
+   Email: amaury.chamayou@microsoft.com
+
+
+   Steve Lasker
+   Email: stevenlasker@hotmail.com
+
+
+   Robert Martin
+   MITRE Corporation
+   United States
+   Email: ramartin@mitre.org
+
+
+   Monty Wiseman
+   United States of America
+   Email: mwiseman32@acm.org
+
+
+   Roy Williams
+   United States of America
+   Email: roywill@msn.com
+
+
 Authors' Addresses
 
    Orie Steele
-   Transmute
+   Tradeverifyd
    United States
-   Email: orie@transmute.industries
+   Email: orie@or13.io
 
 
    Henk Birkholz
