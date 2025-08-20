@@ -18,8 +18,8 @@ pi:
 author:
 - ins: O. Steele
   name: Orie Steele
-  organization: Transmute
-  email: orie@transmute.industries
+  organization: Tradeverifyd
+  email: orie@or13.io
   country: United States
 - ins: H. Birkholz
   name: Henk Birkholz
@@ -40,6 +40,31 @@ author:
   organization: Microsoft
   email: fournet@microsoft.com
   country: UK
+
+contributor:
+  - ins: A. Chamayou
+    name: Amaury Chamayou
+    organization: Microsoft
+    email: amaury.chamayou@microsoft.com
+    country: United Kingdom
+  - ins: S. Lasker
+    name: Steve Lasker
+    email: stevenlasker@hotmail.com
+  - ins: R. A. Martin
+    name: Robert Martin
+    organization: MITRE Corporation
+    email: ramartin@mitre.org
+    country: United States
+  - ins: M. Wiseman
+    name: Monty Wiseman
+    org:
+    country: USA
+    email: mwiseman32@acm.org
+  - ins: R. Williams
+    name: Roy Williams
+    org:
+    country: USA
+    email: roywill@msn.com
 
 normative:
   RFC8610: CDDL
@@ -164,20 +189,19 @@ This document establishes a registry of verifiable data structure algorithms, wi
 
 | Verifiable Data Structure | Name               | Label | CBOR Type        | Description                   | Reference
 |---
-| 1                         | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{sec-rfc9162-sha256-inclusion-proof}}
-| 1                         | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{sec-rfc9162-sha256-consistency-proof}}
+| 1                         | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{&SELF}}, {{sec-rfc9162-sha256-inclusion-proof}}
+| 1                         | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{&SELF}}, {{sec-rfc9162-sha256-consistency-proof}}
 {: #cose-verifiable-data-structure-proofs align="left" title="COSE Verifiable Data Structure Proofs"}
 
 Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
-Implementers should not expect interoperability across "verifiable data structures", but they should expect conceptually similar properties across the different registered proof types.
-For example, 2 different Merkle tree based verifiable data structures might both support proofs of inclusion.
+Implementers should not expect interoperability across "verifiable data structures".
 Security analysis MUST be conducted prior to migrating to new structures to ensure the new security and privacy assumptions are acceptable for the use case.
 
 ## Usage {#receipt-spec}
 
 This document registers a new COSE Header Parameter `receipts` (TBD_0 (requested assignment 394)) to enable this Receipts to be conveyed in the protected and unprotected headers of COSE Objects.
 
-When the receipts header parameter is present, the verifier MUST confirm that the associated verifiable data structure and verifiable data structure proofs match entries present in the registries established in this specification.
+When the receipts header parameter is present, the verifier MUST confirm that the associated verifiable data structure and verifiable data structure proofs match entries present in the registries established in this specification, including values added in subsequent registrations..
 
 Receipts MUST be tagged as COSE_Sign1.
 
@@ -286,7 +310,7 @@ This section defines how the data structures described in {{-certificate-transpa
 ## Verifiable Data Structure
 
 The integer identifier for this Verifiable Data Structure is 1.
-The string identifier for this Verifiable Data Structure is "RFC9162_SHA256".
+The string identifier for this Verifiable Data Structure is "RFC9162_SHA256", a Merkle Tree where SHA256 is used as the hash algorithm.
 See {{cose-verifiable-data-structures}}.
 See {{-certificate-transparency-v2}}, 2.1.1. Definition of the Merkle Tree, for a complete description of this verifiable data structure.
 
@@ -311,7 +335,7 @@ inclusion-proof = bstr .cbor [
 ~~~~
 {: #rfc9162-sha256-cbor-inclusion-proof align="left" title="CBOR Encoded RFC9162 Inclusion Proof"}
 
-The term `leaf-index` is used for alignment with the use established in {{RFC9162}}
+The term `leaf-index` is used for alignment with the use established in {{Section 2.1.3.2 of RFC9162}}.
 
 Note that {{RFC9162}} defines that verification MUST fail if leaf-index is >= tree-size, and inclusion proofs are defined only for leaf nodes.
 The identifying index of a leaf node is relative to all nodes in the tree size for which the proof was obtained.
@@ -395,7 +419,6 @@ If this process succeeds, the result is a Merkle root, which in the attached as 
 Second the verifier checks the signature of the COSE Sign1.
 If the resulting signature verifies, the Receipt has proved inclusion of the entry in the verifiable data structure.
 If the resulting signature does not verify, the signature may have been tampered with.
-It is recommended that implementations return a single boolean result for Receipt verification operations, to reduce the chance of accepting a valid signature over an invalid inclusion proof.
 
 ## Consistency Proof {#sec-rfc9162-sha256-consistency-proof}
 
@@ -526,7 +549,7 @@ See the security considerations section of:
 
 ## Choice of Signature Algorithms
 
-A security analysis MUST be performed to ensure that the digital signature algorithm `alg` has the appropriate strength to secure receipts.
+A security analysis ought to be performed to ensure that the digital signature algorithm `alg` has the appropriate strength to secure receipts.
 
 It is recommended to select signature algorithms that share cryptographic components with the verifiable data structure used, for example:
 Both RFC9162_SHA256 and ES256 depend on the sha-256 hash function.
