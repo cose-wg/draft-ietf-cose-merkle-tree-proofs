@@ -65,6 +65,7 @@ contributor:
     org:
     country: USA
     email: roywill@msn.com
+
 normative:
   RFC8610: CDDL
   RFC8949: CBOR
