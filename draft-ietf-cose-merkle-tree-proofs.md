@@ -194,8 +194,7 @@ This document establishes a registry of verifiable data structure algorithms, wi
 {: #cose-verifiable-data-structure-proofs align="left" title="COSE Verifiable Data Structure Proofs"}
 
 Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
-Implementers should not expect interoperability across "verifiable data structures", but they should expect conceptually similar properties across the different registered proof types.
-For example, 2 different Merkle tree based verifiable data structures might both support proofs of inclusion.
+Implementers should not expect interoperability across "verifiable data structures".
 Security analysis MUST be conducted prior to migrating to new structures to ensure the new security and privacy assumptions are acceptable for the use case.
 
 ## Usage {#receipt-spec}
