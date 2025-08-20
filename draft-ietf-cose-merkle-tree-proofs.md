@@ -420,7 +420,6 @@ If this process succeeds, the result is a Merkle root, which in the attached as 
 Second the verifier checks the signature of the COSE Sign1.
 If the resulting signature verifies, the Receipt has proved inclusion of the entry in the verifiable data structure.
 If the resulting signature does not verify, the signature may have been tampered with.
-It is recommended that implementations return a single boolean result for Receipt verification operations, to reduce the chance of accepting a valid signature over an invalid inclusion proof.
 
 ## Consistency Proof {#sec-rfc9162-sha256-consistency-proof}
 
