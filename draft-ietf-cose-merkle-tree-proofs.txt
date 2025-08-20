@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                              Tradeverifyd
 Intended status: Standards Track                             H. Birkholz
-Expires: 20 February 2026                                 Fraunhofer SIT
+Expires: 21 February 2026                                 Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                          19 August 2025
+                                                          20 August 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 February 2026.
+   This Internet-Draft will expire on 21 February 2026.
 
 Copyright Notice
 
@@ -106,6 +106,7 @@ Table of Contents
      10.2.  Informative References
    Appendix A.  Implementation Status
      A.1.  Transmute Prototype
+   Contributors
    Authors' Addresses
 
 1.  Introduction
@@ -944,6 +945,34 @@ A.1.  Transmute Prototype
    License: The project and all corresponding code and data maintained
    on GitHub are provided under the Apache License, version 2.  Contact:
    Orie Steele (orie@transmute.industries)
+
+Contributors
+
+   Amaury Chamayou
+   Microsoft
+   United Kingdom
+   Email: amaury.chamayou@microsoft.com
+
+
+   Steve Lasker
+   Email: stevenlasker@hotmail.com
+
+
+   Robert Martin
+   MITRE Corporation
+   United States
+   Email: ramartin@mitre.org
+
+
+   Monty Wiseman
+   United States of America
+   Email: mwiseman32@acm.org
+
+
+   Roy Williams
+   United States of America
+   Email: roywill@msn.com
+
 
 Authors' Addresses
 
