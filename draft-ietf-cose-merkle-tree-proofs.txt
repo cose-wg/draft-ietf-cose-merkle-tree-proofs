@@ -515,10 +515,7 @@ Table of Contents
    verifier checks the signature of the COSE Sign1.  If the resulting
    signature verifies, the Receipt has proved inclusion of the entry in
    the verifiable data structure.  If the resulting signature does not
-   verify, the signature may have been tampered with.  It is recommended
-   that implementations return a single boolean result for Receipt
-   verification operations, to reduce the chance of accepting a valid
-   signature over an invalid inclusion proof.
+   verify, the signature may have been tampered with.
 
 5.3.  Consistency Proof
 
