@@ -92,7 +92,7 @@ COSE (CBOR Object Signing and Encryption) Receipts prove properties of a verifia
 Verifiable data structures and associated proof types enable security properties, such as minimal disclosure, transparency and non-equivocation.
 Transparency helps maintain trust over time, and has been applied to certificates, end to end encrypted messaging systems, and supply chain security.
 This specification enables concise transparency oriented systems, by building on CBOR (Concise Binary Object Representation) and COSE.
-The extensibility of the approach is demonstrated by providing CBOR encodings for RFC9162.
+The extensibility of the approach is demonstrated by providing CBOR encodings for Certificate Transparency v2 ({{-certificate-transparency-v2}}).
 
 --- middle
 
@@ -300,7 +300,7 @@ Each specification MUST define how to produce and consume the supported proof ty
 See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 
 Where a specification supports a choice of hash algorithm, an IANA registration must be made for each individually supported algorithm.
-For example, to provide for both SHA256 and SHA3_256 with {{RFC9162}},
+For example, to provide for both SHA256 and SHA3_256 with Certificate Transparency v2 ({{-certificate-transparency-v2}}),
 both "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the relevant IANA registries.
 
 # RFC9162_SHA256 {#sec-rfc-9162-verifiable-data-structure-definition}
@@ -337,7 +337,7 @@ inclusion-proof = bstr .cbor [
 
 The term `leaf-index` is used for alignment with the use established in {{Section 2.1.3.2 of RFC9162}}.
 
-Note that {{RFC9162}} defines that verification MUST fail if leaf-index is >= tree-size, and inclusion proofs are defined only for leaf nodes.
+Note that Certificate Transparency v2 ({{-certificate-transparency-v2}}) defines that verification MUST fail if leaf-index is >= tree-size, and inclusion proofs are defined only for leaf nodes.
 The identifying index of a leaf node is relative to all nodes in the tree size for which the proof was obtained.
 
 ### Receipt of Inclusion
