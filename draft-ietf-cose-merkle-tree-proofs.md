@@ -582,7 +582,7 @@ The map labels in the "vdp" are assigned from the COSE Verifiable Data Structure
 
 ## Verifiable Data Structure Registries
 
-IANA established the COSE Verifiable Data Structures and COSE Verifiable Data Structure Proofs registries under a Specification Required policy as described in {{RFC8126}}.
+IANA established the COSE Verifiable Data Structures and COSE Verifiable Data Structure Proofs registries under a Specification Required policy as described in {{Section 4.6 of RFC8126}}.
 
 ### Expert Review
 Expert reviewers should take into consideration the following points:
