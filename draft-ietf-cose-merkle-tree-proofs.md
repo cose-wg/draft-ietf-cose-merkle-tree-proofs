@@ -101,7 +101,7 @@ The extensibility of the approach is demonstrated by providing CBOR encodings fo
 COSE Receipts are signed proofs that include metadata about certain states of a verifiable data structure (VDS) that are true when the COSE Receipt was issued.
 COSE Receipts can include proofs that a document is in a database (proof of inclusion), that a database is append only (proof of consistency), that a smaller set of statements are contained in a large set of statements (proof of disclosure, a special case of proof of inclusion), or proof that certain data is not yet present in a database (proofs of non inclusion).
 Different VDS can produce different verifiable data structure proofs (VDP).
-The combination of representations of various VDS and VDP can significantly increase burden for implementers and create interoperability challenges for transparency services.
+The combination of representations of various VDS and VDP can significantly increase the burden for implementers and create interoperability challenges for transparency services.
 This document describes how to convey VDS and associated VDP types in unified COSE envelopes.
 
 ## Requirements Notation
