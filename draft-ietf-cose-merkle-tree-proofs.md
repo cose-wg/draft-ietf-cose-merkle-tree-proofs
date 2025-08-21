@@ -381,8 +381,8 @@ unprotected-header-map = {
 - inclusion-proof (label: -1): REQUIRED. Inclusion proofs. Value type: Array of bstr.
 
 The payload of an RFC9162_SHA256 inclusion proof signature is the Merkle tree hash as defined in {{-certificate-transparency-v2}}.
-The payload SHOULD be detached.
-Detaching the payload forces verifiers to recompute the root from the inclusion proof, this protects against implementation errors where the signature is verified but the Merkle root does not match the inclusion proof.
+The payload SHOULD be detached; detaching the payload forces verifiers to recompute the root from the inclusion proof.
+This protects against implementation errors where the signature is verified but the Merkle root does not match the inclusion proof.
 The EDN for a Receipt containing an inclusion proof for RFC9162_SHA256 is:
 
 ~~~~ cbor-diag
