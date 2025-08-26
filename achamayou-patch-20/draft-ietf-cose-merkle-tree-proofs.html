@@ -1423,7 +1423,7 @@ The design of these structures is influenced by the conventions established for 
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-proofs" class="section-name selfRef">Proofs</a>
         </h3>
 <p id="section-4.2-1">Similar to <a href="https://www.iana.org/assignments/cose/cose.xhtml#key-type-parameters">COSE Key Type Parameters</a>, as EC2 keys (1: 2) keys require and give meaning to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d), RFC9162_SHA256 (TBD_1 (requested assignment 395) : 1) supports both (-1) inclusion and (-2) consistency proofs.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2-2">This document establishes a registry of verifiable data structure algorithms, see <a href="#verifiable-data-structure-proofs-registry" class="auto internal xref">Table 2</a> for details.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">This document establishes a registry of verifiable data structure algorithm proofs, see <a href="#verifiable-data-structure-proofs-registry" class="auto internal xref">Table 2</a> for details.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <p id="section-4.2-3">Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
 Implementers should not expect interoperability across "verifiable data structures".
 Security analysis <span class="bcp14">MUST</span> be conducted prior to migrating to new structures to ensure the new security and privacy assumptions are acceptable for the use case.<a href="#section-4.2-3" class="pilcrow">¶</a></p>

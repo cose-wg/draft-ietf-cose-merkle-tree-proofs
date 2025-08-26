@@ -224,7 +224,7 @@ Table of Contents
    (-1) inclusion and (-2) consistency proofs.
 
    This document establishes a registry of verifiable data structure
-   algorithms, see Table 2 for details.
+   algorithm proofs, see Table 2 for details.
 
    Proof types are specific to their associated "verifiable data
    structure", for example, different Merkle trees might support
