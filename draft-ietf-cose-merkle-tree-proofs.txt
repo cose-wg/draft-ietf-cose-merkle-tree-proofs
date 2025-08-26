@@ -121,7 +121,7 @@ Table of Contents
    not yet present in a database (proofs of non inclusion).  Different
    VDS can produce different verifiable data structure proofs (VDP).
    The combination of representations of various VDS and VDP can
-   significantly increase burden for implementers and create
+   significantly increase the burden for implementers and create
    interoperability challenges for transparency services.  This document
    describes how to convey VDS and associated VDP types in unified COSE
    envelopes.
