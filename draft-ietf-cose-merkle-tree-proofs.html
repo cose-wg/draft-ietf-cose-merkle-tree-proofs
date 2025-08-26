@@ -1597,8 +1597,13 @@ inclusion-proof = bstr .cbor [
           </figcaption></figure>
 </div>
 <p id="section-5.2-4">The term <code>leaf-index</code> is used for alignment with the use established in <span><a href="https://rfc-editor.org/rfc/rfc9162#section-2.1.3.2" class="relref">Section 2.1.3.2</a> of [<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
-<p id="section-5.2-5">Note that Certificate Transparency v2 (<span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>) defines that verification <span class="bcp14">MUST</span> fail if leaf-index is &gt;= tree-size, and inclusion proofs are defined only for leaf nodes.
-The identifying index of a leaf node is relative to all nodes in the tree size for which the proof was obtained.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<p id="section-5.2-5">Note that Certificate Transparency v2 (<span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>) defines inclusion proofs only for leaf nodes, and that:<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-5.2-6.1">
+            <p id="section-5.2-6.1.1">If leaf_index is greater than or equal to tree_size, then fail the proof verification.<a href="#section-5.2-6.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.2-7">The identifying index of a leaf node is relative to all nodes in the tree size for which the proof was obtained.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
 <div id="receipt-of-inclusion">
 <section id="section-5.2.1">
           <h4 id="name-receipt-of-inclusion">
