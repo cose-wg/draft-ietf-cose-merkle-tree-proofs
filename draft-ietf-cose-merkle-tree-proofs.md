@@ -281,6 +281,14 @@ The specific structure of COSE Receipts is dependent on the structure of the COS
 The CDDL definition for verifiable data structure proofs is specific to each verifiable data structure.
 This document describes proofs for RFC9162_SHA256 in the following sections.
 
+## Profiles {#profiles-def}
+
+New verifiable data structures can require the definition of a COSE Envelope profile.
+The payload in such definitions SHOULD be detached.
+Detached payloads force verifiers to recompute the root from the proof and protect against implementation errors where the signature is verified but the payload is incompatible with the proof.
+Profiles of proof signatures that define additional protected header parameters are encouraged to make their presence mandatory to ensure that claims are processed with their intended semantics.
+One way to include this information in the COSE structure is use of the typ (type) Header Parameter, see {{-cose-typ}} and the similar guidance provided in {{-cwt-header-claims}}.
+
 ### Registration Requirements
 
 Each verifiable data structure specification applying for inclusion in this registry MUST define how to encode the verifiable data structure identifier and its proof types in CBOR.
@@ -334,9 +342,6 @@ The identifying index of a leaf node is relative to all nodes in the tree size f
 ### Receipt of Inclusion
 
 In a signed inclusion proof, the payload is the Merkle tree root that corresponds to the log at size `tree-size`.
-Specifications are encouraged to make payloads detached when possible, forcing validation-time comparison.
-Profiles of proof signatures are encouraged to make additional protected header parameters mandatory, to ensure that claims are processed with their intended semantics.
-One way to include this information in the COSE structure is use of the typ (type) Header Parameter, see {{-cose-typ}} and the similar guidance provided in {{-cwt-header-claims}}.
 The protected header for an RFC9162_SHA256 inclusion proof signature is:
 
 ~~~~ cddl
@@ -372,9 +377,8 @@ unprotected-header-map = {
 - inclusion-proof (label: -1): REQUIRED. Inclusion proofs. Value type: Array of bstr.
 
 The payload of an RFC9162_SHA256 inclusion proof signature is the Merkle tree hash as defined in {{-certificate-transparency-v2}}.
-The payload SHOULD be detached; detaching the payload forces verifiers to recompute the root from the inclusion proof.
-This protects against implementation errors where the signature is verified but the Merkle root does not match the inclusion proof.
-The EDN for a Receipt containing an inclusion proof for RFC9162_SHA256 is:
+
+An EDN example for a Receipt containing an inclusion proof for RFC9162_SHA256 with a detached payload (see {{profiles-def}}) is:
 
 ~~~~ cbor-diag
 / cose-sign1 / 18([
@@ -472,10 +476,8 @@ unprotected-header-map = {
 
 The payload of an RFC9162_SHA256 consistency proof signature is:
 The newer Merkle tree hash as defined in {{-certificate-transparency-v2}}.
-The payload SHOULD be detached.
-Detaching the payload forces verifiers to recompute the root from the consistency proof, this protects against implementation errors where the signature is verified but the Merkle root does not match the proof.
 
-The EDN for a Receipt containing a consistency proof for RFC9162_SHA256 is:
+An example EDN for a Receipt containing a consistency proof for RFC9162_SHA256 with a detached payload (see {{profiles-def}}) is:
 
 ~~~~ cbor-diag
 / cose-sign1 / 18([
