@@ -12,7 +12,7 @@ Expires: 27 February 2026                                 Fraunhofer SIT
                                                           26 August 2025
 
 
-                             COSE Receipts
+           COSE (CBOR Object Signing and Encryption) Receipts
                draft-ietf-cose-merkle-tree-proofs-latest
 
 Abstract
