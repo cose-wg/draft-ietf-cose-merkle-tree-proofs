@@ -1609,7 +1609,7 @@ inclusion-proof = bstr .cbor [
           <h4 id="name-receipt-of-inclusion">
 <a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-receipt-of-inclusion" class="section-name selfRef">Receipt of Inclusion</a>
           </h4>
-<p id="section-5.2.1-1">In a signed inclusion proof, the payload is the Merkle tree root which corresponds to the log at size <code>tree-size</code>.
+<p id="section-5.2.1-1">In a signed inclusion proof, the payload is the Merkle tree root that corresponds to the log at size <code>tree-size</code>.
 Specifications are encouraged to make payloads detached when possible, forcing validation-time comparison.
 Profiles of proof signatures are encouraged to make additional protected header parameters mandatory, to ensure that claims are processed with their intended semantics.
 One way to include this information in the COSE structure is use of the typ (type) Header Parameter, see <span>[<a href="#RFC9596" class="cite xref">RFC9596</a>]</span> and the similar guidance provided in <span>[<a href="#RFC9597" class="cite xref">RFC9597</a>]</span>.

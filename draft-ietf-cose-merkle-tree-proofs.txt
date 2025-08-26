@@ -402,8 +402,8 @@ Table of Contents
 
 5.2.1.  Receipt of Inclusion
 
-   In a signed inclusion proof, the payload is the Merkle tree root
-   which corresponds to the log at size tree-size.  Specifications are
+   In a signed inclusion proof, the payload is the Merkle tree root that
+   corresponds to the log at size tree-size.  Specifications are
    encouraged to make payloads detached when possible, forcing
    validation-time comparison.  Profiles of proof signatures are
    encouraged to make additional protected header parameters mandatory,
