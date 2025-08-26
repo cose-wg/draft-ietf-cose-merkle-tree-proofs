@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                              Tradeverifyd
 Intended status: Standards Track                             H. Birkholz
-Expires: 22 February 2026                                 Fraunhofer SIT
+Expires: 27 February 2026                                 Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                          21 August 2025
+                                                          26 August 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 February 2026.
+   This Internet-Draft will expire on 27 February 2026.
 
 Copyright Notice
 
@@ -359,10 +359,10 @@ Table of Contents
 
    The specific structure of COSE Receipts are dependent on the
    structure of the COSE_Sign1 payload and the verifiable data structure
-   proofs contained in the COSE_Sign1 unprotected header.  The CDDL for
-   specific verifiable data structure proofs is verifiable-data-
-   structure-specific.  This document describes proofs for
-   RFC9162_SHA256 in the following sections.
+   proofs contained in the COSE_Sign1 unprotected header.  The CDDL
+   definition for specific verifiable data structure proofs is
+   verifiable-data-structure-specific.  This document describes proofs
+   for RFC9162_SHA256 in the following sections.
 
 4.3.1.  Registration Requirements
 
