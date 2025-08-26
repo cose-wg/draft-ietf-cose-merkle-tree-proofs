@@ -5,14 +5,14 @@
 COSE                                                           O. Steele
 Internet-Draft                                              Tradeverifyd
 Intended status: Standards Track                             H. Birkholz
-Expires: 22 February 2026                                 Fraunhofer SIT
+Expires: 27 February 2026                                 Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                          21 August 2025
+                                                          26 August 2025
 
 
-                             COSE Receipts
+           COSE (CBOR Object Signing and Encryption) Receipts
                draft-ietf-cose-merkle-tree-proofs-latest
 
 Abstract
@@ -26,7 +26,8 @@ Abstract
    chain security.  This specification enables concise transparency
    oriented systems, by building on CBOR (Concise Binary Object
    Representation) and COSE.  The extensibility of the approach is
-   demonstrated by providing CBOR encodings for RFC9162.
+   demonstrated by providing CBOR encodings for Certificate Transparency
+   v2 ([RFC9162]).
 
 Discussion Venues
 
@@ -54,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 February 2026.
+   This Internet-Draft will expire on 27 February 2026.
 
 Copyright Notice
 
@@ -99,7 +100,6 @@ Table of Contents
      8.2.  Verifiable Data Structure Registries
        8.2.1.  Expert Review
        8.2.2.  COSE Verifiable Data Structures
-       8.2.3.  COSE Verifiable Data Structure Proofs
    9.  Acknowledgements
    10. References
      10.1.  Normative References
@@ -153,9 +153,9 @@ Table of Contents
    TBD_2 (requested assignment 396):  A COSE header parameter named vdp
       (short for "verifiable data structure proofs"), which conveys a
       map containing verifiable data structure proofs organized by proof
-      type.  Correspondingly, this document introduces a new
-      Section 8.2.3 that registers the integers used to identify
-      verifiable data structure proof types.
+      type.  Correspondingly, this document introduces a new Table 2
+      that registers the integers used to identify verifiable data
+      structure proof types.
 
 3.  Terminology
 
@@ -213,17 +213,7 @@ Table of Contents
    different algorithms.
 
    This document establishes a registry of verifiable data structure
-   algorithms, with the following initial contents:
-
-   +================+=======+===========================+===========+
-   | Name           | Value | Description               | Reference |
-   +================+=======+===========================+===========+
-   | Reserved       | 0     | Reserved                  | Reserved  |
-   +----------------+-------+---------------------------+-----------+
-   | RFC9162_SHA256 | 1     | SHA256 Binary Merkle Tree | [RFC9162] |
-   +----------------+-------+---------------------------+-----------+
-
-                Table 1: COSE Verifiable Data Structures
+   algorithms, see Section 8.2.2 for details.
 
 4.2.  Proofs
 
@@ -235,23 +225,7 @@ Table of Contents
    (-1) inclusion and (-2) consistency proofs.
 
    This document establishes a registry of verifiable data structure
-   algorithms, with the following initial contents:
-
-   +============+=============+=====+=======+=============+===========+
-   | Verifiable | Name        |Label| CBOR  | Description | Reference |
-   | Data       |             |     | Type  |             |           |
-   | Structure  |             |     |       |             |           |
-   +============+=============+=====+=======+=============+===========+
-   | 1          | inclusion   |-1   | array | Proof of    | RFCthis,  |
-   |            | proofs      |     | (of   | inclusion   | Section   |
-   |            |             |     | bstr) |             | 5.2       |
-   +------------+-------------+-----+-------+-------------+-----------+
-   | 1          | consistency |-2   | array | Proof of    | RFCthis,  |
-   |            | proofs      |     | (of   | append only | Section   |
-   |            |             |     | bstr) | property    | 5.3       |
-   +------------+-------------+-----+-------+-------------+-----------+
-
-              Table 2: COSE Verifiable Data Structure Proofs
+   algorithm proofs, see Table 2 for details.
 
    Proof types are specific to their associated "verifiable data
    structure", for example, different Merkle trees might support
@@ -264,8 +238,8 @@ Table of Contents
 4.3.  Usage
 
    This document registers a new COSE Header Parameter receipts (TBD_0
-   (requested assignment 394)) to enable this Receipts to be conveyed in
-   the protected and unprotected headers of COSE Objects.
+   (requested assignment 394)) to enable Receipts to be conveyed in the
+   protected and unprotected headers of COSE Objects.
 
    When the receipts header parameter is present, the verifier MUST
    confirm that the associated verifiable data structure and verifiable
@@ -357,9 +331,9 @@ Table of Contents
 
          Figure 2: An example COSE Signature with multiple receipts
 
-   The specific structure of COSE Receipts are dependent on the
-   structure of the COSE_Sign1 payload and the verifiable data structure
-   proofs contained in the COSE_Sign1 unprotected header.  The CDDL for
+   The specific structure of COSE Receipts is dependent on the structure
+   of the COSE_Sign1 payload and the verifiable data structure proofs
+   contained in the COSE_Sign1 unprotected header.  The CDDL for
    specific verifiable data structure proofs is verifiable data
    structure specific.  This document describes proofs for
    RFC9162_SHA256 in the following sections.
@@ -374,9 +348,9 @@ Table of Contents
 
    Where a specification supports a choice of hash algorithm, an IANA
    registration must be made for each individually supported algorithm.
-   For example, to provide for both SHA256 and SHA3_256 with [RFC9162],
-   both "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the
-   relevant IANA registries.
+   For example, to provide for both SHA256 and SHA3_256 with Certificate
+   Transparency v2 ([RFC9162]), both "RFC9162_SHA256" and
+   "RFC9162_SHA3_256" require entries in the relevant IANA registries.
 
 5.  RFC9162_SHA256
 
@@ -389,7 +363,7 @@ Table of Contents
    The integer identifier for this Verifiable Data Structure is 1.  The
    string identifier for this Verifiable Data Structure is
    "RFC9162_SHA256", a Merkle Tree where SHA256 is used as the hash
-   algorithm.  See Table 1.  See [RFC9162], 2.1.1.  Definition of the
+   algorithm.  See Table 2.  See [RFC9162], 2.1.1.  Definition of the
    Merkle Tree, for a complete description of this verifiable data
    structure.
 
@@ -417,8 +391,8 @@ Table of Contents
    The term leaf-index is used for alignment with the use established in
    Section 2.1.3.2 of [RFC9162].
 
-   Note that [RFC9162] defines inclusion proofs only for leaf nodes, and
-   that:
+   Note that Certificate Transparency v2 ([RFC9162]) defines inclusion
+   proofs only for leaf nodes, and that:
 
       If leaf_index is greater than or equal to tree_size, then fail the
       proof verification.
@@ -477,8 +451,8 @@ Table of Contents
 
    The payload of an RFC9162_SHA256 inclusion proof signature is the
    Merkle tree hash as defined in [RFC9162].  The payload SHOULD be
-   detached.  Detaching the payload forces verifiers to recompute the
-   root from the inclusion proof, this protects against implementation
+   detached; detaching the payload forces verifiers to recompute the
+   root from the inclusion proof.  This protects against implementation
    errors where the signature is verified but the Merkle root does not
    match the inclusion proof.  The EDN for a Receipt containing an
    inclusion proof for RFC9162_SHA256 is:
@@ -511,9 +485,9 @@ Table of Contents
    inclusion proof structure in the unprotected header.
 
    The inclusion proof and signature are verified in order.  First the
-   verifiers applies the inclusion proof to a possible entry (set
-   member) bytes.  If this process fails, the inclusion proof may have
-   been tampered with.  If this process succeeds, the result is a Merkle
+   verifier applies the inclusion proof to a possible entry (set member)
+   bytes.  If this process fails, the inclusion proof may have been
+   tampered with.  If this process succeeds, the result is a Merkle
    root, which in the attached as the COSE Sign1 payload.  Second the
    verifier checks the signature of the COSE Sign1.  If the resulting
    signature verifies, the Receipt has proved inclusion of the entry in
@@ -697,7 +671,7 @@ Table of Contents
 8.1.  COSE Header Parameter
 
    IANA is requested to add the COSE header parameters defined in
-   Section 2, as listed in Table 3, to the "COSE Header Parameters"
+   Section 2, as listed in Table 1, to the "COSE Header Parameters"
    registry [IANA.cose_header-parameters] in the 'Integer values from
    256 to 65535' range ('Specification Required' Registration
    Procedure).  The Value Registry for "vds" is the COSE Verifiable Data
@@ -738,13 +712,13 @@ Table of Contents
     |        |             |     |            | Parameters  |         |
     +--------+-------------+-----+------------+-------------+---------+
 
-              Table 3: Newly registered COSE Header Parameters
+              Table 1: Newly registered COSE Header Parameters
 
 8.2.  Verifiable Data Structure Registries
 
    IANA established the COSE Verifiable Data Structures and COSE
    Verifiable Data Structure Proofs registries under a Specification
-   Required policy as described in [RFC8126].
+   Required policy as described in Section 4.6 of [RFC8126].
 
 8.2.1.  Expert Review
 
@@ -790,9 +764,17 @@ Table of Contents
       (e.g., postal address, email address, home page URI) may also be
       included.
 
-   Initial contents: Provided in Table 1
+   Initial contents:
 
-8.2.3.  COSE Verifiable Data Structure Proofs
+   +================+=======+===========================+===========+
+   | Name           | Value | Description               | Reference |
+   +================+=======+===========================+===========+
+   | Reserved       | 0     | Reserved                  | Reserved  |
+   +----------------+-------+---------------------------+-----------+
+   | RFC9162_SHA256 | 1     | SHA256 Binary Merkle Tree | [RFC9162] |
+   +----------------+-------+---------------------------+-----------+
+
+                Table 2: COSE Verifiable Data Structures
 
    Registration Template:
 
@@ -819,7 +801,23 @@ Table of Contents
       (e.g., postal address, email address, home page URI) may also be
       included.
 
-   Initial contents: Provided in Table 2
+   Initial contents:
+
+   +============+=============+=====+=======+=============+===========+
+   | Verifiable | Name        |Label| CBOR  | Description | Reference |
+   | Data       |             |     | Type  |             |           |
+   | Structure  |             |     |       |             |           |
+   +============+=============+=====+=======+=============+===========+
+   | 1          | inclusion   |-1   | array | Proof of    | RFCthis,  |
+   |            | proofs      |     | (of   | inclusion   | Section   |
+   |            |             |     | bstr) |             | 5.2       |
+   +------------+-------------+-----+-------+-------------+-----------+
+   | 1          | consistency |-2   | array | Proof of    | RFCthis,  |
+   |            | proofs      |     | (of   | append only | Section   |
+   |            |             |     | bstr) | property    | 5.3       |
+   +------------+-------------+-----+-------+-------------+-----------+
+
+              Table 3: COSE Verifiable Data Structure Proofs
 
 9.  Acknowledgements
 
