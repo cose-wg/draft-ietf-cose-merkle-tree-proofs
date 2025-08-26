@@ -277,7 +277,7 @@ The following informative EDN is provided:
 ~~~
 {: #fig-receipts-edn title="An example COSE Signature with multiple receipts"}
 
-The specific structure of COSE Receipts are dependent on the structure of the COSE_Sign1 payload and the verifiable data structure proofs contained in the COSE_Sign1 unprotected header.
+The specific structure of COSE Receipts is dependent on the structure of the COSE_Sign1 payload and the verifiable data structure proofs contained in the COSE_Sign1 unprotected header.
 The CDDL for specific verifiable data structure proofs is verifiable data structure specific.
 This document describes proofs for RFC9162_SHA256 in the following sections.
 
