@@ -173,25 +173,13 @@ The design of these structures is influenced by the conventions established for 
 
 Similar to [COSE Key Types](https://www.iana.org/assignments/cose/cose.xhtml#key-type), different verifiable data structures support different algorithms.
 
-This document establishes a registry of verifiable data structure algorithms, with the following initial contents:
-
-| Name            | Value | Description                      | Reference
-|---
-| Reserved        | 0     | Reserved                         | Reserved
-| RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
-{: #cose-verifiable-data-structures align="left" title="COSE Verifiable Data Structures"}
+This document establishes a registry of verifiable data structure algorithms, see {{verifiable-data-structure-registry}} for details.
 
 ## Proofs {#sec-cose-verifiable-data-structure-proofs}
 
 Similar to [COSE Key Type Parameters](https://www.iana.org/assignments/cose/cose.xhtml#key-type-parameters), as EC2 keys (1: 2) keys require and give meaning to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d), RFC9162_SHA256 (TBD_1 (requested assignment 395) : 1) supports both (-1) inclusion and (-2) consistency proofs.
 
-This document establishes a registry of verifiable data structure algorithms, with the following initial contents:
-
-| Verifiable Data Structure | Name               | Label | CBOR Type        | Description                   | Reference
-|---
-| 1                         | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{&SELF}}, {{sec-rfc9162-sha256-inclusion-proof}}
-| 1                         | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{&SELF}}, {{sec-rfc9162-sha256-consistency-proof}}
-{: #cose-verifiable-data-structure-proofs align="left" title="COSE Verifiable Data Structure Proofs"}
+This document establishes a registry of verifiable data structure algorithm proofs, see {{verifiable-data-structure-proofs-registry}} for details.
 
 Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
 Implementers should not expect interoperability across "verifiable data structures".
@@ -311,7 +299,7 @@ This section defines how the data structures described in {{-certificate-transpa
 
 The integer identifier for this Verifiable Data Structure is 1.
 The string identifier for this Verifiable Data Structure is "RFC9162_SHA256", a Merkle Tree where SHA256 is used as the hash algorithm.
-See {{cose-verifiable-data-structures}}.
+See {{verifiable-data-structure-proofs-registry}}.
 See {{-certificate-transparency-v2}}, 2.1.1. Definition of the Merkle Tree, for a complete description of this verifiable data structure.
 
 ## Inclusion Proof {#sec-rfc9162-sha256-inclusion-proof}
@@ -618,7 +606,13 @@ Registration Template:
 - Change Controller:
   For Standards Track RFCs, list the "IETF".  For others, give the name of the responsible party.  Other details (e.g., postal address, email address, home page URI) may also be included.
 
-Initial contents: Provided in {{cose-verifiable-data-structures}}
+Initial contents:
+
+| Name            | Value | Description                      | Reference
+|---
+| Reserved        | 0     | Reserved                         | Reserved
+| RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
+{: #verifiable-data-structure-proofs-registry align="left" title="COSE Verifiable Data Structures"
 
 ### COSE Verifiable Data Structure Proofs {#verifiable-data-structure-proofs-registry}
 
@@ -645,7 +639,13 @@ Registration Template:
 - Change Controller:
   For Standards Track RFCs, list the "IETF".  For others, give the name of the responsible party.  Other details (e.g., postal address, email address, home page URI) may also be included.
 
-Initial contents: Provided in {{cose-verifiable-data-structure-proofs}}
+Initial contents:
+
+| Verifiable Data Structure | Name               | Label | CBOR Type        | Description                   | Reference
+|---
+| 1                         | inclusion proofs   | -1    | array (of bstr)  | Proof of inclusion            | {{&SELF}}, {{sec-rfc9162-sha256-inclusion-proof}}
+| 1                         | consistency proofs | -2    | array (of bstr)  | Proof of append only property | {{&SELF}}, {{sec-rfc9162-sha256-consistency-proof}}
+{: #cose-verifiable-data-structure-proofs align="left" title="COSE Verifiable Data Structure Proofs"}
 
 # Acknowledgements {#Acknowledgements}
 
