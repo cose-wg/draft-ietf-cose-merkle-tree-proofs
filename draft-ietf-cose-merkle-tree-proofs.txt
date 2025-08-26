@@ -740,7 +740,7 @@ Table of Contents
 
    IANA established the COSE Verifiable Data Structures and COSE
    Verifiable Data Structure Proofs registries under a Specification
-   Required policy as described in [RFC8126].
+   Required policy as described in Section 4.6 of [RFC8126].
 
 8.2.1.  Expert Review
 
