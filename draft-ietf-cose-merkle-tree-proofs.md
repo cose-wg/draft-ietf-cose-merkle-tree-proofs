@@ -179,7 +179,7 @@ This document establishes a registry of verifiable data structure algorithms, se
 
 Similar to [COSE Key Type Parameters](https://www.iana.org/assignments/cose/cose.xhtml#key-type-parameters), as EC2 keys (1: 2) keys require and give meaning to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d), RFC9162_SHA256 (TBD_1 (requested assignment 395) : 1) supports both (-1) inclusion and (-2) consistency proofs.
 
-This document establishes a registry of verifiable data structure algorithms, see {{verifiable-data-structure-proofs-registry}} for details.
+This document establishes a registry of verifiable data structure algorithm proofs, see {{verifiable-data-structure-proofs-registry}} for details.
 
 Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
 Implementers should not expect interoperability across "verifiable data structures".
