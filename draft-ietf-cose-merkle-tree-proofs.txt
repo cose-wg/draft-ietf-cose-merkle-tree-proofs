@@ -99,7 +99,6 @@ Table of Contents
      8.2.  Verifiable Data Structure Registries
        8.2.1.  Expert Review
        8.2.2.  COSE Verifiable Data Structures
-       8.2.3.  COSE Verifiable Data Structure Proofs
    9.  Acknowledgements
    10. References
      10.1.  Normative References
@@ -153,9 +152,9 @@ Table of Contents
    TBD_2 (requested assignment 396):  A COSE header parameter named vdp
       (short for "verifiable data structure proofs"), which conveys a
       map containing verifiable data structure proofs organized by proof
-      type.  Correspondingly, this document introduces a new
-      Section 8.2.3 that registers the integers used to identify
-      verifiable data structure proof types.
+      type.  Correspondingly, this document introduces a new Table 2
+      that registers the integers used to identify verifiable data
+      structure proof types.
 
 3.  Terminology
 
@@ -213,17 +212,7 @@ Table of Contents
    different algorithms.
 
    This document establishes a registry of verifiable data structure
-   algorithms, with the following initial contents:
-
-   +================+=======+===========================+===========+
-   | Name           | Value | Description               | Reference |
-   +================+=======+===========================+===========+
-   | Reserved       | 0     | Reserved                  | Reserved  |
-   +----------------+-------+---------------------------+-----------+
-   | RFC9162_SHA256 | 1     | SHA256 Binary Merkle Tree | [RFC9162] |
-   +----------------+-------+---------------------------+-----------+
-
-                Table 1: COSE Verifiable Data Structures
+   algorithms, see Section 8.2.2 for details.
 
 4.2.  Proofs
 
@@ -235,23 +224,7 @@ Table of Contents
    (-1) inclusion and (-2) consistency proofs.
 
    This document establishes a registry of verifiable data structure
-   algorithms, with the following initial contents:
-
-   +============+=============+=====+=======+=============+===========+
-   | Verifiable | Name        |Label| CBOR  | Description | Reference |
-   | Data       |             |     | Type  |             |           |
-   | Structure  |             |     |       |             |           |
-   +============+=============+=====+=======+=============+===========+
-   | 1          | inclusion   |-1   | array | Proof of    | RFCthis,  |
-   |            | proofs      |     | (of   | inclusion   | Section   |
-   |            |             |     | bstr) |             | 5.2       |
-   +------------+-------------+-----+-------+-------------+-----------+
-   | 1          | consistency |-2   | array | Proof of    | RFCthis,  |
-   |            | proofs      |     | (of   | append only | Section   |
-   |            |             |     | bstr) | property    | 5.3       |
-   +------------+-------------+-----+-------+-------------+-----------+
-
-              Table 2: COSE Verifiable Data Structure Proofs
+   algorithm proofs, see Table 2 for details.
 
    Proof types are specific to their associated "verifiable data
    structure", for example, different Merkle trees might support
@@ -389,7 +362,7 @@ Table of Contents
    The integer identifier for this Verifiable Data Structure is 1.  The
    string identifier for this Verifiable Data Structure is
    "RFC9162_SHA256", a Merkle Tree where SHA256 is used as the hash
-   algorithm.  See Table 1.  See [RFC9162], 2.1.1.  Definition of the
+   algorithm.  See Table 2.  See [RFC9162], 2.1.1.  Definition of the
    Merkle Tree, for a complete description of this verifiable data
    structure.
 
@@ -693,7 +666,7 @@ Table of Contents
 8.1.  COSE Header Parameter
 
    IANA is requested to add the COSE header parameters defined in
-   Section 2, as listed in Table 3, to the "COSE Header Parameters"
+   Section 2, as listed in Table 1, to the "COSE Header Parameters"
    registry [IANA.cose_header-parameters] in the 'Integer values from
    256 to 65535' range ('Specification Required' Registration
    Procedure).  The Value Registry for "vds" is the COSE Verifiable Data
@@ -734,7 +707,7 @@ Table of Contents
     |        |             |     |            | Parameters  |         |
     +--------+-------------+-----+------------+-------------+---------+
 
-              Table 3: Newly registered COSE Header Parameters
+              Table 1: Newly registered COSE Header Parameters
 
 8.2.  Verifiable Data Structure Registries
 
@@ -786,9 +759,17 @@ Table of Contents
       (e.g., postal address, email address, home page URI) may also be
       included.
 
-   Initial contents: Provided in Table 1
+   Initial contents:
 
-8.2.3.  COSE Verifiable Data Structure Proofs
+   +================+=======+===========================+===========+
+   | Name           | Value | Description               | Reference |
+   +================+=======+===========================+===========+
+   | Reserved       | 0     | Reserved                  | Reserved  |
+   +----------------+-------+---------------------------+-----------+
+   | RFC9162_SHA256 | 1     | SHA256 Binary Merkle Tree | [RFC9162] |
+   +----------------+-------+---------------------------+-----------+
+
+                Table 2: COSE Verifiable Data Structures
 
    Registration Template:
 
@@ -815,7 +796,23 @@ Table of Contents
       (e.g., postal address, email address, home page URI) may also be
       included.
 
-   Initial contents: Provided in Table 2
+   Initial contents:
+
+   +============+=============+=====+=======+=============+===========+
+   | Verifiable | Name        |Label| CBOR  | Description | Reference |
+   | Data       |             |     | Type  |             |           |
+   | Structure  |             |     |       |             |           |
+   +============+=============+=====+=======+=============+===========+
+   | 1          | inclusion   |-1   | array | Proof of    | RFCthis,  |
+   |            | proofs      |     | (of   | inclusion   | Section   |
+   |            |             |     | bstr) |             | 5.2       |
+   +------------+-------------+-----+-------+-------------+-----------+
+   | 1          | consistency |-2   | array | Proof of    | RFCthis,  |
+   |            | proofs      |     | (of   | append only | Section   |
+   |            |             |     | bstr) | property    | 5.3       |
+   +------------+-------------+-----+-------+-------------+-----------+
+
+              Table 3: COSE Verifiable Data Structure Proofs
 
 9.  Acknowledgements
 
