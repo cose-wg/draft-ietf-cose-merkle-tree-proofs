@@ -333,7 +333,7 @@ The identifying index of a leaf node is relative to all nodes in the tree size f
 
 ### Receipt of Inclusion
 
-In a signed inclusion proof, the payload is the Merkle tree root which corresponds to the log at size `tree-size`.
+In a signed inclusion proof, the payload is the Merkle tree root that corresponds to the log at size `tree-size`.
 Specifications are encouraged to make payloads detached when possible, forcing validation-time comparison.
 Profiles of proof signatures are encouraged to make additional protected header parameters mandatory, to ensure that claims are processed with their intended semantics.
 One way to include this information in the COSE structure is use of the typ (type) Header Parameter, see {{-cose-typ}} and the similar guidance provided in {{-cwt-header-claims}}.
