@@ -1544,7 +1544,7 @@ This document describes proofs for RFC9162_SHA256 in the following sections.<a h
         <h3 id="name-profiles">
 <a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-profiles" class="section-name selfRef">Profiles</a>
         </h3>
-<p id="section-4.4-1">New verifiable data structures can require the definition of a COSE Envelope profile.
+<p id="section-4.4-1">New verifiable data structures can require the definition of a profile.
 The payload in such definitions <span class="bcp14">SHOULD</span> be detached.
 Detached payloads force verifiers to recompute the root from the proof and protect against implementation errors where the signature is verified but the payload is incompatible with the proof.
 Profiles of proof signatures that define additional protected header parameters are encouraged to make their presence mandatory to ensure that claims are processed with their intended semantics.
