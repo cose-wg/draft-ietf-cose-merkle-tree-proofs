@@ -147,14 +147,14 @@ Table of Contents
    TBD_1 (requested assignment 395):  A COSE header parameter named vds
       (Verifiable Data Structure), which conveys the algorithm
       identifier for a verifiable data structure.  Correspondingly, this
-      document introduces a new Section 8.2.2 that registers the
+      document introduces a new registry (Section 8.2.2) defining the
       integers used to identify verifiable data structures.
 
    TBD_2 (requested assignment 396):  A COSE header parameter named vdp
       (short for "verifiable data structure proofs"), which conveys a
       map containing verifiable data structure proofs organized by proof
-      type.  Correspondingly, this document introduces a new Table 2
-      that registers the integers used to identify verifiable data
+      type.  Correspondingly, this document introduces a new registry
+      (Table 2) defining the integers used to identify verifiable data
       structure proof types.
 
 3.  Terminology
