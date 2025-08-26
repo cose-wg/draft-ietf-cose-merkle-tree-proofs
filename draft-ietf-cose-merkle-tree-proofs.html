@@ -1698,7 +1698,7 @@ The EDN for a Receipt containing an inclusion proof for RFC9162_SHA256 is:<a hre
 </div>
 <p id="section-5.2.1-9">The VDS in the protected header is necessary to understand the inclusion proof structure in the unprotected header.<a href="#section-5.2.1-9" class="pilcrow">¶</a></p>
 <p id="section-5.2.1-10">The inclusion proof and signature are verified in order.
-First the verifiers applies the inclusion proof to a possible entry (set member) bytes.
+First the verifier applies the inclusion proof to a possible entry (set member) bytes.
 If this process fails, the inclusion proof may have been tampered with.
 If this process succeeds, the result is a Merkle root, which in the attached as the COSE Sign1 payload.
 Second the verifier checks the signature of the COSE Sign1.
