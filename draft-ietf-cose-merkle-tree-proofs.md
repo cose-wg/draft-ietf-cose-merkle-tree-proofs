@@ -1,7 +1,7 @@
 ---
 v: 3
 
-title: COSE Receipts
+title: COSE (CBOR Object Signing and Encryption) Receipts
 docname: draft-ietf-cose-merkle-tree-proofs-latest
 stand_alone: true
 ipr: trust200902
