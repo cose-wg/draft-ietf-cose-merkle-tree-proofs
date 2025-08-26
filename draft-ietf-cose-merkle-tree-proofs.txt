@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                              Tradeverifyd
 Intended status: Standards Track                             H. Birkholz
-Expires: 21 February 2026                                 Fraunhofer SIT
+Expires: 27 February 2026                                 Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                          20 August 2025
+                                                          26 August 2025
 
 
                              COSE Receipts
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 February 2026.
+   This Internet-Draft will expire on 27 February 2026.
 
 Copyright Notice
 
@@ -473,8 +473,8 @@ Table of Contents
 
    The payload of an RFC9162_SHA256 inclusion proof signature is the
    Merkle tree hash as defined in [RFC9162].  The payload SHOULD be
-   detached.  Detaching the payload forces verifiers to recompute the
-   root from the inclusion proof, this protects against implementation
+   detached; detaching the payload forces verifiers to recompute the
+   root from the inclusion proof.  This protects against implementation
    errors where the signature is verified but the Merkle root does not
    match the inclusion proof.  The EDN for a Receipt containing an
    inclusion proof for RFC9162_SHA256 is:

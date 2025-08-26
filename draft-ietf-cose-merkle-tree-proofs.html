@@ -1055,7 +1055,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Steele, et al.</td>
-<td class="center">Expires 21 February 2026</td>
+<td class="center">Expires 27 February 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-cose-merkle-tree-proofs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-20" class="published">20 August 2025</time>
+<time datetime="2025-08-26" class="published">26 August 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-02-21">21 February 2026</time></dd>
+<dd class="expires"><time datetime="2026-02-27">27 February 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ The extensibility of the approach is demonstrated by providing CBOR encodings fo
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 21 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 27 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1735,8 +1735,8 @@ unprotected-header-map = {
 </li>
           </ul>
 <p id="section-5.2.1-7">The payload of an RFC9162_SHA256 inclusion proof signature is the Merkle tree hash as defined in <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>.
-The payload <span class="bcp14">SHOULD</span> be detached.
-Detaching the payload forces verifiers to recompute the root from the inclusion proof, this protects against implementation errors where the signature is verified but the Merkle root does not match the inclusion proof.
+The payload <span class="bcp14">SHOULD</span> be detached; detaching the payload forces verifiers to recompute the root from the inclusion proof.
+This protects against implementation errors where the signature is verified but the Merkle root does not match the inclusion proof.
 The EDN for a Receipt containing an inclusion proof for RFC9162_SHA256 is:<a href="#section-5.2.1-7" class="pilcrow">¶</a></p>
 <span id="name-receipt-of-inclusion-2"></span><div id="rfc9162_sha256_inclusion_receipt">
 <figure id="figure-6">
