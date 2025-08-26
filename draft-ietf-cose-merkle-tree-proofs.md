@@ -299,7 +299,7 @@ This section defines how the data structures described in {{-certificate-transpa
 
 The integer identifier for this Verifiable Data Structure is 1.
 The string identifier for this Verifiable Data Structure is "RFC9162_SHA256", a Merkle Tree where SHA256 is used as the hash algorithm.
-See {{cose-verifiable-data-structures}}.
+See {{verifiable-data-structure-proofs-registry}}.
 See {{-certificate-transparency-v2}}, 2.1.1. Definition of the Merkle Tree, for a complete description of this verifiable data structure.
 
 ## Inclusion Proof {#sec-rfc9162-sha256-inclusion-proof}
