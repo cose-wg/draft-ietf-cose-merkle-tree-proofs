@@ -612,7 +612,7 @@ Initial contents:
 |---
 | Reserved        | 0     | Reserved                         | Reserved
 | RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
-{: #cose-verifiable-data-structures align="left" title="COSE Verifiable Data Structures"
+{: #verifiable-data-structure-proofs-registry align="left" title="COSE Verifiable Data Structures"
 
 ### COSE Verifiable Data Structure Proofs {#verifiable-data-structure-proofs-registry}
 
