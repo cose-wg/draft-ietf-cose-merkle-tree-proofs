@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                              Tradeverifyd
 Intended status: Standards Track                             H. Birkholz
-Expires: 27 February 2026                                 Fraunhofer SIT
+Expires: 6 March 2026                                     Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                          26 August 2025
+                                                        2 September 2025
 
 
            COSE (CBOR Object Signing and Encryption) Receipts
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 February 2026.
+   This Internet-Draft will expire on 6 March 2026.
 
 Copyright Notice
 
@@ -99,7 +99,7 @@ Table of Contents
      8.1.  COSE Header Parameter
      8.2.  Verifiable Data Structure Registries
        8.2.1.  Expert Review
-       8.2.2.  COSE Verifiable Data Structures
+       8.2.2.  COSE Verifiable Data Structure Algorithms
    9.  Acknowledgements
    10. References
      10.1.  Normative References
@@ -716,9 +716,10 @@ Table of Contents
 
 8.2.  Verifiable Data Structure Registries
 
-   IANA established the COSE Verifiable Data Structures and COSE
-   Verifiable Data Structure Proofs registries under a Specification
-   Required policy as described in Section 4.6 of [RFC8126].
+   IANA established the COSE Verifiable Data Structure Algorithms and
+   COSE Verifiable Data Structure Proofs registries under a
+   Specification Required policy as described in Section 4.6 of
+   [RFC8126].
 
 8.2.1.  Expert Review
 
@@ -737,13 +738,13 @@ Table of Contents
       Allocation is permissible, see Section 2 of [RFC7120].
 
    *  It is not permissible to assign points in COSE Verifiable Data
-      Structures, for which no corresponding COSE Verifiable Data
-      Structure Proofs entry exists, and vice versa.
+      Structure Algorithms, for which no corresponding COSE Verifiable
+      Data Structure Proofs entry exists, and vice versa.
 
    *  The Change Controller for related registrations of structures and
       proofs should be the same.
 
-8.2.2.  COSE Verifiable Data Structures
+8.2.2.  COSE Verifiable Data Structure Algorithms
 
    Registration Template:
 
@@ -774,7 +775,7 @@ Table of Contents
    | RFC9162_SHA256 | 1     | SHA256 Binary Merkle Tree | [RFC9162] |
    +----------------+-------+---------------------------+-----------+
 
-                Table 2: COSE Verifiable Data Structures
+           Table 2: COSE Verifiable Data Structure Algorithms
 
    Registration Template:
 
