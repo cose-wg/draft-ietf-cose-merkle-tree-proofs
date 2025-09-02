@@ -573,7 +573,7 @@ The map labels in the "vdp" are assigned from the COSE Verifiable Data Structure
 
 ## Verifiable Data Structure Registries
 
-IANA established the COSE Verifiable Data Structures and COSE Verifiable Data Structure Proofs registries under a Specification Required policy as described in {{Section 4.6 of RFC8126}}.
+IANA established the COSE Verifiable Data Structure Algorithms and COSE Verifiable Data Structure Proofs registries under a Specification Required policy as described in {{Section 4.6 of RFC8126}}.
 
 ### Expert Review
 Expert reviewers should take into consideration the following points:
@@ -586,11 +586,11 @@ Reviewers are encouraged to get sufficient information for registration requests
 - Specifications are required for all point assignments.
 Early Allocation is permissible, see Section 2 of {{RFC7120}}.
 
-- It is not permissible to assign points in COSE Verifiable Data Structures, for which no corresponding COSE Verifiable Data Structure Proofs entry exists, and vice versa.
+- It is not permissible to assign points in COSE Verifiable Data Structure Algorithms, for which no corresponding COSE Verifiable Data Structure Proofs entry exists, and vice versa.
 
 - The Change Controller for related registrations of structures and proofs should be the same.
 
-### COSE Verifiable Data Structures {#verifiable-data-structure-registry}
+### COSE Verifiable Data Structure Algorithms {#verifiable-data-structure-registry}
 
 Registration Template:
 
@@ -615,7 +615,7 @@ Initial contents:
 |---
 | Reserved        | 0     | Reserved                         | Reserved
 | RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
-{: #verifiable-data-structure-proofs-registry align="left" title="COSE Verifiable Data Structures"
+{: #verifiable-data-structure-proofs-registry align="left" title="COSE Verifiable Data Structure Algorithms"
 
 ### COSE Verifiable Data Structure Proofs {#verifiable-data-structure-proofs-registry}
 
