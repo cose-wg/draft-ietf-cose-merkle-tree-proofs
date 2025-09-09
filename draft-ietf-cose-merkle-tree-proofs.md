@@ -92,7 +92,7 @@ COSE (CBOR Object Signing and Encryption) Receipts prove properties of a verifia
 Verifiable data structures and associated proof types enable security properties, such as minimal disclosure, transparency and non-equivocation.
 Transparency helps maintain trust over time, and has been applied to certificates, end to end encrypted messaging systems, and supply chain security.
 This specification enables concise transparency oriented systems, by building on CBOR (Concise Binary Object Representation) and COSE.
-The extensibility of the approach is demonstrated by providing CBOR encodings for Merkle inclusion and consistency proofs as defined in RFC 9162.
+The extensibility of the approach is demonstrated by providing CBOR encodings for Merkle inclusion and consistency proofs.
 
 --- middle
 
