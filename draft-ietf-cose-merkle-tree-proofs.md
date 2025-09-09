@@ -301,7 +301,7 @@ This document only defines "RFC9162_SHA256".
 
 # RFC9162_SHA256 {#sec-rfc-9162-verifiable-data-structure-definition}
 
-This section defines how the data structure described in {{Section 2.1 of RFC9162}} are mapped to the terminology defined in this document, using {{-CBOR}} and {{-COSE}}.
+This section defines how the data structure described in {{Section 2.1 of RFC9162}} is mapped to the terminology defined in this document, using {{-CBOR}} and {{-COSE}}.
 
 ## Verifiable Data Structure
 
