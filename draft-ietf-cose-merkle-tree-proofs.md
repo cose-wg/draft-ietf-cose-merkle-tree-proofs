@@ -296,7 +296,7 @@ Each specification MUST define how to produce and consume the supported proof ty
 See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 
 Where a specification supports a choice of hash algorithm, a separate IANA registration must be made for each supported algorithm.
-For example, to provide support for SHA256 and SHA3_256 with Merkle Consistency and Inclusion Proofs defined in respectively in {{Section 2.1.3 of RFC9162}} and {{Section 2.1.4 of RFC9162}}, both "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the relevant IANA registries.
+For example, to provide support for SHA256 and SHA3_256 with Merkle Consistency and Inclusion Proofs defined respectively in {{Section 2.1.3 of RFC9162}} and {{Section 2.1.4 of RFC9162}}, both "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the relevant IANA registries.
 
 # RFC9162_SHA256 {#sec-rfc-9162-verifiable-data-structure-definition}
 
