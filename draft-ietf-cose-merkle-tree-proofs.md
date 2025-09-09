@@ -70,7 +70,7 @@ normative:
   RFC8610: CDDL
   RFC8949: CBOR
   RFC9053: COSE
-  RFC9162: certificate-transparency-v2
+  RFC9162:
   RFC9597: cwt-header-claims
   RFC9596: cose-typ
 
@@ -92,7 +92,7 @@ COSE (CBOR Object Signing and Encryption) Receipts prove properties of a verifia
 Verifiable data structures and associated proof types enable security properties, such as minimal disclosure, transparency and non-equivocation.
 Transparency helps maintain trust over time, and has been applied to certificates, end to end encrypted messaging systems, and supply chain security.
 This specification enables concise transparency oriented systems, by building on CBOR (Concise Binary Object Representation) and COSE.
-The extensibility of the approach is demonstrated by providing CBOR encodings for Certificate Transparency v2 (RFC 9162).
+The extensibility of the approach is demonstrated by providing CBOR encodings for Merkle inclusion and consistency proofs.
 
 --- middle
 
@@ -166,7 +166,7 @@ Receipt:
 This section describes representations of verifiable data structure proofs in {{-CBOR}}.
 For example, construction of a Merkle tree leaf, or an inclusion proof from a leaf to a Merkle root, might have several different representations, depending on the verifiable data structure used.
 Differences in representations are necessary to support efficient verification, unique security or privacy properties, and for compatibility with specific implementations.
-This document defines two extension points for enabling verifiable data structures with COSE and provides concrete examples for the structures and proofs defined in {{-certificate-transparency-v2}}.
+This document defines two extension points for enabling verifiable data structures with COSE and provides concrete examples for the structures and proofs defined in {{Section 2.1.3 of RFC9162}} and {{Section 2.1.4 of RFC9162}}.
 The design of these structures is influenced by the conventions established for COSE Keys.
 
 ## Structures {#sec-cose-verifiable-data-structures}
@@ -296,23 +296,23 @@ Each specification MUST define how to produce and consume the supported proof ty
 See {{sec-rfc-9162-verifiable-data-structure-definition}} as an example.
 
 Where a specification supports a choice of hash algorithm, a separate IANA registration must be made for each supported algorithm.
-For example, to provide for both SHA256 and SHA3_256 with Certificate Transparency v2 ({{-certificate-transparency-v2}}),
-both "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the relevant IANA registries.
+For example, to provide support for SHA256 and SHA3_256 with Merkle Consistency and Inclusion Proofs defined respectively in {{Section 2.1.3 of RFC9162}} and {{Section 2.1.4 of RFC9162}}, both "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the relevant IANA registries.
+This document only defines "RFC9162_SHA256".
 
 # RFC9162_SHA256 {#sec-rfc-9162-verifiable-data-structure-definition}
 
-This section defines how the data structures described in {{-certificate-transparency-v2}} are mapped to the terminology defined in this document, using {{-CBOR}} and {{-COSE}}.
+This section defines how the data structure described in {{Section 2.1 of RFC9162}} is mapped to the terminology defined in this document, using {{-CBOR}} and {{-COSE}}.
 
 ## Verifiable Data Structure
 
 The integer identifier for this Verifiable Data Structure is 1.
 The string identifier for this Verifiable Data Structure is "RFC9162_SHA256", a Merkle Tree where SHA256 is used as the hash algorithm.
 See {{verifiable-data-structure-proofs-registry}}.
-See {{-certificate-transparency-v2}}, 2.1.1. Definition of the Merkle Tree, for a complete description of this verifiable data structure.
+See {{Section 2.1.1 of RFC9162}} (Definition of the Merkle Tree), for a complete description of this verifiable data structure.
 
 ## Inclusion Proof {#sec-rfc9162-sha256-inclusion-proof}
 
-See {{-certificate-transparency-v2}}, 2.1.3.1. Generating an Inclusion Proof, for a complete description of this verifiable data structure proof type.
+See {{Section 2.1.3.1 of RFC9162}} (Generating an Inclusion Proof), for a complete description of this verifiable data structure proof type.
 
 The CBOR representation of an inclusion proof for RFC9162_SHA256 is:
 
@@ -333,7 +333,7 @@ inclusion-proof = bstr .cbor [
 
 The term `leaf-index` is used for alignment with the use established in {{Section 2.1.3.2 of RFC9162}}.
 
-Note that Certificate Transparency v2 ({{-certificate-transparency-v2}}) defines inclusion proofs only for leaf nodes, and that:
+Note that {{RFC9162}} defines inclusion proofs only for leaf nodes, and that:
 
 > If leaf_index is greater than or equal to tree_size, then fail the proof verification.
 
@@ -376,7 +376,7 @@ unprotected-header-map = {
 - vdp (label: TBD_2 (requested assignment 396)): REQUIRED. Verifiable data structure proofs. Value type: Map.
 - inclusion-proof (label: -1): REQUIRED. Inclusion proofs. Value type: Array of bstr.
 
-The payload of an RFC9162_SHA256 inclusion proof signature is the Merkle tree hash as defined in {{-certificate-transparency-v2}}.
+The payload of an RFC9162_SHA256 inclusion proof signature is the Merkle tree hash as defined in {{RFC9162}}.
 
 An EDN example for a Receipt containing an inclusion proof for RFC9162_SHA256 with a detached payload (see {{profiles-def}}) is:
 
@@ -417,7 +417,7 @@ If the resulting signature does not verify, the signature may have been tampered
 
 ## Consistency Proof {#sec-rfc9162-sha256-consistency-proof}
 
-See {{-certificate-transparency-v2}}, 2.1.4.1. Generating a Consistency Proof, for a complete description of this verifiable data structure proof type.
+See {{Section 2.1.4.1 of RFC9162}} (Generating a Consistency Proof), for a complete description of this verifiable data structure proof type.
 
 The cbor representation of a consistency proof for RFC9162_SHA256 is:
 
@@ -475,7 +475,7 @@ unprotected-header-map = {
 - consistency-proof (label: -2): REQUIRED. Consistency proofs. Value type: Array of bstr.
 
 The payload of an RFC9162_SHA256 consistency proof signature is:
-The newer Merkle tree hash as defined in {{-certificate-transparency-v2}}.
+The newer Merkle tree hash as defined in {{RFC9162}}.
 
 An example EDN for a Receipt containing a consistency proof for RFC9162_SHA256 with a detached payload (see {{profiles-def}}) is:
 
@@ -520,7 +520,7 @@ It is recommended that implementations return a single boolean result for Receip
 
 # Privacy Considerations
 
-The privacy considerations section of {{-certificate-transparency-v2}} and {{-COSE}} apply to this document.
+The privacy considerations section of {{RFC9162}} and {{-COSE}} apply to this document.
 
 ## Log Length
 
@@ -537,7 +537,7 @@ The receipt producer MUST perform a privacy analysis for all mandatory fields in
 
 See the security considerations section of:
 
-- {{-certificate-transparency-v2}}
+- {{RFC9162}}
 - {{-COSE}}
 
 ## Choice of Signature Algorithms
@@ -616,7 +616,7 @@ Initial contents:
 | Name            | Value | Description                      | Reference
 |---
 | Reserved        | 0     | Reserved                         | Reserved
-| RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{-certificate-transparency-v2}}
+| RFC9162_SHA256  | 1     | SHA256 Binary Merkle Tree        | {{Section 2.1 of RFC9162}}
 {: #verifiable-data-structure-proofs-registry align="left" title="COSE Verifiable Data Structure Algorithms"
 
 ### COSE Verifiable Data Structure Proofs {#verifiable-data-structure-proofs-registry}
