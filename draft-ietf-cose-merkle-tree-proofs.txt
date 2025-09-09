@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                              Tradeverifyd
 Intended status: Standards Track                             H. Birkholz
-Expires: 6 March 2026                                     Fraunhofer SIT
+Expires: 13 March 2026                                    Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                        2 September 2025
+                                                        9 September 2025
 
 
            COSE (CBOR Object Signing and Encryption) Receipts
@@ -26,8 +26,8 @@ Abstract
    chain security.  This specification enables concise transparency
    oriented systems, by building on CBOR (Concise Binary Object
    Representation) and COSE.  The extensibility of the approach is
-   demonstrated by providing CBOR encodings for Certificate Transparency
-   v2 (RFC 9162).
+   demonstrated by providing CBOR encodings for Merkle inclusion and
+   consistency proofs.
 
 Discussion Venues
 
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 March 2026.
+   This Internet-Draft will expire on 13 March 2026.
 
 Copyright Notice
 
@@ -203,9 +203,9 @@ Table of Contents
    properties, and for compatibility with specific implementations.
    This document defines two extension points for enabling verifiable
    data structures with COSE and provides concrete examples for the
-   structures and proofs defined in [RFC9162].  The design of these
-   structures is influenced by the conventions established for COSE
-   Keys.
+   structures and proofs defined in Section 2.1.3 of [RFC9162] and
+   Section 2.1.4 of [RFC9162].  The design of these structures is
+   influenced by the conventions established for COSE Keys.
 
 4.1.  Structures
 
@@ -363,29 +363,32 @@ Table of Contents
 
    Where a specification supports a choice of hash algorithm, a separate
    IANA registration must be made for each supported algorithm.  For
-   example, to provide for both SHA256 and SHA3_256 with Certificate
-   Transparency v2 ([RFC9162]), both "RFC9162_SHA256" and
-   "RFC9162_SHA3_256" require entries in the relevant IANA registries.
+   example, to provide support for SHA256 and SHA3_256 with Merkle
+   Consistency and Inclusion Proofs defined respectively in
+   Section 2.1.3 of [RFC9162] and Section 2.1.4 of [RFC9162], both
+   "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the
+   relevant IANA registries.  This document only defines
+   "RFC9162_SHA256".
 
 5.  RFC9162_SHA256
 
-   This section defines how the data structures described in [RFC9162]
-   are mapped to the terminology defined in this document, using
-   [RFC8949] and [RFC9053].
+   This section defines how the data structure described in Section 2.1
+   of [RFC9162] is mapped to the terminology defined in this document,
+   using [RFC8949] and [RFC9053].
 
 5.1.  Verifiable Data Structure
 
    The integer identifier for this Verifiable Data Structure is 1.  The
    string identifier for this Verifiable Data Structure is
    "RFC9162_SHA256", a Merkle Tree where SHA256 is used as the hash
-   algorithm.  See Table 2.  See [RFC9162], 2.1.1.  Definition of the
-   Merkle Tree, for a complete description of this verifiable data
-   structure.
+   algorithm.  See Table 2.  See Section 2.1.1 of [RFC9162] (Definition
+   of the Merkle Tree), for a complete description of this verifiable
+   data structure.
 
 5.2.  Inclusion Proof
 
-   See [RFC9162], 2.1.3.1.  Generating an Inclusion Proof, for a
-   complete description of this verifiable data structure proof type.
+   See Section 2.1.3.1 of [RFC9162] (Generating an Inclusion Proof), for
+   a complete description of this verifiable data structure proof type.
 
    The CBOR representation of an inclusion proof for RFC9162_SHA256 is:
 
@@ -406,8 +409,8 @@ Table of Contents
    The term leaf-index is used for alignment with the use established in
    Section 2.1.3.2 of [RFC9162].
 
-   Note that Certificate Transparency v2 ([RFC9162]) defines inclusion
-   proofs only for leaf nodes, and that:
+   Note that [RFC9162] defines inclusion proofs only for leaf nodes, and
+   that:
 
       If leaf_index is greater than or equal to tree_size, then fail the
       proof verification.
@@ -502,8 +505,9 @@ Table of Contents
 
 5.3.  Consistency Proof
 
-   See [RFC9162], 2.1.4.1.  Generating a Consistency Proof, for a
-   complete description of this verifiable data structure proof type.
+   See Section 2.1.4.1 of [RFC9162] (Generating a Consistency Proof),
+   for a complete description of this verifiable data structure proof
+   type.
 
    The cbor representation of a consistency proof for RFC9162_SHA256 is:
 
@@ -769,15 +773,16 @@ Table of Contents
 
    Initial contents:
 
-   +================+=======+===========================+===========+
-   | Name           | Value | Description               | Reference |
-   +================+=======+===========================+===========+
-   | Reserved       | 0     | Reserved                  | Reserved  |
-   +----------------+-------+---------------------------+-----------+
-   | RFC9162_SHA256 | 1     | SHA256 Binary Merkle Tree | [RFC9162] |
-   +----------------+-------+---------------------------+-----------+
+   +================+=======+===========================+==============+
+   | Name           | Value | Description               | Reference    |
+   +================+=======+===========================+==============+
+   | Reserved       | 0     | Reserved                  | Reserved     |
+   +----------------+-------+---------------------------+--------------+
+   | RFC9162_SHA256 | 1     | SHA256 Binary             | Section 2.1  |
+   |                |       | Merkle Tree               | of [RFC9162] |
+   +----------------+-------+---------------------------+--------------+
 
-           Table 2: COSE Verifiable Data Structure Algorithms
+             Table 2: COSE Verifiable Data Structure Algorithms
 
    Registration Template:
 
