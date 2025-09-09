@@ -373,7 +373,7 @@ Table of Contents
 5.  RFC9162_SHA256
 
    This section defines how the data structure described in Section 2.1
-   of [RFC9162] are mapped to the terminology defined in this document,
+   of [RFC9162] is mapped to the terminology defined in this document,
    using [RFC8949] and [RFC9053].
 
 5.1.  Verifiable Data Structure
