@@ -367,7 +367,8 @@ Table of Contents
    Consistency and Inclusion Proofs defined respectively in
    Section 2.1.3 of [RFC9162] and Section 2.1.4 of [RFC9162], both
    "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the
-   relevant IANA registries.
+   relevant IANA registries.  This document only defines
+   "RFC9162_SHA256".
 
 5.  RFC9162_SHA256
 
