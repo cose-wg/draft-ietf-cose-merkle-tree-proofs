@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>COSE Receipts</title>
+<title>COSE (CBOR Object Signing and Encryption) Receipts</title>
 <meta content="Orie Steele" name="author">
 <meta content="Henk Birkholz" name="author">
 <meta content="Antoine Delignat-Lavaud" name="author">
@@ -14,23 +14,23 @@
 Verifiable data structures and associated proof types enable security properties, such as minimal disclosure, transparency and non-equivocation.
 Transparency helps maintain trust over time, and has been applied to certificates, end to end encrypted messaging systems, and supply chain security.
 This specification enables concise transparency oriented systems, by building on CBOR (Concise Binary Object Representation) and COSE.
-The extensibility of the approach is demonstrated by providing CBOR encodings for RFC9162. 
+The extensibility of the approach is demonstrated by providing CBOR encodings for Merkle inclusion and consistency proofs as defined in RFC 9162. 
     " name="description">
-<meta content="xml2rfc 3.30.0" name="generator">
+<meta content="xml2rfc 3.30.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-cose-merkle-tree-proofs-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.0
+  xml2rfc 3.30.1
     Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.1
-    platformdirs 4.3.8
+    platformdirs 4.4.0
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.4
+    requests 2.32.5
     setuptools 80.9.0
     wcwidth 0.2.13
 -->
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
-<td class="center">COSE Receipts</td>
-<td class="right">August 2025</td>
+<td class="center">COSE (CBOR Object Signing and Encryption</td>
+<td class="right">September 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Steele, et al.</td>
-<td class="center">Expires 7 February 2026</td>
+<td class="center">Expires 13 March 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,17 +1068,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-cose-merkle-tree-proofs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-06" class="published">6 August 2025</time>
+<time datetime="2025-09-09" class="published">9 September 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-02-07">7 February 2026</time></dd>
+<dd class="expires"><time datetime="2026-03-13">13 March 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
       <div class="author-name">O. Steele</div>
-<div class="org">Transmute</div>
+<div class="org">Tradeverifyd</div>
 </div>
 <div class="author">
       <div class="author-name">H. Birkholz</div>
@@ -1095,14 +1095,14 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">COSE Receipts</h1>
+<h1 id="title">COSE (CBOR Object Signing and Encryption) Receipts</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">COSE (CBOR Object Signing and Encryption) Receipts prove properties of a verifiable data structure to a verifier.
 Verifiable data structures and associated proof types enable security properties, such as minimal disclosure, transparency and non-equivocation.
 Transparency helps maintain trust over time, and has been applied to certificates, end to end encrypted messaging systems, and supply chain security.
 This specification enables concise transparency oriented systems, by building on CBOR (Concise Binary Object Representation) and COSE.
-The extensibility of the approach is demonstrated by providing CBOR encodings for RFC9162.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+The extensibility of the approach is demonstrated by providing CBOR encodings for Merkle inclusion and consistency proofs as defined in RFC 9162.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1134,7 +1134,7 @@ The extensibility of the approach is demonstrated by providing CBOR encodings fo
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 13 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1188,9 +1188,12 @@ The extensibility of the approach is demonstrated by providing CBOR encodings fo
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
                 <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-usage" class="internal xref">Usage</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
+                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-profiles" class="internal xref">Profiles</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.1">
-                    <p id="section-toc.1-1.4.2.3.2.1.1"><a href="#section-4.3.1" class="auto internal xref">4.3.1</a>.  <a href="#name-registration-requirements" class="internal xref">Registration Requirements</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4.2.1">
+                    <p id="section-toc.1-1.4.2.4.2.1.1"><a href="#section-4.4.1" class="auto internal xref">4.4.1</a>.  <a href="#name-registration-requirements" class="internal xref">Registration Requirements</a></p>
 </li>
                 </ul>
 </li>
@@ -1258,10 +1261,7 @@ The extensibility of the approach is demonstrated by providing CBOR encodings fo
                     <p id="section-toc.1-1.8.2.2.2.1.1"><a href="#section-8.2.1" class="auto internal xref">8.2.1</a>.  <a href="#name-expert-review" class="internal xref">Expert Review</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.2">
-                    <p id="section-toc.1-1.8.2.2.2.2.1"><a href="#section-8.2.2" class="auto internal xref">8.2.2</a>.  <a href="#name-cose-verifiable-data-structur" class="internal xref">COSE Verifiable Data Structures</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2.2.3">
-                    <p id="section-toc.1-1.8.2.2.2.3.1"><a href="#section-8.2.3" class="auto internal xref">8.2.3</a>.  <a href="#name-cose-verifiable-data-structure" class="internal xref">COSE Verifiable Data Structure Proofs</a></p>
+                    <p id="section-toc.1-1.8.2.2.2.2.1"><a href="#section-8.2.2" class="auto internal xref">8.2.2</a>.  <a href="#name-cose-verifiable-data-struct" class="internal xref">COSE Verifiable Data Structure Algorithms</a></p>
 </li>
                 </ul>
 </li>
@@ -1290,7 +1290,10 @@ The extensibility of the approach is demonstrated by providing CBOR encodings fo
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-contributors" class="internal xref">Contributors</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1304,7 +1307,7 @@ The extensibility of the approach is demonstrated by providing CBOR encodings fo
 <p id="section-1-1">COSE Receipts are signed proofs that include metadata about certain states of a verifiable data structure (VDS) that are true when the COSE Receipt was issued.
 COSE Receipts can include proofs that a document is in a database (proof of inclusion), that a database is append only (proof of consistency), that a smaller set of statements are contained in a large set of statements (proof of disclosure, a special case of proof of inclusion), or proof that certain data is not yet present in a database (proofs of non inclusion).
 Different VDS can produce different verifiable data structure proofs (VDP).
-The combination of representations of various VDS and VDP can significantly increase burden for implementers and create interoperability challenges for transparency services.
+The combination of representations of various VDS and VDP can significantly increase the burden for implementers and create interoperability challenges for transparency services.
 This document describes how to convey VDS and associated VDP types in unified COSE envelopes.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <div id="requirements-notation">
 <section id="section-1.1">
@@ -1334,13 +1337,13 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
 <dt id="section-2-2.3">TBD_1 (requested assignment 395):</dt>
         <dd style="margin-left: 1.5em" id="section-2-2.4">
           <p id="section-2-2.4.1">A COSE header parameter named <code>vds</code> (Verifiable Data Structure), which conveys the algorithm identifier for a verifiable data structure.
-Correspondingly, this document introduces a new <a href="#verifiable-data-structure-registry" class="auto internal xref">Section 8.2.2</a> that registers the integers used to identify verifiable data structures.<a href="#section-2-2.4.1" class="pilcrow">¶</a></p>
+Correspondingly, this document introduces a new registry (<a href="#verifiable-data-structure-registry" class="auto internal xref">Section 8.2.2</a>) defining the integers used to identify verifiable data structures.<a href="#section-2-2.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-2-2.5">TBD_2 (requested assignment 396):</dt>
         <dd style="margin-left: 1.5em" id="section-2-2.6">
           <p id="section-2-2.6.1">A COSE header parameter named <code>vdp</code> (short for "verifiable data structure proofs"), which conveys a map containing verifiable data structure proofs organized by proof type.
-Correspondingly, this document introduces a new <a href="#verifiable-data-structure-proofs-registry" class="auto internal xref">Section 8.2.3</a> that registers the integers used to identify verifiable data structure proof types.<a href="#section-2-2.6.1" class="pilcrow">¶</a></p>
+Correspondingly, this document introduces a new registry (<a href="#verifiable-data-structure-proofs-registry" class="auto internal xref">Table 2</a>) defining the integers used to identify verifiable data structure proof types.<a href="#section-2-2.6.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -1406,7 +1409,7 @@ For example, a VDS, such as a binary Merkle tree, can support proofs of type "in
 <p id="section-4-1">This section describes representations of verifiable data structure proofs in <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span>.
 For example, construction of a Merkle tree leaf, or an inclusion proof from a leaf to a Merkle root, might have several different representations, depending on the verifiable data structure used.
 Differences in representations are necessary to support efficient verification, unique security or privacy properties, and for compatibility with specific implementations.
-This document defines two extension points for enabling verifiable data structures with COSE and provides concrete examples for the structures and proofs defined in <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>.
+This document defines two extension points for enabling verifiable data structures with COSE and provides concrete examples for the structures and proofs defined in <span><a href="https://rfc-editor.org/rfc/rfc9162#section-2.1.3" class="relref">Section 2.1.3</a> of [<a href="#RFC9162" class="cite xref">RFC9162</a>]</span> and <span><a href="https://rfc-editor.org/rfc/rfc9162#section-2.1.4" class="relref">Section 2.1.4</a> of [<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>.
 The design of these structures is influenced by the conventions established for COSE Keys.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <div id="sec-cose-verifiable-data-structures">
 <section id="section-4.1">
@@ -1414,39 +1417,7 @@ The design of these structures is influenced by the conventions established for 
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-structures" class="section-name selfRef">Structures</a>
         </h3>
 <p id="section-4.1-1">Similar to <a href="https://www.iana.org/assignments/cose/cose.xhtml#key-type">COSE Key Types</a>, different verifiable data structures support different algorithms.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.1-2">This document establishes a registry of verifiable data structure algorithms, with the following initial contents:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
-<span id="name-cose-verifiable-data-struct"></span><div id="cose-verifiable-data-structures">
-<table class="left" id="table-1">
-          <caption>
-<a href="#table-1" class="selfRef">Table 1</a>:
-<a href="#name-cose-verifiable-data-struct" class="selfRef">COSE Verifiable Data Structures</a>
-          </caption>
-<thead>
-            <tr>
-              <th class="text-left" rowspan="1" colspan="1">Name</th>
-              <th class="text-left" rowspan="1" colspan="1">Value</th>
-              <th class="text-left" rowspan="1" colspan="1">Description</th>
-              <th class="text-left" rowspan="1" colspan="1">Reference</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">Reserved</td>
-              <td class="text-left" rowspan="1" colspan="1">0</td>
-              <td class="text-left" rowspan="1" colspan="1">Reserved</td>
-              <td class="text-left" rowspan="1" colspan="1">Reserved</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">RFC9162_SHA256</td>
-              <td class="text-left" rowspan="1" colspan="1">1</td>
-              <td class="text-left" rowspan="1" colspan="1">SHA256 Binary Merkle Tree</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>
-</td>
-            </tr>
-          </tbody>
-        </table>
-</div>
+<p id="section-4.1-2">This document establishes a registry of verifiable data structure algorithms, see <a href="#verifiable-data-structure-registry" class="auto internal xref">Section 8.2.2</a> for details.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-cose-verifiable-data-structure-proofs">
@@ -1455,51 +1426,10 @@ The design of these structures is influenced by the conventions established for 
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-proofs" class="section-name selfRef">Proofs</a>
         </h3>
 <p id="section-4.2-1">Similar to <a href="https://www.iana.org/assignments/cose/cose.xhtml#key-type-parameters">COSE Key Type Parameters</a>, as EC2 keys (1: 2) keys require and give meaning to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d), RFC9162_SHA256 (TBD_1 (requested assignment 395) : 1) supports both (-1) inclusion and (-2) consistency proofs.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2-2">This document establishes a registry of verifiable data structure algorithms, with the following initial contents:<a href="#section-4.2-2" class="pilcrow">¶</a></p>
-<span id="name-cose-verifiable-data-structu"></span><div id="cose-verifiable-data-structure-proofs">
-<table class="left" id="table-2">
-          <caption>
-<a href="#table-2" class="selfRef">Table 2</a>:
-<a href="#name-cose-verifiable-data-structu" class="selfRef">COSE Verifiable Data Structure Proofs</a>
-          </caption>
-<thead>
-            <tr>
-              <th class="text-left" rowspan="1" colspan="1">Verifiable Data Structure</th>
-              <th class="text-left" rowspan="1" colspan="1">Name</th>
-              <th class="text-left" rowspan="1" colspan="1">Label</th>
-              <th class="text-left" rowspan="1" colspan="1">CBOR Type</th>
-              <th class="text-left" rowspan="1" colspan="1">Description</th>
-              <th class="text-left" rowspan="1" colspan="1">Reference</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">1</td>
-              <td class="text-left" rowspan="1" colspan="1">inclusion proofs</td>
-              <td class="text-left" rowspan="1" colspan="1">-1</td>
-              <td class="text-left" rowspan="1" colspan="1">array (of bstr)</td>
-              <td class="text-left" rowspan="1" colspan="1">Proof of inclusion</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <a href="#sec-rfc9162-sha256-inclusion-proof" class="auto internal xref">Section 5.2</a>
-</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">1</td>
-              <td class="text-left" rowspan="1" colspan="1">consistency proofs</td>
-              <td class="text-left" rowspan="1" colspan="1">-2</td>
-              <td class="text-left" rowspan="1" colspan="1">array (of bstr)</td>
-              <td class="text-left" rowspan="1" colspan="1">Proof of append only property</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <a href="#sec-rfc9162-sha256-consistency-proof" class="auto internal xref">Section 5.3</a>
-</td>
-            </tr>
-          </tbody>
-        </table>
-</div>
-<p id="section-4.2-4">Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
-Implementers should not expect interoperability across "verifiable data structures", but they should expect conceptually similar properties across the different registered proof types.
-For example, 2 different Merkle tree based verifiable data structures might both support proofs of inclusion.
-Security analysis <span class="bcp14">SHOULD</span> be conducted prior to migrating to new structures to ensure the new security and privacy assumptions are acceptable for the use case.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">This document establishes a registry of verifiable data structure algorithm proofs, see <a href="#verifiable-data-structure-proofs-registry" class="auto internal xref">Table 2</a> for details.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.2-3">Proof types are specific to their associated "verifiable data structure", for example, different Merkle trees might support different representations of "inclusion proof" or "consistency proof".
+Implementers should not expect interoperability across "verifiable data structures".
+Security analysis <span class="bcp14">MUST</span> be conducted prior to migrating to new structures to ensure the new security and privacy assumptions are acceptable for the use case.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="receipt-spec">
@@ -1507,10 +1437,10 @@ Security analysis <span class="bcp14">SHOULD</span> be conducted prior to migrat
         <h3 id="name-usage">
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-usage" class="section-name selfRef">Usage</a>
         </h3>
-<p id="section-4.3-1">This document registers a new COSE Header Parameter <code>receipts</code> (394) to enable this Receipts to be conveyed in the protected and unprotected headers of COSE Objects.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
-<p id="section-4.3-2">When the receipts header parameter is present, the associated verifiable data structure and verifiable data structure proofs <span class="bcp14">MUST</span> match entries present in the registries established in this specification.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
+<p id="section-4.3-1">This document registers a new COSE Header Parameter <code>receipts</code> (TBD_0 (requested assignment 394)) to enable Receipts to be conveyed in the protected and unprotected headers of COSE Objects.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-2">When the receipts header parameter is present, the verifier <span class="bcp14">MUST</span> confirm that the associated verifiable data structure and verifiable data structure proofs match entries present in the registries established in this specification, including values added in subsequent registrations..<a href="#section-4.3-2" class="pilcrow">¶</a></p>
 <p id="section-4.3-3">Receipts <span class="bcp14">MUST</span> be tagged as COSE_Sign1.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
-<p id="section-4.3-4">The following CDDL definition is provided:<a href="#section-4.3-4" class="pilcrow">¶</a></p>
+<p id="section-4.3-4">The following <span>[<a href="#RFC8610" class="cite xref">RFC8610</a>]</span> definition is provided:<a href="#section-4.3-4" class="pilcrow">¶</a></p>
 <span id="name-cddl-for-a-cose-sign1-with-"></span><div id="fig-receipts-cddl">
 <figure id="figure-1">
           <div class="lang-cddl sourcecode" id="section-4.3-5.1">
@@ -1541,7 +1471,7 @@ COSE_Sign1 = [
           </figcaption></figure>
 </div>
 <p id="section-4.3-6">The following informative EDN is provided:<a href="#section-4.3-6" class="pilcrow">¶</a></p>
-<span id="name-a-cose-signature-with-multi"></span><div id="fig-receipts-edn">
+<span id="name-an-example-cose-signature-w"></span><div id="fig-receipts-edn">
 <figure id="figure-2">
           <div class="breakable lang-cbor-diag sourcecode" id="section-4.3-7.1">
 <pre>
@@ -1601,23 +1531,34 @@ COSE_Sign1 = [
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
-<a href="#name-a-cose-signature-with-multi" class="selfRef">A COSE Signature with multiple receipts</a>
+<a href="#name-an-example-cose-signature-w" class="selfRef">An example COSE Signature with multiple receipts</a>
           </figcaption></figure>
 </div>
-<p id="section-4.3-8">The specific structure of COSE Receipts are dependent on the structure of the COSE_Sign1 payload and the verifiable data structure proofs contained in the COSE_Sign1 unprotected header.
-The CDDL for specific verifiable data structure proofs is verifiable data structure specific.
+<p id="section-4.3-8">The specific structure of COSE Receipts is dependent on the structure of the COSE_Sign1 payload and the verifiable data structure proofs contained in the COSE_Sign1 unprotected header.
+The CDDL definition for verifiable data structure proofs is specific to each verifiable data structure.
 This document describes proofs for RFC9162_SHA256 in the following sections.<a href="#section-4.3-8" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="profiles-def">
+<section id="section-4.4">
+        <h3 id="name-profiles">
+<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-profiles" class="section-name selfRef">Profiles</a>
+        </h3>
+<p id="section-4.4-1">New verifiable data structures can require the definition of a profile.
+The payload in such definitions <span class="bcp14">SHOULD</span> be detached.
+Detached payloads force verifiers to recompute the root from the proof and protect against implementation errors where the signature is verified but the payload is incompatible with the proof.
+Profiles of proof signatures that define additional protected header parameters are encouraged to make their presence mandatory to ensure that claims are processed with their intended semantics.
+One way to include this information in the COSE structure is use of the typ (type) Header Parameter, see <span>[<a href="#RFC9596" class="cite xref">RFC9596</a>]</span> and the similar guidance provided in <span>[<a href="#RFC9597" class="cite xref">RFC9597</a>]</span>.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
 <div id="registration-requirements">
-<section id="section-4.3.1">
+<section id="section-4.4.1">
           <h4 id="name-registration-requirements">
-<a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-registration-requirements" class="section-name selfRef">Registration Requirements</a>
+<a href="#section-4.4.1" class="section-number selfRef">4.4.1. </a><a href="#name-registration-requirements" class="section-name selfRef">Registration Requirements</a>
           </h4>
-<p id="section-4.3.1-1">Each specification <span class="bcp14">MUST</span> define how to encode the verifiable data structure identifier and its proof types in CBOR.
+<p id="section-4.4.1-1">Each verifiable data structure specification applying for inclusion in this registry <span class="bcp14">MUST</span> define how to encode the verifiable data structure identifier and its proof types in CBOR.
 Each specification <span class="bcp14">MUST</span> define how to produce and consume the supported proof types.
-See <a href="#sec-rfc-9162-verifiable-data-structure-definition" class="auto internal xref">Section 5</a> as an example.<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.3.1-2">Where a specification supports a choice of hash algorithm, an IANA registration must be made for each individually supported algorithm.
-For example, to provide for both SHA256 and SHA3_256 with <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>,
-both "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the relevant IANA registries.<a href="#section-4.3.1-2" class="pilcrow">¶</a></p>
+See <a href="#sec-rfc-9162-verifiable-data-structure-definition" class="auto internal xref">Section 5</a> as an example.<a href="#section-4.4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.4.1-2">Where a specification supports a choice of hash algorithm, a separate IANA registration must be made for each supported algorithm.
+For example, to provide support for SHA256 and SHA3_256 with Merkle Consistency and Inclusion Proofs defined in respectively in <span><a href="https://rfc-editor.org/rfc/rfc9162#section-2.1.3" class="relref">Section 2.1.3</a> of [<a href="#RFC9162" class="cite xref">RFC9162</a>]</span> and <span><a href="https://rfc-editor.org/rfc/rfc9162#section-2.1.4" class="relref">Section 2.1.4</a> of [<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>, both "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the relevant IANA registries.<a href="#section-4.4.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1629,16 +1570,16 @@ both "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the relevant IAN
       <h2 id="name-rfc9162_sha256">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-rfc9162_sha256" class="section-name selfRef">RFC9162_SHA256</a>
       </h2>
-<p id="section-5-1">This section defines how the data structures described in <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span> are mapped to the terminology defined in this document, using <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span> and <span>[<a href="#RFC9053" class="cite xref">RFC9053</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">This section defines how the data structure described in <span><a href="https://rfc-editor.org/rfc/rfc9162#section-2.1" class="relref">Section 2.1</a> of [<a href="#RFC9162" class="cite xref">RFC9162</a>]</span> are mapped to the terminology defined in this document, using <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span> and <span>[<a href="#RFC9053" class="cite xref">RFC9053</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <div id="verifiable-data-structure">
 <section id="section-5.1">
         <h3 id="name-verifiable-data-structure">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-verifiable-data-structure" class="section-name selfRef">Verifiable Data Structure</a>
         </h3>
 <p id="section-5.1-1">The integer identifier for this Verifiable Data Structure is 1.
-The string identifier for this Verifiable Data Structure is "RFC9162_SHA256".
-See <a href="#cose-verifiable-data-structures" class="auto internal xref">Table 1</a>.
-See <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>, 2.1.1. Definition of the Merkle Tree, for a complete description of this verifiable data structure.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+The string identifier for this Verifiable Data Structure is "RFC9162_SHA256", a Merkle Tree where SHA256 is used as the hash algorithm.
+See <a href="#verifiable-data-structure-proofs-registry" class="auto internal xref">Table 2</a>.
+See <span><a href="https://rfc-editor.org/rfc/rfc9162#section-2.1.1" class="relref">Section 2.1.1</a> of [<a href="#RFC9162" class="cite xref">RFC9162</a>]</span> (Definition of the Merkle Tree), for a complete description of this verifiable data structure.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-rfc9162-sha256-inclusion-proof">
@@ -1646,7 +1587,7 @@ See <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>, 2.1.1. Defi
         <h3 id="name-inclusion-proof">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-inclusion-proof" class="section-name selfRef">Inclusion Proof</a>
         </h3>
-<p id="section-5.2-1">See <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>, 2.1.3.1. Generating an Inclusion Proof, for a complete description of this verifiable data structure proof type.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">See <span><a href="https://rfc-editor.org/rfc/rfc9162#section-2.1.3.1" class="relref">Section 2.1.3.1</a> of [<a href="#RFC9162" class="cite xref">RFC9162</a>]</span> (Generating an Inclusion Proof), for a complete description of this verifiable data structure proof type.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2-2">The CBOR representation of an inclusion proof for RFC9162_SHA256 is:<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <span id="name-cbor-encoded-rfc9162-inclus"></span><div id="rfc9162-sha256-cbor-inclusion-proof">
 <figure id="figure-3">
@@ -1669,18 +1610,20 @@ inclusion-proof = bstr .cbor [
 <a href="#name-cbor-encoded-rfc9162-inclus" class="selfRef">CBOR Encoded RFC9162 Inclusion Proof</a>
           </figcaption></figure>
 </div>
-<p id="section-5.2-4">The term <code>leaf-index</code> is used for alignment with the use established in <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span><a href="#section-5.2-4" class="pilcrow">¶</a></p>
-<p id="section-5.2-5">Note that <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span> defines that verification <span class="bcp14">MUST</span> fail if leaf-index is &gt;= tree-size, and inclusion proofs are defined only for leaf nodes.
-The identifying index of a leaf node is relative to all nodes in the tree size for which the proof was obtained.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">The term <code>leaf-index</code> is used for alignment with the use established in <span><a href="https://rfc-editor.org/rfc/rfc9162#section-2.1.3.2" class="relref">Section 2.1.3.2</a> of [<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.2-5">Note that <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span> defines inclusion proofs only for leaf nodes, and that:<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-5.2-6.1">
+            <p id="section-5.2-6.1.1">If leaf_index is greater than or equal to tree_size, then fail the proof verification.<a href="#section-5.2-6.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.2-7">The identifying index of a leaf node is relative to all nodes in the tree size for which the proof was obtained.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
 <div id="receipt-of-inclusion">
 <section id="section-5.2.1">
           <h4 id="name-receipt-of-inclusion">
 <a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-receipt-of-inclusion" class="section-name selfRef">Receipt of Inclusion</a>
           </h4>
-<p id="section-5.2.1-1">In a signed inclusion proof, the payload is the Merkle tree root which corresponds to the log at size <code>tree-size</code>.
-Specifications are encouraged to make payloads detached when possible, forcing validation-time comparison.
-Profiles of proof signatures are encouraged to make additional protected header parameters mandatory, to ensure that claims are processed with their intended semantics.
-One way to include this information in the COSE structure is use of the typ (type) Header Parameter, see <span>[<a href="#RFC9596" class="cite xref">RFC9596</a>]</span> and the similar guidance provided in <span>[<a href="#RFC9597" class="cite xref">RFC9597</a>]</span>.
+<p id="section-5.2.1-1">In a signed inclusion proof, the payload is the Merkle tree root that corresponds to the log at size <code>tree-size</code>.
 The protected header for an RFC9162_SHA256 inclusion proof signature is:<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 <span id="name-protected-header-for-a-rece"></span><div id="vds-in-inclusion-receipt-protected-header">
 <figure id="figure-4">
@@ -1702,7 +1645,7 @@ protected-header-map = {
               <p id="section-5.2.1-3.1.1">alg (label: 1): <span class="bcp14">REQUIRED</span>. Signature algorithm identifier. Value type: int.<a href="#section-5.2.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.2.1-3.2">
-              <p id="section-5.2.1-3.2.1">vds (label: 395): <span class="bcp14">REQUIRED</span>. Verifiable data structure algorithm identifier. Value type: int.<a href="#section-5.2.1-3.2.1" class="pilcrow">¶</a></p>
+              <p id="section-5.2.1-3.2.1">vds (label: TBD_1 (requested assignment 395)): <span class="bcp14">REQUIRED</span>. Verifiable data structure algorithm identifier. Value type: int.<a href="#section-5.2.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-5.2.1-4">The unprotected header for an RFC9162_SHA256 inclusion proof signature is:<a href="#section-5.2.1-4" class="pilcrow">¶</a></p>
@@ -1728,19 +1671,17 @@ unprotected-header-map = {
 </div>
 <ul class="normal">
 <li class="normal" id="section-5.2.1-6.1">
-              <p id="section-5.2.1-6.1.1">vdp (label: 396): <span class="bcp14">REQUIRED</span>. Verifiable data structure proofs. Value type: Map.<a href="#section-5.2.1-6.1.1" class="pilcrow">¶</a></p>
+              <p id="section-5.2.1-6.1.1">vdp (label: TBD_2 (requested assignment 396)): <span class="bcp14">REQUIRED</span>. Verifiable data structure proofs. Value type: Map.<a href="#section-5.2.1-6.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.2.1-6.2">
               <p id="section-5.2.1-6.2.1">inclusion-proof (label: -1): <span class="bcp14">REQUIRED</span>. Inclusion proofs. Value type: Array of bstr.<a href="#section-5.2.1-6.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-5.2.1-7">The payload of an RFC9162_SHA256 inclusion proof signature is the Merkle tree hash as defined in <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>.
-The payload <span class="bcp14">SHOULD</span> be detached.
-Detaching the payload forces verifiers to recompute the root from the inclusion proof, this protects against implementation errors where the signature is verified but the Merkle root does not match the inclusion proof.
-The EDN for a Receipt containing an inclusion proof for RFC9162_SHA256 is:<a href="#section-5.2.1-7" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-7">The payload of an RFC9162_SHA256 inclusion proof signature is the Merkle tree hash as defined in <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>.<a href="#section-5.2.1-7" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-8">An EDN example for a Receipt containing an inclusion proof for RFC9162_SHA256 with a detached payload (see <a href="#profiles-def" class="auto internal xref">Section 4.4</a>) is:<a href="#section-5.2.1-8" class="pilcrow">¶</a></p>
 <span id="name-receipt-of-inclusion-2"></span><div id="rfc9162_sha256_inclusion_receipt">
 <figure id="figure-6">
-            <div class="lang-cbor-diag sourcecode" id="section-5.2.1-8.1">
+            <div class="lang-cbor-diag sourcecode" id="section-5.2.1-9.1">
 <pre>
 / cose-sign1 / 18([
   / protected   / &lt;&lt;{
@@ -1769,15 +1710,14 @@ The EDN for a Receipt containing an inclusion proof for RFC9162_SHA256 is:<a hre
 <a href="#name-receipt-of-inclusion-2" class="selfRef">Receipt of Inclusion</a>
             </figcaption></figure>
 </div>
-<p id="section-5.2.1-9">The VDS in the protected header is necessary to understand the inclusion proof structure in the unprotected header.<a href="#section-5.2.1-9" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-10">The inclusion proof and signature are verified in order.
-First the verifiers applies the inclusion proof to a possible entry (set member) bytes.
+<p id="section-5.2.1-10">The VDS in the protected header is necessary to understand the inclusion proof structure in the unprotected header.<a href="#section-5.2.1-10" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-11">The inclusion proof and signature are verified in order.
+First the verifier applies the inclusion proof to a possible entry (set member) bytes.
 If this process fails, the inclusion proof may have been tampered with.
 If this process succeeds, the result is a Merkle root, which in the attached as the COSE Sign1 payload.
 Second the verifier checks the signature of the COSE Sign1.
 If the resulting signature verifies, the Receipt has proved inclusion of the entry in the verifiable data structure.
-If the resulting signature does not verify, the signature may have been tampered with.
-It is recommended that implementations return a single boolean result for Receipt verification operations, to reduce the chance of accepting a valid signature over an invalid inclusion proof.<a href="#section-5.2.1-10" class="pilcrow">¶</a></p>
+If the resulting signature does not verify, the signature may have been tampered with.<a href="#section-5.2.1-11" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1787,7 +1727,7 @@ It is recommended that implementations return a single boolean result for Receip
         <h3 id="name-consistency-proof">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-consistency-proof" class="section-name selfRef">Consistency Proof</a>
         </h3>
-<p id="section-5.3-1">See <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>, 2.1.4.1. Generating a Consistency Proof, for a complete description of this verifiable data structure proof type.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-1">See <span><a href="https://rfc-editor.org/rfc/rfc9162#section-2.1.4.1" class="relref">Section 2.1.4.1</a> of [<a href="#RFC9162" class="cite xref">RFC9162</a>]</span> (Generating a Consistency Proof), for a complete description of this verifiable data structure proof type.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.3-2">The cbor representation of a consistency proof for RFC9162_SHA256 is:<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <span id="name-cbor-encoded-rfc9162-consis"></span><div id="rfc9162_sha256_consistency_proof">
 <figure id="figure-7">
@@ -1858,17 +1798,15 @@ unprotected-header-map = {
 </div>
 <ul class="normal">
 <li class="normal" id="section-5.3.1-7.1">
-              <p id="section-5.3.1-7.1.1">vdp (label: 396): <span class="bcp14">REQUIRED</span>. Verifiable data structure proofs. Value type: Map.<a href="#section-5.3.1-7.1.1" class="pilcrow">¶</a></p>
+              <p id="section-5.3.1-7.1.1">vdp (label: TBD_2 (requested assignment 396)): <span class="bcp14">REQUIRED</span>. Verifiable data structure proofs. Value type: Map.<a href="#section-5.3.1-7.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.3.1-7.2">
               <p id="section-5.3.1-7.2.1">consistency-proof (label: -2): <span class="bcp14">REQUIRED</span>. Consistency proofs. Value type: Array of bstr.<a href="#section-5.3.1-7.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-5.3.1-8">The payload of an RFC9162_SHA256 consistency proof signature is:
-The newer Merkle tree hash as defined in <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>.
-The payload <span class="bcp14">SHOULD</span> be detached.
-Detaching the payload forces verifiers to recompute the root from the consistency proof, this protects against implementation errors where the signature is verified but the Merkle root does not match the proof.<a href="#section-5.3.1-8" class="pilcrow">¶</a></p>
-<p id="section-5.3.1-9">The EDN for a Receipt containing a consistency proof for RFC9162_SHA256 is:<a href="#section-5.3.1-9" class="pilcrow">¶</a></p>
+The newer Merkle tree hash as defined in <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>.<a href="#section-5.3.1-8" class="pilcrow">¶</a></p>
+<p id="section-5.3.1-9">An example EDN for a Receipt containing a consistency proof for RFC9162_SHA256 with a detached payload (see <a href="#profiles-def" class="auto internal xref">Section 4.4</a>) is:<a href="#section-5.3.1-9" class="pilcrow">¶</a></p>
 <span id="name-example-consistency-receipt"></span><div id="rfc9162_sha256_consistency_receipt">
 <figure id="figure-9">
             <div class="lang-cbor-diag sourcecode" id="section-5.3.1-10.1">
@@ -1922,15 +1860,7 @@ It is recommended that implementations return a single boolean result for Receip
       <h2 id="name-privacy-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
       </h2>
-<p id="section-6-1">See the privacy considerations section of:<a href="#section-6-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-6-2.1">
-          <p id="section-6-2.1.1"><span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span><a href="#section-6-2.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-2.2">
-          <p id="section-6-2.2.1"><span>[<a href="#RFC9053" class="cite xref">RFC9053</a>]</span><a href="#section-6-2.2.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
+<p id="section-6-1">The privacy considerations section of <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span> and <span>[<a href="#RFC9053" class="cite xref">RFC9053</a>]</span> apply to this document.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <div id="log-length">
 <section id="section-6.1">
         <h3 id="name-log-length">
@@ -1947,7 +1877,7 @@ For example, if a transparency log only stored breach notices, a receipt for a b
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-header-parameters" class="section-name selfRef">Header Parameters</a>
         </h3>
 <p id="section-6.2-1">Additional header parameters can reveal information about the transparency service or its log entries.
-A privacy analysis <span class="bcp14">MUST</span> be performed for all mandatory fields in profiles based on this specification.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+The receipt producer <span class="bcp14">MUST</span> perform a privacy analysis for all mandatory fields in profiles based on this specification.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1971,7 +1901,7 @@ A privacy analysis <span class="bcp14">MUST</span> be performed for all mandator
         <h3 id="name-choice-of-signature-algorit">
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-choice-of-signature-algorit" class="section-name selfRef">Choice of Signature Algorithms</a>
         </h3>
-<p id="section-7.1-1">A security analysis <span class="bcp14">MUST</span> be performed to ensure that the digital signature algorithm <code>alg</code> has the appropriate strength to secure receipts.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-1">A security analysis ought to be performed to ensure that the digital signature algorithm <code>alg</code> has the appropriate strength to secure receipts.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <p id="section-7.1-2">It is recommended to select signature algorithms that share cryptographic components with the verifiable data structure used, for example:
 Both RFC9162_SHA256 and ES256 depend on the sha-256 hash function.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 </section>
@@ -2007,13 +1937,13 @@ The details of expressing statuses are out of scope for this document.<a href="#
         <h3 id="name-cose-header-parameter">
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-cose-header-parameter" class="section-name selfRef">COSE Header Parameter</a>
         </h3>
-<p id="section-8.1-1">IANA is requested to add the COSE header parameters defined in <a href="#param-list" class="auto internal xref">Section 2</a>, as listed in <a href="#iana-header-params" class="auto internal xref">Table 3</a>, to the "COSE Header Parameters" registry <span>[<a href="#IANA.cose_header-parameters" class="cite xref">IANA.cose_header-parameters</a>]</span> in the 'Integer values from 256 to 65535' range ('Specification Required' Registration Procedure).
+<p id="section-8.1-1">IANA is requested to add the COSE header parameters defined in <a href="#param-list" class="auto internal xref">Section 2</a>, as listed in <a href="#iana-header-params" class="auto internal xref">Table 1</a>, to the "COSE Header Parameters" registry <span>[<a href="#IANA.cose_header-parameters" class="cite xref">IANA.cose_header-parameters</a>]</span> in the 'Integer values from 256 to 65535' range ('Specification Required' Registration Procedure).
 The Value Registry for "vds" is the COSE Verifiable Data Structure registry.
 The map labels in the "vdp" are assigned from the COSE Verifiable Data Structure Proofs registry.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
 <span id="name-newly-registered-cose-heade"></span><div id="iana-header-params">
-<table class="center" id="table-3">
+<table class="center" id="table-1">
           <caption>
-<a href="#table-3" class="selfRef">Table 3</a>:
+<a href="#table-1" class="selfRef">Table 1</a>:
 <a href="#name-newly-registered-cose-heade" class="selfRef">Newly registered COSE Header Parameters</a>
           </caption>
 <thead>
@@ -2070,7 +2000,7 @@ The map labels in the "vdp" are assigned from the COSE Verifiable Data Structure
         <h3 id="name-verifiable-data-structure-r">
 <a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-verifiable-data-structure-r" class="section-name selfRef">Verifiable Data Structure Registries</a>
         </h3>
-<p id="section-8.2-1">IANA established the COSE Verifiable Data Structures and COSE Verifiable Data Structure Proofs registries under a Specification Required policy as described in <span>[<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-1">IANA established the COSE Verifiable Data Structure Algorithms and COSE Verifiable Data Structure Proofs registries under a Specification Required policy as described in <span><a href="https://rfc-editor.org/rfc/rfc8126#section-4.6" class="relref">Section 4.6</a> of [<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 <div id="expert-review">
 <section id="section-8.2.1">
           <h4 id="name-expert-review">
@@ -2090,7 +2020,7 @@ Reviewers are encouraged to get sufficient information for registration requests
 Early Allocation is permissible, see Section 2 of <span>[<a href="#RFC7120" class="cite xref">RFC7120</a>]</span>.<a href="#section-8.2.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-8.2.1-2.4">
-              <p id="section-8.2.1-2.4.1">It is not permissible to assign points in COSE Verifiable Data Structures, for which no corresponding COSE Verifiable Data Structure Proofs entry exists, and vice versa.<a href="#section-8.2.1-2.4.1" class="pilcrow">¶</a></p>
+              <p id="section-8.2.1-2.4.1">It is not permissible to assign points in COSE Verifiable Data Structure Algorithms, for which no corresponding COSE Verifiable Data Structure Proofs entry exists, and vice versa.<a href="#section-8.2.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-8.2.1-2.5">
               <p id="section-8.2.1-2.5.1">The Change Controller for related registrations of structures and proofs should be the same.<a href="#section-8.2.1-2.5.1" class="pilcrow">¶</a></p>
@@ -2100,8 +2030,8 @@ Early Allocation is permissible, see Section 2 of <span>[<a href="#RFC7120" clas
 </div>
 <div id="verifiable-data-structure-registry">
 <section id="section-8.2.2">
-          <h4 id="name-cose-verifiable-data-structur">
-<a href="#section-8.2.2" class="section-number selfRef">8.2.2. </a><a href="#name-cose-verifiable-data-structur" class="section-name selfRef">COSE Verifiable Data Structures</a>
+          <h4 id="name-cose-verifiable-data-struct">
+<a href="#section-8.2.2" class="section-number selfRef">8.2.2. </a><a href="#name-cose-verifiable-data-struct" class="section-name selfRef">COSE Verifiable Data Structure Algorithms</a>
           </h4>
 <p id="section-8.2.2-1">Registration Template:<a href="#section-8.2.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -2126,46 +2056,109 @@ This contains a pointer to the public specification for the verifiable data stru
 For Standards Track RFCs, list the "IETF".  For others, give the name of the responsible party.  Other details (e.g., postal address, email address, home page URI) may also be included.<a href="#section-8.2.2-2.5.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-8.2.2-3">Initial contents: Provided in <a href="#cose-verifiable-data-structures" class="auto internal xref">Table 1</a><a href="#section-8.2.2-3" class="pilcrow">¶</a></p>
-</section>
+<p id="section-8.2.2-3">Initial contents:<a href="#section-8.2.2-3" class="pilcrow">¶</a></p>
+<span id="name-cose-verifiable-data-structu"></span><div id="verifiable-data-structure-proofs-registry">
+<table class="left" id="table-2">
+            <caption>
+<a href="#table-2" class="selfRef">Table 2</a>:
+<a href="#name-cose-verifiable-data-structu" class="selfRef">COSE Verifiable Data Structure Algorithms</a>
+            </caption>
+<thead>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Name</th>
+                <th class="text-left" rowspan="1" colspan="1">Value</th>
+                <th class="text-left" rowspan="1" colspan="1">Description</th>
+                <th class="text-left" rowspan="1" colspan="1">Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">Reserved</td>
+                <td class="text-left" rowspan="1" colspan="1">0</td>
+                <td class="text-left" rowspan="1" colspan="1">Reserved</td>
+                <td class="text-left" rowspan="1" colspan="1">Reserved</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">RFC9162_SHA256</td>
+                <td class="text-left" rowspan="1" colspan="1">1</td>
+                <td class="text-left" rowspan="1" colspan="1">SHA256 Binary Merkle Tree</td>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <span><a href="https://rfc-editor.org/rfc/rfc9162#section-2.1" class="relref">Section 2.1</a> of [<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>
+</td>
+              </tr>
+            </tbody>
+          </table>
 </div>
-<div id="verifiable-data-structure-proofs-registry">
-<section id="section-8.2.3">
-          <h4 id="name-cose-verifiable-data-structure">
-<a href="#section-8.2.3" class="section-number selfRef">8.2.3. </a><a href="#name-cose-verifiable-data-structure" class="section-name selfRef">COSE Verifiable Data Structure Proofs</a>
-          </h4>
-<p id="section-8.2.3-1">Registration Template:<a href="#section-8.2.3-1" class="pilcrow">¶</a></p>
+<p id="section-8.2.2-5">Registration Template:<a href="#section-8.2.2-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-8.2.3-2.1">
-              <p id="section-8.2.3-2.1.1">Verifiable Data Structure:
-This value used identifies the related verifiable data structure.<a href="#section-8.2.3-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.2.2-6.1">
+              <p id="section-8.2.2-6.1.1">Verifiable Data Structure:
+This value used identifies the related verifiable data structure.<a href="#section-8.2.2-6.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-8.2.3-2.2">
-              <p id="section-8.2.3-2.2.1">Name:
-This is a descriptive name for the proof type that enables easier reference to the item.<a href="#section-8.2.3-2.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.2.2-6.2">
+              <p id="section-8.2.2-6.2.1">Name:
+This is a descriptive name for the proof type that enables easier reference to the item.<a href="#section-8.2.2-6.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-8.2.3-2.3">
-              <p id="section-8.2.3-2.3.1">Label:
-This is the value used to identify the verifiable data structure proof type.<a href="#section-8.2.3-2.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.2.2-6.3">
+              <p id="section-8.2.2-6.3.1">Label:
+This is the value used to identify the verifiable data structure proof type.<a href="#section-8.2.2-6.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-8.2.3-2.4">
-              <p id="section-8.2.3-2.4.1">CBOR Type:
-This contains the CBOR type for the value portion of the label.<a href="#section-8.2.3-2.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.2.2-6.4">
+              <p id="section-8.2.2-6.4.1">CBOR Type:
+This contains the CBOR type for the value portion of the label.<a href="#section-8.2.2-6.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-8.2.3-2.5">
-              <p id="section-8.2.3-2.5.1">Description:
-This field contains a brief description of the proof type.<a href="#section-8.2.3-2.5.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.2.2-6.5">
+              <p id="section-8.2.2-6.5.1">Description:
+This field contains a brief description of the proof type.<a href="#section-8.2.2-6.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-8.2.3-2.6">
-              <p id="section-8.2.3-2.6.1">Reference:
-This contains a pointer to the public specification for the proof type.<a href="#section-8.2.3-2.6.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.2.2-6.6">
+              <p id="section-8.2.2-6.6.1">Reference:
+This contains a pointer to the public specification for the proof type.<a href="#section-8.2.2-6.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-8.2.3-2.7">
-              <p id="section-8.2.3-2.7.1">Change Controller:
-For Standards Track RFCs, list the "IETF".  For others, give the name of the responsible party.  Other details (e.g., postal address, email address, home page URI) may also be included.<a href="#section-8.2.3-2.7.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-8.2.2-6.7">
+              <p id="section-8.2.2-6.7.1">Change Controller:
+For Standards Track RFCs, list the "IETF".  For others, give the name of the responsible party.  Other details (e.g., postal address, email address, home page URI) may also be included.<a href="#section-8.2.2-6.7.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-8.2.3-3">Initial contents: Provided in <a href="#cose-verifiable-data-structure-proofs" class="auto internal xref">Table 2</a><a href="#section-8.2.3-3" class="pilcrow">¶</a></p>
+<p id="section-8.2.2-7">Initial contents:<a href="#section-8.2.2-7" class="pilcrow">¶</a></p>
+<span id="name-cose-verifiable-data-structur"></span><div id="cose-verifiable-data-structure-proofs">
+<table class="left" id="table-3">
+            <caption>
+<a href="#table-3" class="selfRef">Table 3</a>:
+<a href="#name-cose-verifiable-data-structur" class="selfRef">COSE Verifiable Data Structure Proofs</a>
+            </caption>
+<thead>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Verifiable Data Structure</th>
+                <th class="text-left" rowspan="1" colspan="1">Name</th>
+                <th class="text-left" rowspan="1" colspan="1">Label</th>
+                <th class="text-left" rowspan="1" colspan="1">CBOR Type</th>
+                <th class="text-left" rowspan="1" colspan="1">Description</th>
+                <th class="text-left" rowspan="1" colspan="1">Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">1</td>
+                <td class="text-left" rowspan="1" colspan="1">inclusion proofs</td>
+                <td class="text-left" rowspan="1" colspan="1">-1</td>
+                <td class="text-left" rowspan="1" colspan="1">array (of bstr)</td>
+                <td class="text-left" rowspan="1" colspan="1">Proof of inclusion</td>
+                <td class="text-left" rowspan="1" colspan="1">RFCthis, <a href="#sec-rfc9162-sha256-inclusion-proof" class="auto internal xref">Section 5.2</a>
+</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">1</td>
+                <td class="text-left" rowspan="1" colspan="1">consistency proofs</td>
+                <td class="text-left" rowspan="1" colspan="1">-2</td>
+                <td class="text-left" rowspan="1" colspan="1">array (of bstr)</td>
+                <td class="text-left" rowspan="1" colspan="1">Proof of append only property</td>
+                <td class="text-left" rowspan="1" colspan="1">RFCthis, <a href="#sec-rfc9162-sha256-consistency-proof" class="auto internal xref">Section 5.3</a>
+</td>
+              </tr>
+            </tbody>
+          </table>
+</div>
 </section>
 </div>
 </section>
@@ -2209,6 +2202,10 @@ for their contributions (some of which substantial) to this draft and to the ini
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8610">[RFC8610]</dt>
+        <dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Vigano, C.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures"</span>, <span class="seriesInfo">RFC 8610</span>, <span class="seriesInfo">DOI 10.17487/RFC8610</span>, <time datetime="2019-06" class="refDate">June 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8610">https://www.rfc-editor.org/rfc/rfc8610</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8949">[RFC8949]</dt>
         <dd>
@@ -2259,10 +2256,6 @@ for their contributions (some of which substantial) to this draft and to the ini
         <dd>
 <span class="refAuthor">Jones, M.</span>, <span class="refAuthor">Wahlstroem, E.</span>, <span class="refAuthor">Erdtman, S.</span>, and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"CBOR Web Token (CWT)"</span>, <span class="seriesInfo">RFC 8392</span>, <span class="seriesInfo">DOI 10.17487/RFC8392</span>, <time datetime="2018-05" class="refDate">May 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8392">https://www.rfc-editor.org/rfc/rfc8392</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC8610">[RFC8610]</dt>
-        <dd>
-<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Vigano, C.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures"</span>, <span class="seriesInfo">RFC 8610</span>, <span class="seriesInfo">DOI 10.17487/RFC8610</span>, <time datetime="2019-06" class="refDate">June 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8610">https://www.rfc-editor.org/rfc/rfc8610</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC9052">[RFC9052]</dt>
       <dd>
 <span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Structures and Process"</span>, <span class="seriesInfo">STD 96</span>, <span class="seriesInfo">RFC 9052</span>, <span class="seriesInfo">DOI 10.17487/RFC9052</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9052">https://www.rfc-editor.org/rfc/rfc9052</a>&gt;</span>. </dd>
@@ -2302,18 +2295,66 @@ Contact: Orie Steele (orie@transmute.industries)<a href="#appendix-A.1-2" class=
 </div>
 </section>
 </div>
-<div id="authors-addresses">
+<div id="contributors">
 <section id="appendix-B">
+      <h2 id="name-contributors">
+<a href="#name-contributors" class="section-name selfRef">Contributors</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Amaury Chamayou</span></div>
+<div dir="auto" class="left"><span class="org">Microsoft</span></div>
+<div dir="auto" class="left"><span class="country-name">United Kingdom</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:amaury.chamayou@microsoft.com" class="email">amaury.chamayou@microsoft.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Steve Lasker</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:stevenlasker@hotmail.com" class="email">stevenlasker@hotmail.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Robert Martin</span></div>
+<div dir="auto" class="left"><span class="org">MITRE Corporation</span></div>
+<div dir="auto" class="left"><span class="country-name">United States</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:ramartin@mitre.org" class="email">ramartin@mitre.org</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Monty Wiseman</span></div>
+<div dir="auto" class="left"><span class="country-name">United States of America</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:mwiseman32@acm.org" class="email">mwiseman32@acm.org</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Roy Williams</span></div>
+<div dir="auto" class="left"><span class="country-name">United States of America</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:roywill@msn.com" class="email">roywill@msn.com</a>
+</div>
+</address>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-C">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Orie Steele</span></div>
-<div dir="auto" class="left"><span class="org">Transmute</span></div>
+<div dir="auto" class="left"><span class="org">Tradeverifyd</span></div>
 <div dir="auto" class="left"><span class="country-name">United States</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:orie@transmute.industries" class="email">orie@transmute.industries</a>
+<a href="mailto:orie@or13.io" class="email">orie@or13.io</a>
 </div>
 </address>
 <address class="vcard">
