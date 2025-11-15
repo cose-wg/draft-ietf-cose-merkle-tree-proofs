@@ -223,14 +223,14 @@ The following informative EDN is provided:
 ~~~ cbor-diag
 / cose-sign1 / 18([
   / protected   / <<{
-    / key / 4 : "vCl7UcS0ZZY99VpRthDc-0iUjLdfLtnmFqLJ2-Tt8N4",
+    / kid / 4 : h'bc297b51...e4edf0de',
     / algorithm / 1 : -7,  # ES256
   }>>,
   / unprotected / {
     / receipts / 394 : {
       <</ cose-sign1 / 18([
         / protected   / <<{
-          / key / 4 : "mxA4KiOkQFZ-dkLebSo3mLOEPR7rN8XtxkJe45xuyJk",
+          / kid / 4 : h'abcdef12...34567890',
           / algorithm / 1 : -7,  # ES256
           / vds       / 395 : 1, # RFC9162 SHA-256
         }>>,
@@ -250,7 +250,7 @@ The following informative EDN is provided:
       ])>>,
       <</ cose-sign1 / 18([
         / protected   / <<{
-          / key / 4 : "ajOkeBTJou_wPrlExLMw7L9OTCD5ZIOBYc-O6LESe9c",
+          / kid / 4 : h'abcdef12...34567890',
           / algorithm / 1 : -7,  # ES256
           / vds       / 395 : 1, # RFC9162 SHA-256
         }>>,
