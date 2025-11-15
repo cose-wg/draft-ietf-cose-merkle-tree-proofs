@@ -1,3 +1,2 @@
 cat inclusion-receipt.cbor | cddl validate --cddl inclusion-receipt.cddl --stdin
-
-# cddlc --cbor-validate=statement.receipt.cbor statement.receipt.cddl
+cat consistency-receipt.cbor | cddl validate --cddl consistency-receipt.cddl --stdin
