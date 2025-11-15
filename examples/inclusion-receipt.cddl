@@ -27,8 +27,8 @@ Signed_Inclusion_Verifiable_Proofs = {
 
 Signed_Inclusion_Inclusion_Proofs = [ + Signed_Inclusion_Inclusion_Proof ]
 
-Signed_Inclusion_Inclusion_Proof = bstr .cbor [
+Signed_Inclusion_Inclusion_Proof = bytes .cbor [
   tree_size: uint,
   leaf_index: uint,
-  inclusion_path: [ + bstr ]
+  inclusion_path: [ + bytes ]
 ]

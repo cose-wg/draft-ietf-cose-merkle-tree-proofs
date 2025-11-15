@@ -198,22 +198,23 @@ The following {{-CDDL}} definition is provided:
 ~~~ cddl
 Signature_With_Receipt = #6.18(COSE_Sign1)
 
-cose-value = any
+cose.label = int / text
+cose.values = any
 
 Protected_Header = {
-  * cose-label => cose-value
+  * cose.label => cose.values
 }
 
 Unprotected_Header = {
-  &(receipts: 394)  => [+ bstr .cbor Receipt]
-  * cose-label => cose-value
+  &(receipts: 394)  => [+ bytes .cbor Receipt]
+  * cose.label => cose.values
 }
 
 COSE_Sign1 = [
-  protected   : bstr .cbor Protected_Header,
+  protected   : bytes .cbor Protected_Header,
   unprotected : Unprotected_Header,
-  payload     : bstr / nil,
-  signature   : bstr
+  payload     : bytes / nil,
+  signature   : bytes
 ]
 
 Receipt = Receipt_For_Inclusion / Receipt_For_Consistency
@@ -221,70 +222,70 @@ Receipt = Receipt_For_Inclusion / Receipt_For_Consistency
 ; Note the the proof formats shown here are for RFC9162_SHA256.
 ; Other verifiable data structures may have different proof formats.
 
+
 Receipt_For_Inclusion = #6.18(Signed_Inclusion_Proof)
 
-Receipt_For_Consistency = #6.18(Signed_Consistency_Proof)
-
 Signed_Inclusion_Proof = [
-  protected   : bstr .cbor Signed_Inclusion_Protected_Header,
-  unprotected : Signed_Inclusion_Unprotected_Header,
-  payload     : bstr / nil, ; Merkle tree root
-  signature   : bstr
-]
-
-Signed_Consistency_Proof = [
-  protected   : bstr .cbor Signed_Consistency_Protected_Header,
-  unprotected : Signed_Consistency_Unprotected_Header,
-  payload     : bstr / nil, ; Newer Merkle tree root
-  signature   : bstr
+  protected   : bytes .cbor Signed_Inclusion_Protected_Header
+  unprotected : Signed_Inclusion_Unprotected_Header
+  payload     : bytes / nil
+  signature   : bytes
 ]
 
 Signed_Inclusion_Protected_Header = {
   &(alg: 1) => int
   &(vds: 395) => int
-  * cose-label => cose-value
-}
-
-Signed_Consistency_Protected_Header = {
-  &(alg: 1) => int
-  &(vds: 395) => int
-  * cose-label => cose-value
+  * cose.label => cose.values
 }
 
 Signed_Inclusion_Unprotected_Header = {
   &(vdp: 396) => Signed_Inclusion_Verifiable_Proofs
-  * cose-label => cose-value
-}
-
-Signed_Consistency_Unprotected_Header = {
-  &(vdp: 396) => Signed_Consistency_Verifiable_Proofs
-  * cose-label => cose-value
+  * cose.label => cose.values
 }
 
 Signed_Inclusion_Verifiable_Proofs = {
   &(inclusion-proof: -1) => Signed_Inclusion_Inclusion_Proofs
-  * cose-label => cose-value
-}
-
-Signed_Consistency_Verifiable_Proofs = {
-  &(consistency-proof: -2) => Signed_Consistency_Consistency_Proofs
-  * cose-label => cose-value
 }
 
 Signed_Inclusion_Inclusion_Proofs = [ + Signed_Inclusion_Inclusion_Proof ]
 
-Signed_Consistency_Consistency_Proofs = [ + Signed_Consistency_Consistency_Proof ]
-
-Signed_Inclusion_Inclusion_Proof = bstr .cbor [
+Signed_Inclusion_Inclusion_Proof = bytes .cbor [
   tree_size: uint,
   leaf_index: uint,
-  inclusion_path: [ + bstr ]
+  inclusion_path: [ + bytes ]
 ]
 
-Signed_Consistency_Consistency_Proof = bstr .cbor [
-  tree_size_1: uint,
-  tree_size_2: uint,
-  consistency_path:  [ + bstr ]
+
+Receipt_For_Consistency = #6.18(Signed_Consistency_Proof)
+
+Signed_Consistency_Proof = [
+  protected   : bytes .cbor Signed_Consistency_Protected_Header,
+  unprotected : Signed_Consistency_Unprotected_Header,
+  payload     : bytes / nil, ; Newer Merkle tree root
+  signature   : bytes
+]
+
+Signed_Consistency_Protected_Header = {
+  &(alg: 1) => int
+  &(vds: 395) => int
+  * cose.label => cose.values
+}
+
+Signed_Consistency_Unprotected_Header = {
+  &(vdp: 396) ^ => Signed_Consistency_Verifiable_Proofs
+  * cose.label => cose.values
+}
+
+Signed_Consistency_Verifiable_Proofs = {
+  &(consistency-proof: -2) ^ => Signed_Consistency_Consistency_Proofs
+}
+
+Signed_Consistency_Consistency_Proofs = [ + Signed_Consistency_Consistency_Proof ]
+
+Signed_Consistency_Consistency_Proof = bytes .cbor [
+   tree_size_1: uint,
+   tree_size_2: uint,
+   consistency_path: [ + bytes ]
 ]
 
 ~~~

@@ -27,8 +27,8 @@ Signed_Consistency_Verifiable_Proofs = {
 
 Signed_Consistency_Consistency_Proofs = [ + Signed_Consistency_Consistency_Proof ]
 
-Signed_Consistency_Consistency_Proof = bstr .cbor [
+Signed_Consistency_Consistency_Proof = bytes .cbor [
    tree_size_1: uint,
    tree_size_2: uint,
-   consistency_path: [ + bstr ]
+   consistency_path: [ + bytes ]
 ]
