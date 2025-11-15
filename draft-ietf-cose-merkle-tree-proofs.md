@@ -276,15 +276,15 @@ Signed_Inclusion_Inclusion_Proofs = [ + Signed_Inclusion_Inclusion_Proof ]
 Signed_Consistency_Consistency_Proofs = [ + Signed_Consistency_Consistency_Proof ]
 
 Signed_Inclusion_Inclusion_Proof = bstr .cbor [
-  / tree-size / uint,
-  / leaf-index / uint,
-  / inclusion-path / [ + bstr ]
+  tree_size: uint,
+  leaf_index: uint,
+  inclusion_path: [ + bstr ]
 ]
 
 Signed_Consistency_Consistency_Proof = bstr .cbor [
-  / tree-size-1 / uint,
-  / tree-size-2 / uint,
-  / consistency-path / [ + bstr ]
+  tree_size_1: uint,
+  tree_size_2: uint,
+  consistency_path:  [ + bstr ]
 ]
 
 ~~~

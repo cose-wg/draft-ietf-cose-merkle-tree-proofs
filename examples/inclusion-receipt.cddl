@@ -1,0 +1,33 @@
+
+Receipt_For_Inclusion = #6.18(Signed_Inclusion_Proof)
+
+Signed_Inclusion_Proof = [
+  protected   : bstr .cbor Signed_Inclusion_Protected_Header,
+  unprotected : Signed_Inclusion_Unprotected_Header,
+  payload     : bstr / nil, ; Merkle tree root
+  signature   : bstr
+]
+
+Signed_Inclusion_Protected_Header = {
+  &(alg: 1) ^ => int,
+  &(vds: 395) ^ => int,
+  ? &(kid: 4) ^ => bstr,
+  * key => any
+}
+
+Signed_Inclusion_Unprotected_Header = {
+  &(vdp: 396) ^ => Signed_Inclusion_Verifiable_Proofs,
+  * key => any
+}
+
+Signed_Inclusion_Verifiable_Proofs = {
+  &(inclusion-proof: -1) ^ => Signed_Inclusion_Inclusion_Proofs
+}
+
+Signed_Inclusion_Inclusion_Proofs = [ + Signed_Inclusion_Inclusion_Proof ]
+
+Signed_Inclusion_Inclusion_Proof = bstr .cbor [
+   tree_size: uint,
+   leaf_index: uint,
+   inclusion_path: [ + bstr ]
+]
