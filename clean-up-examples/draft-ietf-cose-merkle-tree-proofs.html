@@ -1442,27 +1442,100 @@ Security analysis <span class="bcp14">MUST</span> be conducted prior to migratin
 <p id="section-4.3-4">The following <span>[<a href="#RFC8610" class="cite xref">RFC8610</a>]</span> definition is provided:<a href="#section-4.3-4" class="pilcrow">¶</a></p>
 <span id="name-cddl-for-a-cose-sign1-with-"></span><div id="fig-receipts-cddl">
 <figure id="figure-1">
-          <div class="lang-cddl sourcecode" id="section-4.3-5.1">
+          <div class="breakable lang-cddl sourcecode" id="section-4.3-5.1">
 <pre>
-Receipt = #6.18(COSE_Sign1)
+Signature_With_Receipt = #6.18(COSE_Sign1)
 
-cose-value = any
+cose.label = int / text
+cose.values = any
 
 Protected_Header = {
-  * cose-label =&gt; cose-value
+  * cose.label =&gt; cose.values
 }
 
 Unprotected_Header = {
-  &amp;(receipts: 394)  =&gt; [+ bstr .cbor Receipt]
-  * cose-label =&gt; cose-value
+  &amp;(receipts: 394)  =&gt; [+ bytes .cbor Receipt]
+  * cose.label =&gt; cose.values
 }
 
 COSE_Sign1 = [
-  protected   : bstr .cbor Protected_Header,
+  protected   : bytes .cbor Protected_Header,
   unprotected : Unprotected_Header,
-  payload     : bstr / nil,
-  signature   : bstr
+  payload     : bytes / nil,
+  signature   : bytes
 ]
+
+Receipt = Receipt_For_Inclusion / Receipt_For_Consistency
+
+; Note the the proof formats shown here are for RFC9162_SHA256.
+; Other verifiable data structures may have different proof formats.
+
+
+Receipt_For_Inclusion = #6.18(Signed_Inclusion_Proof)
+
+Signed_Inclusion_Proof = [
+  protected   : bytes .cbor Signed_Inclusion_Protected_Header
+  unprotected : Signed_Inclusion_Unprotected_Header
+  payload     : bytes / nil
+  signature   : bytes
+]
+
+Signed_Inclusion_Protected_Header = {
+  &amp;(alg: 1) =&gt; int
+  &amp;(vds: 395) =&gt; int
+  * cose.label =&gt; cose.values
+}
+
+Signed_Inclusion_Unprotected_Header = {
+  &amp;(vdp: 396) =&gt; Signed_Inclusion_Verifiable_Proofs
+  * cose.label =&gt; cose.values
+}
+
+Signed_Inclusion_Verifiable_Proofs = {
+  &amp;(inclusion-proof: -1) =&gt; Signed_Inclusion_Inclusion_Proofs
+}
+
+Signed_Inclusion_Inclusion_Proofs = [ + Signed_Inclusion_Inclusion_Proof ]
+
+Signed_Inclusion_Inclusion_Proof = bytes .cbor [
+  tree_size: uint,
+  leaf_index: uint,
+  inclusion_path: [ + bytes ]
+]
+
+
+Receipt_For_Consistency = #6.18(Signed_Consistency_Proof)
+
+Signed_Consistency_Proof = [
+  protected   : bytes .cbor Signed_Consistency_Protected_Header,
+  unprotected : Signed_Consistency_Unprotected_Header,
+  payload     : bytes / nil, ; Newer Merkle tree root
+  signature   : bytes
+]
+
+Signed_Consistency_Protected_Header = {
+  &amp;(alg: 1) =&gt; int
+  &amp;(vds: 395) =&gt; int
+  * cose.label =&gt; cose.values
+}
+
+Signed_Consistency_Unprotected_Header = {
+  &amp;(vdp: 396) ^ =&gt; Signed_Consistency_Verifiable_Proofs
+  * cose.label =&gt; cose.values
+}
+
+Signed_Consistency_Verifiable_Proofs = {
+  &amp;(consistency-proof: -2) ^ =&gt; Signed_Consistency_Consistency_Proofs
+}
+
+Signed_Consistency_Consistency_Proofs = [ + Signed_Consistency_Consistency_Proof ]
+
+Signed_Consistency_Consistency_Proof = bytes .cbor [
+   tree_size_1: uint,
+   tree_size_2: uint,
+   consistency_path: [ + bytes ]
+]
+
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
