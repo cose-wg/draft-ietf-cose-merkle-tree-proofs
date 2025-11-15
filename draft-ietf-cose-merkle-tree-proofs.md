@@ -196,7 +196,7 @@ Receipts MUST be tagged as COSE_Sign1.
 The following {{-CDDL}} definition is provided:
 
 ~~~ cddl
-Receipt = #6.18(COSE_Sign1)
+Signature_With_Receipt = #6.18(COSE_Sign1)
 
 cose-value = any
 
@@ -215,6 +215,78 @@ COSE_Sign1 = [
   payload     : bstr / nil,
   signature   : bstr
 ]
+
+Receipt = Receipt_For_Inclusion / Receipt_For_Consistency
+
+; Note the the proof formats shown here are for RFC9162_SHA256.
+; Other verifiable data structures may have different proof formats.
+
+Receipt_For_Inclusion = #6.18(Signed_Inclusion_Proof)
+
+Receipt_For_Consistency = #6.18(Signed_Consistency_Proof)
+
+Signed_Inclusion_Proof = [
+  protected   : bstr .cbor Signed_Inclusion_Protected_Header,
+  unprotected : Signed_Inclusion_Unprotected_Header,
+  payload     : bstr / nil, ; Merkle tree root
+  signature   : bstr
+]
+
+Signed_Consistency_Proof = [
+  protected   : bstr .cbor Signed_Consistency_Protected_Header,
+  unprotected : Signed_Consistency_Unprotected_Header,
+  payload     : bstr / nil, ; Newer Merkle tree root
+  signature   : bstr
+]
+
+Signed_Inclusion_Protected_Header = {
+  &(alg: 1) => int
+  &(vds: 395) => int
+  * cose-label => cose-value
+}
+
+Signed_Consistency_Protected_Header = {
+  &(alg: 1) => int
+  &(vds: 395) => int
+  * cose-label => cose-value
+}
+
+Signed_Inclusion_Unprotected_Header = {
+  &(vdp: 396) => Signed_Inclusion_Verifiable_Proofs
+  * cose-label => cose-value
+}
+
+Signed_Consistency_Unprotected_Header = {
+  &(vdp: 396) => Signed_Consistency_Verifiable_Proofs
+  * cose-label => cose-value
+}
+
+Signed_Inclusion_Verifiable_Proofs = {
+  &(inclusion-proof: -1) => Signed_Inclusion_Inclusion_Proofs
+  * cose-label => cose-value
+}
+
+Signed_Consistency_Verifiable_Proofs = {
+  &(consistency-proof: -2) => Signed_Consistency_Consistency_Proofs
+  * cose-label => cose-value
+}
+
+Signed_Inclusion_Inclusion_Proofs = [ + Signed_Inclusion_Inclusion_Proof ]
+
+Signed_Consistency_Consistency_Proofs = [ + Signed_Consistency_Consistency_Proof ]
+
+Signed_Inclusion_Inclusion_Proof = bstr .cbor [
+  / tree-size / uint,
+  / leaf-index / uint,
+  / inclusion-path / [ + bstr ]
+]
+
+Signed_Consistency_Consistency_Proof = bstr .cbor [
+  / tree-size-1 / uint,
+  / tree-size-2 / uint,
+  / consistency-path / [ + bstr ]
+]
+
 ~~~
 {: #fig-receipts-cddl title="CDDL for a COSE Sign1 with attached receipts"}
 
