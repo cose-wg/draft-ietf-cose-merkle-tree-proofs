@@ -1,0 +1,50 @@
+# CBOR Diagnostic Report
+
+**File:** `demo/receipt-samples/consistency-receipt.cbor`
+
+**Size:** 284 bytes
+
+**Generated:** 2025-11-15T21:21:01Z
+
+**Type:** COSE Sign1
+
+---
+
+## CBOR Diagnostic Notation
+
+```cbor-diag
+/ cose-sign1 / 18([
+  / protected   / <<{
+    / kid / 4: h'74657374...65792d31',
+    / alg / 1: -7,  # ES256
+    / vds / 395: 1,  # RFC9162 SHA-256
+    / CWT Claims / 15: {
+      / iss / 1: "https://transparency-service.example.com",
+    },
+  }>>,
+  / unprotected / {
+    / vdp / 396: {
+      / consistency / -2: [
+        <<[
+          / old_size / 3, / new_size / 5,
+          / consistency path / [
+            h'3d06455d...d1198095',
+            h'987ba809...a5da242d',
+            h'33a52117...98255434',
+            h'4d75742d...57e741c0'
+          ]
+        ]>>
+      ],
+    },
+  },
+  / payload     / null,
+  / signature   / h'a1373d8b...523fe685'
+])
+```
+
+## Hex
+
+```
+d2 84 58 40 a4 01 26 04 4a 74 65 73 74 2d 6b 65 79 2d 31 19 01 8b 01 0f a1 01 78 28 68 74 74 70 73 3a 2f 2f 74 72 61 6e 73 70 61 72 65 6e 63 79 2d 73 65 72 76 69 63 65 2e 65 78 61 6d 70 6c 65 2e 63 6f 6d a1 19 01 8c a1 21 81 58 8c 83 03 05 84 58 20 3d 06 45 5d d3 3d a4 e9 bb d8 09 06 77 a2 d0 95 5e 6d ff e4 b9 20 69 60 5a 46 89 20 d1 19 80 95 58 20 98 7b a8 09 3c ab e3 10 46 a7 7b be 9a a4 b5 f6 26 75 d9 43 38 6c 7f bb e2 49 cb ac a5 da 24 2d 58 20 33 a5 21 17 19 e0 62 38 a1 91 c7 24 4a 76 33 18 7d a2 c9 aa a5 bc 6d ec 54 e2 cb b4 98 25 54 34 58 20 4d 75 74 2d 9e a0 2f 77 67 dc d5 54 a7 87 8f f2 2c db 20 8b e9 f3 d3 5f 7a a7 70 0b 57 e7 41 c0 f6 58 40 a1 37 3d 8b a8 37 ee db 76 80 69 2e 7b da 76 56 9a cd 2f 92 25 9a d4 82 c7 07 6f 20 1c 86 57 91 0f 56 23 b1 ec aa 40 d8 45 a5 d1 a4 9f 3f 5b d8 92 70 96 38 4c fc ce a5 29 33 f4 48 52 3f e6 85
+```
+

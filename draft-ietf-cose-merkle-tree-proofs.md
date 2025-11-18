@@ -196,25 +196,98 @@ Receipts MUST be tagged as COSE_Sign1.
 The following {{-CDDL}} definition is provided:
 
 ~~~ cddl
-Receipt = #6.18(COSE_Sign1)
+Signature_With_Receipt = #6.18(COSE_Sign1)
 
-cose-value = any
+cose.label = int / text
+cose.values = any
 
 Protected_Header = {
-  * cose-label => cose-value
+  * cose.label => cose.values
 }
 
 Unprotected_Header = {
-  &(receipts: 394)  => [+ bstr .cbor Receipt]
-  * cose-label => cose-value
+  &(receipts: 394)  => [+ bytes .cbor Receipt]
+  * cose.label => cose.values
 }
 
 COSE_Sign1 = [
-  protected   : bstr .cbor Protected_Header,
+  protected   : bytes .cbor Protected_Header,
   unprotected : Unprotected_Header,
-  payload     : bstr / nil,
-  signature   : bstr
+  payload     : bytes / nil,
+  signature   : bytes
 ]
+
+Receipt = Receipt_For_Inclusion / Receipt_For_Consistency
+
+; Note the the proof formats shown here are for RFC9162_SHA256.
+; Other verifiable data structures may have different proof formats.
+
+
+Receipt_For_Inclusion = #6.18(Signed_Inclusion_Proof)
+
+Signed_Inclusion_Proof = [
+  protected   : bytes .cbor Signed_Inclusion_Protected_Header
+  unprotected : Signed_Inclusion_Unprotected_Header
+  payload     : bytes / nil
+  signature   : bytes
+]
+
+Signed_Inclusion_Protected_Header = {
+  &(alg: 1) => int
+  &(vds: 395) => int
+  * cose.label => cose.values
+}
+
+Signed_Inclusion_Unprotected_Header = {
+  &(vdp: 396) => Signed_Inclusion_Verifiable_Proofs
+  * cose.label => cose.values
+}
+
+Signed_Inclusion_Verifiable_Proofs = {
+  &(inclusion-proof: -1) => Signed_Inclusion_Inclusion_Proofs
+}
+
+Signed_Inclusion_Inclusion_Proofs = [ + Signed_Inclusion_Inclusion_Proof ]
+
+Signed_Inclusion_Inclusion_Proof = bytes .cbor [
+  tree_size: uint,
+  leaf_index: uint,
+  inclusion_path: [ + bytes ]
+]
+
+
+Receipt_For_Consistency = #6.18(Signed_Consistency_Proof)
+
+Signed_Consistency_Proof = [
+  protected   : bytes .cbor Signed_Consistency_Protected_Header,
+  unprotected : Signed_Consistency_Unprotected_Header,
+  payload     : bytes / nil, ; Newer Merkle tree root
+  signature   : bytes
+]
+
+Signed_Consistency_Protected_Header = {
+  &(alg: 1) => int
+  &(vds: 395) => int
+  * cose.label => cose.values
+}
+
+Signed_Consistency_Unprotected_Header = {
+  &(vdp: 396) ^ => Signed_Consistency_Verifiable_Proofs
+  * cose.label => cose.values
+}
+
+Signed_Consistency_Verifiable_Proofs = {
+  &(consistency-proof: -2) ^ => Signed_Consistency_Consistency_Proofs
+}
+
+Signed_Consistency_Consistency_Proofs = [ + Signed_Consistency_Consistency_Proof ]
+
+Signed_Consistency_Consistency_Proof = bytes .cbor [
+   tree_size_1: uint,
+   tree_size_2: uint,
+   consistency_path: [ + bytes ]
+]
+
 ~~~
 {: #fig-receipts-cddl title="CDDL for a COSE Sign1 with attached receipts"}
 
@@ -223,14 +296,14 @@ The following informative EDN is provided:
 ~~~ cbor-diag
 / cose-sign1 / 18([
   / protected   / <<{
-    / key / 4 : "vCl7UcS0ZZY99VpRthDc-0iUjLdfLtnmFqLJ2-Tt8N4",
+    / kid / 4 : h'bc297b51...e4edf0de',
     / algorithm / 1 : -7,  # ES256
   }>>,
   / unprotected / {
     / receipts / 394 : {
       <</ cose-sign1 / 18([
         / protected   / <<{
-          / key / 4 : "mxA4KiOkQFZ-dkLebSo3mLOEPR7rN8XtxkJe45xuyJk",
+          / kid / 4 : h'abcdef12...34567890',
           / algorithm / 1 : -7,  # ES256
           / vds       / 395 : 1, # RFC9162 SHA-256
         }>>,
@@ -250,7 +323,7 @@ The following informative EDN is provided:
       ])>>,
       <</ cose-sign1 / 18([
         / protected   / <<{
-          / key / 4 : "ajOkeBTJou_wPrlExLMw7L9OTCD5ZIOBYc-O6LESe9c",
+          / kid / 4 : h'abcdef12...34567890',
           / algorithm / 1 : -7,  # ES256
           / vds       / 395 : 1, # RFC9162 SHA-256
         }>>,

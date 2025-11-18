@@ -1,0 +1,34 @@
+cose.label = int / text
+cose.values = any
+
+Receipt_For_Consistency = #6.18(Signed_Consistency_Proof)
+
+Signed_Consistency_Proof = [
+  protected   : bytes .cbor Signed_Consistency_Protected_Header,
+  unprotected : Signed_Consistency_Unprotected_Header,
+  payload     : bytes / nil, ; Newer Merkle tree root
+  signature   : bytes
+]
+
+Signed_Consistency_Protected_Header = {
+  &(alg: 1) => int
+  &(vds: 395) => int
+  * cose.label => cose.values
+}
+
+Signed_Consistency_Unprotected_Header = {
+  &(vdp: 396) ^ => Signed_Consistency_Verifiable_Proofs
+  * cose.label => cose.values
+}
+
+Signed_Consistency_Verifiable_Proofs = {
+  &(consistency-proof: -2) ^ => Signed_Consistency_Consistency_Proofs
+}
+
+Signed_Consistency_Consistency_Proofs = [ + Signed_Consistency_Consistency_Proof ]
+
+Signed_Consistency_Consistency_Proof = bytes .cbor [
+   tree_size_1: uint,
+   tree_size_2: uint,
+   consistency_path: [ + bytes ]
+]
