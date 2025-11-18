@@ -18,7 +18,7 @@
     / kid / 4: h'74657374...65792d31',
     / alg / 1: -7,  # ES256
     / vds / 395: 1,  # RFC9162 SHA-256
-    / cwt_claims / 15: {
+    / CWT Claims / 15: {
       / iss / 1: "https://transparency-service.example.com",
     },
   }>>,
