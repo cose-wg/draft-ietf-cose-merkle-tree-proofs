@@ -4,30 +4,30 @@ cose.values = any
 Receipt_For_Inclusion = #6.18(Signed_Inclusion_Proof)
 
 Signed_Inclusion_Proof = [
-  protected   : bstr .cbor Signed_Inclusion_Protected_Header
-  unprotected : Signed_Inclusion_Unprotected_Header
+  protected   : bstr .cbor RFC9162_SHA256_Inclusion_Protected_Header
+  unprotected : RFC9162_SHA256_Inclusion_Unrotected_Header
   payload     : bstr / nil
   signature   : bstr
 ]
 
-Signed_Inclusion_Protected_Header = {
+RFC9162_SHA256_Inclusion_Protected_Header = {
   &(alg: 1) => int
   &(vds: 395) => int
   * cose.label => cose.values
 }
 
-Signed_Inclusion_Unprotected_Header = {
-  &(vdp: 396) => Signed_Inclusion_Verifiable_Proofs
+RFC9162_SHA256_Inclusion_Unrotected_Header = {
+  &(vdp: 396) => RFC9162_SHA256_Verifiable_Inclusion_Proofs
   * cose.label => cose.values
 }
 
-Signed_Inclusion_Verifiable_Proofs = {
-  &(inclusion-proof: -1) => Signed_Inclusion_Inclusion_Proofs
+RFC9162_SHA256_Verifiable_Inclusion_Proofs = {
+  &(inclusion-proof: -1) => RFC9162_SHA256_Inclusion_Proofs
 }
 
-Signed_Inclusion_Inclusion_Proofs = [ + Signed_Inclusion_Inclusion_Proof ]
+RFC9162_SHA256_Inclusion_Proofs = [ + RFC9162_SHA256_Inclusion_Proof ]
 
-Signed_Inclusion_Inclusion_Proof = bstr .cbor [
+RFC9162_SHA256_Inclusion_Proof = bstr .cbor [
   tree_size: uint,
   leaf_index: uint,
   inclusion_path: [ + bstr ]
