@@ -238,7 +238,7 @@ RFC9162_SHA256_Inclusion_Protected_Header = {
   * cose.label => cose.values
 }
 
-RFC9162_SHA256_Inclusion_Unrotected_Header = {
+RFC9162_SHA256_Inclusion_Unprotected_Header = {
   &(vdp: 396) => RFC9162_SHA256_Verifiable_Inclusion_Proofs
   * cose.label => cose.values
 }
