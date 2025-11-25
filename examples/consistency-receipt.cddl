@@ -4,31 +4,31 @@ cose.values = any
 Receipt_For_Consistency = #6.18(Signed_Consistency_Proof)
 
 Signed_Consistency_Proof = [
-  protected   : bytes .cbor Signed_Consistency_Protected_Header,
-  unprotected : Signed_Consistency_Unprotected_Header,
-  payload     : bytes / nil, ; Newer Merkle tree root
-  signature   : bytes
+  protected   : bstr .cbor RFC9162_SHA256_Consistency_Protected_Header,
+  unprotected : RFC9162_SHA256_Consistency_Unprotected_Header,
+  payload     : bstr / nil, ; Newer Merkle tree root
+  signature   : bstr
 ]
 
-Signed_Consistency_Protected_Header = {
+RFC9162_SHA256_Consistency_Protected_Header = {
   &(alg: 1) => int
   &(vds: 395) => int
   * cose.label => cose.values
 }
 
-Signed_Consistency_Unprotected_Header = {
-  &(vdp: 396) ^ => Signed_Consistency_Verifiable_Proofs
+RFC9162_SHA256_Consistency_Unprotected_Header = {
+  &(vdp: 396) ^ => RFC9162_SHA256_Verifiable_Consistency_Proofs
   * cose.label => cose.values
 }
 
-Signed_Consistency_Verifiable_Proofs = {
-  &(consistency-proof: -2) ^ => Signed_Consistency_Consistency_Proofs
+RFC9162_SHA256_Verifiable_Consistency_Proofs = {
+  &(consistency-proof: -2) ^ => RFC9162_SHA256_Consistency_Proofs
 }
 
-Signed_Consistency_Consistency_Proofs = [ + Signed_Consistency_Consistency_Proof ]
+RFC9162_SHA256_Consistency_Proofs = [ + RFC9162_SHA256_Consistency_Proof ]
 
-Signed_Consistency_Consistency_Proof = bytes .cbor [
+RFC9162_SHA256_Consistency_Proof = bstr .cbor [
    tree_size_1: uint,
    tree_size_2: uint,
-   consistency_path: [ + bytes ]
+   consistency_path: [ + bstr ]
 ]
