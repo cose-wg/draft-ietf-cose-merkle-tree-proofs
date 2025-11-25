@@ -206,15 +206,15 @@ Protected_Header = {
 }
 
 Unprotected_Header = {
-  &(receipts: 394)  => [+ bytes .cbor Receipt]
+  &(receipts: 394)  => [+ bstr .cbor Receipt]
   * cose.label => cose.values
 }
 
 COSE_Sign1 = [
-  protected   : bytes .cbor Protected_Header,
+  protected   : bstr .cbor Protected_Header,
   unprotected : Unprotected_Header,
-  payload     : bytes / nil,
-  signature   : bytes
+  payload     : bstr / nil,
+  signature   : bstr
 ]
 
 Receipt = Receipt_For_Inclusion / Receipt_For_Consistency
@@ -226,10 +226,10 @@ Receipt = Receipt_For_Inclusion / Receipt_For_Consistency
 Receipt_For_Inclusion = #6.18(Signed_Inclusion_Proof)
 
 Signed_Inclusion_Proof = [
-  protected   : bytes .cbor Signed_Inclusion_Protected_Header
+  protected   : bstr .cbor Signed_Inclusion_Protected_Header
   unprotected : Signed_Inclusion_Unprotected_Header
-  payload     : bytes / nil
-  signature   : bytes
+  payload     : bstr / nil
+  signature   : bstr
 ]
 
 Signed_Inclusion_Protected_Header = {
@@ -249,20 +249,20 @@ Signed_Inclusion_Verifiable_Proofs = {
 
 Signed_Inclusion_Inclusion_Proofs = [ + Signed_Inclusion_Inclusion_Proof ]
 
-Signed_Inclusion_Inclusion_Proof = bytes .cbor [
+Signed_Inclusion_Inclusion_Proof = bstr .cbor [
   tree_size: uint,
   leaf_index: uint,
-  inclusion_path: [ + bytes ]
+  inclusion_path: [ + bstr ]
 ]
 
 
 Receipt_For_Consistency = #6.18(Signed_Consistency_Proof)
 
 Signed_Consistency_Proof = [
-  protected   : bytes .cbor Signed_Consistency_Protected_Header,
+  protected   : bstr .cbor Signed_Consistency_Protected_Header,
   unprotected : Signed_Consistency_Unprotected_Header,
-  payload     : bytes / nil, ; Newer Merkle tree root
-  signature   : bytes
+  payload     : bstr / nil, ; Newer Merkle tree root
+  signature   : bstr
 ]
 
 Signed_Consistency_Protected_Header = {
@@ -282,10 +282,10 @@ Signed_Consistency_Verifiable_Proofs = {
 
 Signed_Consistency_Consistency_Proofs = [ + Signed_Consistency_Consistency_Proof ]
 
-Signed_Consistency_Consistency_Proof = bytes .cbor [
+Signed_Consistency_Consistency_Proof = bstr .cbor [
    tree_size_1: uint,
    tree_size_2: uint,
-   consistency_path: [ + bytes ]
+   consistency_path: [ + bstr ]
 ]
 
 ~~~

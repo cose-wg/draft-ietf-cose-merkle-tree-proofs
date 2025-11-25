@@ -4,10 +4,10 @@ cose.values = any
 Receipt_For_Consistency = #6.18(Signed_Consistency_Proof)
 
 Signed_Consistency_Proof = [
-  protected   : bytes .cbor Signed_Consistency_Protected_Header,
+  protected   : bstr .cbor Signed_Consistency_Protected_Header,
   unprotected : Signed_Consistency_Unprotected_Header,
-  payload     : bytes / nil, ; Newer Merkle tree root
-  signature   : bytes
+  payload     : bstr / nil, ; Newer Merkle tree root
+  signature   : bstr
 ]
 
 Signed_Consistency_Protected_Header = {
@@ -27,8 +27,8 @@ Signed_Consistency_Verifiable_Proofs = {
 
 Signed_Consistency_Consistency_Proofs = [ + Signed_Consistency_Consistency_Proof ]
 
-Signed_Consistency_Consistency_Proof = bytes .cbor [
+Signed_Consistency_Consistency_Proof = bstr .cbor [
    tree_size_1: uint,
    tree_size_2: uint,
-   consistency_path: [ + bytes ]
+   consistency_path: [ + bstr ]
 ]
