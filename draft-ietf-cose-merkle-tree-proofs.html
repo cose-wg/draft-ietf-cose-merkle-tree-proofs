@@ -1054,7 +1054,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Steele, et al.</td>
-<td class="center">Expires 22 May 2026</td>
+<td class="center">Expires 29 May 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1067,12 +1067,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-cose-merkle-tree-proofs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-11-18" class="published">18 November 2025</time>
+<time datetime="2025-11-25" class="published">25 November 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-05-22">22 May 2026</time></dd>
+<dd class="expires"><time datetime="2026-05-29">29 May 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1133,7 +1133,7 @@ The extensibility of the approach is demonstrated by providing CBOR encodings fo
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 May 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 29 May 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1454,15 +1454,15 @@ Protected_Header = {
 }
 
 Unprotected_Header = {
-  &amp;(receipts: 394)  =&gt; [+ bytes .cbor Receipt]
+  &amp;(receipts: 394)  =&gt; [+ bstr .cbor Receipt]
   * cose.label =&gt; cose.values
 }
 
 COSE_Sign1 = [
-  protected   : bytes .cbor Protected_Header,
+  protected   : bstr .cbor Protected_Header,
   unprotected : Unprotected_Header,
-  payload     : bytes / nil,
-  signature   : bytes
+  payload     : bstr / nil,
+  signature   : bstr
 ]
 
 Receipt = Receipt_For_Inclusion / Receipt_For_Consistency
@@ -1474,66 +1474,66 @@ Receipt = Receipt_For_Inclusion / Receipt_For_Consistency
 Receipt_For_Inclusion = #6.18(Signed_Inclusion_Proof)
 
 Signed_Inclusion_Proof = [
-  protected   : bytes .cbor Signed_Inclusion_Protected_Header
-  unprotected : Signed_Inclusion_Unprotected_Header
-  payload     : bytes / nil
-  signature   : bytes
+  protected   : bstr .cbor RFC9162_SHA256_Inclusion_Protected_Header
+  unprotected : RFC9162_SHA256_Inclusion_Unprotected_Header
+  payload     : bstr / nil
+  signature   : bstr
 ]
 
-Signed_Inclusion_Protected_Header = {
+RFC9162_SHA256_Inclusion_Protected_Header = {
   &amp;(alg: 1) =&gt; int
   &amp;(vds: 395) =&gt; int
   * cose.label =&gt; cose.values
 }
 
-Signed_Inclusion_Unprotected_Header = {
-  &amp;(vdp: 396) =&gt; Signed_Inclusion_Verifiable_Proofs
+RFC9162_SHA256_Inclusion_Unprotected_Header = {
+  &amp;(vdp: 396) =&gt; RFC9162_SHA256_Verifiable_Inclusion_Proofs
   * cose.label =&gt; cose.values
 }
 
-Signed_Inclusion_Verifiable_Proofs = {
-  &amp;(inclusion-proof: -1) =&gt; Signed_Inclusion_Inclusion_Proofs
+RFC9162_SHA256_Verifiable_Inclusion_Proofs = {
+  &amp;(inclusion-proof: -1) =&gt; RFC9162_SHA256_Inclusion_Proofs
 }
 
-Signed_Inclusion_Inclusion_Proofs = [ + Signed_Inclusion_Inclusion_Proof ]
+RFC9162_SHA256_Inclusion_Proofs = [ + RFC9162_SHA256_Inclusion_Proof ]
 
-Signed_Inclusion_Inclusion_Proof = bytes .cbor [
+RFC9162_SHA256_Inclusion_Proof = bstr .cbor [
   tree_size: uint,
   leaf_index: uint,
-  inclusion_path: [ + bytes ]
+  inclusion_path: [ + bstr ]
 ]
 
 
 Receipt_For_Consistency = #6.18(Signed_Consistency_Proof)
 
 Signed_Consistency_Proof = [
-  protected   : bytes .cbor Signed_Consistency_Protected_Header,
-  unprotected : Signed_Consistency_Unprotected_Header,
-  payload     : bytes / nil, ; Newer Merkle tree root
-  signature   : bytes
+  protected   : bstr .cbor RFC9162_SHA256_Consistency_Protected_Header,
+  unprotected : RFC9162_SHA256_Consistency_Unprotected_Header,
+  payload     : bstr / nil, ; Newer Merkle tree root
+  signature   : bstr
 ]
 
-Signed_Consistency_Protected_Header = {
+RFC9162_SHA256_Consistency_Protected_Header = {
   &amp;(alg: 1) =&gt; int
   &amp;(vds: 395) =&gt; int
   * cose.label =&gt; cose.values
 }
 
-Signed_Consistency_Unprotected_Header = {
-  &amp;(vdp: 396) ^ =&gt; Signed_Consistency_Verifiable_Proofs
+RFC9162_SHA256_Consistency_Unprotected_Header = {
+  &amp;(vdp: 396) ^ =&gt; RFC9162_SHA256_Verifiable_Consistency_Proofs
   * cose.label =&gt; cose.values
 }
 
-Signed_Consistency_Verifiable_Proofs = {
-  &amp;(consistency-proof: -2) ^ =&gt; Signed_Consistency_Consistency_Proofs
+RFC9162_SHA256_Verifiable_Consistency_Proofs = {
+  &amp;(consistency-proof: -2) ^ =&gt; RFC9162_SHA256_Consistency_Proofs
 }
 
-Signed_Consistency_Consistency_Proofs = [ + Signed_Consistency_Consistency_Proof ]
+RFC9162_SHA256_Consistency_Proofs = [ + RFC9162_SHA256_Consistency_Proof ]
 
-Signed_Consistency_Consistency_Proof = bytes .cbor [
+RFC9162_SHA256_Consistency_Proof = bstr .cbor [
    tree_size_1: uint,
    tree_size_2: uint,
-   consistency_path: [ + bytes ]
+   consistency_path: [ + bstr ]
 ]
 
 </pre>
