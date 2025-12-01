@@ -17,12 +17,12 @@ RFC9162_SHA256_Consistency_Protected_Header = {
 }
 
 RFC9162_SHA256_Consistency_Unprotected_Header = {
-  &(vdp: 396) ^ => RFC9162_SHA256_Verifiable_Consistency_Proofs
+  &(vdp: 396) => RFC9162_SHA256_Verifiable_Consistency_Proofs
   * cose.label => cose.values
 }
 
 RFC9162_SHA256_Verifiable_Consistency_Proofs = {
-  &(consistency-proof: -2) ^ => RFC9162_SHA256_Consistency_Proofs
+  &(consistency-proof: -2) => RFC9162_SHA256_Consistency_Proofs
 }
 
 RFC9162_SHA256_Consistency_Proofs = [ + RFC9162_SHA256_Consistency_Proof ]
