@@ -206,7 +206,7 @@ Protected_Header = {
 }
 
 Unprotected_Header = {
-  &(receipts: 394)  => [+ bstr .cbor Receipt]
+  &(receipts: 394) ^ => [+ bstr .cbor Receipt]
   * cose.label => cose.values
 }
 
@@ -233,13 +233,13 @@ Signed_Inclusion_Proof = [
 ]
 
 RFC9162_SHA256_Inclusion_Protected_Header = {
-  &(alg: 1) => int
-  &(vds: 395) => int
+  &(alg: 1) ^ => int
+  &(vds: 395) ^ => int
   * cose.label => cose.values
 }
 
 RFC9162_SHA256_Inclusion_Unprotected_Header = {
-  &(vdp: 396) => RFC9162_SHA256_Verifiable_Inclusion_Proofs
+  &(vdp: 396) ^ => RFC9162_SHA256_Verifiable_Inclusion_Proofs
   * cose.label => cose.values
 }
 
@@ -266,8 +266,8 @@ Signed_Consistency_Proof = [
 ]
 
 RFC9162_SHA256_Consistency_Protected_Header = {
-  &(alg: 1) => int
-  &(vds: 395) => int
+  &(alg: 1) ^ => int
+  &(vds: 395) ^ => int
   * cose.label => cose.values
 }
 
@@ -277,7 +277,7 @@ RFC9162_SHA256_Consistency_Unprotected_Header = {
 }
 
 RFC9162_SHA256_Verifiable_Consistency_Proofs = {
-  &(consistency-proof: -2) ^ => RFC9162_SHA256_Consistency_Proofs
+  &(consistency-proof: -2) => RFC9162_SHA256_Consistency_Proofs
 }
 
 RFC9162_SHA256_Consistency_Proofs = [ + RFC9162_SHA256_Consistency_Proof ]
@@ -419,8 +419,8 @@ The protected header for an RFC9162_SHA256 inclusion proof signature is:
 
 ~~~~ cddl
 protected-header-map = {
-  &(alg: 1) => int
-  &(vds: 395) => int
+  &(alg: 1) ^ => int
+  &(vds: 395) ^ => int
   * cose-label => cose-value
 }
 ~~~~
@@ -440,7 +440,7 @@ verifiable-proofs = {
 }
 
 unprotected-header-map = {
-  &(vdp: 396) => verifiable-proofs
+  &(vdp: 396) ^ => verifiable-proofs
   * cose-label => cose-value
 }
 ~~~~
@@ -518,8 +518,8 @@ The protected header for an RFC9162_SHA256 consistency proof signature is:
 
 ~~~~ cddl
 protected-header-map = {
-  &(alg: 1) => int
-  &(vds: 395) => int
+  &(alg: 1) ^ => int
+  &(vds: 395) ^ => int
   * cose-label => cose-value
 }
 ~~~~
@@ -539,7 +539,7 @@ verifiable-proofs = {
 }
 
 unprotected-header-map = {
-  &(vdp: 396) => verifiable-proofs
+  &(vdp: 396) ^ => verifiable-proofs
   * cose-label => cose-value
 }
 ~~~~
