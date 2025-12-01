@@ -233,8 +233,8 @@ Signed_Inclusion_Proof = [
 ]
 
 RFC9162_SHA256_Inclusion_Protected_Header = {
-  &(alg: 1) ^ => int
-  &(vds: 395) ^ => int
+  &(alg: 1) ^ => int,
+  &(vds: 395) ^ => int,
   * cose.label => cose.values
 }
 
@@ -266,8 +266,8 @@ Signed_Consistency_Proof = [
 ]
 
 RFC9162_SHA256_Consistency_Protected_Header = {
-  &(alg: 1) ^ => int
-  &(vds: 395) ^ => int
+  &(alg: 1) ^ => int,
+  &(vds: 395) ^ => int,
   * cose.label => cose.values
 }
 
