@@ -11,13 +11,13 @@ Signed_Consistency_Proof = [
 ]
 
 RFC9162_SHA256_Consistency_Protected_Header = {
-  &(alg: 1) => int
-  &(vds: 395) => int
+  &(alg: 1) => int,
+  &(vds: 395) => int,
   * cose.label => cose.values
 }
 
 RFC9162_SHA256_Consistency_Unprotected_Header = {
-  &(vdp: 396) => RFC9162_SHA256_Verifiable_Consistency_Proofs
+  &(vdp: 396) => RFC9162_SHA256_Verifiable_Consistency_Proofs,
   * cose.label => cose.values
 }
 

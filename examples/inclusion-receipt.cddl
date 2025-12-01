@@ -4,20 +4,20 @@ cose.values = any
 Receipt_For_Inclusion = #6.18(Signed_Inclusion_Proof)
 
 Signed_Inclusion_Proof = [
-  protected   : bstr .cbor RFC9162_SHA256_Inclusion_Protected_Header
-  unprotected : RFC9162_SHA256_Inclusion_Unprotected_Header
-  payload     : bstr / nil
+  protected   : bstr .cbor RFC9162_SHA256_Inclusion_Protected_Header,
+  unprotected : RFC9162_SHA256_Inclusion_Unprotected_Header,
+  payload     : bstr / nil,
   signature   : bstr
 ]
 
 RFC9162_SHA256_Inclusion_Protected_Header = {
-  &(alg: 1) => int
-  &(vds: 395) => int
+  &(alg: 1) => int,
+  &(vds: 395) => int,
   * cose.label => cose.values
 }
 
 RFC9162_SHA256_Inclusion_Unprotected_Header = {
-  &(vdp: 396) => RFC9162_SHA256_Verifiable_Inclusion_Proofs
+  &(vdp: 396) => RFC9162_SHA256_Verifiable_Inclusion_Proofs,
   * cose.label => cose.values
 }
 
