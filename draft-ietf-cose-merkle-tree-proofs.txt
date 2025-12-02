@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                              Tradeverifyd
 Intended status: Standards Track                             H. Birkholz
-Expires: 29 May 2026                                      Fraunhofer SIT
+Expires: 5 June 2026                                      Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                        25 November 2025
+                                                         2 December 2025
 
 
            COSE (CBOR Object Signing and Encryption) Receipts
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 May 2026.
+   This Internet-Draft will expire on 5 June 2026.
 
 Copyright Notice
 
@@ -322,18 +322,18 @@ Table of Contents
    ]
 
    RFC9162_SHA256_Consistency_Protected_Header = {
-     &(alg: 1) => int
-     &(vds: 395) => int
+     &(alg: 1) => int,
+     &(vds: 395) => int,
      * cose.label => cose.values
    }
 
    RFC9162_SHA256_Consistency_Unprotected_Header = {
-     &(vdp: 396) ^ => RFC9162_SHA256_Verifiable_Consistency_Proofs
+     &(vdp: 396) => RFC9162_SHA256_Verifiable_Consistency_Proofs
      * cose.label => cose.values
    }
 
    RFC9162_SHA256_Verifiable_Consistency_Proofs = {
-     &(consistency-proof: -2) ^ => RFC9162_SHA256_Consistency_Proofs
+     &(consistency-proof: -2) => RFC9162_SHA256_Consistency_Proofs
    }
 
    RFC9162_SHA256_Consistency_Proofs = [ + RFC9162_SHA256_Consistency_Proof ]
