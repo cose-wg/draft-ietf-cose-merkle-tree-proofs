@@ -312,8 +312,9 @@ The following informative EDN is provided:
             / inclusion / -1 : [
               <<[
                 / size / 9, / leaf / 8,
-                / inclusion path /
-                h'7558a95f...e02e35d6'
+                / inclusion path / [
+                  h'7558a95f...e02e35d6'
+                ]
               ]>>
             ],
           },
@@ -332,9 +333,10 @@ The following informative EDN is provided:
             / inclusion / -1 : [
               <<[
                 / size / 6, / leaf / 5,
-                / inclusion path /
-                h'9352f974...4ffa7ce0',
-                h'54806f32...f007ea06'
+                / inclusion path / [
+                  h'9352f974...4ffa7ce0',
+                  h'54806f32...f007ea06'
+                ]
               ]>>
             ],
           },
@@ -464,10 +466,11 @@ An EDN example for a Receipt containing an inclusion proof for RFC9162_SHA256 wi
       / inclusion / -1 : [
         <<[
           / size / 20, / leaf / 17,
-          / inclusion path /
-          h'fc9f050f...221c92cb',
-          h'bd0136ad...6b28cf21',
-          h'd68af9d6...93b1632b'
+          / inclusion path / [
+            h'fc9f050f...221c92cb',
+            h'bd0136ad...6b28cf21',
+            h'd68af9d6...93b1632b'
+          ]
         ]>>
       ],
     },
@@ -563,13 +566,14 @@ An example EDN for a Receipt containing a consistency proof for RFC9162_SHA256 w
       / consistency / -2 : [
         <<[
           / old / 20, / new / 104,
-          / consistency path /
-          h'e5b3e764...c4a813bc',
-          h'87e8a084...4f529f69',
-          h'f712f76d...92a0ff36',
-          h'd68af9d6...93b1632b',
-          h'249efab6...b7614ccd',
-          h'85dd6293...38914dc1'
+          / consistency path / [
+            h'e5b3e764...c4a813bc',
+            h'87e8a084...4f529f69',
+            h'f712f76d...92a0ff36',
+            h'd68af9d6...93b1632b',
+            h'249efab6...b7614ccd',
+            h'85dd6293...38914dc1'
+          ]
         ]>>
       ],
     },
