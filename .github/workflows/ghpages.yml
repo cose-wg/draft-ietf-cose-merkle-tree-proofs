@@ -57,8 +57,10 @@ jobs:
       with:
         ruby-version: "3.3"
 
-    - name: "Install Ruby Gems"
-      run: gem install kramdown-rfc cddlc cddl edn-abnf
+    - name: "Install Dependencies"
+      run: |
+        gem install kramdown-rfc cddlc cddl edn-abnf
+        pip install xml2rfc
 
     - name: "Validate CDDL and CBOR Examples"
       run: |
