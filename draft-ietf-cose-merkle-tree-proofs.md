@@ -297,15 +297,15 @@ The following informative EDN is provided:
 / cose-sign1 / 18([
   / protected   / <<{
     / kid / 4 : h'bc297b51...e4edf0de',
-    / algorithm / 1 : -7,  # ES256
+    / algorithm / 1 : -7,  / ES256
   }>>,
   / unprotected / {
     / receipts / 394 : [
       <</ cose-sign1 / 18([
         / protected   / <<{
           / kid / 4 : h'abcdef12...34567890',
-          / algorithm / 1 : -7,  # ES256
-          / vds       / 395 : 1, # RFC9162 SHA-256
+          / algorithm / 1 : -7,  / ES256
+          / vds       / 395 : 1, / RFC9162_SHA256
         }>>,
         / unprotected / {
           / proofs / 396 : {
@@ -325,8 +325,8 @@ The following informative EDN is provided:
       <</ cose-sign1 / 18([
         / protected   / <<{
           / kid / 4 : h'abcdef12...34567890',
-          / algorithm / 1 : -7,  # ES256
-          / vds       / 395 : 1, # RFC9162 SHA-256
+          / algorithm / 1 : -7,  / ES256
+          / vds       / 395 : 1, / RFC9162_SHA256
         }>>,
         / unprotected / {
           / proofs / 396 : {
@@ -458,8 +458,8 @@ An EDN example for a Receipt containing an inclusion proof for RFC9162_SHA256 wi
 ~~~~ cbor-diag
 / cose-sign1 / 18([
   / protected   / <<{
-    / algorithm / 1 : -7,  # ES256
-    / vds       / 395 : 1, # RFC9162 SHA-256
+    / algorithm / 1 : -7,  / ES256
+    / vds       / 395 : 1, / RFC9162_SHA256
   }>>,
   / unprotected / {
     / proofs / 396 : {
@@ -558,8 +558,8 @@ An example EDN for a Receipt containing a consistency proof for RFC9162_SHA256 w
 ~~~~ cbor-diag
 / cose-sign1 / 18([
   / protected   / <<{
-    / algorithm / 1 : -7,  # ES256
-    / vds       / 395 : 1, # RFC9162 SHA-256
+    / algorithm / 1 : -7,  / ES256
+    / vds       / 395 : 1, / RFC9162_SHA256
   }>>,
   / unprotected / {
     / proofs / 396 : {
