@@ -24,6 +24,52 @@ jobs:
     - name: "Checkout"
       uses: actions/checkout@v4
 
+    - name: "Setup Ruby"
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "3.3"
+
+    - name: "Install Dependencies"
+      run: |
+        gem install kramdown-rfc cddlc cddl edn-abnf
+        pip install xml2rfc
+
+    - name: "Validate CDDL and CBOR Examples"
+      run: |
+        # requires: ... gem install:
+        # * kramdown-rfc
+        # * cddlc
+        # * cddl
+        # * edn-abnf
+
+        make draft-ietf-cose-merkle-tree-proofs.xml
+        kramdown-rfc-extract-sourcecode -dchk draft-ietf-cose-merkle-tree-proofs.xml
+        # curl -s https://www.rfc-editor.org/authors/rfc9942.xml | kramdown-rfc-extract-sourcecode -dchk
+
+        # Handle inconsistent double definition and different start rule
+        cddlc -tcddl -2rTverifiable-proofs chk/cddl/*.cddl -SReceipt_For_Inclusion >chk/all-1.cddl
+        cddlc -tcddl -2rTverifiable-proofs chk/cddl/*.cddl -SReceipt_For_Consistency >chk/all-2.cddl
+        cddlc -tcddl -2rTverifiable-proofs chk/cddl/*.cddl -SSignature_With_Receipt >chk/all-3.cddl
+
+        # Process a CBOR diagnostic file:
+        # remove ellipses (crudely), convert to CBOR, and validate against a CDDL specification.
+        # Arguments:
+        #   $1 - input .cbor-diag file
+        #   $2 - output .cbor file
+        #   $3 - CDDL file for validation
+        process_diag() {
+            if sed 's/\.\.\.//g' "$1" | edn-abnf -tcbor > "$2"; then
+                cddl "$3" vp "$2" | diag2diag.rb -e # | edn-abnf -Tw30
+            else
+                echo "*** Parse FAIL: $1"
+            fi
+            echo
+        }
+
+        process_diag chk/cbor-diag/receipt-of-inclusion.cbor-diag chk/i1.cbor chk/all-1.cddl
+        process_diag chk/cbor-diag/receipt-of-consistency.cbor-diag chk/c1.cbor chk/all-2.cddl
+        process_diag chk/cbor-diag/usage.cbor-diag chk/s1.cbor chk/all-3.cddl
+
     - name: "Setup"
       id: setup
       run: date -u "+date=%FT%T" >>"$GITHUB_OUTPUT"
