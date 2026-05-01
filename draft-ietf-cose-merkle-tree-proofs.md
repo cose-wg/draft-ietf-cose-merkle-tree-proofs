@@ -300,7 +300,7 @@ The following informative EDN is provided:
     / algorithm / 1 : -7,  # ES256
   }>>,
   / unprotected / {
-    / receipts / 394 : {
+    / receipts / 394 : [
       <</ cose-sign1 / 18([
         / protected   / <<{
           / kid / 4 : h'abcdef12...34567890',
@@ -344,7 +344,7 @@ The following informative EDN is provided:
         / payload     / null,
         / signature   / h'36581f38...a5581960'
       ])>>
-    },
+    ],
   },
   / payload     / h'0167c57c...deeed6d4',
   / signature   / h'2544f2ed...5840893b'
