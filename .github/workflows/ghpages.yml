@@ -68,7 +68,8 @@ jobs:
         # * cddl
         # * edn-abnf
 
-        kramdown-rfc-extract-sourcecode -dchk ../draft-ietf-cose-merkle-tree-proofs/draft-ietf-cose-merkle-tree-proofs.xml
+        make draft-ietf-cose-merkle-tree-proofs.xml
+        kramdown-rfc-extract-sourcecode -dchk draft-ietf-cose-merkle-tree-proofs.xml
         # curl -s https://www.rfc-editor.org/authors/rfc9942.xml | kramdown-rfc-extract-sourcecode -dchk
 
         # Handle inconsistent double definition and different start rule
