@@ -559,7 +559,7 @@ An example EDN for a Receipt containing a consistency proof for RFC9162_SHA256 w
 / cose-sign1 / 18([
   / protected   / <<{
     / algorithm / 1 : -7,  # ES256
-    / vds       / 395 : 1, # RFC9162 SHA-256
+    / vds       / 395 : 1, # RFC9162_SHA256
   }>>,
   / unprotected / {
     / proofs / 396 : {
