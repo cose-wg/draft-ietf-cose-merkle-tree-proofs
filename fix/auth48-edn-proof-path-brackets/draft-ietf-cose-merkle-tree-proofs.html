@@ -1552,15 +1552,15 @@ RFC9162_SHA256_Consistency_Proof = bstr .cbor [
 / cose-sign1 / 18([
   / protected   / &lt;&lt;{
     / kid / 4 : h'bc297b51...e4edf0de',
-    / algorithm / 1 : -7,  / ES256
+    / algorithm / 1 : -7,  # ES256
   }&gt;&gt;,
   / unprotected / {
     / receipts / 394 : [
       &lt;&lt;/ cose-sign1 / 18([
         / protected   / &lt;&lt;{
           / kid / 4 : h'abcdef12...34567890',
-          / algorithm / 1 : -7,  / ES256
-          / vds       / 395 : 1, / RFC9162_SHA256
+          / algorithm / 1 : -7,  # ES256
+          / vds       / 395 : 1, # RFC9162 SHA-256
         }&gt;&gt;,
         / unprotected / {
           / proofs / 396 : {
@@ -1580,8 +1580,8 @@ RFC9162_SHA256_Consistency_Proof = bstr .cbor [
       &lt;&lt;/ cose-sign1 / 18([
         / protected   / &lt;&lt;{
           / kid / 4 : h'abcdef12...34567890',
-          / algorithm / 1 : -7,  / ES256
-          / vds       / 395 : 1, / RFC9162_SHA256
+          / algorithm / 1 : -7,  # ES256
+          / vds       / 395 : 1, # RFC9162 SHA-256
         }&gt;&gt;,
         / unprotected / {
           / proofs / 396 : {
@@ -1762,8 +1762,8 @@ unprotected-header-map = {
 <pre>
 / cose-sign1 / 18([
   / protected   / &lt;&lt;{
-    / algorithm / 1 : -7,  / ES256
-    / vds       / 395 : 1, / RFC9162_SHA256
+    / algorithm / 1 : -7,  # ES256
+    / vds       / 395 : 1, # RFC9162 SHA-256
   }&gt;&gt;,
   / unprotected / {
     / proofs / 396 : {
@@ -1891,8 +1891,8 @@ The newer Merkle tree hash as defined in <span>[<a href="#RFC9162" class="cite x
 <pre>
 / cose-sign1 / 18([
   / protected   / &lt;&lt;{
-    / algorithm / 1 : -7,  / ES256
-    / vds       / 395 : 1, / RFC9162_SHA256
+    / algorithm / 1 : -7,  # ES256
+    / vds       / 395 : 1, # RFC9162 SHA-256
   }&gt;&gt;,
   / unprotected / {
     / proofs / 396 : {
