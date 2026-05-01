@@ -24,38 +24,6 @@ jobs:
     - name: "Checkout"
       uses: actions/checkout@v4
 
-    - name: "Setup"
-      id: setup
-      run: date -u "+date=%FT%T" >>"$GITHUB_OUTPUT"
-
-    - name: "Caching"
-      uses: actions/cache@v4
-      with:
-        path: |
-          .refcache
-          .venv
-          .gems
-          node_modules
-          .targets.mk
-        key: i-d-${{ steps.setup.outputs.date }}
-        restore-keys: i-d-
-
-    - name: "Build Drafts"
-      uses: martinthomson/i-d-template@v1
-      with:
-        token: ${{ github.token }}
-
-    - name: "Update GitHub Pages"
-      uses: martinthomson/i-d-template@v1
-      if: ${{ github.event_name == 'push' }}
-      with:
-        make: gh-pages
-        token: ${{ github.token }}
-    - name: "Fix git permissions"
-      run: |
-        chmod -R a+w .git
-        git config --global --add safe.directory "$GITHUB_WORKSPACE"
-
     - name: "Setup Ruby"
       uses: ruby/setup-ruby@v1
       with:
@@ -101,6 +69,34 @@ jobs:
         process_diag chk/cbor-diag/receipt-of-inclusion.cbor-diag chk/i1.cbor chk/all-1.cddl
         process_diag chk/cbor-diag/receipt-of-consistency.cbor-diag chk/c1.cbor chk/all-2.cddl
         process_diag chk/cbor-diag/usage.cbor-diag chk/s1.cbor chk/all-3.cddl
+
+    - name: "Setup"
+      id: setup
+      run: date -u "+date=%FT%T" >>"$GITHUB_OUTPUT"
+
+    - name: "Caching"
+      uses: actions/cache@v4
+      with:
+        path: |
+          .refcache
+          .venv
+          .gems
+          node_modules
+          .targets.mk
+        key: i-d-${{ steps.setup.outputs.date }}
+        restore-keys: i-d-
+
+    - name: "Build Drafts"
+      uses: martinthomson/i-d-template@v1
+      with:
+        token: ${{ github.token }}
+
+    - name: "Update GitHub Pages"
+      uses: martinthomson/i-d-template@v1
+      if: ${{ github.event_name == 'push' }}
+      with:
+        make: gh-pages
+        token: ${{ github.token }}
 
     - name: "Archive Built Drafts"
       uses: actions/upload-artifact@v4
