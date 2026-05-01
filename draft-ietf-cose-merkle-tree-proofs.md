@@ -326,7 +326,7 @@ The following informative EDN is provided:
         / protected   / <<{
           / kid / 4 : h'abcdef12...34567890',
           / algorithm / 1 : -7,  # ES256
-          / vds       / 395 : 1, # RFC9162 SHA-256
+          / vds       / 395 : 1, # RFC9162_SHA256
         }>>,
         / unprotected / {
           / proofs / 396 : {
