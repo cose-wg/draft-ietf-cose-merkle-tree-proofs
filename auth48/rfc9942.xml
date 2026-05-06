@@ -1,0 +1,1261 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+
+<!DOCTYPE rfc [
+  <!ENTITY nbsp    "&#160;">
+  <!ENTITY zwsp   "&#8203;">
+  <!ENTITY nbhy   "&#8209;">
+  <!ENTITY wj     "&#8288;">
+]>
+
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" number="9942" updates="" obsoletes="" docName="draft-ietf-cose-merkle-tree-proofs-18" category="std" consensus="true" submissionType="IETF" tocInclude="true" sortRefs="true" symRefs="true" version="3" xml:lang="en">
+
+  <front>
+<!-- [rfced] Please note that the title of the document has been
+     updated as follows:
+
+a) We have flipped the abbreviation and expansion for COSE to match
+similar uses in past RFC titles.
+
+Original:
+COSE (CBOR Object Signing and Encryption) Receipts
+
+Current:
+CBOR Object Signing and Encryption (COSE) Receipts
+
+b) We have updated the "short title" (in the running header of the PDF
+version) as follows:
+
+Original:
+COSE (CBOR Object Signing and Encryption) Receipts
+
+Current:
+COSE Receipts 
+-->
+
+<!-- [authors] ACK -->
+
+    
+    <title abbrev="COSE Receipts">CBOR Object Signing and Encryption (COSE) Receipts</title>
+    <seriesInfo name="RFC" value="9942"/>
+    <author initials="O." surname="Steele" fullname="Orie Steele">
+      <organization>Tradeverifyd</organization>
+      <address>
+        <postal>
+          <country>United States of America</country>
+        </postal>
+        <email>orie@or13.io</email>
+      </address>
+    </author>
+    <author initials="H." surname="Birkholz" fullname="Henk Birkholz">
+      <organization abbrev="Fraunhofer SIT">Fraunhofer SIT</organization>
+      <address>
+        <postal>
+          <street>Rheinstrasse 75</street>
+          <city>Darmstadt</city>
+          <code>64295</code>
+          <country>Germany</country>
+        </postal>
+        <email>henk.birkholz@ietf.contact</email>
+      </address>
+    </author>
+    <author initials="A." surname="Delignat-Lavaud" fullname="Antoine Delignat-Lavaud">
+      <organization>Microsoft</organization>
+      <address>
+        <postal>
+          <country>United Kingdom</country>
+        </postal>
+        <email>antdl@microsoft.com</email>
+      </address>
+    </author>
+    <author initials="C." surname="Fournet" fullname="Cédric Fournet">
+      <organization>Microsoft</organization>
+      <address>
+        <postal>
+          <country>United Kingdom</country>
+        </postal>
+        <email>fournet@microsoft.com</email>
+      </address>
+    </author>
+    <date year="2026" month="April"/>
+
+    <area>SEC</area>
+    <workgroup>cose</workgroup>
+
+<!-- [rfced] Please insert any keywords (beyond those that appear in
+the title) for use on https://www.rfc-editor.org/search. -->
+
+<!-- [authors] Done -->
+
+<keyword>COSE</keyword>
+
+    <abstract>
+<t>CBOR Object Signing and Encryption (COSE) Receipts prove properties of a Verifiable Data Structure (VDS) to a verifier.
+Verifiable Data Structures and associated Proof Types enable security properties, such as minimal disclosure, transparency, and non-equivocation.
+Transparency helps maintain trust over time and has been applied to certificates, end-to-end encrypted messaging systems, and supply chain security.
+This specification enables concise transparency-oriented systems by building on Concise Binary Object Representation (CBOR) and COSE.
+The extensibility of the approach is demonstrated by providing CBOR encodings for Merkle inclusion and consistency proofs.</t>
+    </abstract>
+  </front>
+  <middle>
+
+<section anchor="introduction">
+      <name>Introduction</name>
+      <t>COSE Receipts are signed proofs that include metadata about certain states of a Verifiable Data Structure (VDS) that are true when the COSE Receipt was issued.
+COSE Receipts can include proofs that a document is in a database (proof of inclusion), that a database is append-only (proof of consistency), that a smaller set of statements are contained in a large set of statements (proof of disclosure, a special case of proof of inclusion), or that certain data is not yet present in a database (proof of non-inclusion).
+Different VDSs can produce different Verifiable Data Structure Proofs (VDP).
+The combination of representations of various VDSs and VDP can significantly increase the burden for implementers and create interoperability challenges for transparency services.
+This document describes how to convey VDS and associated VDP types in unified COSE envelopes.</t>
+      <section anchor="requirements-notation">
+        <name>Requirements Notation</name>
+ <t>
+    The key words "<bcp14>MUST</bcp14>", "<bcp14>MUST NOT</bcp14>",
+    "<bcp14>REQUIRED</bcp14>", "<bcp14>SHALL</bcp14>", "<bcp14>SHALL NOT</bcp14>",
+    "<bcp14>SHOULD</bcp14>", "<bcp14>SHOULD NOT</bcp14>",
+    "<bcp14>RECOMMENDED</bcp14>", "<bcp14>NOT RECOMMENDED</bcp14>",
+    "<bcp14>MAY</bcp14>", and "<bcp14>OPTIONAL</bcp14>" in this document are to be
+    interpreted as described in BCP&nbsp;14 <xref target="RFC2119"/> <xref
+    target="RFC8174"/> when, and only when, they appear in all capitals, as
+    shown here.
+        </t>
+	
+      </section>
+    </section>
+    <section anchor="param-list">
+      <name>New COSE Header Parameters</name>
+      <t>This document defines three new COSE header parameters, which are introduced up front in this section and elaborated on later in this document.</t>
+      <dl>
+        <dt>394:</dt>
+        <dd>
+          <t>A COSE header parameter named "<tt>receipts</tt>" with a value type of array where the array contains one or more COSE Receipts as specified in this document.</t>
+        </dd>
+        <dt>395:</dt>
+        <dd>
+          <t>A COSE header parameter named "<tt>vds</tt>" (for Verifiable Data Structure), which conveys the algorithm identifier for a Verifiable Data Structure.
+Correspondingly, see <xref target="verifiable-data-structure-algorithms-registry"/> for a registry defining the integers used to identify Verifiable Data Structures.</t>
+        </dd>
+        <dt>396:</dt>
+        <dd>
+          <t>A COSE header parameter named "<tt>vdp</tt>" (for Verifiable Data Structure Proofs), which conveys a map containing Verifiable Data Structure Proofs organized by Proof Type.
+Correspondingly, see <xref target="verifiable-data-structure-proofs-registry"/> for a registry defining the integers used to identify Verifiable Data Structure Proof Types.</t>
+        </dd>
+      </dl>
+    </section>
+    <section anchor="terminology">
+
+<!--[rfced] We had the following questions related to the Terminology
+     section:
+
+a) Would you like the terms to be alphabetized for the ease of the
+reader?
+
+b) The Terminology section of draft-ietf-scitt-architecture has a
+sentence introducing terms from [STD96] in its Terminology section
+(see below) that are also used in this document.
+
+Original:
+   The terms "header", "payload", and "to-be-signed bytes" are defined
+   in [STD96].
+
+Should this sentence (or something similar as "to-be-signed bytes" is
+not used in this document) be added along with a reference to [STD96]?
+(Same goes for the sentence in the companion document about the
+definition of "claim".)
+
+If so, please let us know how/where to add as well as if the reference
+entry would be normative or informative.
+
+c) We note that this document uses the following terms that are
+defined in the Terminology section of
+draft-ietf-scitt-architecture-22.  Should any pointers/citations be
+added to direct the reader to Section 3 of that document?
+
+envelope
+non-equivocation
+statement
+transparency service
+
+
+d) Please see our cluster-wide questions related to discrepancies
+between the definitions that appear in both documents in this cluster
+and variances in their appearance (e.g., capitalization).
+
+-->
+
+<!-- [authors]
+
+a) Please alphabetize the terms for ease of reading.
+
+b) Yes, please add a sentence at the beginning of the Terminology section
+introducing the terms "header", "payload", and "to-be-signed bytes" from [STD96] along with a reference to [STD96].
+The reference entry would be normative.
+
+c) We would prefer not to add references, and to use these terms in their generic sense in this document.
+
+d) We believe this has been resolved by earlier edits, but please let us know if you see any remaining discrepancies.
+
+-->
+      
+      <name>Terminology</name>
+      <dl>
+        <dt>CDDL:</dt>
+        <dd>
+          <t>Concise Data Definition Language (CDDL) is defined in <xref target="RFC8610"/>.</t>
+        </dd>
+        <dt>EDN:</dt>
+        <dd>
+          <t>CBOR Extended Diagnostic Notation (EDN) is defined in <xref target="RFC8949"/>, where it is referred to as "diagnostic notation", and is revised in <xref target="I-D.ietf-cbor-edn-literals"/>.</t>
+        </dd>
+        <dt>Verifiable Data Structure (VDS):</dt>
+        <dd>
+          <t>A data structure that supports one or more Verifiable Data Structure Proof Types.
+This property describes an algorithm used to maintain a Verifiable Data Structure, for example, a binary Merkle Tree algorithm.</t>
+        </dd>
+        <dt>Verifiable Data Structure Proofs (VDP):</dt>
+        <dd>
+          <t>A data structure used to convey Proof Types for proving different properties, such as authentication, inclusion, consistency, and freshness.
+Parameters can include multiple proofs of a given type or multiple types of proof (inclusion and consistency).</t>
+        </dd>
+        <dt>Proof Type:</dt>
+        <dd>
+          <t>A property that can be obtained by verifying a given proof over one or more entries in a Verifiable Data Structure.
+For example, a VDS, such as a binary Merkle Tree, can support inclusion proofs where each proof confirms that a given entry is included in a Merkle Tree root.</t>
+        </dd>
+        <dt>Proof Value:</dt>
+        <dd>
+          <t>An encoding of a Proof Type in CBOR <xref target="RFC8949"/>.</t>
+        </dd>
+        <dt>Entry:</dt>
+        <dd>
+          <t>An entry in a Verifiable Data Structure for which proofs can be derived.</t>
+        </dd>
+        <dt>Receipt:</dt>
+        <dd>
+          <t>A COSE Single Signer Data Object, as defined in <xref target="RFC9052"/>, containing the header parameters necessary to convey one or more VDP for an associated VDS.</t>
+        </dd>
+      </dl>
+    </section>
+    <section anchor="sec-generic-verifiable-data-structures">
+      <name>Verifiable Data Structures in CBOR</name>
+      <t>This section describes representations of Verifiable Data Structure Proofs in <xref target="RFC8949"/>.
+For example, construction of a Merkle Tree leaf or an inclusion proof from a leaf to a Merkle Tree root might have several different representations, depending on the Verifiable Data Structure used.
+Differences in representations are necessary to support efficient verification, unique security or privacy properties, and for compatibility with specific implementations.
+This document defines two extension points for enabling Verifiable Data Structures with COSE and provides concrete examples for the structures and proofs defined in <xref section="2.1.3" sectionFormat="of" target="RFC9162"/> and <xref section="2.1.4" sectionFormat="of" target="RFC9162"/>.
+The design of these structures is influenced by the conventions established for COSE Keys.</t>
+      <section anchor="sec-cose-verifiable-data-structures">
+        <name>Structures</name>
+
+        <t>Similar to COSE Key Types <xref target="IANA.cose_header-parameters"/>, different Verifiable Data Structures support different algorithms.</t>
+        <t>This document establishes a registry of Verifiable Data Structure algorithms; see <xref target="verifiable-data-structure-algorithms-registry"/> for details.</t>
+      </section>
+      <section anchor="sec-cose-verifiable-data-structure-proofs">
+        <name>Proofs</name>
+
+<!--[rfced] This sentence doesn't parse.  Please let us know how to
+     update.
+
+Original:
+...such as -1 (crv), -2 (x), -3 (y), -4 (d), RFC9162_SHA256 (TBD_1
+(requested assignment 395) : 1) supports both (-1) inclusion and (-2)
+consistency proofs.
+-->
+
+<!-- [authors] We have updated the sentence as follows for clarity:
+
+...for example EC2 keys (1: 2) require and give meaning to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d). RFC9162_SHA256 (395: 1) supports both (-1) inclusion and (-2) consistency proofs.
+
+Please let us know if you have any further suggestions. -->
+	
+        <t>Similar to COSE Key Type Parameters <xref target="IANA.cose_header-parameters" format="default"/>, for example EC2 keys (1: 2) require and give meaning to specific parameters, such as -1 (crv), -2 (x), -3 (y), -4 (d). RFC9162_SHA256 (395: 1) supports both (-1) inclusion and (-2) consistency proofs.</t>
+        <t>This document establishes a registry of Verifiable Data Structure Proofs; see <xref target="verifiable-data-structure-proofs-registry"/> for details.</t>
+        <t>Proof Types are specific to their associated "Verifiable Data Structure"; for example, different Merkle Trees might support different representations of inclusion proof or consistency proof.
+Implementers should not expect interoperability across "Verifiable Data Structures".
+Security analysis <bcp14>MUST</bcp14> be conducted prior to migrating to new structures to ensure the new security and privacy assumptions are acceptable for the use case.</t>
+      </section>
+      <section anchor="receipt-spec">
+        <name>Usage</name>
+        <t>This document registers a new COSE header parameter "<tt>receipts</tt>" (394) to enable Receipts to be conveyed in the protected and unprotected headers of Enveloped COSE Structures.</t>
+        <t>When the "receipts" header parameter is present, the verifier <bcp14>MUST</bcp14> confirm that the associated Verifiable Data Structure and Verifiable Data Structure Proofs match entries present in the registries established in this specification, including values added in subsequent registrations.</t>
+        <t>Receipts <bcp14>MUST</bcp14> be tagged as COSE_Sign1.</t>
+        <t><xref target="fig-receipts-cddl"/> defines how Receipts are included in a COSE_Sign1 data item:</t>
+
+<!--[rfced] Please note that Figure 1 exceeds our character limit in
+     three places (line 319 is 5 characters over the character limit).
+     Please review how these lines could be broken to fit within the
+     69 character limit associated with sourcecode.
+	-->
+
+<!-- [authors] We have updated Figure 1 to fit within 69 characters per line. -->
+
+<figure anchor="fig-receipts-cddl">
+          <name>CDDL for a COSE_Sign1 with Attached Receipts</name>
+          <sourcecode type="cddl"><![CDATA[
+Signature_With_Receipt = #6.18(COSE_Sign1)
+
+cose-label = int / text
+cose-values = any
+
+Protected_Header = {
+  * cose-label => cose-values
+}
+
+Unprotected_Header = {
+  &(receipts: 394)  => [+ bstr .cbor Receipt]
+  * cose-label => cose-values
+}
+
+COSE_Sign1 = [
+  protected   : bstr .cbor Protected_Header,
+  unprotected : Unprotected_Header,
+  payload     : bstr / nil,
+  signature   : bstr
+]
+
+Receipt = Receipt_For_Inclusion / Receipt_For_Consistency
+
+; Note the proof formats shown here are for RFC9162_SHA256.
+; Other Verifiable Data Structures may have different proof formats.
+
+
+Receipt_For_Inclusion = #6.18(Signed_Inclusion_Proof)
+
+Signed_Inclusion_Proof = [
+  protected   :
+    bstr .cbor RFC9162_SHA256_Inclusion_Protected_Header,
+  unprotected : RFC9162_SHA256_Inclusion_Unprotected_Header,
+  payload     : bstr / nil,
+  signature   : bstr
+]
+
+RFC9162_SHA256_Inclusion_Protected_Header = {
+  &(alg: 1) => int
+  &(vds: 395) => int
+  * cose-label => cose-values
+}
+
+RFC9162_SHA256_Inclusion_Unprotected_Header = {
+  &(vdp: 396) => RFC9162_SHA256_Verifiable_Inclusion_Proofs
+  * cose-label => cose-values
+}
+
+RFC9162_SHA256_Verifiable_Inclusion_Proofs = {
+  &(inclusion-proof: -1) => RFC9162_SHA256_Inclusion_Proofs
+}
+
+RFC9162_SHA256_Inclusion_Proofs = [
+  + RFC9162_SHA256_Inclusion_Proof
+]
+
+RFC9162_SHA256_Inclusion_Proof = bstr .cbor [
+  tree_size: uint,
+  leaf_index: uint,
+  inclusion_path: [ + bstr ]
+]
+
+
+Receipt_For_Consistency = #6.18(Signed_Consistency_Proof)
+
+Signed_Consistency_Proof = [
+  protected   :
+    bstr .cbor RFC9162_SHA256_Consistency_Protected_Header,
+  unprotected : RFC9162_SHA256_Consistency_Unprotected_Header,
+  payload     : bstr / nil, ; Newer Merkle Tree root
+  signature   : bstr
+]
+
+RFC9162_SHA256_Consistency_Protected_Header = {
+  &(alg: 1) => int,
+  &(vds: 395) => int,
+  * cose-label => cose-values
+}
+
+RFC9162_SHA256_Consistency_Unprotected_Header = {
+  &(vdp: 396) => RFC9162_SHA256_Verifiable_Consistency_Proofs
+  * cose-label => cose-values
+}
+
+RFC9162_SHA256_Verifiable_Consistency_Proofs = {
+  &(consistency-proof: -2) => RFC9162_SHA256_Consistency_Proofs
+}
+
+RFC9162_SHA256_Consistency_Proofs = [
+  + RFC9162_SHA256_Consistency_Proof
+]
+
+RFC9162_SHA256_Consistency_Proof = bstr .cbor [
+   tree_size_1: uint,
+   tree_size_2: uint,
+   consistency_path: [ + bstr ]
+]
+
+]]></sourcecode>
+</figure>
+
+<!--[rfced] We had two questions related to this document's use of the
+     term "SHA256":
+
+a) We note that the EDN provided in Section 4.3 uses RFC9162 SHA-256
+while other uses of this term in prose use RFC9162_SHA256.  Please
+confirm that this is as intended.
+
+b) We see both SHA256 and sha-256 in running text.  Should these be
+made uniform as SHA256?
+
+-->
+
+<!-- [authors]
+
+a) We have updated the EDN example in Section 4.3 to use "RFC9162_SHA256" for consistency with the rest of the document.
+
+b) We have updated the text to use "SHA256" for consistency with the rest of the document.
+
+-->
+
+<!-- [authors] During AUTH48 review, two additional EDN corrections
+     were applied to the four cbor-diag sourcecode blocks
+     (Figures 2, 6, and 9):
+
+c) Trailing-comment delimiter.  The end-of-line annotations such as
+   "/ ES256" and "/ RFC9162_SHA256" were written using the paired-slash
+   block-comment delimiter from CBOR Extended Diagnostic Notation
+   (Section 8 of [RFC8949] / [CBOR-EDN]) without a closing slash.  A
+   strict EDN parser would treat these as unterminated block comments
+   and consume content up to the next "/".  The "#" tail-comment form
+   (terminated by end of line) is well-defined and parses correctly.
+   All occurrences in EDN figures have been changed from
+   "/ ES256" to "# ES256" and from "/ RFC9162_SHA256" to
+   "# RFC9162_SHA256".
+
+d) Inclusion- and consistency-path bracketing.  The CDDL definitions
+   "RFC9162_SHA256_Inclusion_Proof" and "RFC9162_SHA256_Consistency_Proof"
+   require "inclusion_path" and "consistency_path" to be encoded as
+   "[ + bstr ]" (a CBOR array of one or more byte strings).  Two of the
+   EDN examples emitted these path elements as bare byte strings
+   inline within the surrounding array, which does not satisfy the
+   CDDL.  The first inclusion path in Figure 2 and the consistency
+   path in Figure 9 have been wrapped in "[ ... ]" to bring them into
+   conformance with the CDDL; the other two paths (the second
+   inclusion path in Figure 2 and the inclusion path in Figure 6)
+   were already correctly bracketed.
+-->
+
+        <t>The following informative EDN is provided:</t>
+
+<figure anchor="fig-receipts-edn">
+          <name>An Example COSE Signature with Multiple Receipts</name>
+          <sourcecode type="cbor-diag"><![CDATA[
+/ cose-sign1 / 18([
+  / protected   / <<{
+    / kid / 4 : h'bc297b51...e4edf0de',
+    / algorithm / 1 : -7,  # ES256
+  }>>,
+  / unprotected / {
+    / receipts / 394 : [
+      <</ cose-sign1 / 18([
+          / protected   / <<{
+            / kid / 4 : h'abcdef12...34567890',
+            / algorithm / 1 : -7,  # ES256
+            / vds       / 395 : 1, # RFC9162_SHA256
+          }>>,
+          / unprotected / {
+            / proofs / 396 : {
+              / inclusion / -1 : [
+                <<[
+                  / size / 9, / leaf / 8,
+                  / inclusion path /
+                  [ h'7558a95f...e02e35d6' ]
+                ]>>
+              ],
+            },
+          },
+          / payload     / null,
+          / signature   / h'02d227ed...ccd3774f'
+        ])>>,
+        <</ cose-sign1 / 18([
+          / protected   / <<{
+            / kid / 4 : h'abcdef12...34567890',
+            / algorithm / 1 : -7,  # ES256
+            / vds       / 395 : 1, # RFC9162_SHA256
+          }>>,
+          / unprotected / {
+            / proofs / 396 : {
+              / inclusion / -1 : [
+                <<[
+                  / size / 6, / leaf / 5,
+                  / inclusion path /
+                  [ h'9352f974...4ffa7ce0',
+                    h'54806f32...f007ea06' ]
+                ]>>
+              ],
+            },
+          },
+          / payload     / null,
+          / signature   / h'36581f38...a5581960'
+        ])>>
+    ],
+  },
+  / payload     / h'0167c57c...deeed6d4',
+  / signature   / h'2544f2ed...5840893b'
+])
+]]></sourcecode>
+        </figure>
+
+        <t>The specific structure of COSE Receipts is dependent on the structure of the COSE_Sign1 payload and the Verifiable Data Structure Proofs contained in the COSE_Sign1 unprotected header.
+The CDDL definition for Verifiable Data Structure Proofs is specific to each Verifiable Data Structure.
+This document describes proofs for RFC9162_SHA256 in the following sections.</t>
+      </section>
+      <section anchor="profiles-def">
+        <name>Profiles</name>
+        <t>New Verifiable Data Structures can require the definition of a profile.
+The payload in such definitions <bcp14>SHOULD</bcp14> be detached.
+Detached payloads force verifiers to recompute the root from the proof and protect against implementation errors where the signature is verified but the payload is incompatible with the proof.
+Profiles of proof signatures that define additional protected header parameters are encouraged to make their presence mandatory to ensure that claims are processed with their intended semantics.
+One way to include this information in the COSE structure is use of the "typ" (type) header parameter; see <xref target="RFC9596"/> and the similar guidance provided in <xref target="RFC9597"/>.</t>
+        <section anchor="registration-requirements">
+          <name>Registration Requirements</name>
+          <t>Each Verifiable Data Structure specification applying for inclusion in this registry <bcp14>MUST</bcp14> define how to encode the Verifiable Data Structure identifier and its Proof Types in CBOR.
+Each specification <bcp14>MUST</bcp14> define how to produce and consume the supported Proof Types.
+See <xref target="sec-rfc-9162-verifiable-data-structure-definition"/> as an example.</t>
+
+          <t>Where a specification supports a choice of hash algorithm, a separate IANA registration must be made for each supported algorithm.
+For example, to provide support for SHA256 and SHA3_256 with Merkle inclusion proofs and Merkle consistency proofs defined, respectively, in <xref section="2.1.3" sectionFormat="of" target="RFC9162"/> and <xref section="2.1.4" sectionFormat="of" target="RFC9162"/>, both "RFC9162_SHA256" and "RFC9162_SHA3_256" require entries in the relevant IANA registries.
+This document only defines "RFC9162_SHA256".</t>
+        </section>
+      </section>
+    </section>
+    <section anchor="sec-rfc-9162-verifiable-data-structure-definition">
+      <name>RFC9162_SHA256</name>
+      <t>This section defines how the data structure described in <xref section="2.1" sectionFormat="of" target="RFC9162"/> is mapped to the terminology defined in this document, using <xref target="RFC8949"/> and <xref target="RFC9053"/>.</t>
+      <section anchor="verifiable-data-structure">
+        <name>Verifiable Data Structure</name>
+        <t>The integer identifier for this Verifiable Data Structure is 1.
+The string identifier for this Verifiable Data Structure is "RFC9162_SHA256", a Merkle Tree where SHA256 is used as the hash algorithm
+(see <xref target="verifiable-data-structure-algorithms-registry-table"/>). See <xref section="2.1.1" sectionFormat="of" target="RFC9162"/> for a complete description of this Verifiable Data Structure.</t>
+      </section>
+      <section anchor="sec-rfc9162-sha256-inclusion-proof">
+        <name>Inclusion Proof</name>
+        <t>See <xref section="2.1.3.1" sectionFormat="of" target="RFC9162"/> for a complete description of this Verifiable Data Structure Proof Type.</t>
+        <t>The CBOR representation of an inclusion proof for RFC9162_SHA256 is:</t>
+        <figure anchor="rfc9162-sha256-cbor-inclusion-proof">
+          <name>CBOR-Encoded Inclusion Proof for RFC9162_SHA256</name>
+          <sourcecode type="cddl"><![CDATA[
+inclusion-proof = bstr .cbor [
+
+    ; tree size at current Merkle Tree root
+    tree-size: uint
+
+    ; index of leaf in tree
+    leaf-index: uint
+
+    ; path from leaf to current Merkle Tree root
+    inclusion-path: [ + bstr ]
+]]]></sourcecode>
+        </figure>
+<!-- [rfced] We note that [RFC9162] uses "leaf_index" rather than
+     "leaf-index".  Please review and let us know if updates should be
+     made.
+
+Current: 
+  The term leaf-index is used for alignment with the use established in
+  Section 2.1.3.2 of [RFC9162].
+-->
+
+<!-- [authors] We would prefer to stay with "leaf-index" for consistency with the use of hyphens in other parameter names in this document. -->
+
+        <t>The term <tt>leaf-index</tt> is used for alignment with the use established in <xref section="2.1.3.2" sectionFormat="of" target="RFC9162"/>.</t>
+        <t>Note that <xref target="RFC9162"/> defines inclusion proofs only for leaf nodes, and that:</t>
+            <blockquote>If leaf_index is greater than or equal to tree_size, then fail the proof verification.</blockquote>
+        <t>The identifying index of a leaf node is relative to all nodes in the tree size for which the proof was obtained.</t>
+        <section anchor="receipt-of-inclusion">
+          <name>Receipt of Inclusion</name>
+          <t>In a signed proof, the payload is the Merkle Tree root that corresponds to the log at size <tt>tree-size</tt>.
+The protected header for an RFC9162_SHA256 inclusion proof signature is:</t>
+          <figure anchor="vds-in-inclusion-receipt-protected-header">
+            <name>Protected Header for a Receipt of Inclusion</name>
+            <sourcecode type="cddl"><![CDATA[
+protected-header-map = {
+  &(alg: 1) => int
+  &(vds: 395) => int
+  * cose-label => cose-value
+}]]></sourcecode>
+          </figure>
+          <dl spacing="normal" newline="false">
+            <dt>alg (label: 1):</dt><dd><bcp14>REQUIRED</bcp14>. Signature algorithm identifier. Value type: int.</dd>
+            <dt>vds (label: 395):</dt><dd> <bcp14>REQUIRED</bcp14>. Verifiable Data Structure algorithm identifier. Value type: int.</dd>
+          </dl>
+          <t>The unprotected header for an RFC9162_SHA256 inclusion proof signature is:</t>
+          <figure anchor="vdp-in-unprotected-header">
+            <name>A Verifiable Data Structure Proofs in an Unprotected Header</name>
+            <sourcecode type="cddl"><![CDATA[
+inclusion-proofs = [ + inclusion-proof ]
+
+verifiable-proofs = {
+  &(inclusion-proof: -1) => inclusion-proofs
+}
+
+unprotected-header-map = {
+  &(vdp: 396) => verifiable-proofs
+  * cose-label => cose-value
+}]]></sourcecode>
+          </figure>
+          <dl spacing="normal" newline="false">
+            <dt>vdp (label: 396):</dt><dd><bcp14>REQUIRED</bcp14>. Verifiable Data Structure Proofs. Value type: Map.</dd>
+            <dt>inclusion-proof (label: -1):</dt><dd><bcp14>REQUIRED</bcp14>. Inclusion proofs.  Value type: Array of bstr.</dd>
+          </dl>
+<!-- [rfced] We note that [RFC9162] uses "Merkle Tree Hash" rather
+     than "Merkle tree hash".  Please note that there is inconsistency
+     in this document related to Merkle Tree vs. Merkle tree as well.
+
+Current:
+  The payload of an RFC9162_SHA256 inclusion proof signature is the
+  Merkle tree hash as defined in [RFC9162].
+-->
+
+<!-- [authors] We have updated the text to use "Merkle Tree Hash" for consistency with the use in [RFC9162].
+
+We believe Merkle Tree is consistently capitalized in this document, but please let us know if you see any remaining inconsistencies.
+-->
+
+          <t>The payload of an RFC9162_SHA256 inclusion proof signature is the Merkle Tree Hash as defined in <xref target="RFC9162"/>.</t>
+          <t>An EDN example for a Receipt containing an inclusion proof for RFC9162_SHA256 with a detached payload (see <xref target="profiles-def"/>) is:</t>
+          <figure anchor="rfc9162_sha256_inclusion_receipt">
+            <name>Receipt of Inclusion</name>
+            <sourcecode type="cbor-diag"><![CDATA[
+/ cose-sign1 / 18([
+  / protected   / <<{
+    / algorithm / 1 : -7,  # ES256
+    / vds       / 395 : 1, # RFC9162_SHA256
+  }>>,
+  / unprotected / {
+    / proofs / 396 : {
+      / inclusion / -1 : [
+        <<[
+          / size / 20, / leaf / 17,
+          / inclusion path /
+          [ h'fc9f050f...221c92cb',
+            h'bd0136ad...6b28cf21',
+            h'd68af9d6...93b1632b' ]
+        ]>>
+      ],
+    },
+  },
+  / payload     / null,
+  / signature   / h'de24f0cc...9a5ade89'
+])]]></sourcecode>
+          </figure>
+          <t>The VDS in the protected header is necessary to understand the inclusion proof structure in the unprotected header.</t>
+          <t>The inclusion proof and signature are verified in order.
+
+<!--[rfced] This sentence doesn't seem to parse.  Please rephrase.
+
+Original:
+First the verifier applies the inclusion proof to a possible entry
+(set member) bytes.
+
+-->
+
+<!--[authors] We think the current sentence with the comma parses correctly.
+-->
+	  
+First, the verifier applies the inclusion proof to a possible entry (set member) bytes.
+If this process fails, the inclusion proof may have been tampered with.
+
+<!--[rfced] Please review this text for clarity (particularly for a
+     missing verb after which?).
+
+Original:
+If this process succeeds, the result is a Merkle root, which in the
+attached as the COSE Sign1 payload.
+-->
+
+<!-- [authors] We have updated the text as follows for clarity:
+
+...which is then attached as the COSE_Sign1 payload.
+-->
+
+If this process succeeds, the result is a Merkle Tree root, which is then attached as the COSE_Sign1 payload.
+Second, the verifier checks the signature of the COSE_Sign1.
+If the resulting signature can be verified, the Receipt has proved inclusion of the entry in the Verifiable Data Structure.
+If the resulting signature cannot be verified, the signature may have been tampered with.</t>
+        </section>
+      </section>
+      <section anchor="sec-rfc9162-sha256-consistency-proof">
+        <name>Consistency Proof</name>
+        <t>See <xref section="2.1.4.1" sectionFormat="of" target="RFC9162"/> for a complete description of this Verifiable Data Structure Proof Type.</t>
+        <t>The CBOR representation of a consistency proof for RFC9162_SHA256 is:</t>
+        <figure anchor="rfc9162_sha256_consistency_proof">
+          <name>CBOR-Encoded Consistency Proof for RFC9162_SHA256</name>
+          <sourcecode type="cddl"><![CDATA[
+consistency-proof =  bstr .cbor [
+
+    ; older Merkle Tree size
+    tree-size-1: uint
+
+    ; newer Merkle Tree size
+    tree-size-2: uint
+
+    ; path from older Merkle Tree to newer Merkle Tree 
+    consistency-path: [ + bstr ]
+
+]]]></sourcecode>
+        </figure>
+        <section anchor="receipt-of-consistency">
+          <name>Receipt of Consistency</name>
+          <t>In a signed consistency proof, the newer Merkle Tree root (proven to be consistent with an older Merkle Tree root) is a detached payload and corresponds to the log at size tree-size-2.</t>
+          <t>The protected header for an RFC9162_SHA256 consistency proof signature is:</t>
+          <figure anchor="vds-in-consistency-receipt-protected-header">
+            <name>Protected Header for a Receipt of Consistency</name>
+            <sourcecode type="cddl"><![CDATA[
+protected-header-map = {
+  &(alg: 1) => int
+  &(vds: 395) => int
+  * cose-label => cose-value
+}]]></sourcecode>
+          </figure>
+          <dl spacing="normal" newline="false">
+            <dt>alg (label: 1):</dt><dd><bcp14>REQUIRED</bcp14>. Signature algorithm identifier. Value type: int.</dd>
+            <dt>vds (label: 395):</dt><dd><bcp14>REQUIRED</bcp14>. Verifiable Data Structure algorithm identifier. Value type: int.</dd>
+          </dl>
+          <t>The unprotected header for an RFC9162_SHA256 consistency proof signature is:</t>
+          <sourcecode type="cddl"><![CDATA[
+consistency-proofs = [ + consistency-proof ]
+
+verifiable-proofs = {
+  &(consistency-proof: -2) => consistency-proofs
+}
+
+unprotected-header-map = {
+  &(vdp: 396) => verifiable-proofs
+  * cose-label => cose-value
+}]]></sourcecode>
+          <dl spacing="normal" newline="false">
+            <dt>vdp (label: 396):</dt><dd><bcp14>REQUIRED</bcp14>. Verifiable Data Structure Proofs. Value type: Map.</dd>
+            <dt>consistency-proof (label: -2):</dt><dd><bcp14>REQUIRED</bcp14>. Consistency proofs. Value type: Array of bstr.</dd>
+          </dl>
+          <t>The payload of an RFC9162_SHA256 consistency proof signature is:
+The newer Merkle Tree Hash as defined in <xref target="RFC9162"/>.</t>
+          <t>An EDN example for a Receipt containing a consistency proof for RFC9162_SHA256 with a detached payload (see <xref target="profiles-def"/>) is:</t>
+          <figure anchor="rfc9162_sha256_consistency_receipt">
+            <name>Example Consistency Receipt</name>
+            <sourcecode type="cbor-diag"><![CDATA[
+/ cose-sign1 / 18([
+  / protected   / <<{
+    / algorithm / 1 : -7,  # ES256
+    / vds       / 395 : 1, # RFC9162_SHA256
+  }>>,
+  / unprotected / {
+    / proofs / 396 : {
+      / consistency / -2 : [
+        <<[
+          / old / 20, / new / 104,
+          / consistency path /
+          [ h'e5b3e764...c4a813bc',
+            h'87e8a084...4f529f69',
+            h'f712f76d...92a0ff36',
+            h'd68af9d6...93b1632b',
+            h'249efab6...b7614ccd',
+            h'85dd6293...38914dc1' ]
+        ]>>
+      ],
+    },
+  },
+  / payload     / null,
+  / signature   / h'94469f73...52de67a1'
+])]]></sourcecode>
+          </figure>
+          <t>The VDS in the protected header is necessary to understand the consistency proof structure in the unprotected header.</t>
+          <t>The signature and consistency proof are verified in order.</t>
+          <t>First, the verifier checks the signature on the COSE_Sign1.
+If the verification fails, the consistency proof is not checked.
+Second, the consistency proof is checked by applying a previous inclusion proof to the consistency proof.
+If the verification fails, the append-only property of the Verifiable Data Structure is not assured.
+This approach is specific to RFC9162_SHA256; different Verifiable Data Structures may not support consistency proofs.
+It is recommended that implementations return a single boolean result for Receipt-verification operations to reduce the chance of accepting a valid signature over an invalid consistency proof.</t>
+        </section>
+      </section>
+    </section>
+    <section anchor="privacy-considerations">
+      <name>Privacy Considerations</name>
+<!--[rfced] The following may require clarification:
+
+Current:
+  The privacy considerations section of [RFC9162] and [RFC9053] apply to
+  this document.
+
+RFCs 9162 and 9053 do not have sections explicitly named "Privacy
+Considerations". RFC 9053 doesn't appear to contain the term "privacy" at
+all.  Please review.
+-->
+
+<!-- [authors] This line seems to have been added in error, we have removed it. -->
+
+      <section anchor="log-length">
+        <name>Log Length</name>
+        <t>Some structures and proofs leak the size of the log at the time of inclusion.
+In the case that a log only stores certain kinds of information, this can reveal details that could impact reputation.
+For example, if a transparency log only stored breach notices, a receipt for a breach notice would reveal the number of previous breaches at the time the notice was made transparent.</t>
+      </section>
+      <section anchor="header-parameters">
+        <name>Header Parameters</name>
+        <t>Additional header parameters can reveal information about the transparency service or its log entries.
+The receipt producer <bcp14>MUST</bcp14> perform a privacy analysis for all mandatory fields in profiles based on this specification.</t>
+      </section>
+    </section>
+    <section anchor="security-considerations">
+      <name>Security Considerations</name>
+      <t>See the Security Considerations sections of:</t>
+      <ul spacing="normal">
+        <li>
+          <xref target="RFC9162"/></li>
+        <li>
+          <xref target="RFC9053"/></li>
+      </ul>
+      <section anchor="choice-of-signature-algorithms">
+        <name>Choice of Signature Algorithms</name>
+        <t>A security analysis ought to be performed to ensure that the digital signature algorithm <tt>alg</tt> has the appropriate strength to secure receipts.</t>
+        <t>It is recommended to select signature algorithms that share cryptographic components with the Verifiable Data Structure used; for example,
+both RFC9162_SHA256 and ES256 depend on the SHA256 hash function.</t>
+      </section>
+      <section anchor="validity-period">
+        <name>Validity Period</name>
+        <t>In some cases, receipts <bcp14>MAY</bcp14> include strict validity periods, for example, activation not too far in the future or expiration not too far in the past.
+See the <tt>iat</tt>, <tt>nbf</tt>, and <tt>exp</tt> claims in <xref target="RFC8392"/> for one way to accomplish this.
+The details of expressing validity periods are out of scope for this document.</t>
+      </section>
+      <section anchor="status-updates">
+        <name>Status Updates</name>
+        <t>In some cases, receipts should be "revocable" or "suspendable" after being issued, regardless of their validity period.
+The details of expressing statuses are out of scope for this document.</t>
+      </section>
+    </section>
+
+<!--[rfced] We had the following questions/comments related to the
+     IANA Considerations section:
+
+a) For clarity, we have updated the IANA Considerations section by
+breaking Section 8.2.2 up into subsections for each of the two
+registries.  Please review this reorganization as well as any pointers
+to it throughout the text to ensure we have correctly maintained your
+intent.
+
+b) Please note that we have updated Tables 2 and 3 to include the
+Change Controller column as appears at the corresponding IANA
+registries.  Please let us know any concerns.
+
+c) Note: Any updates to Section 2 and/or Tables 1-3 that have been
+made or resulting from author replies to our separate terminology or
+abbreviation queries that would impact the information actually
+registered at
+https://www.iana.org/assignments/cose/cose.xhtml#verifiable-data-structure-algorithms
+will be communicate to IANA by the RPC once AUTH48 completes.-->
+
+
+<!--[authors] Thank you, these changes look good to us. -->
+
+    
+    <section anchor="iana-considerations">
+      <name>IANA Considerations</name>
+      <section anchor="cose-header-parameter">
+        <name>COSE Header Parameter</name>
+        <t>IANA has added the COSE header parameters defined in <xref target="param-list"/>, and as listed in <xref target="iana-header-params"/>, to the "COSE Header Parameters" subregistry <xref target="IANA.cose_header-parameters"/> in the "CBOR Object Signing and Encryption (COSE)" registry group.  These COSE header parameters fall in the 'Integer values from 256 to 65535' range (with a Specification Required registration procedure (see <xref target="RFC8126" format="default"/>)).
+The Value Registry listed for "vds" is the "COSE Verifiable Data Structure Algorithm" subregistry.
+	The map labels in the "vdp" are assigned from the "COSE Verifiable Data Structure Proofs" subregistry.</t>
+
+	
+        <table anchor="iana-header-params">
+          <name>Newly Registered COSE Header Parameters</name>
+          <thead>
+            <tr>
+              <th align="left">Name</th>
+              <th align="left">Label</th>
+              <th align="left">Value Type</th>
+              <th align="left">Value Registry</th>
+              <th align="left">Description</th>
+              <th align="left">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td align="left">
+                <tt>receipts</tt></td>
+              <td align="left">394</td>
+              <td align="left">array</td>
+              <td align="left"> </td>
+              <td align="left">Priority ordered sequence of CBOR encoded Receipts</td>
+              <td align="left">RFC 9942, <xref target="param-list"/></td>
+            </tr>
+            <tr>
+              <td align="left">
+                <tt>vds</tt></td>
+              <td align="left">395</td>
+              <td align="left">int</td>
+              <td align="left">COSE Verifiable Data Structure</td>
+              <td align="left">Algorithm identifier for Verifiable Data Structures that is used to produce Verifiable Data Structure Proofs</td>
+              <td align="left">RFC 9942, <xref target="param-list"/></td>
+            </tr>
+            <tr>
+              <td align="left">
+                <tt>vdp</tt></td>
+              <td align="left">396</td>
+              <td align="left">map</td>
+              <td align="left">map key in COSE Verifiable Data Structure Proofs</td>
+              <td align="left">Location for Verifiable Data Structure Proofs in COSE Header Parameters</td>
+              <td align="left">RFC 9942, <xref target="param-list"/></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section anchor="verifiable-data-structure-registries">
+        <name>Verifiable Data Structure Registries</name>
+        <t>IANA established the "COSE Verifiable Data Structure Algorithms" and "COSE Verifiable Data Structure Proofs" subregistries under a Specification Required policy as described in <xref section="4.6" sectionFormat="of" target="RFC8126"/>.</t>
+        <section anchor="expert-review">
+          <name>Expert Review</name>
+          <t>Expert reviewers (see <xref target="RFC8126" format="default"/>) should take into consideration the following points:</t>
+          <ul spacing="normal">
+            <li>Experts are advised to assign the next available positive integer for Verifiable Data Structures.</li>
+            <li>Point squatting should be discouraged.
+Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered and that the point is likely to be used in deployments.</li>
+            <li>Specifications are required for all point assignments.
+Early allocation is permissible, see <xref target="RFC7120" section="2"/>.</li>
+            <li>It is not permissible to assign points in COSE Verifiable Data Structure algorithms for which no corresponding COSE Verifiable Data Structure Proofs entry exists, and vice versa.</li>
+            <li>The change controller for related registrations of structures and proofs should be the same.</li>
+          </ul>
+        </section>
+	<section anchor="IANA_registry_info">
+	  <name>Templates and Initial Contents</name>
+        <section anchor="verifiable-data-structure-algorithms-registry">
+          <name>COSE Verifiable Data Structure Algorithms Registry</name>
+
+          <dl spacing="normal" newline="true">
+          <dt>Registration Template:</dt>
+          <dd>
+	    <dl spacing="normal" newline="true">
+            <dt>Name:</dt>
+	    <dd>This is a descriptive name for the Verifiable Data Structure
+	    that enables easier reference to the item.</dd>
+            <dt>Value:</dt>
+	    <dd>This is the value used to identify the Verifiable Data Structure.</dd>
+            <dt>Description:</dt>
+	    <dd>This field contains a brief description of the Verifiable Data Structure.</dd>
+            <dt>Reference:</dt>
+	    <dd>This contains a pointer to the public specification for the Verifiable Data Structure.</dd>
+            <dt>Change Controller:</dt>
+	    <dd>For Standards Track RFCs, list the "IETF".  For others, give the name of the responsible party.  Other details (e.g., postal address, email address, home page URI) may also be included.</dd>
+            </dl>
+	  </dd>
+	  </dl>
+            <table align="left" anchor="verifiable-data-structure-algorithms-registry-table">
+            <name>COSE Verifiable Data Structure Algorithms Initial Registry Contents</name>
+            <thead>
+              <tr>
+                <th align="left">Name</th>
+                <th align="left">Value</th>
+                <th align="left">Description</th>
+                <th align="left">Change Controller</th>
+		<th align="left">Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="left">Reserved</td>
+                <td align="left">0</td>
+                <td align="left">Reserved</td>
+		<td align="left"></td>
+                <td align="left">RFC 9942</td>
+              </tr>
+              <tr>
+                <td align="left">RFC9162_SHA256</td>
+                <td align="left">1</td>
+                <td align="left">SHA256 Binary Merkle Tree</td>
+		<td align="left">IETF</td>
+                <td align="left">
+                  <xref section="2.1" sectionFormat="of" target="RFC9162"/></td>
+              </tr>
+            </tbody>
+          </table>
+	</section>
+	   
+        <section anchor="verifiable-data-structure-proofs-registry">
+          <name>COSE Verifiable Data Structure Proofs Registry</name>	  
+	  
+
+          <dl spacing="normal" newline="true">
+          <dt>Registration Template:</dt>
+          <dd><dl spacing="normal" newline="true">
+            <dt>Verifiable Data Structure:</dt>
+	    <dd>This value used identifies the related Verifiable Data Structure.</dd>
+            <dt>Name:</dt>
+	    <dd>This is a descriptive name for the Proof Type that enables easier reference to the item.</dd>
+            <dt>Label:</dt>
+	    <dd>This is the value used to identify the Verifiable Data Structure Proof Type.</dd>
+            <dt>CBOR Type:</dt>
+	    <dd>This contains the CBOR type for the value portion of the label.</dd>
+            <dt>Description:</dt>
+	    <dd>This field contains a brief description of the Proof Type.</dd>
+            <dt>Reference:</dt>
+	    <dd>This contains a pointer to the public specification for the Proof Type.</dd>
+            <dt>Change Controller:</dt>
+	    <dd>For Standards Track RFCs, list the "IETF".  For others, give the name of the responsible party.  Other details (e.g., postal address, email address, home page URI) may also be included.</dd>
+          </dl>
+	  </dd>
+	  </dl>
+            <table align="left" anchor="cose-verifiable-data-structure-proofs-table">
+            <name>COSE Verifiable Data Structure Proofs Initial Registry Contents</name>
+            <thead>
+              <tr>
+                <th align="left">Verifiable Data Structure</th>
+                <th align="left">Name</th>
+                <th align="left">Label</th>
+                <th align="left">CBOR Type</th>
+                <th align="left">Description</th>
+		<th align="left">Change Controller</th>
+                <th align="left">Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="left">1</td>
+                <td align="left">inclusion proofs</td>
+                <td align="left">-1</td>
+                <td align="left">array (of bstr)</td>
+                <td align="left">Proof of inclusion</td>
+		<td align="left">IETF</td>
+                <td align="left">RFC 9942, <xref target="sec-rfc9162-sha256-inclusion-proof"/></td>
+              </tr>
+              <tr>
+                <td align="left">1</td>
+                <td align="left">consistency proofs</td>
+                <td align="left">-2</td>
+                <td align="left">array (of bstr)</td>
+                <td align="left">Proof of append-only property</td>
+		<td align="left">IETF</td>
+                <td align="left">RFC 9942, <xref target="sec-rfc9162-sha256-consistency-proof"/></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        </section>
+      </section>
+    </section>
+
+  </middle>
+  <back>
+    <displayreference target="I-D.ietf-cbor-edn-literals" to="CBOR-EDN"/>
+    <references anchor="sec-combined-references">
+      <name>References</name>
+      <references anchor="sec-normative-references">
+        <name>Normative References</name>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8610.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8949.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9053.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9162.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9597.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9596.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
+
+	
+        <reference anchor="IANA.cose_header-parameters" target="https://www.iana.org/assignments/cose">
+          <front>
+            <title>COSE Header Parameters</title>
+            <author>
+              <organization>IANA</organization>
+            </author>
+          </front>
+        </reference>
+
+
+	
+      </references>
+      <references anchor="sec-informative-references">
+        <name>Informative References</name>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7120.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9052.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8126.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8392.xml"/>
+<!-- [I-D.ietf-cbor-edn-literals]
+draft-ietf-cbor-edn-literals-19
+IESG State: I-D Exists as of 2/25/26
+-->
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-cbor-edn-literals.xml"/>
+      </references>
+    </references>
+
+
+    <section anchor="Acknowledgements" numbered="false">
+      <name>Acknowledgements</name>
+      <t>We would like to thank <contact fullname="Maik Riechert"/>, <contact
+      fullname="Jon Geater"/>, <contact fullname="Michael B. Jones"/>,
+      <contact fullname="Mike Prorock"/>, <contact fullname="Ilari
+      Liusvaara"/>, and <contact fullname="Amaury Chamayou"/> for their
+      contributions (some of which substantial) to this document and to the
+      initial set of implementations.</t>
+    </section>
+
+
+    <section anchor="contributors" numbered="false" toc="include">
+      <name>Contributors</name>
+      <contact initials="A." surname="Chamayou" fullname="Amaury Chamayou">
+        <organization>Microsoft</organization>
+        <address>
+          <postal>
+            <country>United Kingdom</country>
+          </postal>
+          <email>amaury.chamayou@microsoft.com</email>
+        </address>
+      </contact>
+      <contact initials="S." surname="Lasker" fullname="Steve Lasker">
+        <organization/>
+        <address>
+          <email>stevenlasker@hotmail.com</email>
+        </address>
+      </contact>
+      <contact initials="R. A." surname="Martin" fullname="Robert Martin">
+        <organization>MITRE Corporation</organization>
+        <address>
+          <postal>
+            <country>United States of America</country>
+          </postal>
+          <email>ramartin@mitre.org</email>
+        </address>
+      </contact>
+      <contact initials="M." surname="Wiseman" fullname="Monty Wiseman">
+        <organization/>
+        <address>
+          <postal>
+            <country>United States of America</country>
+          </postal>
+          <email>mwiseman32@acm.org</email>
+        </address>
+      </contact>
+      <contact initials="R." surname="Williams" fullname="Roy Williams">
+        <organization/>
+        <address>
+          <postal>
+            <country>United States of America</country>
+          </postal>
+          <email>roywill@msn.com</email>
+        </address>
+      </contact>
+    </section>
+
+ <!--[rfced] We had the following questions/comments related to
+      abbreviations used throughout the document.
+
+a) FYI - We have added expansions for abbreviations upon first use per
+Section 3.6 of RFC 7322 ("RFC Style Guide").  Please review each
+expansion in the document carefully to ensure correctness.
+
+b) We would like to update to use an abbreviation (instead of its
+expanded form) after first use in accordance with the guidance at
+https://www.rfc-editor.org/styleguide/part2/#exp_abbrev for the
+following abbreviations.  Please let us know any objections.
+
+VDS
+VDP
+
+*Note: In the meantime, we have updated all uses in prose to be
+capitalized for these two terms.  Please review the use of "verifiable
+data structure" (in quotes): may this instance be changed to VDS as
+well?
+
+**Note: We also see "verifiable data structure algorithm proofs".
+Could this be made "VDP algorithms"?
+
+c) Things get a bit messy when we look at the expansion of VDP if the
+expansion of "P" is plural "proofs".
+
+For example, in the following:
+
+Original:
+This document describes how to convey VDS and associated VDP types in
+unified COSE envelopes.
+
+If we were to expand this, we'd get "verifiable data structure proofs
+types" (with the double plurals).
+
+However, sometimes the -s on proof disappears when this was expanded
+in the text.
+
+For example:
+
+Original:
+..defining the integers used to identify verifiable data structure
+proof types...
+
+and
+
+Original:
+A data structure which supports one or more Verifiable Data Structure
+Proof Types.
+
+It's also a bit strange for it to be plural here:
+
+Original:
+The combination of representations of various VDS and VDP can
+significantly increase the burden for implementers and create
+interoperability challenges for transparency services.
+
+Where we will have to make it "various VDSs and VDP" (the reader will
+likely expect VDPs).
+
+Is it possible to update to use Verifiable Data Structure Proofs
+(VDPs)?  
+
+
+ -->
+
+<!-- [authors]
+
+a) Thank you, we have reviewed the expansions for abbreviations and believe they are correct.
+
+b) Yes, please update to use abbreviations after first use in accordance with the guidance.  We have no objections to this update.
+
+c) We agree that using VDPs is a satisfactory solution to the issue of pluralization.  Please update to use "VDPs" in the text as appropriate.
+
+-->
+
+ <!-- [rfced] See a list below of terms enclosed in <tt> in this
+      document.  Some of these terms appear both with and without <tt>
+      (alg, receipts, vdp, vds).  Please review to ensure the usage of
+      <tt> is correct and consistent.  Let us know if any updates are
+      needed.
+
+<tt>alg</tt>
+<tt>exp</tt>
+<tt>iat</tt>
+<tt>leaf-index</tt>
+<tt>nbf</tt>
+<tt>receipts</tt>
+<tt>tree-size</tt>
+<tt>vdp</tt>
+<tt>vds</tt>
+
+-->
+
+<!-- [authors] We have reviewed the usage of <tt> in the document and believe it is correct.
+When the term is used in prose without <tt>, it is being used as a reference to the concept or parameter rather than the literal value.
+In EDN, CDDL or code, usage of the <tt> tag is not helpful. -->
+    
+
+<!-- [rfced] Please review the "Inclusive Language" portion of the
+     online Style Guide
+     <https://www.rfc-editor.org/styleguide/part2/#inclusive_language>
+     and let us know if any changes are needed.  Updates of this
+     nature typically result in more precise language, which is
+     helpful for readers.
+
+Note that our script did not flag any words in particular, but this
+should still be reviewed as a best practice.
+
+-->
+
+<!-- [authors] We have reviewed the Inclusive Language portion of the
+  online Style Guide but did not identify any specific terms in the document that we
+  believe require updates.  Please let us know if you have any specific suggestions for updates in this area.
+-->
+
+    
+  </back>
+
+</rfc>
