@@ -30,45 +30,34 @@ jobs:
         ruby-version: "3.3"
 
     - name: "Install Dependencies"
+      shell: bash
       run: |
+        set -eo pipefail
         gem install kramdown-rfc cddlc cddl edn-abnf
         pip install xml2rfc
 
-    - name: "Validate CDDL and CBOR Examples"
+    - name: "Validate CDDL and CBOR Examples from Draft XML"
+      shell: bash
       run: |
-        # requires: ... gem install:
-        # * kramdown-rfc
-        # * cddlc
-        # * cddl
-        # * edn-abnf
+        set -eo pipefail
 
         make draft-ietf-cose-merkle-tree-proofs.xml
-        kramdown-rfc-extract-sourcecode -dchk draft-ietf-cose-merkle-tree-proofs.xml
-        # curl -s https://www.rfc-editor.org/authors/rfc9942.xml | kramdown-rfc-extract-sourcecode -dchk
+        ./examples/validate-cbor-examples.sh draft-ietf-cose-merkle-tree-proofs.xml
 
-        # Handle inconsistent double definition and different start rule
-        cddlc -tcddl -2rTverifiable-proofs chk/cddl/*.cddl -SReceipt_For_Inclusion >chk/all-1.cddl
-        cddlc -tcddl -2rTverifiable-proofs chk/cddl/*.cddl -SReceipt_For_Consistency >chk/all-2.cddl
-        cddlc -tcddl -2rTverifiable-proofs chk/cddl/*.cddl -SSignature_With_Receipt >chk/all-3.cddl
+    - name: "Validate CDDL and CBOR Examples from AUTH48 XML"
+      shell: bash
+      run: |
+        set -eo pipefail
+        ./examples/validate-cbor-examples.sh auth48/rfc9942.xml
 
-        # Process a CBOR diagnostic file:
-        # remove ellipses (crudely), convert to CBOR, and validate against a CDDL specification.
-        # Arguments:
-        #   $1 - input .cbor-diag file
-        #   $2 - output .cbor file
-        #   $3 - CDDL file for validation
-        process_diag() {
-            if sed 's/\.\.\.//g' "$1" | edn-abnf -tcbor > "$2"; then
-                cddl "$3" vp "$2" | diag2diag.rb -e # | edn-abnf -Tw30
-            else
-                echo "*** Parse FAIL: $1"
-            fi
-            echo
-        }
-
-        process_diag chk/cbor-diag/receipt-of-inclusion.cbor-diag chk/i1.cbor chk/all-1.cddl
-        process_diag chk/cbor-diag/receipt-of-consistency.cbor-diag chk/c1.cbor chk/all-2.cddl
-        process_diag chk/cbor-diag/usage.cbor-diag chk/s1.cbor chk/all-3.cddl
+    - name: "Validate CDDL and CBOR Examples from Downloaded RFC XML"
+      shell: bash
+      run: |
+        set -eo pipefail
+        tmpdir="$(mktemp -d)"
+        trap 'rm -rf "$tmpdir"' EXIT
+        curl -fsSLo "$tmpdir/rfc9942.xml" https://www.rfc-editor.org/authors/rfc9942.xml
+        # ./examples/validate-cbor-examples.sh "$tmpdir/rfc9942.xml"
 
     - name: "Setup"
       id: setup
