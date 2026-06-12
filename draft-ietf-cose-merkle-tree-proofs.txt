@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                              Tradeverifyd
 Intended status: Standards Track                             H. Birkholz
-Expires: 6 December 2026                                  Fraunhofer SIT
+Expires: 14 December 2026                                 Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                             4 June 2026
+                                                            12 June 2026
 
 
            COSE (CBOR Object Signing and Encryption) Receipts
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 December 2026.
+   This Internet-Draft will expire on 14 December 2026.
 
 Copyright Notice
 
@@ -267,9 +267,9 @@ Table of Contents
    }
 
    COSE_Sign1 = [
-     protected   : bstr .cbor Protected_Header,
-     unprotected : Unprotected_Header,
-     payload     : bstr / nil,
+     protected   : bstr .cbor Protected_Header
+     unprotected : Unprotected_Header
+     payload     : bstr / nil
      signature   : bstr
    ]
 
@@ -305,10 +305,10 @@ Table of Contents
 
    RFC9162_SHA256_Inclusion_Proofs = [ + RFC9162_SHA256_Inclusion_Proof ]
 
-   RFC9162_SHA256_Inclusion_Proof = bstr .cbor [
+   RFC9162_SHA256_Inclusion_Proof_Content = [
      tree_size: uint,
      leaf_index: uint,
-     inclusion_path: [ + bstr ]
+     inclusion_path:[ + bstr ]
    ]
 
 
@@ -338,7 +338,7 @@ Table of Contents
 
    RFC9162_SHA256_Consistency_Proofs = [ + RFC9162_SHA256_Consistency_Proof ]
 
-   RFC9162_SHA256_Consistency_Proof = bstr .cbor [
+   RFC9162_SHA256_Consistency_Proof_Content = [
       tree_size_1: uint,
       tree_size_2: uint,
       consistency_path: [ + bstr ]
@@ -466,7 +466,7 @@ Table of Contents
 
    The CBOR representation of an inclusion proof for RFC9162_SHA256 is:
 
-   inclusion-proof = bstr .cbor [
+   inclusion-proof-content = [
 
        ; tree size at current Merkle root
        tree-size: uint
@@ -586,7 +586,7 @@ Table of Contents
 
    The cbor representation of a consistency proof for RFC9162_SHA256 is:
 
-   consistency-proof =  bstr .cbor [
+   consistency-proof-content = [
 
        ; older Merkle root tree size
        tree-size-1: uint
