@@ -30,12 +30,14 @@ jobs:
         ruby-version: "3.3"
 
     - name: "Install Dependencies"
+      shell: bash
       run: |
         set -eo pipefail
         gem install kramdown-rfc cddlc cddl edn-abnf
         pip install xml2rfc
 
     - name: "Validate CDDL and CBOR Examples"
+      shell: bash
       run: |
         set -eo pipefail
         # requires: ... gem install:
