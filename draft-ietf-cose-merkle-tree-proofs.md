@@ -211,9 +211,9 @@ Unprotected_Header = {
 }
 
 COSE_Sign1 = [
-  protected   : bstr .cbor Protected_Header,
-  unprotected : Unprotected_Header,
-  payload     : bstr / nil,
+  protected   : bstr .cbor Protected_Header
+  unprotected : Unprotected_Header
+  payload     : bstr / nil
   signature   : bstr
 ]
 
@@ -249,10 +249,10 @@ RFC9162_SHA256_Verifiable_Inclusion_Proofs = {
 
 RFC9162_SHA256_Inclusion_Proofs = [ + RFC9162_SHA256_Inclusion_Proof ]
 
-RFC9162_SHA256_Inclusion_Proof = bstr .cbor [
+RFC9162_SHA256_Inclusion_Proof_Content = [
   tree_size: uint,
   leaf_index: uint,
-  inclusion_path: [ + bstr ]
+  inclusion_path:[ + bstr ]
 ]
 
 
@@ -282,7 +282,7 @@ RFC9162_SHA256_Verifiable_Consistency_Proofs = {
 
 RFC9162_SHA256_Consistency_Proofs = [ + RFC9162_SHA256_Consistency_Proof ]
 
-RFC9162_SHA256_Consistency_Proof = bstr .cbor [
+RFC9162_SHA256_Consistency_Proof_Content = [
    tree_size_1: uint,
    tree_size_2: uint,
    consistency_path: [ + bstr ]
@@ -392,7 +392,7 @@ See {{Section 2.1.3.1 of RFC9162}} (Generating an Inclusion Proof), for a comple
 The CBOR representation of an inclusion proof for RFC9162_SHA256 is:
 
 ~~~~ cddl
-inclusion-proof = bstr .cbor [
+inclusion-proof-content = [
 
     ; tree size at current Merkle root
     tree-size: uint
@@ -498,7 +498,7 @@ See {{Section 2.1.4.1 of RFC9162}} (Generating a Consistency Proof), for a compl
 The cbor representation of a consistency proof for RFC9162_SHA256 is:
 
 ~~~~ cddl
-consistency-proof =  bstr .cbor [
+consistency-proof-content = [
 
     ; older Merkle root tree size
     tree-size-1: uint
