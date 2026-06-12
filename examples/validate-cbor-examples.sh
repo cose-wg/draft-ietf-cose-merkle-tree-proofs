@@ -61,10 +61,17 @@ cddlc -tcddl -2rTverifiable-proofs chk/cddl/*.cddl -SReceipt_For_Consistency >ch
 cddlc -tcddl -2rTverifiable-proofs chk/cddl/*.cddl -SSignature_With_Receipt >chk/all-3.cddl
 
 process_diag() {
-    if sed 's/\.\.\.//g' "$1" | edn-abnf -tcbor > "$2"; then
-        cddl "$3" vp "$2" | diag2diag.rb -e
+    local input="$1"
+    local output="$2"
+    local schema="$3"
+
+    echo "Validating $input against $schema"
+
+    if sed 's/\.\.\.//g' "$input" | edn-abnf -tcbor > "$output"; then
+        cddl "$schema" vp "$output" | diag2diag.rb -e
     else
-        echo "*** Parse FAIL: $1"
+        echo "*** Parse FAIL: $input" >&2
+        return 1
     fi
     echo
 }
