@@ -249,6 +249,8 @@ RFC9162_SHA256_Verifiable_Inclusion_Proofs = {
 
 RFC9162_SHA256_Inclusion_Proofs = [ + RFC9162_SHA256_Inclusion_Proof ]
 
+RFC9162_SHA256_Inclusion_Proof = bstr .cbor RFC9162_SHA256_Inclusion_Proof_Content
+
 RFC9162_SHA256_Inclusion_Proof_Content = [
   tree_size: uint,
   leaf_index: uint,
@@ -281,6 +283,8 @@ RFC9162_SHA256_Verifiable_Consistency_Proofs = {
 }
 
 RFC9162_SHA256_Consistency_Proofs = [ + RFC9162_SHA256_Consistency_Proof ]
+
+RFC9162_SHA256_Consistency_Proof = bstr .cbor RFC9162_SHA256_Consistency_Proof_Content
 
 RFC9162_SHA256_Consistency_Proof_Content = [
    tree_size_1: uint,
