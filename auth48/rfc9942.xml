@@ -305,9 +305,9 @@ Unprotected_Header = {
 }
 
 COSE_Sign1 = [
-  protected   : bstr .cbor Protected_Header,
-  unprotected : Unprotected_Header,
-  payload     : bstr / nil,
+  protected   : bstr .cbor Protected_Header
+  unprotected : Unprotected_Header
+  payload     : bstr / nil
   signature   : bstr
 ]
 
@@ -346,10 +346,10 @@ RFC9162_SHA256_Inclusion_Proofs = [
   + RFC9162_SHA256_Inclusion_Proof
 ]
 
-RFC9162_SHA256_Inclusion_Proof = bstr .cbor [
+RFC9162_SHA256_Inclusion_Proof_Content = [
   tree_size: uint,
   leaf_index: uint,
-  inclusion_path: [ + bstr ]
+  inclusion_path:[ + bstr ]
 ]
 
 
@@ -382,7 +382,7 @@ RFC9162_SHA256_Consistency_Proofs = [
   + RFC9162_SHA256_Consistency_Proof
 ]
 
-RFC9162_SHA256_Consistency_Proof = bstr .cbor [
+RFC9162_SHA256_Consistency_Proof_Content = [
    tree_size_1: uint,
    tree_size_2: uint,
    consistency_path: [ + bstr ]
@@ -539,7 +539,7 @@ The string identifier for this Verifiable Data Structure is "RFC9162_SHA256", a 
         <figure anchor="rfc9162-sha256-cbor-inclusion-proof">
           <name>CBOR-Encoded Inclusion Proof for RFC9162_SHA256</name>
           <sourcecode type="cddl"><![CDATA[
-inclusion-proof = bstr .cbor [
+inclusion-proof-content = [
 
     ; tree size at current Merkle Tree root
     tree-size: uint
@@ -686,7 +686,7 @@ If the resulting signature cannot be verified, the signature may have been tampe
         <figure anchor="rfc9162_sha256_consistency_proof">
           <name>CBOR-Encoded Consistency Proof for RFC9162_SHA256</name>
           <sourcecode type="cddl"><![CDATA[
-consistency-proof =  bstr .cbor [
+consistency-proof-content = [
 
     ; older Merkle Tree size
     tree-size-1: uint
