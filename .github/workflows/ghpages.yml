@@ -31,11 +31,13 @@ jobs:
 
     - name: "Install Dependencies"
       run: |
+        set -eo pipefail
         gem install kramdown-rfc cddlc cddl edn-abnf
         pip install xml2rfc
 
     - name: "Validate CDDL and CBOR Examples"
       run: |
+        set -eo pipefail
         # requires: ... gem install:
         # * kramdown-rfc
         # * cddlc
