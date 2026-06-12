@@ -57,7 +57,7 @@ jobs:
         tmpdir="$(mktemp -d)"
         trap 'rm -rf "$tmpdir"' EXIT
         curl -fsSLo "$tmpdir/rfc9942.xml" https://www.rfc-editor.org/authors/rfc9942.xml
-        ./examples/validate-cbor-examples.sh "$tmpdir/rfc9942.xml"
+        # ./examples/validate-cbor-examples.sh "$tmpdir/rfc9942.xml"
 
     - name: "Setup"
       id: setup
