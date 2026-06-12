@@ -350,7 +350,7 @@ The following informative EDN is provided:
   / signature   / h'2544f2ed...5840893b'
 ])
 ~~~
-{: #fig-receipts-edn sourcecode-name="usage.cbor-diag" title="An example COSE Signature with multiple receipts"}
+{: #fig-receipts-edn sourcecode-name="an-example-cose-signature-w.cbor-diag" title="An example COSE Signature with multiple receipts"}
 
 The specific structure of COSE Receipts is dependent on the structure of the COSE_Sign1 payload and the verifiable data structure proofs contained in the COSE_Sign1 unprotected header.
 The CDDL definition for verifiable data structure proofs is specific to each verifiable data structure.
@@ -479,7 +479,7 @@ An EDN example for a Receipt containing an inclusion proof for RFC9162_SHA256 wi
   / signature   / h'de24f0cc...9a5ade89'
 ])
 ~~~~
-{: #rfc9162_sha256_inclusion_receipt sourcecode-name="receipt-of-inclusion.cbor-diag" align="left" title="Receipt of Inclusion"}
+{: #rfc9162_sha256_inclusion_receipt sourcecode-name="receipt-of-inclusion-2.cbor-diag" align="left" title="Receipt of Inclusion"}
 
 The VDS in the protected header is necessary to understand the inclusion proof structure in the unprotected header.
 
@@ -582,7 +582,7 @@ An example EDN for a Receipt containing a consistency proof for RFC9162_SHA256 w
   / signature   / h'94469f73...52de67a1'
 ])
 ~~~~
-{: #rfc9162_sha256_consistency_receipt sourcecode-name="receipt-of-consistency.cbor-diag" align="left" title="Example consistency receipt"}
+{: #rfc9162_sha256_consistency_receipt sourcecode-name="example-consistency-receipt.cbor-diag" align="left" title="Example consistency receipt"}
 
 The VDS in the protected header is necessary to understand the consistency proof structure in the unprotected header.
 

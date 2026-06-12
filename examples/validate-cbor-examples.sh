@@ -2,9 +2,9 @@
 
 set -euo pipefail
 
-usage_diag='usage.cbor-diag'
-inclusion_diag='receipt-of-inclusion.cbor-diag'
-consistency_diag='receipt-of-consistency.cbor-diag'
+usage_diag='an-example-cose-signature-w.cbor-diag'
+inclusion_diag='receipt-of-inclusion-2.cbor-diag'
+consistency_diag='example-consistency-receipt.cbor-diag'
 
 usage() {
     echo "usage: $0 XML_PATH [--usage-diag FILE] [--inclusion-diag FILE] [--consistency-diag FILE]" >&2

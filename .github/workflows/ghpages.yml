@@ -48,10 +48,7 @@ jobs:
       shell: bash
       run: |
         set -eo pipefail
-        ./examples/validate-cbor-examples.sh auth48/rfc9942.xml \
-          --usage-diag an-example-cose-signature-w.cbor-diag \
-          --inclusion-diag receipt-of-inclusion-2.cbor-diag \
-          --consistency-diag example-consistency-receipt.cbor-diag
+        ./examples/validate-cbor-examples.sh auth48/rfc9942.xml
 
     - name: "Setup"
       id: setup
