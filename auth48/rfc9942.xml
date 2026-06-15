@@ -219,7 +219,7 @@ COSE_Sign1 = [
 Receipt = Receipt_For_Inclusion / Receipt_For_Consistency
 
 ; Note the proof formats shown here are for RFC9162_SHA256.
-; Other Verifiable Data Structures may have different proof formats.
+; Other VDSs may have different proof formats.
 
 
 Receipt_For_Inclusion = #6.18(Signed_Inclusion_Proof)
