@@ -968,9 +968,9 @@ Table of Contents
 
    [I-D.draft-ietf-cbor-edn-literals]
               Bormann, C., "Concise Diagnostic Notation (CDN)", Work in
-              Progress, Internet-Draft, draft-ietf-cbor-edn-literals-25,
-              18 May 2026, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-cbor-edn-literals-25>.
+              Progress, Internet-Draft, draft-ietf-cbor-edn-literals-26,
+              15 June 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-cbor-edn-literals-26>.
 
    [RFC7120]  Cotton, M., "Early IANA Allocation of Standards Track Code
               Points", BCP 100, RFC 7120, DOI 10.17487/RFC7120, January
