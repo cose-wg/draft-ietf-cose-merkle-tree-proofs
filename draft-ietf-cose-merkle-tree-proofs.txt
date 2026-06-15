@@ -5,11 +5,11 @@
 COSE                                                           O. Steele
 Internet-Draft                                              Tradeverifyd
 Intended status: Standards Track                             H. Birkholz
-Expires: 14 December 2026                                 Fraunhofer SIT
+Expires: 17 December 2026                                 Fraunhofer SIT
                                                       A. Delignat-Lavaud
                                                               C. Fournet
                                                                Microsoft
-                                                            12 June 2026
+                                                            15 June 2026
 
 
            COSE (CBOR Object Signing and Encryption) Receipts
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 December 2026.
+   This Internet-Draft will expire on 17 December 2026.
 
 Copyright Notice
 
